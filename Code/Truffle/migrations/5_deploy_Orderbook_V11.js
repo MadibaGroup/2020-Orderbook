@@ -1,4 +1,4 @@
-var Orderbook_V10 = artifacts.require("./Orderbook_V10.sol"); 
+var Orderbook_V11 = artifacts.require("./Orderbook_V11.sol"); 
 //const BN = require('bn.js');
 
 
@@ -12,7 +12,7 @@ var Orderbook_V10 = artifacts.require("./Orderbook_V10.sol");
 //     };
 
 module.exports = function (deployer) {
-    deployer.deploy(Orderbook_V10);
+    deployer.deploy(Orderbook_V11);
     //Orderbook_V8Instance = await Orderbook_V8.deployed();
     console.log("I was deployed!");
     //HelloInstance.show_result().on('data', event => console.log(event));
