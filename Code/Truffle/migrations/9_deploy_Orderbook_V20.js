@@ -1,11 +1,22 @@
-var DappToken = artifacts.require("./DappToken.sol"); 
+var Orderbook_V20 = artifacts.require("./Orderbook_V20.sol"); 
+//const BN = require('bn.js');
+
+
+// module.exports = async function(deployer) {
+//     deployer.deploy(modularExp).then(() => {
+//         return deployer.deploy(modularExp);
+//     }).then(async () => {
+//         //var modularExp = await modularExp.deployed();
+//         await modularExp.js_call();       
+//     });      
+//     };
+
 module.exports = function (deployer) {
-    deployer.deploy(DappToken, 10000000);
-    
+    deployer.deploy(Orderbook_V20);
     //Orderbook_V8Instance = await Orderbook_V8.deployed();
     console.log("I was deployed!");
     //HelloInstance.show_result().on('data', event => console.log(event));
-    //DappToken.totalSupply().then
+
     //var output = await app.toy();
     //console.log("This is the output:", output);
     //console.log("-------------")

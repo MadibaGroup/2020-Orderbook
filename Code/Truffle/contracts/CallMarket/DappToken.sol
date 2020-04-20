@@ -1,5 +1,5 @@
-//pragma solidity >=0.4.22 <0.6.0;
 pragma solidity >=0.4.22;
+
 contract DappToken{
 
   string public name = "Dapp Token";        //Token name
@@ -34,7 +34,6 @@ contract DappToken{
 //transfer function allows users to trasfer tokens and MUST fire the "transfer event"
 //The function SHOULD throw exception if the _from address does not have enough tokens to spend
 function transfer (address _to, uint256 _value) public returns (bool success){
-  
   require (balanceOf[msg.sender] >= _value);
   balanceOf[msg.sender] -= _value;
   balanceOf[_to] += _value;
@@ -42,8 +41,6 @@ function transfer (address _to, uint256 _value) public returns (bool success){
   return true; 
 
 }
-
-
 
 //approve function: allows sb to approve another account to spend tokens on tehir behalf. You're basically approving the exchange to spend x tokens on your behalf
 //MUST trigger the approval event
