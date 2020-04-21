@@ -1,8 +1,8 @@
-pragma solidity >=0.4.22 ^0.6.0;
+pragma solidity >=0.4.22;
 pragma experimental ABIEncoderV2;
 
-import "http://github.com/OpenZeppelin/openzeppelin-solidity/contracts/token/ERC20/IERC20.sol";
-
+//import "http://github.com/OpenZeppelin/openzeppelin-solidity/contracts/token/ERC20/IERC20.sol";
+import "openzeppelin-solidity/contracts/token/ERC20/IERC20.sol";
 
 //call martket, collateralized
 contract Orderbook_V18{

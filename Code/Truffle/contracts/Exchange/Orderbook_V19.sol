@@ -1,8 +1,8 @@
-pragma solidity >=0.4.22 ^0.6.0;
+pragma solidity >=0.4.22;
 pragma experimental ABIEncoderV2;
 
-import "http://github.com/OpenZeppelin/openzeppelin-solidity/contracts/token/ERC20/IERC20.sol";
-
+//import "http://github.com/OpenZeppelin/openzeppelin-solidity/contracts/token/ERC20/IERC20.sol";
+import "openzeppelin-solidity/contracts/token/ERC20/IERC20.sol";
 
 //call martket, collateralized
 contract Orderbook_V19{
@@ -340,7 +340,7 @@ contract Orderbook_V19{
     //The Bidder must first deposit enough Token in the exachange (DepositToken())
     function submitAsk (uint256 _AuctionID, uint256 _price, uint256 _volume ) public 
     CheckAuctionStage (_AuctionID) 
-    ToPlaceOrderAuctionAtStage (_AuctionID, States.Opened)
+    AuctionAtStage (_AuctionID, States.Opened)
     returns (bool)
     {
         require( TokenBalance[msg.sender][Auctions[_AuctionID].Token] >= _volume);

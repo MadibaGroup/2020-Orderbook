@@ -1,9 +1,13 @@
 //pragma solidity >=0.4.22 <0.6.0;
-pragma solidity ^0.6.0;
+pragma solidity >=0.4.22;
 
 //import './DappToken.sol';
 
-import "http://github.com/OpenZeppelin/openzeppelin-solidity/contracts/token/ERC20/IERC20.sol";
+//import "http://github.com/OpenZeppelin/openzeppelin-solidity/contracts/token/ERC20/IERC20.sol";
+import "openzeppelin-solidity/contracts/token/ERC20/IERC20.sol";
+
+
+
 //import "http://github.com/OpenZeppelin/openzeppelin-solidity/contracts/token/ERC20/SafeERC20.sol";
 
 

@@ -155,8 +155,8 @@ function getState() public view returns (States)
     }
 //**************DepositEther() Function*********************//    
     
-    function DepositEther() public payable returns (bool) {
-        EtherBalance[msg.sender] += msg.value;
+    function DepositEther(uint256 _numofEthers) public payable returns (bool) {
+        EtherBalance[msg.sender] += _numofEthers;
         return true;
         
     }
@@ -173,6 +173,7 @@ function getState() public view returns (States)
         state = States.Opened;
         NumOrders = 0;
         SellListCounter = 0;
+        BuyListCounter = 999;
         Token = _token;
         
         return true;
@@ -454,18 +455,20 @@ function getState() public view returns (States)
     //BuyListpeak function returns the highest priority element (The highest bid)
     function BuyListPeak() public  
     CheckAuctionStage ()
+    //returns (address, uint256, uint256, uint256){
     returns (OrderStruct memory){
 
-        require(BuyList.length != 0); //throws exception if the maxheap (BuyList) is empty
+        require (BuyList.length != 0); //throws exception if the maxheap (BuyList) is empty
         return (BuyList[0]);
+        //return (BuyList[0].Sender, BuyList[0].Price, BuyList[0].AuxPrice, BuyList[0].Volume );
     }
     
     //Function Overloading: When BuyListpeak() is called from inside of the MatchingOrder(), it recieves an array as paramater  
-    function BuyListPeak(OrderStruct[] memory _array) internal view returns (OrderStruct memory){
+    /*function BuyListPeak(OrderStruct[] memory _array) internal view returns (OrderStruct memory){
 
         require(_array.length != 0); //throws exception if the list is empty
         return (_array[0]);
-    }
+    }*/
     
 //*******************  maxheap_delete () ***************************//
     //the highest priority item will be removed from the list and is returned by the function
@@ -577,17 +580,20 @@ function getState() public view returns (States)
     //SellListpeak function returns the highest priority element (The Lowest ask)
     function SellListPeak() public 
     CheckAuctionStage ()
+    //returns (address, uint256, uint256, uint256){
     returns (OrderStruct memory){
 
         require(SellList.length != 0); //throws exception if the minheap (SellList) is empty
+        
         return (SellList[0]);
+        //return (SellList[0].Sender, SellList[0].Price, SellList[0].AuxPrice, SellList[0].Volume );
     }
     //Function Overloading: When SellListpeak() is called from inside of the MatchingOrder(), it recieves just an array (and not an AuctionID) as paramater  
-    function SellListPeak(OrderStruct[] memory _array) internal view returns (OrderStruct memory){
+    /*function SellListPeak(OrderStruct[] memory _array) internal view returns (OrderStruct memory){
 
         require(_array.length != 0); //throws exception if the list is empty
         return (_array[0]);
-    }
+    }*/
 
 
 //*******************  minheap_delete () ***************************//
@@ -625,17 +631,13 @@ function getState() public view returns (States)
 //************************************************************************//
 //************************************************************************//
 
-
-
+    function returnSelllistlength () public returns (uint256 _result){
+        _result = SellList.length;
+        return _result;
+    }    
     
     
-    
-}    
-    
-    
-    
-    
-    
+}   
     
     
     
@@ -649,20 +651,3 @@ function getState() public view returns (States)
     
     
     
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
