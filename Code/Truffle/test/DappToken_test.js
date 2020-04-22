@@ -1,5 +1,5 @@
 const DappToken = artifacts.require('DappToken');
-const Orderbook = artifacts.require('Orderbook_V20');
+const Orderbook = artifacts.require('Orderbook_V22');
 var Orderbookaddress;
 var tokenaddress;
 var accounts;
@@ -93,8 +93,13 @@ describe('Orderbook', function(accounts) {
         accounts = await web3.eth.getAccounts();
        
         await OrderbookInstance.DepositToken (tokenaddress, 100, {from: accounts[0]});
-        const result = await OrderbookInstance.TokenBalance(accounts[0], tokenaddress);
-        console.log(result.toNumber());
+        
+        const totalbalance = await OrderbookInstance.TotalTokenBalance(accounts[0], tokenaddress);
+        console.log('The number of tokens depositted by account[0] is:', totalbalance.toNumber());
+
+
+
+
     });
     //*******************Test 2*************************
     it('should OpenMarket on Dapp Token', async() => {
@@ -120,26 +125,35 @@ describe('Orderbook', function(accounts) {
     });
     //*******************Test 4*************************
 
-    it('should return the token balance of accounts[0]', async() => {
+    it('should return both the total and available token balance of accounts[0]', async() => {
         const OrderbookInstance = await Orderbook.deployed(); 
         
         accounts = await web3.eth.getAccounts();
-        const result = await OrderbookInstance.TokenBalance(accounts[0], tokenaddress);
-        console.log('The token balance of accounts[0] is:',result.toNumber());
         
+        const totalbalance = await OrderbookInstance.TotalTokenBalance(accounts[0], tokenaddress);
+        const availablebalance = await OrderbookInstance.AvailableTokenBalance(accounts[0], tokenaddress);
+        
+        console.log('The total token balance of accounts[0] is:',totalbalance.toNumber());
+        console.log('The available token balance of accounts[0] is:',availablebalance.toNumber());
     
     });
     //*******************Test 5*************************
 
-    it('should deposit 100 Ether from accounts[1]', async() => {
+    it('should deposit 6000 Ether from accounts[1]', async() => {
         const OrderbookInstance = await Orderbook.deployed(); 
         
 
         accounts = await web3.eth.getAccounts();
         
-        await OrderbookInstance.DepositEther ({from: accounts[1],  value: 100});
-        const result = await OrderbookInstance.EtherBalance(accounts[1]);
-        console.log('The Ether balance of accounts[1] is:', result.toNumber());
+
+        await OrderbookInstance.DepositEther (6000, {from: accounts[1]});
+
+        const totalbalance = await OrderbookInstance.TotalEtherBalance(accounts[1]);
+        const availablebalance = await OrderbookInstance.AvailableEtherBalance(accounts[1]);
+        
+        console.log('The total Ether balance of accounts[1] is:',totalbalance.toNumber());
+        console.log('The available Ether balance of accounts[1] is:',availablebalance.toNumber());
+
         
     
     });
@@ -147,16 +161,60 @@ describe('Orderbook', function(accounts) {
     it('should submit 100 Bids from accounst[1]', async() => {
         const OrderbookInstance = await Orderbook.deployed(); 
        
-   //     //const state =  await OrderbookInstance.getState();
-   //     //console.log(state.toString());
-       
         accounts = await web3.eth.getAccounts();
         for(let j = 1; j < 101 ; j++) 
-            await OrderbookInstance.submitBid (j, 1, {from: accounts[0]});
+            await OrderbookInstance.submitBid (j, 1, {from: accounts[1]});
         
-        //await OrderbookInstance.submitAsk (10, 1, {from: accounts[0]});
         
    });
+   //*******************Test 7*************************
+   it('should return the Selllist peak', async() => {
+    const OrderbookInstance = await Orderbook.deployed(); 
+    
+    //const SellListCounter = await OrderbookInstance.SellListCounter();
+    //console.log('The SellListCounter is:', SellListCounter.toNumber());
+
+    const result = await OrderbookInstance.SellListPeak.call();
+    const {0: addsender, 1: intprice, 2: auxprice, 2: intvolume} = result;
+    console.log('The SellList peak is:', intprice);
+
+    });
+    //*******************Test 8*************************
+    it('should return the BuyList peak', async() => {
+        const OrderbookInstance = await Orderbook.deployed(); 
+        
+        const result = await OrderbookInstance.BuyListPeak.call();
+        const {0: addsender, 1: intprice, 2: auxprice, 2: intvolume} = result;
+        console.log('The Buylist peak is:', intprice);
+    
+    });
+    //*******************Test 9*************************
+    it('should match the orders', async() => {
+        const OrderbookInstance = await Orderbook.deployed(); 
+        
+        await OrderbookInstance.CloseMarket();
+        const state =  await OrderbookInstance.getState();
+        console.log('Market is currently:',state.toString());
+        
+        await OrderbookInstance.MatchOrders();
+        
+        const result = await OrderbookInstance.BuyListPeak.call();
+        const {0: addsender, 1: intprice, 2: auxprice, 2: intvolume} = result;
+        console.log('The Buylist peak after matching orders is:', intprice);
+    
+    });
+
+
+
+
+
+
+    
+
+
+
+
+
 
 });
 
