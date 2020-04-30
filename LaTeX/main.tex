@@ -1,0 +1,81 @@
+\documentclass[envcountsect]{llncs}
+\sloppy
+
+\usepackage{geometry}
+\geometry{
+  %a4paper,         % or letterpaper
+  textwidth=15cm,  % llncs has 12.2cm
+  textheight=24cm, % llncs has 19.3cm
+  heightrounded,   % integer number of lines
+  hratio=1:1,      % horizontally centered
+  vratio=2:3,      % not vertically centered
+}
+
+
+
+
+
+
+
+
+\pagestyle{headings} 
+\bibliographystyle{abbrv}
+
+% = = = = = Packages = = = = = %
+
+\input{setup/packages}
+\input{setup/macros}
+\input{setup/table}
+
+% = = = = = Title = = = = = %
+
+\begin{document}
+
+
+
+
+
+
+\frontmatter
+\mainmatter
+
+\title{\Large \bf Title Goes Here}
+\author{}
+
+%\author{Seyedehmahsa Moosavi\inst{1} \and Jeremy Clark\inst{1}}
+%\institute{Concordia University}
+
+
+
+
+\maketitle
+
+
+
+
+% = = = = = Abstract = = = = = %
+
+\input{sections/abstract}
+
+% = = = = = Main Body = = = = = %
+
+\input{sections/paper}
+
+% = = = = = Bibliography = = = = = %
+
+\bibliography{bib/DEX}
+%\nocite{*}
+
+% = = = = = End Notes = = = = = %
+
+\clearpage
+\appendix
+
+\end{document}
+
+
+
+
+
+
+

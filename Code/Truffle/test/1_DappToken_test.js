@@ -30,7 +30,7 @@ contract('DappToken', function(accounts) {
     //      console.log(DappTokenInstance.address);
     //  });
     //*******************Test 2*************************
-    // it('should return the balance of the accounts[0], async()=>{
+    // it('should return the balance of the accounts[0]', async()=>{
     //     const DappTokenInstance = await DappToken.deployed();
     //     const result =  await DappTokenInstance.balanceOf(accounts[0]);
     //     console.log(result.toNumber());
@@ -117,7 +117,7 @@ describe('Orderbook', function(accounts) {
     //     //console.log(state.toString());
         
          accounts = await web3.eth.getAccounts();
-         for(let j = 1; j < 101 ; j++) 
+         for(let j = 1; j < 31 ; j++) 
              await OrderbookInstance.submitAsk (j, 1, {from: accounts[0]});
          
          //await OrderbookInstance.submitAsk (10, 1, {from: accounts[0]});
@@ -162,7 +162,7 @@ describe('Orderbook', function(accounts) {
         const OrderbookInstance = await Orderbook.deployed(); 
        
         accounts = await web3.eth.getAccounts();
-        for(let j = 1; j < 101 ; j++) 
+        for(let j = 1; j < 31 ; j++) 
             await OrderbookInstance.submitBid (j, 1, {from: accounts[1]});
         
         
@@ -196,7 +196,7 @@ describe('Orderbook', function(accounts) {
         const state =  await OrderbookInstance.getState();
         console.log('Market is currently:',state.toString());
         
-        await OrderbookInstance.MatchOrders();
+        //await OrderbookInstance.MatchOrders();
         
         const result = await OrderbookInstance.BuyListPeak.call();
         const {0: addsender, 1: intprice, 2: auxprice, 2: intvolume} = result;

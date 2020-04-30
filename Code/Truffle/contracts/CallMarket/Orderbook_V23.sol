@@ -4,8 +4,20 @@ pragma experimental ABIEncoderV2;
 import "openzeppelin-solidity/contracts/token/ERC20/IERC20.sol";
 
 
-//call martket, collateralized
-contract Orderbook_V21{
+//This version is created to test the gas cost of the match function (tests are in 2_MatchGasCost_test.js file)
+//Do the following:
+// (1) write a test that adds 100 orders (50 buys and 50 sells)
+// (2) define (if you don’t have it already) a constant called MAXORDERS or something like that
+// (3) Size the array to it and use it in the modifier to reject orders when you already have the max
+// (4) then just change that one value…. and build a table for max=1, 5, 10, 15, 20, 25, ….
+// (5) get the gas costs for each
+
+// see how much is overhead and how much is actually growing with each additional order
+
+
+
+
+contract Orderbook_V23{
 
 
 function getState() public view returns (States)
@@ -61,8 +73,9 @@ function getState() public view returns (States)
 //****************************************************//
 //****************************************************//
 //constructor: Set the state the auctions as Settled
-  constructor () public{
-    state = States.Settled;   
+  constructor (uint _MAXORDERS) public{
+    state = States.Settled; 
+    MAXORDERS = _MAXORDERS;
   }
 
 //**************** OrderStruct ***************************//
@@ -78,8 +91,12 @@ function getState() public view returns (States)
 
 //****************************************************//
 
-    OrderStruct[] BuyList;  //The array that contains Bid OrderStructs (descending (decremental)), we always want the highest bid (maxheap)
-    OrderStruct[] SellList; //The array that contains Ask OrderStructs (ascending (incremental)), we always want the lowest ask (minheap)
+    uint public MAXORDERS;
+
+    //OrderStruct BuyList = new OrderStruct(MAXORDERS);
+
+    OrderStruct[5] BuyList;  //The array that contains Bid OrderStructs (descending (decremental)), we always want the highest bid (maxheap)
+    OrderStruct[5] SellList; //The array that contains Ask OrderStructs (ascending (incremental)), we always want the lowest ask (minheap)
     
     
     enum States {Opened, Closed, Settled} 
@@ -90,6 +107,8 @@ function getState() public view returns (States)
     uint256 public CreationTime;
     uint256 public NumOrders;        //Number of all the orders within the auction
     uint256 public BuyListCounter;   //the counter for BuyList which sorts the order incrementally
+    uint public SellIndex;
+    uint public BuyIndex;
     uint256 public SellListCounter;  //the counter for SellList which sorts the order decrementally
     States state;
     address public Token;            //The token that is being traded in the auction
@@ -111,7 +130,7 @@ function getState() public view returns (States)
     //Checks if the auction should be closed or not.
     modifier CheckAuctionStage () {
         //if (Auctions[_AuctionID].isValue == false) {Auctions[_AuctionID].state = States.UnInitiallized;}
-        if (now >= CreationTime + biddingTime || NumOrders == 1000) 
+        if (now >= CreationTime + biddingTime || NumOrders == MAXORDERS ) 
         {
             state = States.Closed;
             CloseMarket();
@@ -126,9 +145,16 @@ function getState() public view returns (States)
         require (state == state_1); 
         _;
     }
-//**********************************************// 
+//**********************************************//
+    //Checks whether we have reached to the total number of orders in the auction  
+    modifier CheckMaxOrders () { 
+        require (NumOrders < MAXORDERS); 
+        _;
+    } 
+    
+//**********************************************//
 
-
+   
 
 //**********************************************//
 //*********Escrow Variables and Functions*******//
@@ -177,7 +203,9 @@ function getState() public view returns (States)
         state = States.Opened;
         NumOrders = 0;
         SellListCounter = 0;
-        BuyListCounter = 999;
+        BuyListCounter = MAXORDERS - 1;
+        SellIndex = 0;
+        BuyIndex = 0;
         Token = _token;
         
         return true;
@@ -196,20 +224,35 @@ function getState() public view returns (States)
     function MatchOrders() public AuctionAtStage (States.Closed) returns (bool){
   
         uint256 refund;
+        uint256 counter;
+
+        if (BuyIndex >= SellIndex) {counter = SellIndex;}
+        else {counter = BuyIndex;} 
         
-           
-        while (BuyList.length != 0 &&SellList.length != 0 && BuyListPeak().Price >= SellListPeak().Price)
-        {
-            
-            
-            
-            emit TradeHappens (BuyListPeak().Price, SellListPeak().Price);
-            OrderStruct memory temp_BestBid = BuyListPeak();
-            OrderStruct memory temp_BestAsk = SellListPeak();
-            transferToken (temp_BestAsk.Sender, temp_BestBid.Sender, Token, temp_BestBid.Volume);
-            transferEther (temp_BestBid.Sender,temp_BestAsk.Sender, Token, temp_BestAsk.Price );
-            
-            
+        //while (BuyList.length != 0 &&SellList.length != 0 && BuyListPeak().Price >= SellListPeak().Price)
+        for (uint i =1 ; i <= counter; i++)
+        //uint i =1;
+        //while (i <= counter)
+        {   
+            if (BuyListPeak().Price >= SellListPeak().Price)
+            {
+
+                emit TradeHappens (BuyListPeak().Price, SellListPeak().Price);
+                OrderStruct memory temp_BestBid = BuyListPeak();
+                OrderStruct memory temp_BestAsk = SellListPeak();
+                transferToken (temp_BestAsk.Sender, temp_BestBid.Sender, Token, temp_BestBid.Volume);
+                transferEther (temp_BestBid.Sender,temp_BestAsk.Sender, Token, temp_BestAsk.Price );
+                
+                
+                BuyListDelete();
+                SellListDelete();
+
+
+
+            }
+            else{break;}
+            //i++;    
+        }
             
             //Pays the difference to the miner
             /*if (temp_BestBid.Price - temp_BestAsk.Price != 0) 
@@ -220,21 +263,18 @@ function getState() public view returns (States)
                 block.coinbase.transfer(refund);
             }*/
              
-        
-            BuyListDelete();
-            SellListDelete();
             
-        }
+        //if (BuyIndex != 0)
+        //{
+            //Rrefund_unexecuted_Buy_orders();
+        //}  
         
-        if (BuyList.length != 0)
-        {
-            Rrefund_unexecuted_Buy_orders();
-        }
         
-        if (SellList.length != 0)
-        {
-           Rrefund_unexecuted_Sell_orders(); 
-        }
+        
+        // if (SellIndex != 0)
+        // {
+        //    Rrefund_unexecuted_Sell_orders(); 
+        // }
         
         state = States.Settled;
         return true;
@@ -246,12 +286,15 @@ function getState() public view returns (States)
     function Rrefund_unexecuted_Buy_orders () internal returns (bool) {
 
         
+
+
         uint i;
-        while (BuyList.length != 0)
+        while (BuyIndex > 0)
         {
-            i = BuyList.length - 1;
+            i = BuyIndex - 1;
             AvailableEtherBalance[BuyList[i].Sender] += BuyList[i].Volume * BuyList[i].Price;
-            BuyList.pop();
+            delete BuyList[i];
+            BuyIndex --;
             
             
         }
@@ -259,18 +302,19 @@ function getState() public view returns (States)
         return true;
     }
     
-    //******************** Rrefund_unexecuted_Sell_orders function ********************//
-    //After trades happened in the MatchOrders() function, following function will be called to refund the deposited "tokens" for those trades that did not happen
+     //******************** Rrefund_unexecuted_Sell_orders function ********************//
+     //After trades happened in the MatchOrders() function, following function will be called to refund the deposited "tokens" for those trades that did not happen
     function Rrefund_unexecuted_Sell_orders () internal returns (bool) {
         
         
         
         uint i;
-        while (SellList.length != 0)
+        while (SellIndex > 0)
         {
-            i = SellList.length - 1;
+            i = SellIndex - 1;
             AvailableTokenBalance[SellList[i].Sender][Token] += SellList[i].Volume;
-            SellList.pop();
+            delete SellList[i];
+            SellIndex --;
            
             
         }
@@ -278,7 +322,7 @@ function getState() public view returns (States)
         return true;
     }
   
-//******************** transferToken() & transferEther() internal ********************//    
+ //******************** transferToken() & transferEther() internal ********************//    
     //These two functions are fired During the order matching 
     function transferToken( address _fromSeller, address _toBuyer, address _token, uint256 _numofTokens) internal
     {
@@ -300,7 +344,7 @@ function getState() public view returns (States)
         
         emit TransferEther (_fromBuyer, _toSeller, _numofEthers);
     } 
-//******************************************************// 
+ //******************************************************// 
 
 
 //******************** claimTokens() & claimEther() ********************//
@@ -334,6 +378,7 @@ function getState() public view returns (States)
     function submitBid (uint256 _price, uint256 _volume) public
     CheckAuctionStage ()
     AuctionAtStage (States.Opened)
+    CheckMaxOrders()
     returns (bool)
     {
         require (AvailableEtherBalance[msg.sender] >= _volume * _price );
@@ -361,6 +406,7 @@ function getState() public view returns (States)
     function submitAsk (uint256 _price, uint256 _volume ) public 
     CheckAuctionStage () 
     AuctionAtStage (States.Opened)
+    CheckMaxOrders()
     returns (bool)
     {
         require( AvailableTokenBalance[msg.sender][Token] >= _volume);
@@ -394,8 +440,26 @@ function getState() public view returns (States)
     {
         
         OrderStruct memory neworder = OrderStruct(_sender, _price , _auxPrice, _volume);
-        BuyList.push(neworder);
-        maxheap_heapifyUp ();
+
+        if (BuyList[0].Price == 0){
+           
+           BuyList[0] = neworder;
+           BuyIndex ++;
+           maxheap_heapifyUp ();
+           
+           
+       }
+       else{
+           BuyList[BuyIndex] = neworder;
+           BuyIndex ++;
+           maxheap_heapifyUp ();
+           
+           
+       }
+
+
+
+
         return true;
     }    
 //*******************  maxheap_heapifyUp () ***************************//
@@ -405,7 +469,7 @@ function getState() public view returns (States)
     CheckAuctionStage ()
     returns (bool) {
     
-        uint256 k = BuyList.length - 1;                   //k is set to be the last entry of the array (also heap) which is the element that's just added and has to be moved up
+        uint256 k = BuyIndex - 1;                   //k is set to be the last entry of the array (also heap) which is the element that's just added and has to be moved up
         while (k > 0){                                  //while we havent reached to the top of the heap
             uint256 p = (k-1)/2;                           //we need to compute the parent of this last element which is p = (k-1)/2
             if (BuyList[k].Price > BuyList[p].Price) //if the element is greater than its parent
@@ -429,12 +493,12 @@ function getState() public view returns (States)
     {
         uint256 k =0;
         uint256 leftchild = 2*k + 1;
-        while (leftchild < BuyList.length)
+        while (leftchild < BuyIndex - 1)
         {                                   //as long as the left child is within the array that heap is stored in
             uint max = leftchild;
             uint rightchild = leftchild + 1;                                     //rightchild = 2k+2
 
-            if (rightchild < BuyList.length)                                       //if there is a rightchild
+            if (rightchild < BuyIndex - 1)                                       //if there is a rightchild
             {
                 if (BuyList[rightchild].Price > BuyList[leftchild].Price)    //then the right child and left child are compared
                 {
@@ -467,7 +531,7 @@ function getState() public view returns (States)
     //returns (address, uint256, uint256, uint256){
     returns (OrderStruct memory){
 
-        require (BuyList.length != 0); //throws exception if the maxheap (BuyList) is empty
+        require (BuyIndex > 0); //throws exception if the maxheap (BuyList) is empty
         return (BuyList[0]);
         //return (BuyList[0].Sender, BuyList[0].Price, BuyList[0].AuxPrice, BuyList[0].Volume );
     }
@@ -486,27 +550,38 @@ function getState() public view returns (States)
     CheckAuctionStage ()
     returns (OrderStruct memory) 
     {
-        if (BuyList.length == 0) { revert(); }                             //the delete function throws exception if the heap is empty
-        if (BuyList.length == 1) {                                      //if the heap has only one items
+        if (BuyIndex == 0) {
+              OrderStruct memory result =  BuyList[0];
+              delete BuyList[0];
+              NumOrders --;
+              return result;
+        }                           
+        else if (BuyIndex == 1){                                      //if the heap has only one items
                      
             OrderStruct memory result =  BuyList[0];
             
-            BuyList.pop();                                                 //the only element of the heap is removed and returned 
+            delete BuyList[0];                                                 //the only element of the heap is removed and returned 
+            BuyList[0] = BuyList[1];
             NumOrders --;
+            BuyIndex --;
             return result;     
        
         }
 
         //if neither of these conditions are true, then there are at least 2 items in the heap and deletion proceeds
         OrderStruct memory result =  BuyList[0];
-        BuyList[0] = BuyList[BuyList.length -1]; //the last elementof the heap is removed and written into the first position
-        BuyList.pop();
-        //Auctions[_AuctionID].BuyList.length--;
+        BuyList[0] = BuyList[BuyIndex-1]; //the last elementof the heap is removed and written into the first position
+        delete BuyList[BuyIndex-1];
         maxheap_heapifyDown(); //now the siftdown is called
         NumOrders --;
+        BuyIndex - 2;
         return result;
     }
     
+
+
+
+
 //*****************************************************************//
 //*******************  minheap Functions (SellList) ****************//
 //*****************************************************************//
@@ -519,8 +594,24 @@ function getState() public view returns (States)
     returns (bool)
     {
         OrderStruct memory neworder = OrderStruct(_sender, _price , _auxPrice, _volume); 
-        SellList.push(neworder);
-        minheap_heapifyUp();
+        
+        if (SellList[0].Price == 0){
+           
+           SellList[0] = neworder;
+           SellIndex ++;
+           
+           
+           
+           
+       }
+       else{
+           SellList[SellIndex] = neworder;
+           SellIndex ++;
+           minheap_heapifyUp();
+           
+           
+           
+       }
         return true;
     }
 
@@ -531,7 +622,7 @@ function getState() public view returns (States)
     CheckAuctionStage ()
     returns (bool) {
 
-        uint256 k = SellList.length - 1; //k is set to be the last entry of the array(also heap) which is the element that's just added and has to be moved up
+        uint256 k = SellIndex - 1; //k is set to be the last entry of the array(also heap) which is the element that's just added and has to be moved up
         while (k > 0){                                      //while we havent reached to the top of the heap
             uint256 p = (k-1)/2;                            //we need to compute the parent of this last element which is p = (k-1)/2
             if (SellList[k].Price < SellList[p].Price) //if the element is greater than its parent
@@ -556,11 +647,11 @@ function getState() public view returns (States)
     returns (bool) {
         uint256 k =0;
         uint256 leftchild = 2*k + 1;
-        while (leftchild < SellList.length){               //as long as the left child is within the array that heap is stored in
+        while (leftchild < SellIndex - 1){               //as long as the left child is within the array that heap is stored in
             uint256 min = leftchild;
             uint256 rightchild = leftchild + 1;              //rightchild = 2k+2
 
-            if (rightchild < SellList.length)                //if there is a rightchild, then the right child and left child are compared
+            if (rightchild < SellIndex - 1)                //if there is a rightchild, then the right child and left child are compared
             {
                 if (SellList[rightchild].Price < SellList[leftchild].Price)
                 {    min++;   }                               //now min is set to rightchild, otherwise min remains to be the leftchild
@@ -592,7 +683,7 @@ function getState() public view returns (States)
     //returns (address, uint256, uint256, uint256){
     returns (OrderStruct memory){
 
-        require(SellList.length != 0); //throws exception if the minheap (SellList) is empty
+        require(SellIndex > 0); //throws exception if the minheap (SellList) is empty
         
         return (SellList[0]);
         //return (SellList[0].Sender, SellList[0].Price, SellList[0].AuxPrice, SellList[0].Volume );
@@ -612,39 +703,51 @@ function getState() public view returns (States)
     CheckAuctionStage ()
     returns (OrderStruct memory)
     {
-        if (SellList.length == 0) { revert(); }                      //the delete function throws exception if the heap is empty
-        if (SellList.length == 1) {                               // if the heap has only one item
+        if (SellIndex == 0) {
+            
             OrderStruct memory result = SellList[0];
-            SellList.pop();                                   //the only element of the heap is removed and returned  
+            delete SellList[0]; 
             NumOrders --;
+            return result;
+        }
+            
+        
+        if (SellIndex == 1) {                               // if the heap has only one item
+            OrderStruct memory result = SellList[0];
+            BuyList[0] = BuyList[1];
+            delete SellList[0];                                   //the only element of the heap is removed and returned  
+            NumOrders --;
+            SellIndex --;
             return result;
         }
 
         //if neither of these conditions are true, then there are at least 2 items in the heap and deletion proceeds
       
         OrderStruct memory result = SellList[0];
-        SellList[0] = SellList[SellList.length -1];                      //the last elementof the heap is removed and written into the first position
-        SellList.pop(); 
+        delete SellList[0];
+        SellList[0] = SellList[SellIndex -1];                      //the last elementof the heap is removed and written into the first position
+        delete SellList[SellIndex -1]; 
         minheap_heapifyDown();                           //now the heapifyDown is called to restore the ordering of the heap 
         NumOrders --;
+        SellIndex - 2;
         return result;        
     }
 
-//************************************************************************//
-//************************************************************************//
-//************************************************************************//
-
-
-
-//************************************************************************//
-//************************************************************************//
-//************************************************************************//
-
-    function returnSelllistlength () public returns (uint256 _result){
-        _result = SellList.length;
-        return _result;
-    }    
     
+
+
+
+
+//************************************************************************//
+//************************************************************************//
+//************************************************************************//
+
+
+
+//************************************************************************//
+//************************************************************************//
+//************************************************************************//
+
     
 }   
     

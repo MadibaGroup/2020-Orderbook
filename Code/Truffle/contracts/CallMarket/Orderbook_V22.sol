@@ -203,7 +203,9 @@ function getState() public view returns (States)
         
         //while (BuyList.length != 0 &&SellList.length != 0 && BuyListPeak().Price >= SellListPeak().Price)
         for (uint i =1 ; i <= counter; i++)
-        {
+        //uint i =1;
+        //while (i <= counter)
+        {   
             if (BuyListPeak().Price >= SellListPeak().Price)
             {
 
@@ -221,7 +223,7 @@ function getState() public view returns (States)
 
             }
             else{break;}
-                
+            //i++;    
         }
             
             //Pays the difference to the miner
@@ -236,15 +238,15 @@ function getState() public view returns (States)
             
         
         
-        if (BuyList.length != 0)
-        {
-            Rrefund_unexecuted_Buy_orders();
-        }
+        // if (BuyList.length != 0)
+        // {
+        //     Rrefund_unexecuted_Buy_orders();
+        // }
         
-        if (SellList.length != 0)
-        {
-           Rrefund_unexecuted_Sell_orders(); 
-        }
+        // if (SellList.length != 0)
+        // {
+        //    Rrefund_unexecuted_Sell_orders(); 
+        // }
         
         state = States.Settled;
         return true;
@@ -256,6 +258,8 @@ function getState() public view returns (States)
     function Rrefund_unexecuted_Buy_orders () internal returns (bool) {
 
         
+
+
         uint i;
         while (BuyList.length != 0)
         {
@@ -511,8 +515,7 @@ function getState() public view returns (States)
         OrderStruct memory result =  BuyList[0];
         BuyList[0] = BuyList[BuyList.length -1]; //the last elementof the heap is removed and written into the first position
         BuyList.pop();
-        //Auctions[_AuctionID].BuyList.length--;
-        //maxheap_heapifyDown(); //now the siftdown is called
+        maxheap_heapifyDown(); //now the siftdown is called
         NumOrders --;
         return result;
     }
@@ -635,7 +638,7 @@ function getState() public view returns (States)
         OrderStruct memory result = SellList[0];
         SellList[0] = SellList[SellList.length -1];                      //the last elementof the heap is removed and written into the first position
         SellList.pop(); 
-        //minheap_heapifyDown();                           //now the heapifyDown is called to restore the ordering of the heap 
+        minheap_heapifyDown();                           //now the heapifyDown is called to restore the ordering of the heap 
         NumOrders --;
         return result;        
     }
