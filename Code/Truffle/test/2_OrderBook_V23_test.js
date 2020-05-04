@@ -67,8 +67,6 @@ describe('Orderbook', function(accounts) {
         const gasUsed = receipt.receipt.gasUsed;
         console.log(`GasUsed for depositting 100 tokens: ${receipt.receipt.gasUsed}`);
 
-
-
     });
 
     //*******************Test 2*************************
@@ -110,7 +108,7 @@ describe('Orderbook', function(accounts) {
         
 
         accounts = await web3.eth.getAccounts();
-        for(let j = 1; j <= 2  ; j++){
+        for(let j = 1; j <= 29  ; j++){
             receipt = await OrderbookInstance.submitAsk (j, 1, {from: accounts[0]});
         
             const gasUsed = receipt.receipt.gasUsed;
@@ -166,11 +164,12 @@ describe('Orderbook', function(accounts) {
         const OrderbookInstance = await Orderbook.deployed(); 
        
         accounts = await web3.eth.getAccounts();
-        for(let j = 1; j <= 3 ; j++) 
+        for(let j = 1; j <= 29 ; j++){
             await OrderbookInstance.submitBid (j, 1, {from: accounts[1]});
+        } 
         
         
-   });
+    });
    //*******************Test 9*************************
     it('should return the BuyList peak', async() => {
         const OrderbookInstance = await Orderbook.deployed(); 
@@ -238,11 +237,23 @@ describe('Orderbook', function(accounts) {
         const state =  await OrderbookInstance.getState();
         console.log('Market is currently:',state.toString());
         
-        await OrderbookInstance.MatchOrders();
+        const receipt = await OrderbookInstance.MatchOrders();
         
         const result = await OrderbookInstance.BuyListPeak.call();
         const {0: addsender, 1: intprice, 2: auxprice, 2: intvolume} = result;
         console.log('The Buylist peak after matching orders is:', intprice);
+
+
+        console.log('********************************************');
+        const gasUsed = receipt.receipt.gasUsed;
+        console.log(`GasUsed for Matching: ${receipt.receipt.gasUsed}`);
+        
+        //const contract = new web3.eth.Contract(OrderbookInstance.abi, OrderbookInstance.address);
+
+        //Now get evens depending on what you need
+        //contract.getPastEvents("allEvents", {fromBlock: 0, toBlock: "latest"}) .then(console.log) ;
+
+    
     
     });
 
@@ -293,6 +304,39 @@ describe('Orderbook', function(accounts) {
         console.log('The BuyIndex after match is:', buyindex.toNumber());
 
     });
+
+    //*******************Test 13*************************
+    it('should return the SellList peak', async() => {
+        const OrderbookInstance = await Orderbook.deployed(); 
+    
+        const result = await OrderbookInstance.SellListPeak.call();
+        const {0: addsender, 1: intprice, 2: auxprice, 2: intvolume} = result;
+        console.log('The SellList peak after match is:', intprice);
+
+    });
+    //*******************Test 12*************************
+    it('should return the SellIndex', async()=>{
+        const OrderbookInstance = await Orderbook.deployed(); 
+        const buyindex =  await OrderbookInstance.SellIndex();
+        console.log('The SellIndex after match is:', buyindex.toNumber());
+
+    });
+    //*******************Test 13*************************   
+    //it('should return the refunded Ethers', async()=>{
+        //const OrderbookInstance = await Orderbook.deployed(); 
+        
+        //const AvailableEtherBalance = await OrderbookInstance.AvailableEtherBalance(accounts[1]);
+        //console.log('The number of Ethers refunded to account[1] is:', AvailableEtherBalance.toNumber());
+    //});
+    
+    
+    
+       
+
+    
+
+
+    
 
 });
 

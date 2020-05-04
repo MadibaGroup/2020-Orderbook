@@ -14,7 +14,34 @@
 %Mahsa
 %Notes related to design and implementations
 
+%============= Ghazal with Auction Costs Table==================== %
+\begin{table}[t]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{\shortstack{Number \\of \\Buy Orders}} & \textbf{\shortstack{Number \\of \\Sell Orders}} & \textbf{\shortstack{Total Number \\of\\ Orders}}  & \textbf{\shortstack{Gas Cost \\in\\ Ether}}  \\ \hline
+1 & 1 & 2 & 144,689 \\
+3 & 3 & 6 & 324,457 \\
+5 & 5 & 10 & 527,289 \\
+7 & 7 & 14 & 710,050 \\
+9 & 9 & 18 & 964,894 \\
+11 & 11 & 22 & 1,176,905 \\
+13 & 13 & 26 & 1,370,191 \\
+15 & 15 & 30 & 1,650,273 \\
+17 & 17 & 34 & 1,953,406 \\
+19 & 19 & 38 & 2,205,141 \\
+21 & 21 & 42 & 2,416,221 \\
+23 & 23 & 46 & 2,713,313 \\
+25 & 25 & 50 & 1,788,509 \\
+27 & 27 & 54 & 2,004,824 \\
 
+\hline
+29 & 29 & 58 & \textbf{out of gas}\\
+\hline
+\end{tabular}
+\caption{\footnotesize{Gas used for Match function when using fixed arrays to store the heap.}\label{}}
+\end{table}
+%======================================== %
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
 \section{Concluding Remarks}

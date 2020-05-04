@@ -15,7 +15,7 @@ import "openzeppelin-solidity/contracts/token/ERC20/IERC20.sol";
 // see how much is overhead and how much is actually growing with each additional order
 
 
-
+//Call market with heap (static array is used to store the heap)
 
 contract Orderbook_V23{
 
@@ -95,8 +95,8 @@ function getState() public view returns (States)
 
     //OrderStruct BuyList = new OrderStruct(MAXORDERS);
 
-    OrderStruct[5] BuyList;  //The array that contains Bid OrderStructs (descending (decremental)), we always want the highest bid (maxheap)
-    OrderStruct[5] SellList; //The array that contains Ask OrderStructs (ascending (incremental)), we always want the lowest ask (minheap)
+    OrderStruct[58] BuyList;  //The array that contains Bid OrderStructs (descending (decremental)), we always want the highest bid (maxheap)
+    OrderStruct[58] SellList; //The array that contains Ask OrderStructs (ascending (incremental)), we always want the lowest ask (minheap)
     
     
     enum States {Opened, Closed, Settled} 
@@ -109,6 +109,7 @@ function getState() public view returns (States)
     uint256 public BuyListCounter;   //the counter for BuyList which sorts the order incrementally
     uint public SellIndex;
     uint public BuyIndex;
+    uint public counter;
     uint256 public SellListCounter;  //the counter for SellList which sorts the order decrementally
     States state;
     address public Token;            //The token that is being traded in the auction
@@ -117,10 +118,16 @@ function getState() public view returns (States)
 
     uint public biddingTime = 5 minutes;
 
+    event BidIsSubmitted (address indexed _sender, uint256 _price);
+    event TokenDepositted (address indexed _sender, address indexed _token , uint256 _numofTokens);
     event LogBuyList (address _sender, uint256 _price, uint256 _volume);
     event TransferToken (address _from, address _to, uint256 _numofTokens);
     event TransferEther (address _from, address _to, uint256 _numofEther);
     event TradeHappens (uint256 _BuyPrice, uint256 _SellPrice);
+    
+    event EtherRefunded (address _owner, uint256 _amount);
+
+    //event BuyIndexChanged(uint256 _buyindex);
 
 
 //**********************************************//
@@ -179,6 +186,7 @@ function getState() public view returns (States)
         require(IERC20(_token).transferFrom(msg.sender, address(this), _numofTokens));
         TotalTokenBalance[msg.sender][_token] += _numofTokens;
         AvailableTokenBalance[msg.sender][_token] += _numofTokens;
+        emit TokenDepositted (msg.sender,  _token , _numofTokens);
         return true;
     
     }
@@ -224,7 +232,7 @@ function getState() public view returns (States)
     function MatchOrders() public AuctionAtStage (States.Closed) returns (bool){
   
         uint256 refund;
-        uint256 counter;
+        
 
         if (BuyIndex >= SellIndex) {counter = SellIndex;}
         else {counter = BuyIndex;} 
@@ -241,7 +249,7 @@ function getState() public view returns (States)
                 OrderStruct memory temp_BestBid = BuyListPeak();
                 OrderStruct memory temp_BestAsk = SellListPeak();
                 transferToken (temp_BestAsk.Sender, temp_BestBid.Sender, Token, temp_BestBid.Volume);
-                transferEther (temp_BestBid.Sender,temp_BestAsk.Sender, Token, temp_BestAsk.Price );
+                transferEther (temp_BestBid.Sender,temp_BestAsk.Sender, Token, temp_BestAsk.Price);
                 
                 
                 BuyListDelete();
@@ -264,17 +272,17 @@ function getState() public view returns (States)
             }*/
              
             
-        //if (BuyIndex != 0)
-        //{
-            //Rrefund_unexecuted_Buy_orders();
-        //}  
+        if (BuyList[BuyIndex].Price != 0)
+        {
+            Rrefund_unexecuted_Buy_orders();
+        }  
         
         
         
-        // if (SellIndex != 0)
-        // {
-        //    Rrefund_unexecuted_Sell_orders(); 
-        // }
+        if (SellList[SellIndex].Price != 0)
+        {
+            Rrefund_unexecuted_Sell_orders(); 
+        }
         
         state = States.Settled;
         return true;
@@ -289,11 +297,12 @@ function getState() public view returns (States)
 
 
         uint i;
-        while (BuyIndex > 0)
+        while (BuyIndex >= 0)
         {
-            i = BuyIndex - 1;
+            i = BuyIndex;
             AvailableEtherBalance[BuyList[i].Sender] += BuyList[i].Volume * BuyList[i].Price;
             delete BuyList[i];
+            if (BuyIndex == 0){ break;}
             BuyIndex --;
             
             
@@ -309,11 +318,12 @@ function getState() public view returns (States)
         
         
         uint i;
-        while (SellIndex > 0)
+        while (SellIndex >= 0)
         {
-            i = SellIndex - 1;
+            i = SellIndex ;
             AvailableTokenBalance[SellList[i].Sender][Token] += SellList[i].Volume;
             delete SellList[i];
+            if (SellIndex == 0){ break;}
             SellIndex --;
            
             
@@ -393,6 +403,7 @@ function getState() public view returns (States)
             BuyListCounter--;
             NumOrders++;
             AvailableEtherBalance[msg.sender] -= _volume * _price;
+            emit BidIsSubmitted (msg.sender, _price);
             
         }
         
@@ -531,7 +542,7 @@ function getState() public view returns (States)
     //returns (address, uint256, uint256, uint256){
     returns (OrderStruct memory){
 
-        require (BuyIndex > 0); //throws exception if the maxheap (BuyList) is empty
+        //require (BuyIndex > 0); //throws exception if the maxheap (BuyList) is empty
         return (BuyList[0]);
         //return (BuyList[0].Sender, BuyList[0].Price, BuyList[0].AuxPrice, BuyList[0].Volume );
     }
@@ -546,25 +557,27 @@ function getState() public view returns (States)
 //*******************  maxheap_delete () ***************************//
     //the highest priority item will be removed from the list and is returned by the function
     //then the heap is reordered uising the heapifyDown method
-    function BuyListDelete () public 
-    CheckAuctionStage ()
-    returns (OrderStruct memory) 
+    function BuyListDelete () internal CheckAuctionStage() returns (OrderStruct memory) 
     {
         if (BuyIndex == 0) {
               OrderStruct memory result =  BuyList[0];
               delete BuyList[0];
               NumOrders --;
+              //emit BuyIndexChanged(BuyIndex);
               return result;
+              
         }                           
-        else if (BuyIndex == 1){                                      //if the heap has only one items
+        if (BuyIndex == 1){                                      //if the heap has only one items
                      
             OrderStruct memory result =  BuyList[0];
             
-            delete BuyList[0];                                                 //the only element of the heap is removed and returned 
+            //delete BuyList[0];                                                 //the only element of the heap is removed and returned 
             BuyList[0] = BuyList[1];
             NumOrders --;
             BuyIndex --;
+            //emit BuyIndexChanged(BuyIndex);
             return result;     
+            
        
         }
 
@@ -574,7 +587,8 @@ function getState() public view returns (States)
         delete BuyList[BuyIndex-1];
         maxheap_heapifyDown(); //now the siftdown is called
         NumOrders --;
-        BuyIndex - 2;
+        BuyIndex = BuyIndex - 2;
+        //emit BuyIndexChanged(BuyIndex);
         return result;
     }
     
@@ -683,7 +697,7 @@ function getState() public view returns (States)
     //returns (address, uint256, uint256, uint256){
     returns (OrderStruct memory){
 
-        require(SellIndex > 0); //throws exception if the minheap (SellList) is empty
+        //require(SellIndex > 0); //throws exception if the minheap (SellList) is empty
         
         return (SellList[0]);
         //return (SellList[0].Sender, SellList[0].Price, SellList[0].AuxPrice, SellList[0].Volume );
@@ -699,7 +713,7 @@ function getState() public view returns (States)
 //*******************  minheap_delete () ***************************//
     //the highest priority item (the smallest ask) will be removed from the list and is returned by the function
     //then the heap is reordered uising the heapifyDown method
-    function SellListDelete () public 
+    function SellListDelete () internal 
     CheckAuctionStage ()
     returns (OrderStruct memory)
     {
@@ -729,7 +743,7 @@ function getState() public view returns (States)
         delete SellList[SellIndex -1]; 
         minheap_heapifyDown();                           //now the heapifyDown is called to restore the ordering of the heap 
         NumOrders --;
-        SellIndex - 2;
+        SellIndex = SellIndex - 2;
         return result;        
     }
 
