@@ -4,7 +4,7 @@ pragma experimental ABIEncoderV2;
 import "openzeppelin-solidity/contracts/token/ERC20/IERC20.sol";
 
 
-//call martket, collateralized
+////Call market with heap (dynamic array is used to store the heap)
 contract Orderbook_V22{
 
 
@@ -213,7 +213,7 @@ function getState() public view returns (States)
                 OrderStruct memory temp_BestBid = BuyListPeak();
                 OrderStruct memory temp_BestAsk = SellListPeak();
                 transferToken (temp_BestAsk.Sender, temp_BestBid.Sender, Token, temp_BestBid.Volume);
-                transferEther (temp_BestBid.Sender,temp_BestAsk.Sender, Token, temp_BestAsk.Price );
+                transferEther (temp_BestBid.Sender,temp_BestAsk.Sender, Token, temp_BestAsk.Price);
                 
                 
                 BuyListDelete();
@@ -238,15 +238,15 @@ function getState() public view returns (States)
             
         
         
-        // if (BuyList.length != 0)
-        // {
-        //     Rrefund_unexecuted_Buy_orders();
-        // }
+        if (BuyList.length != 0)
+        {
+            Rrefund_unexecuted_Buy_orders();
+        }
         
-        // if (SellList.length != 0)
-        // {
-        //    Rrefund_unexecuted_Sell_orders(); 
-        // }
+        if (SellList.length != 0)
+        {
+            Rrefund_unexecuted_Sell_orders(); 
+        }
         
         state = States.Settled;
         return true;
@@ -481,7 +481,8 @@ function getState() public view returns (States)
     //returns (address, uint256, uint256, uint256){
     returns (OrderStruct memory){
 
-        require (BuyList.length != 0); //throws exception if the maxheap (BuyList) is empty
+        
+        //require (BuyList.length != 0); //throws exception if the maxheap (BuyList) is empty
         return (BuyList[0]);
         //return (BuyList[0].Sender, BuyList[0].Price, BuyList[0].AuxPrice, BuyList[0].Volume );
     }
@@ -605,7 +606,7 @@ function getState() public view returns (States)
     //returns (address, uint256, uint256, uint256){
     returns (OrderStruct memory){
 
-        require(SellList.length != 0); //throws exception if the minheap (SellList) is empty
+        //require(SellList.length != 0); //throws exception if the minheap (SellList) is empty
         
         return (SellList[0]);
         //return (SellList[0].Sender, SellList[0].Price, SellList[0].AuxPrice, SellList[0].Volume );

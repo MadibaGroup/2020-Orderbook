@@ -20,6 +20,35 @@
 \begin{tabular}{|c|c|c|c|}
 \hline
 \textbf{\shortstack{Number \\of \\Buy Orders}} & \textbf{\shortstack{Number \\of \\Sell Orders}} & \textbf{\shortstack{Total Number \\of\\ Orders}}  & \textbf{\shortstack{Gas Cost \\in\\ Ether}}  \\ \hline
+1 & 1 & 2 & 127,959 \\
+3 & 3 & 6 &  274,265\\
+5 & 5 & 10 & 449,684 \\
+7 & 7 & 14 & 603,057 \\
+9 & 9 & 18 & 817,224 \\
+11 & 11 & 22 & 982,549 \\
+13 & 13 & 26 & 1,210,410 \\
+15 & 15 & 30 &  1,403,040\\
+17 & 17 & 34 &  1,609,720\\
+19 & 19 & 38 & 1,862,796 \\
+21 & 21 & 42 & 2,057,234 \\
+23 & 23 & 46 &  2,266,225\\
+\hline
+25 & 25 & 50 & \textbf{out of gas} \\
+
+\hline
+
+\end{tabular}
+\caption{\footnotesize{Gas used for Match function when using dynamic arrays to store the heap.}\label{}} %Orderbook_V22
+\end{table}
+
+
+
+
+\begin{table}[t]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{\shortstack{Number \\of \\Buy Orders}} & \textbf{\shortstack{Number \\of \\Sell Orders}} & \textbf{\shortstack{Total Number \\of\\ Orders}}  & \textbf{\shortstack{Gas Cost \\in\\ Ether}}  \\ \hline
 1 & 1 & 2 & 144,689 \\
 3 & 3 & 6 & 324,457 \\
 5 & 5 & 10 & 527,289 \\
@@ -39,7 +68,7 @@
 29 & 29 & 58 & \textbf{out of gas}\\
 \hline
 \end{tabular}
-\caption{\footnotesize{Gas used for Match function when using fixed arrays to store the heap.}\label{}}
+\caption{\footnotesize{Gas used for Match function when using static arrays to store the heap.}\label{}} %Orderbook_V23
 \end{table}
 %======================================== %
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
