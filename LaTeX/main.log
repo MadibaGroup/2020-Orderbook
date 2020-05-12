@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  11 MAY 2020 13:06
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  12 MAY 2020 13:37
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1112,7 +1112,11 @@ Package: listings 2015/06/04 1.6 (Carsten Heinz)
 (/usr/local/texlive/2018/texmf-dist/tex/latex/tools/xspace.sty
 Package: xspace 2014/10/28 v1.13 Space after command names (DPC,MH)
 ))
-(./setup/table.tex) (./main.aux)
+(./setup/table.tex) (./main.aux
+
+LaTeX Warning: Label `' multiply defined.
+
+)
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 32.
@@ -1131,8 +1135,7 @@ LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 32.
 LaTeX Font Info:    ... okay on input line 32.
 LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 32.
 LaTeX Font Info:    Try loading font information for TS1+cmr on input line 32.
-
-(/usr/local/texlive/2018/texmf-dist/tex/latex/base/ts1cmr.fd
+ (/usr/local/texlive/2018/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    ... okay on input line 32.
@@ -1249,14 +1252,14 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 62845E8102377ACEFE602285F85BAE87;50.
 
 
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+LaTeX Warning: There were multiply-defined labels.
 
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 74.
  ) 
 Here is how much of TeX's memory you used:
- 23445 strings out of 492649
- 441589 string characters out of 6129622
- 571827 words of memory out of 5000000
+ 23446 strings out of 492649
+ 441604 string characters out of 6129622
+ 576827 words of memory out of 5000000
  26881 multiletter control sequences out of 15000+600000
  8907 words of font info for 34 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -1265,10 +1268,10 @@ Here is how much of TeX's memory you used:
 ></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb><
 /usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></u
 sr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb>
-Output written on main.pdf (2 pages, 54157 bytes).
+Output written on main.pdf (2 pages, 55739 bytes).
 PDF statistics:
- 50 PDF objects out of 1000 (max. 8388607)
- 41 compressed objects within 1 object stream
- 11 named destinations out of 1000 (max. 500000)
+ 51 PDF objects out of 1000 (max. 8388607)
+ 42 compressed objects within 1 object stream
+ 12 named destinations out of 1000 (max. 500000)
  21 words of extra memory for PDF output out of 10000 (max. 10000000)
 
