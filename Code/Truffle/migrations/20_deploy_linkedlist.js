@@ -1,4 +1,5 @@
-var LinkedList = artifacts.require("./LinkedList.sol"); 
+var linkedlist = artifacts.require("./linkedlist.sol"); 
+var Node = artifacts.require("Node");
 //const BN = require('bn.js');
 
 
@@ -12,7 +13,8 @@ var LinkedList = artifacts.require("./LinkedList.sol");
 //     };
 
 module.exports = function (deployer) {
-    deployer.deploy(LinkedList);
+    deployer.deploy(linkedlist,1);
+    deployer.deploy(Node,"0x0000000000000000000000000000000000000000", 1);
     //Orderbook_V8Instance = await Orderbook_V8.deployed();
     console.log("I was deployed!");
     //HelloInstance.show_result().on('data', event => console.log(event));

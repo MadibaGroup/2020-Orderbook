@@ -1,6 +1,7 @@
-const Node = artifacts.require('Node');
 const linkedlist = artifacts.require('linkedlist');
+const Node = artifacts.require('Node');
 //var Itemaddress;
+
 
 
 
@@ -14,7 +15,7 @@ const linkedlist = artifacts.require('linkedlist');
 
 
 
-// contract('Node', function(accounts) {
+// contract('Item', function(accounts) {
 //     it('should create another object', async() => {
 //         const ItemtInstance = await Item.deployed(); 
 //         //accounts = await web3.eth.getAccounts();
@@ -29,18 +30,25 @@ const linkedlist = artifacts.require('linkedlist');
 // });
 contract('linkedlist', function(accounts) {
     it('should create another object', async() => {
-        const linkedlisttInstance = await linkedlist.deployed(); 
+        const linkedlistInstance = await linkedlist.deployed(); 
         //accounts = await web3.eth.getAccounts();
         
         //const receipt = await FactorytInstance.add("0x0000000000000000000000000000000000000000",{from: accounts[0]});
         //const tx = await web3.eth.getTransaction(receipt.tx);
         //console.log(`GasPrice: ${tx}`);
-        
-        const result = await FactorytInstance.add(Itemaddress);
+        //const headprice = linkedlisttInstance.getheadprice(headnodeaddress);
+        //console.log('The headprice before adding another node is:', headprice);
+
+        const head = await linkedlistInstance.headnodeaddress();
+        console.log('The head add:', head);
+        await linkedlistInstance.add(head,2);
         //const {0: link, 1: next} = result;
         //console.log('The link is:', link);
         //console.log('The next is:', next);
-        console.log(result);
+        const nextprice = linkedlistInstance.getnextprice();
+        const headprice2 = linkedlistInstance.getheadprice(head);
+        console.log('The headprice after adding another node is:', headprice2);
+        console.log('The nextprice after adding another node is:', nextprice);
 
         
 

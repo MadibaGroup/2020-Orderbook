@@ -1,4 +1,5 @@
-var Node = artifacts.require("./Node.sol"); 
+var Item = artifacts.require("./Item.sol"); 
+var Factory = artifacts.require("Factory");
 //const BN = require('bn.js');
 
 
@@ -12,7 +13,8 @@ var Node = artifacts.require("./Node.sol");
 //     };
 
 module.exports = function (deployer) {
-    deployer.deploy(Node, '0x....');
+    deployer.deploy(Item,"0x0000000000000000000000000000000000000000");
+    deployer.deploy(Factory);
     //Orderbook_V8Instance = await Orderbook_V8.deployed();
     console.log("I was deployed!");
     //HelloInstance.show_result().on('data', event => console.log(event));
