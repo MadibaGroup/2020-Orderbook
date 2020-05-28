@@ -45,10 +45,7 @@ contract('linkedlist', function(accounts) {
         //const {0: link, 1: next} = result;
         //console.log('The link is:', link);
         //console.log('The next is:', next);
-        const nextprice = linkedlistInstance.getnextprice();
-        const headprice2 = linkedlistInstance.getheadprice(head);
-        console.log('The headprice after adding another node is:', headprice2);
-        console.log('The nextprice after adding another node is:', nextprice);
+        
 
         
 
