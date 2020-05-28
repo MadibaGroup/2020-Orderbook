@@ -1,63 +1,42 @@
 pragma solidity >=0.4.22;
 
-contract Node {
-    Node public next;
-    uint public price;
-    //uint public ID;
-    constructor(Node _next, uint _price) public {
+
+contract Linkedlist {
+    Item public head;
+    address[] public newItems;
+
+    constructor() public {
+        head = new Item(Item(0));
+        newItems.push(address(head));
+    }
+
+    function add(Item _to) public {
+        Item link = _to.next();
+        Item next = new Item(link);
+        _to.addNew(next);
+        newItems.push(address(next));
         
-        if (_next == Node(0)) {
+    }
+}
+
+
+
+contract Item {
+    Item public next;
+    address owner;
+
+    constructor(Item _next) public {
+        owner = msg.sender;
+        if (_next == Item(0)) {
             next = this;
-            price = _price;
-            //ID ++;
         } else {
             next = _next;
-            price = _price;
-            //ID ++;
         }
     }
 
-    function addNew(Node node) public {
-        //require(msg.sender == owner);
-        next = node;
-        //price = _price;
+    function addNew(Item item) public {
+        require(msg.sender == owner);
+        next = item;
     }
-    
 }
 
-contract linkedlist {
-    Node public head;
-    address public headaddress;
-    
-    
-    
-    constructor(uint _price) public {
-        head = new Node(Node(0),_price );
-        headaddress = head;
-        
-    }
-
-    function add(Node _to, uint _price) public  {
-        Node link = _to.next();
-        Node next = new Node(link,_price);
-        _to.addNew(next);
-        
-
-
-        
-    }
-
-
-
-}
-
-
-
-
-
-
-
-
-
-    
-   
