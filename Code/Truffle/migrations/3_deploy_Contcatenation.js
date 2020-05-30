@@ -1,11 +1,11 @@
-var DappToken = artifacts.require("./DappToken.sol"); 
+var Contcatenation = artifacts.require("./Contcatenation.sol"); 
+
+
 module.exports = function (deployer) {
-    deployer.deploy(DappToken, 10000000);
-    
-    //Orderbook_V8Instance = await Orderbook_V8.deployed();
+    deployer.deploy(Contcatenation);
     console.log("I was deployed!");
     //HelloInstance.show_result().on('data', event => console.log(event));
-    //DappToken.totalSupply().then
+
     //var output = await app.toy();
     //console.log("This is the output:", output);
     //console.log("-------------")

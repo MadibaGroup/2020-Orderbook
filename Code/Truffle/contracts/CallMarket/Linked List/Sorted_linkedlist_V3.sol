@@ -1,12 +1,13 @@
 pragma solidity >=0.4.22;
 
 
-contract Linkedlist{
+contract Sorted_linkedlist_V3{
     Item public first;
     event LogItems(address item, uint data);
     
     constructor() public {
         first = Item(0);
+        
  
     }
 
@@ -15,21 +16,24 @@ contract Linkedlist{
         return (first == Item(0));
     }
 
-    function contains(uint _key) public returns (bool)  //returns true if the key is in the list
+    bool public value;
+    function contains(uint _key) public returns (bool success)  //returns true if the key is in the list
     { 
         Item current = first;
         while (current.data() != _key)
         {
             if (current.next() == Item(0))
             {
-                return false; //we reach the end of the list and we dont find the _key, so we return false
+                return value = false; //we reach the end of the list and we dont find the _key, so we return false
+                
             }
             else 
             {
                 current = current.next();
             }
         }
-        return true;
+        return value = true;
+        
     }
     
     
@@ -45,7 +49,7 @@ contract Linkedlist{
             }
             
             else 
-            {
+            {   previous = current;
                 current = current.next();
             }
         }
@@ -74,15 +78,15 @@ contract Linkedlist{
         while (current != Item(0) && _key > current.data()) //The linkedlist is sorted in an ascending order (increasing)
         {
             previous = current;
-            current.addNew(current.next());
-            
-        } // we only exit this loop if we find the position to insert our data;
-        
+            current = current.next();
+            // we only exit this loop if we find the position to insert our data;
+        } 
+        //now if we have to check if we have to insert the node to the begining of the list:
         if (previous == Item(0)) //it means the current is equal to first and in that case we have to insert the node as a new head
         {
             first = newitem; 
         }
-        else //the node next to the prious is no longer the current but it's our new node
+        else //the node next to the privious is no longer the current but it's our new node
         {
             previous.addNew(newitem);
         }
@@ -96,14 +100,16 @@ contract Linkedlist{
     uint[] public itemdata;
     function displaylist() public 
     {  
+            
         
+
         Item current = first;
         while (current != Item(0)) //while the list is not empty
         {
             
             itemlist.push(address(current));
-            itemdata.push (current.data());
-            current = current.next() ;
+            itemdata.push(current.data());
+            current = current.next();
             
             
         }
@@ -111,6 +117,11 @@ contract Linkedlist{
         {
             emit LogItems(itemlist[i], itemdata[i]);
         }
+        //itemlist.length=0;
+        //itemdata.length=0;
+        delete itemlist;
+        delete itemdata;
+
     }          
         
 

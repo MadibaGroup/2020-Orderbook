@@ -1,4 +1,5 @@
-var Orderbook_V22 = artifacts.require("./Orderbook_V22.sol"); 
+var linkedlist = artifacts.require("./Sorted_linkedlist_V3.sol"); 
+//var Item = artifacts.require("Item");
 //const BN = require('bn.js');
 
 
@@ -12,7 +13,8 @@ var Orderbook_V22 = artifacts.require("./Orderbook_V22.sol");
 //     };
 
 module.exports = function (deployer) {
-    deployer.deploy(Orderbook_V22);
+    deployer.deploy(linkedlist);
+    //deployer.deploy(Item);
     //Orderbook_V8Instance = await Orderbook_V8.deployed();
     console.log("I was deployed!");
     //HelloInstance.show_result().on('data', event => console.log(event));
