@@ -102,6 +102,63 @@
 
 
 %======================================== %
+\section{Performance Tests on Different Datastructures}
+
+%===Heap that is stored in dynamically sized array=== %
+\subsection{Heap that is stored in dynamically sized array}
+Here is the gas cost used for storing N order struct, sorting, and removing them from the heap
+Order structs are stored in a heap with dynamic array
+
+%\begin{table}[t]
+%\centering
+%\begin{tabular}{|c|c|c|}
+%\hline
+%\textbf{\shortstack{Number \\of \\ Orders}} & \textbf{\shortstack{Gas Cost \for Insertion\\ in Ether}}  \textbf{\shortstack{Gas Cost \for Removing\\ in Ether}} \\ \hline
+%1 & 105,118 & 24,430  \\
+%3 & 331,448 & 88,904 \\
+%5 & 603,874 & 184,089 \\
+%7 & 876,300 & 279,312 \\
+%9 & 1,194,820 & 430,737 \\
+%11 & 1,513,340 & 582,200 \\
+%13 & 1,831,860 & 733,663 \\
+%15 & 2,150,380 & 885,164 \\
+%17 & 2,514,996 & 1,092,829 \\
+%19 & 2,879,612 & 1,300,532 \\
+%21 & 3,244,228 & 1,508,235 \\
+%23 & 3,608,844 & 1,715,976 \\
+%25 & 3,973,460 & 1,923,679 \\
+%27 & 4,338,076 & 2,131,420 \\
+%29 & 4,702,692 & 2,339,161 \\
+%31 & 5,067,308 & 2,546,940 \\
+%33 & 5,478,020 & 2,810,845 \\
+%35 & 5,888,732 & 3,074,788\\
+%37 & 6,299,444 & 3,338,731\\
+%39 & 6,710,156 & 3,602,712 \\
+%41 &  &  \\
+%43 &  &  \\
+%45 &  &  \\
+%47 &  &  \\
+%39 &  &  \\
+%39 &  &  \\
+%37 &  &  \\
+%39 &  &  \\
+%
+%
+%
+%\hline
+%
+%
+%
+%
+%
+%
+%33 & 33 & 66 & \textbf{out of gas} \\
+%\hline
+%\end{tabular}
+%\caption{\footnotesize{Gas used for insertion() and remove() functions when using dynamic arrays to store the heap}\label{}} %Heap_Dynamic_Array.sol
+%\end{table}
+%======================================== %
+
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
 \section{Concluding Remarks}

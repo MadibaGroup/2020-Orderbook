@@ -34,6 +34,10 @@ module.exports = {
    *
    * $ truffle test --network <network-name>
    */
+  mocha: {
+    enableTimeouts: false,
+    //before_timeout: 2000000000 // Here is 2min but can be whatever timeout is suitable for you.
+  },
 
   networks: {
     // Useful for testing. The `development` name is special - truffle uses it by default
@@ -42,11 +46,12 @@ module.exports = {
     // tab if you use this network and you must also set the `host`, `port` and `network_id`
     // options below to some value.
     //
+    
     development: {
      host: "127.0.0.1",     // Localhost (default: none)
      port: 8545,            // Standard Ethereum port (default: none)
      network_id: "*",       // Any network (default: none)
-     gas: 4600000,
+     gas: 6700000,
      //gas: 10000000,           // Gas sent with each transaction (default: ~6700000)
 
     },
@@ -81,9 +86,9 @@ module.exports = {
   },
 
   // Set default mocha options here, use special reporters etc.
-  mocha: {
+  //mocha: {
     // timeout: 100000
-  },
+  //},
 
   // Configure your compilers
   compilers: {
