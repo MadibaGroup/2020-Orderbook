@@ -13,6 +13,7 @@ contract Orderbook_V26{
     uint public BuyCounter;
 
     uint public test;
+    address payable callmarket = address(uint160(address(this)));
 
     function changetest() public {
         
@@ -64,11 +65,15 @@ contract Orderbook_V26{
                     countervariable++;
                     selltemp = currentask;
                     buytemp = currentbuy;
-                    BuyListtRemove(buytemp.price());
-                    SellListRemove(selltemp.price());
+                    //BuyListtRemove(buytemp.price());
+                    //SellListRemove(selltemp.price());
+                    currentbuy.deletenode(callmarket);
+                    currentask.deletenode(callmarket);
                     currentask =  selltemp.next();
                     currentbuy = buytemp.next();
-
+                    
+                    //BuyListtRemove(buytemp.price());
+                    //SellListRemove(selltemp.price());
        
                 }
                 else {break;}
@@ -107,6 +112,7 @@ contract Orderbook_V26{
     { 
         SellList current = SellFirst;
         SellList previous = SellList(0);
+        SellList temp;
         while (current.price() != _price)
         {
             if (current.next() == SellList(0))
@@ -123,13 +129,21 @@ contract Orderbook_V26{
         //now if have to check if the node we want to delete is the first node
         if (current == SellFirst)
         {   
-            SellFirst = SellFirst.next();
+            temp = SellFirst;
+            SellFirst.deletenode(callmarket);
+            SellFirst = temp.next();
+            //SellFirst = SellFirst.next();
             
             
         }
         else
         {
-            previous.addNew(current.next());
+            
+            temp = current;
+            current.deletenode(callmarket);
+            previous.addNew(temp.next());
+            //previous.addNew(current.next());
+            
         }
         return current;
         
@@ -193,6 +207,7 @@ contract Orderbook_V26{
     { 
         BuyList current = BuyFirst;
         BuyList previous = BuyList(0);
+        BuyList temp;
         while (current.price() != _price)
         {
             if (current.next() == BuyList(0))
@@ -209,12 +224,18 @@ contract Orderbook_V26{
         //now if have to check if the node we want to delete is the first node
         if (current == BuyFirst)
         {   
-            BuyFirst = BuyFirst.next();
+            temp = BuyFirst;
+            BuyFirst.deletenode(callmarket);
+            BuyFirst = temp.next();
+            //BuyFirst = BuyFirst.next();
             
         }
         else
         {
-            previous.addNew(current.next());
+            temp = current;
+            current.deletenode(callmarket);
+            previous.addNew(temp.next());
+            //previous.addNew(current.next());
         }
         return current;
         
@@ -273,7 +294,10 @@ contract SellList {
     
     function replacedata ( uint _price) public {
         price = _price;
-        
+    
+    }
+    function deletenode (address payable _address) public {
+        selfdestruct(_address);
     }
 }   
 
@@ -301,6 +325,10 @@ contract BuyList {
     function replacedata ( uint _price) public {
         price = _price;
         
+    }
+
+    function deletenode (address payable _address) public {
+        selfdestruct(_address);
     }
 }      
     
