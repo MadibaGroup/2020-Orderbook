@@ -11,7 +11,7 @@ contract('Orderbook', function(accounts) {
         var array = [];
    
         accounts = await web3.eth.getAccounts();
-        for(let j = 1; j <= 450 ; j++){
+        for(let j = 1; j <= 10 ; j++){
 
             receipt = await OrderbookInstance.submitBid (j, {from: accounts[1]});
 
@@ -54,7 +54,7 @@ contract('Orderbook', function(accounts) {
         
 
         accounts = await web3.eth.getAccounts();
-        for(let j = 450; j >= 1  ; j--){
+        for(let j = 10; j >= 1  ; j--){
             receipt = await OrderbookInstance.submitAsk (j, {from: accounts[0]});
         
             const gasUsed = receipt.receipt.gasUsed;
@@ -96,6 +96,19 @@ contract('Orderbook', function(accounts) {
     console.log('the test is',test.toNumber());
 
     });
+
+
+    it ('is just a test to check the head of the buylist', async ()  =>{
+        const OrderbookInstance = await Orderbook.deployed(); 
+        
+
+        await  OrderbookInstance.changetest();
+        result = await OrderbookInstance.test();
+        console.log('********************************************');
+        console.log("the price of the buylist head is", result.toNumber());
+
+    });
+
 
 });
 

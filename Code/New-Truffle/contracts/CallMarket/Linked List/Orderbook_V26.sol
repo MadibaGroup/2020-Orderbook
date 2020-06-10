@@ -17,7 +17,7 @@ contract Orderbook_V26{
 
     function changetest() public {
         
-        test = SellCounter;
+        test = BuyFirst.next().price();
         
     }
     constructor () public{
@@ -76,7 +76,11 @@ contract Orderbook_V26{
                     //SellListRemove(selltemp.price());
        
                 }
-                else {break;}
+                else 
+                {   SellFirst = currentask;
+                    BuyFirst = currentbuy;
+                    break;
+                }
             
             }
         }
@@ -87,10 +91,21 @@ contract Orderbook_V26{
                 if (currentbuy.price() >= currentask.price())
                 {
                     countervariable++;
-                    currentask = currentask.next();
-                    currentbuy = currentbuy.next();
+                    selltemp = currentask;
+                    buytemp = currentbuy;
+                    //BuyListtRemove(buytemp.price());
+                    //SellListRemove(selltemp.price());
+                    currentbuy.deletenode(callmarket);
+                    currentask.deletenode(callmarket);
+                    currentask =  selltemp.next();
+                    currentbuy = buytemp.next();
                 }
-                else {break;}
+                else 
+                {   SellFirst = currentask;
+                    BuyFirst = currentbuy;
+                    break;
+                    
+                }
             
             }
 
