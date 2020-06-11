@@ -51,34 +51,35 @@ contract Orderbook_V26{
     {
   
         //uint256 counter;
-        SellList currentask = SellFirst;
-        BuyList currentbuy = BuyFirst;
+        //SellList currentask = SellFirst;
+        //BuyList currentbuy = BuyFirst;
         SellList selltemp;
         BuyList buytemp;
 
         if (BuyCounter >= SellCounter) 
         { 
-            while (currentask != SellList(0)) //while the list is not empty
+            while (SellFirst != SellList(0)) //while the list is not empty
             {
-                if (currentbuy.price() >= currentask.price())
+                if (BuyFirst.price() >= SellFirst.price())
                 {
                     countervariable++;
-                    selltemp = currentask;
-                    buytemp = currentbuy;
-                    //BuyListtRemove(buytemp.price());
-                    //SellListRemove(selltemp.price());
-                    currentbuy.deletenode(callmarket);
-                    currentask.deletenode(callmarket);
-                    currentask =  selltemp.next();
-                    currentbuy = buytemp.next();
+                    selltemp = SellFirst;
+                    buytemp = BuyFirst;
+                    //BuyListtRemove(BuyFirst.price());
+                    //SellListRemove(SellFirst.price());
+                    SellFirst.deletenode(callmarket);
+                    BuyFirst.deletenode(callmarket);
+                    SellFirst =  selltemp.next();
+                    BuyFirst = buytemp.next();
                     
                     //BuyListtRemove(buytemp.price());
                     //SellListRemove(selltemp.price());
        
                 }
                 else 
-                {   SellFirst = currentask;
-                    BuyFirst = currentbuy;
+                {   
+                    //SellFirst = currentask;
+                    //BuyFirst = currentbuy;
                     break;
                 }
             
@@ -86,23 +87,23 @@ contract Orderbook_V26{
         }
         else //Buylist is shorter than sellluiist
         {
-            while (currentbuy != BuyList(0)) //while the list is not empty
+            while (BuyFirst != BuyList(0)) //while the list is not empty
             {
-                if (currentbuy.price() >= currentask.price())
+                if (BuyFirst.price() >= SellFirst.price())
                 {
                     countervariable++;
-                    selltemp = currentask;
-                    buytemp = currentbuy;
+                    selltemp = SellFirst;
+                    buytemp = BuyFirst;
                     //BuyListtRemove(buytemp.price());
                     //SellListRemove(selltemp.price());
-                    currentbuy.deletenode(callmarket);
-                    currentask.deletenode(callmarket);
-                    currentask =  selltemp.next();
-                    currentbuy = buytemp.next();
+                    SellFirst.deletenode(callmarket);
+                    BuyFirst.deletenode(callmarket);
+                    SellFirst =  selltemp.next();
+                    BuyFirst = buytemp.next();
                 }
                 else 
-                {   SellFirst = currentask;
-                    BuyFirst = currentbuy;
+                {   //SellFirst = currentask;
+                    //BuyFirst = currentbuy;
                     break;
                     
                 }
@@ -311,8 +312,11 @@ contract SellList {
         price = _price;
     
     }
-    function deletenode (address payable _address) public {
-        selfdestruct(_address);
+    function deletenode (address payable _callmarket) public {
+
+        selfdestruct(_callmarket);
+        
+    
     }
 }   
 
@@ -342,8 +346,8 @@ contract BuyList {
         
     }
 
-    function deletenode (address payable _address) public {
-        selfdestruct(_address);
+    function deletenode (address payable _callmarket) public {
+        selfdestruct(_callmarket);
     }
 }      
     

@@ -3,6 +3,16 @@ const Orderbook = artifacts.require('Orderbook_V26');
 
 
 contract('Orderbook', function(accounts) {
+
+    // it('should find out the gas limit for the latest block', async ()  =>{
+    //     const OrderbookInstance = await Orderbook.deployed(); 
+        
+    //     var block = web3.eth.getBlock();
+    //     console.log("gasLimit: " + block.gasLimit);
+        
+        
+
+    // });
     
    //*******************Test 1*************************
     it('should submit 1 Buys from accounst[1]', async ()  =>{
@@ -11,7 +21,7 @@ contract('Orderbook', function(accounts) {
         var array = [];
    
         accounts = await web3.eth.getAccounts();
-        for(let j = 1; j <= 10 ; j++){
+        for(let j = 1; j <= 375 ; j++){
 
             receipt = await OrderbookInstance.submitBid (j, {from: accounts[1]});
 
@@ -23,6 +33,7 @@ contract('Orderbook', function(accounts) {
         console.log(array.length,'bids has been succsessfully submitted');
         console.log('Gas used for submitting the', array.length,'th bid is:');
         console.log(`${receipt.receipt.gasUsed}`);
+        
 
     });
     //*******************Test temp*************************
@@ -54,7 +65,7 @@ contract('Orderbook', function(accounts) {
         
 
         accounts = await web3.eth.getAccounts();
-        for(let j = 10; j >= 1  ; j--){
+        for(let j = 375; j >= 1  ; j--){
             receipt = await OrderbookInstance.submitAsk (j, {from: accounts[0]});
         
             const gasUsed = receipt.receipt.gasUsed;
@@ -98,16 +109,16 @@ contract('Orderbook', function(accounts) {
     });
 
 
-    it ('is just a test to check the head of the buylist', async ()  =>{
-        const OrderbookInstance = await Orderbook.deployed(); 
+    // it ('is just a test to check the head of the buylist', async ()  =>{
+    //     const OrderbookInstance = await Orderbook.deployed(); 
         
 
-        await  OrderbookInstance.changetest();
-        result = await OrderbookInstance.test();
-        console.log('********************************************');
-        console.log("the price of the buylist head is", result.toNumber());
+    //     await  OrderbookInstance.changetest();
+    //     result = await OrderbookInstance.test();
+    //     console.log('********************************************');
+    //     console.log("the price of the buylist head is", result.toNumber());
 
-    });
+    // });
 
 
 });
