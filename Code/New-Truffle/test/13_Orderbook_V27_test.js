@@ -102,7 +102,7 @@ describe('Orderbook', function(accounts) {
         
 
             accounts = await web3.eth.getAccounts();
-            for(let j = 120; j >= 1  ; j--){
+            for(let j = 200; j >= 1  ; j--){
                 receipt = await OrderbookInstance.submitAsk (j, 1, {from: accounts[0]});
         
                 const gasUsed = receipt.receipt.gasUsed;
@@ -126,7 +126,7 @@ describe('Orderbook', function(accounts) {
         
 
         accounts = await web3.eth.getAccounts();
-        for(let j = 1; j <= 120  ; j++){
+        for(let j = 1; j <= 200  ; j++){
             receipt = await OrderbookInstance.submitBid (j, 1, {from: accounts[1]});
         
             const gasUsed = receipt.receipt.gasUsed;
@@ -149,7 +149,7 @@ describe('Orderbook', function(accounts) {
     it('should match the orders', async() => {
         const OrderbookInstance = await Orderbook.deployed(); 
         
-        const receipt = await OrderbookInstance.CloseMarket(tokenaddress);
+        const receipt = await OrderbookInstance.MatchOrders(tokenaddress);
         console.log('********************************************');
         const gasUsed = receipt.receipt.gasUsed;
         console.log(`GasUsed for Matching: ${receipt.receipt.gasUsed}`);
@@ -163,8 +163,9 @@ describe('Orderbook', function(accounts) {
         console.log('********************************************');
         console.log('the countervariable is',counter.toNumber());
         console.log('********************************************');
-        const test = await OrderbookInstance.test();
-        console.log('the test is',test.toNumber());
+        //await OrderbookInstance.changetest();
+        //const test = await OrderbookInstance.test();
+        //console.log('the test is',test);
     
         });
     //*******************Test 9*************************
