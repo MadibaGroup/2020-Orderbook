@@ -102,7 +102,7 @@ describe('Orderbook', function(accounts) {
         
 
             accounts = await web3.eth.getAccounts();
-            for(let j = 200; j >= 1  ; j--){
+            for(let j = 500; j >= 1  ; j--){
                 receipt = await OrderbookInstance.submitAsk (j, 1, {from: accounts[0]});
         
                 const gasUsed = receipt.receipt.gasUsed;
@@ -126,7 +126,7 @@ describe('Orderbook', function(accounts) {
         
 
         accounts = await web3.eth.getAccounts();
-        for(let j = 1; j <= 200  ; j++){
+        for(let j = 1; j <= 500  ; j++){
             receipt = await OrderbookInstance.submitBid (j, 1, {from: accounts[1]});
         
             const gasUsed = receipt.receipt.gasUsed;
