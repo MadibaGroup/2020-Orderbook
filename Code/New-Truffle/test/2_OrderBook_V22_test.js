@@ -48,13 +48,13 @@ describe('Orderbook', function(accounts) {
        
         const receipt = await OrderbookInstance.DepositToken (tokenaddress, 100000, {from: accounts[0]});
         
-        const totalbalance = await OrderbookInstance.TotalTokenBalance(accounts[0], tokenaddress);
-        const availablebalance = await OrderbookInstance.AvailableTokenBalance(accounts[0], tokenaddress);
+        const totalbalance = await OrderbookInstance.TokenBalance(accounts[0], tokenaddress);
+        //const availablebalance = await OrderbookInstance.AvailableTokenBalance(accounts[0], tokenaddress);
         
         console.log('The total token balance of account[0] is:', totalbalance.toNumber());
         console.log('********************************************');
-        console.log('The available token balance of account[0] is:', availablebalance.toNumber());
-        console.log('********************************************');
+        //console.log('The available token balance of account[0] is:', availablebalance.toNumber());
+        //console.log('********************************************');
         const gasUsed = receipt.receipt.gasUsed;
         console.log(`GasUsed for depositting 100 tokens: ${receipt.receipt.gasUsed}`);
 
@@ -69,13 +69,13 @@ describe('Orderbook', function(accounts) {
         
         const receipt = await OrderbookInstance.DepositEther (100000, {from: accounts[1]});
 
-        const totalbalance = await OrderbookInstance.TotalEtherBalance(accounts[1]);
-        const availablebalance = await OrderbookInstance.AvailableEtherBalance(accounts[1]);
+        const totalbalance = await OrderbookInstance.EtherBalance(accounts[1]);
+        //const availablebalance = await OrderbookInstance.AvailableEtherBalance(accounts[1]);
         
         console.log('The total Ether balance of accounts[1] is:',totalbalance.toNumber());
         console.log('********************************************');
-        console.log('The available Ether balance of accounts[1] is:',availablebalance.toNumber());
-        console.log('********************************************');
+        //console.log('The available Ether balance of accounts[1] is:',availablebalance.toNumber());
+        //console.log('********************************************');
         const gasUsed = receipt.receipt.gasUsed;
         console.log(`GasUsed for depositting 6000 Ethers: ${receipt.receipt.gasUsed}`);
         
@@ -102,12 +102,12 @@ describe('Orderbook', function(accounts) {
         
 
         accounts = await web3.eth.getAccounts();
-        for(let j = 1; j <= 50  ; j++){
+        for(let j = 30; j >= 1  ; j--){
             receipt = await OrderbookInstance.submitAsk (j, 1, {from: accounts[0]});
         
-            const gasUsed = receipt.receipt.gasUsed;
-            array.push(gasUsed);
-            console.log(`GasUsed for a submitask tx is: ${receipt.receipt.gasUsed}`);
+            //const gasUsed = receipt.receipt.gasUsed;
+            //array.push(gasUsed);
+            //console.log(`GasUsed for a submitask tx is: ${receipt.receipt.gasUsed}`);
 
         } 
         
@@ -116,9 +116,9 @@ describe('Orderbook', function(accounts) {
             return a + b;
         }, 0);
 
-        console.log('********************************************');    
-        console.log('cost of submitting 1 submitAsk txs is:',sum);   
-        console.log(array.length,'ask orders has been succsessfully submitted');
+        //console.log('********************************************');    
+        //console.log('cost of submitting 1 submitAsk txs is:',sum);   
+        //console.log(array.length,'ask orders has been succsessfully submitted');
         
    });
 
@@ -137,7 +137,7 @@ describe('Orderbook', function(accounts) {
         const OrderbookInstance = await Orderbook.deployed(); 
        
         accounts = await web3.eth.getAccounts();
-        for(let j = 1; j <= 50 ; j++){
+        for(let j = 200; j <= 230 ; j++){
             await OrderbookInstance.submitBid (j, 1, {from: accounts[1]});
         } 
         
@@ -154,15 +154,40 @@ describe('Orderbook', function(accounts) {
     });
 
     //*******************Test auxillary*************************
-    it('should return the selllist length', async() => {
-        const OrderbookInstance = await Orderbook.deployed(); 
+    // it('should return the selllist length', async() => {
+    //     const OrderbookInstance = await Orderbook.deployed(); 
     
-        const result = await OrderbookInstance.returnSelllistlength.call();
+    //     const result = await OrderbookInstance.returnSellListlength.call();
         
-        console.log('The selllist length  is:', result.toNumber());
+    //     console.log('The selllist length  is:', result.toNumber());
 
-    });
+    // });
+//*******************Test auxillary*************************
+    // it('should return the selllist length', async() => {
+    //     const OrderbookInstance = await Orderbook.deployed(); 
+    
+    //     const result = await OrderbookInstance.returnSellListlength.call();
+        
+    //     console.log('The selllist length  is:', result.toNumber());
 
+    // });
+    //*******************Test *************************
+    // it('should delete buys and sells', async() => {
+    //     const OrderbookInstance = await Orderbook.deployed(); 
+    
+    //     await OrderbookInstance.BuyListDelete();
+    //     await OrderbookInstance.SellListDelete();
+    //     const buylistlength = await OrderbookInstance.returnBuyListlength.call();
+    //     const selllistlength = await OrderbookInstance.returnSellListlength.call();
+    //     console.log('The selllist[0].price is:', selllistlength.toNumber());
+    //     console.log('The buylist[0].price  is:', buylistlength.toNumber());
+    //     const result = await OrderbookInstance.BuyListPeak.call();
+    //     const {0: addsender, 1: intprice, 2: auxprice, 2: intvolume} = result;
+    //     console.log('The Buylist peak  is:', intprice);
+    //     const result2 = await OrderbookInstance.SellListPeak.call();
+    //     const {0: addsender2, 1: intprice2, 2: auxprice2, 2: intvolume2} = result2;
+    //     console.log('The Buylist peak  is:', intprice2);
+    // });
 
 
     
@@ -185,6 +210,14 @@ describe('Orderbook', function(accounts) {
         const gasUsed = receipt.receipt.gasUsed;
         console.log(`GasUsed for Matching: ${receipt.receipt.gasUsed}`);
         
+        const counter = await OrderbookInstance.countervariable();
+        console.log('********************************************');
+        console.log('the countervariable is',counter.toNumber());
+        
+        //const test = await OrderbookInstance.test();
+        //console.log('********************************************');
+        //console.log('the test is',test.toNumber());
+
         //const contract = new web3.eth.Contract(OrderbookInstance.abi, OrderbookInstance.address);
 
         //Now get evens depending on what you need
