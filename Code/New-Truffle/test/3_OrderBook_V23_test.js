@@ -57,13 +57,11 @@ describe('Orderbook', function(accounts) {
        
         const receipt = await OrderbookInstance.DepositToken (tokenaddress, 100, {from: accounts[0]});
         
-        const totalbalance = await OrderbookInstance.TotalTokenBalance(accounts[0], tokenaddress);
-        const availablebalance = await OrderbookInstance.AvailableTokenBalance(accounts[0], tokenaddress);
+        const totalbalance = await OrderbookInstance.TokenBalance(accounts[0], tokenaddress);
         
         console.log('The total token balance of account[0] is:', totalbalance.toNumber());
         console.log('********************************************');
-        console.log('The available token balance of account[0] is:', availablebalance.toNumber());
-        console.log('********************************************');
+        
         const gasUsed = receipt.receipt.gasUsed;
         console.log(`GasUsed for depositting 100 tokens: ${receipt.receipt.gasUsed}`);
 
@@ -78,12 +76,9 @@ describe('Orderbook', function(accounts) {
         
         const receipt = await OrderbookInstance.DepositEther (6000, {from: accounts[1]});
 
-        const totalbalance = await OrderbookInstance.TotalEtherBalance(accounts[1]);
-        const availablebalance = await OrderbookInstance.AvailableEtherBalance(accounts[1]);
+        const totalbalance = await OrderbookInstance.EtherBalance(accounts[1]);
         
         console.log('The total Ether balance of accounts[1] is:',totalbalance.toNumber());
-        console.log('********************************************');
-        console.log('The available Ether balance of accounts[1] is:',availablebalance.toNumber());
         console.log('********************************************');
         const gasUsed = receipt.receipt.gasUsed;
         console.log(`GasUsed for depositting 6000 Ethers: ${receipt.receipt.gasUsed}`);
@@ -108,12 +103,12 @@ describe('Orderbook', function(accounts) {
         
 
         accounts = await web3.eth.getAccounts();
-        for(let j = 1; j <= 1  ; j++){
+        for(let j = 35; j >= 1  ; j--){
             receipt = await OrderbookInstance.submitAsk (j, 1, {from: accounts[0]});
         
-            const gasUsed = receipt.receipt.gasUsed;
-            array.push(gasUsed);
-            console.log(`GasUsed for a submitask tx is: ${receipt.receipt.gasUsed}`);
+            //const gasUsed = receipt.receipt.gasUsed;
+            //array.push(gasUsed);
+            //console.log(`GasUsed for a submitask tx is: ${receipt.receipt.gasUsed}`);
 
         } 
         
@@ -123,7 +118,7 @@ describe('Orderbook', function(accounts) {
         }, 0);
 
         console.log('********************************************');    
-        console.log('cost of submitting 100 submitAsk txs is:',sum);   
+        //console.log('cost of submitting 100 submitAsk txs is:',sum);   
         console.log(array.length,'ask orders has been succsessfully submitted');
         
    });
@@ -164,11 +159,17 @@ describe('Orderbook', function(accounts) {
         const OrderbookInstance = await Orderbook.deployed(); 
        
         accounts = await web3.eth.getAccounts();
-        for(let j = 1; j <= 1 ; j++){
+        for(let j = 1; j <= 35 ; j++){
             await OrderbookInstance.submitBid (j, 1, {from: accounts[1]});
         } 
         
         
+    });
+    it('should return the BuyIndex', async()=>{
+        const OrderbookInstance = await Orderbook.deployed(); 
+        const buyindex =  await OrderbookInstance.BuyIndex();
+        console.log('The BuyIndex before match is:', buyindex.toNumber());
+        console.log('********************************************');
     });
    //*******************Test 9*************************
     it('should return the BuyList peak', async() => {
@@ -177,8 +178,10 @@ describe('Orderbook', function(accounts) {
         const result = await OrderbookInstance.BuyListPeak.call();
         const {0: addsender, 1: intprice, 2: auxprice, 2: intvolume} = result;
         console.log('The Buylist peak  is:', intprice);
+        
 
     });
+
     //*******************Test 10*************************
     // it('should delete the BuyList peak', async() => {
     //     const OrderbookInstance = await Orderbook.deployed(); 
@@ -200,36 +203,105 @@ describe('Orderbook', function(accounts) {
 
     // });
     //*******************Test 12*************************
-    it('should return both the total and available token balance of accounts[1]', async() => {
-        const OrderbookInstance = await Orderbook.deployed(); 
+    // it('should return both the total and available token balance of accounts[1]', async() => {
+    //     const OrderbookInstance = await Orderbook.deployed(); 
         
-        accounts = await web3.eth.getAccounts();
+    //     accounts = await web3.eth.getAccounts();
         
-        const totalbalance = await OrderbookInstance.TotalTokenBalance(accounts[1], tokenaddress);
-        const availablebalance = await OrderbookInstance.AvailableTokenBalance(accounts[1], tokenaddress);
+    //     const totalbalance = await OrderbookInstance.TokenBalance(accounts[1], tokenaddress);
         
-        console.log('The total token balance of accounts[1] before trade is:',totalbalance.toNumber());
-        console.log('The available token balance of accounts[1] before trade is:',availablebalance.toNumber());
+    //     console.log('The total token balance of accounts[1] before trade is:',totalbalance.toNumber());
     
-    });
-    //*******************Test 13*************************
+    // });
+    // //*******************Test 13*************************
 
-    it('should return both the total and available ether balance of accounts[0]', async() => {
-        const OrderbookInstance = await Orderbook.deployed(); 
+    // it('should return both the total and available ether balance of accounts[0]', async() => {
+    //     const OrderbookInstance = await Orderbook.deployed(); 
         
 
-        accounts = await web3.eth.getAccounts();
+    //     accounts = await web3.eth.getAccounts();
 
-        const totalbalance = await OrderbookInstance.TotalEtherBalance(accounts[0]);
-        const availablebalance = await OrderbookInstance.AvailableEtherBalance(accounts[0]);
+    //     const totalbalance = await OrderbookInstance.EtherBalance(accounts[0]);
         
-        console.log('The total Ether balance of accounts[0] before trade is:',totalbalance.toNumber());
-        console.log('The available Ether balance of accounts[0] before trade is:',availablebalance.toNumber());
+    //     console.log('The total Ether balance of accounts[0] before trade is:',totalbalance.toNumber());
 
         
     
+    // });
+    // it('should delete buys and sells', async() => {
+    //     const OrderbookInstance = await Orderbook.deployed(); 
+    
+    //     await OrderbookInstance.BuyListDelete();
+    //     await OrderbookInstance.SellListDelete();
+    //     const buylistlength = await OrderbookInstance.returnBuyListlength.call();
+    //     const selllistlength = await OrderbookInstance.returnSellListlength.call();
+    //     console.log('The selllist[0].price is:', selllistlength.toNumber());
+    //     console.log('The buylist[0].price  is:', buylistlength.toNumber());
+    //     const result = await OrderbookInstance.BuyListPeak.call();
+    //     const {0: addsender, 1: intprice, 2: auxprice, 2: intvolume} = result;
+    //     console.log('The Buylist peak  is:', intprice);
+    //     const result2 = await OrderbookInstance.SellListPeak.call();
+    //     const {0: addsender2, 1: intprice2, 2: auxprice2, 2: intvolume2} = result2;
+    //     console.log('The Buylist peak  is:', intprice2);
+    // // });
+    it('should return the BuyIndex', async()=>{
+        const OrderbookInstance = await Orderbook.deployed(); 
+        const buyindex =  await OrderbookInstance.BuyIndex();
+        console.log('The BuyIndex before match is:', buyindex.toNumber());
+        console.log('********************************************');
+        
+        // await OrderbookInstance.BuyListDelete();
+        // const buyindex1 =  await OrderbookInstance.BuyIndex();
+        // console.log('The BuyIndex before match is:', buyindex1.toNumber());
+        // const result1 = await OrderbookInstance.BuyListPeak.call();
+        // const {0: addsender1, 1: intprice1, 2: auxprice1, 2: intvolume1} = result1;
+        // console.log('The Buylist peak  is:', intprice1);
+        // console.log('********************************************');
+        // console.log('********************************************');
+       
+        // await OrderbookInstance.BuyListDelete();
+        // const buyindex2 =  await OrderbookInstance.BuyIndex();
+        // console.log('The BuyIndex before match is:', buyindex2.toNumber());
+        // const result2 = await OrderbookInstance.BuyListPeak.call();
+        // const {0: addsender2, 1: intprice2, 2: auxprice2, 2: intvolume2} = result2;
+        // console.log('The Buylist peak  is:', intprice2);
+        // console.log('********************************************');
+        // console.log('********************************************');
+        
+        // await OrderbookInstance.BuyListDelete();
+        // const buyindex3 =  await OrderbookInstance.BuyIndex();
+        // console.log('The BuyIndex before match is:', buyindex3.toNumber());
+        // const result3 = await OrderbookInstance.BuyListPeak.call();
+        // const {0: addsender3, 1: intprice3, 2: auxprice3, 2: intvolume3} = result3;
+        // console.log('The Buylist peak  is:', intprice3);
+        // console.log('********************************************');
+        // console.log('********************************************');
+        
+        // await OrderbookInstance.BuyListDelete();
+        // const buyindex4 =  await OrderbookInstance.BuyIndex();
+        // console.log('The BuyIndex before match is:', buyindex4.toNumber());
+        // const result4 = await OrderbookInstance.BuyListPeak.call();
+        // const {0: addsender4, 1: intprice4, 2: auxprice4, 2: intvolume4} = result4;
+        // console.log('The Buylist peak  is:', intprice4);
+        // console.log('********************************************');
+        // console.log('********************************************');
+        
+        // await OrderbookInstance.BuyListDelete();
+        // const buyindex5 =  await OrderbookInstance.BuyIndex();
+        // console.log('The BuyIndex before match is:', buyindex5.toNumber());
+        // const result5 = await OrderbookInstance.BuyListPeak.call();
+        // const {0: addsender5, 1: intprice5, 2: auxprice5, 2: intvolume5} = result5;
+        // console.log('The Buylist peak  is:', intprice5);
+        // console.log('********************************************');
+
     });
-    //*******************Test 14*************************
+    // it('should return the SellIndex', async()=>{
+    //     const OrderbookInstance = await Orderbook.deployed(); 
+    //     const sellindex =  await OrderbookInstance.SellIndex();
+    //     console.log('The SellIndex before match is:', sellindex.toNumber());
+
+    // });
+    // //*******************Test 14*************************
     it('should match the orders', async() => {
         const OrderbookInstance = await Orderbook.deployed(); 
         
@@ -237,90 +309,95 @@ describe('Orderbook', function(accounts) {
         const state =  await OrderbookInstance.getState();
         console.log('Market is currently:',state.toString());
         
-        const receipt = await OrderbookInstance.MatchOrders();
+        const receipt = await OrderbookInstance.MatchOrders(tokenaddress);
         
-        const result = await OrderbookInstance.BuyListPeak.call();
-        const {0: addsender, 1: intprice, 2: auxprice, 2: intvolume} = result;
-        console.log('The Buylist peak after matching orders is:', intprice);
+        //const result = await OrderbookInstance.BuyListPeak.call();
+        //const {0: addsender, 1: intprice, 2: auxprice, 2: intvolume} = result;
+        //console.log('The Buylist peak after matching orders is:', intprice);
 
 
         console.log('********************************************');
         const gasUsed = receipt.receipt.gasUsed;
         console.log(`GasUsed for Matching: ${receipt.receipt.gasUsed}`);
+        const counter = await OrderbookInstance.countervariable();
+        console.log('********************************************');
+        console.log('the countervariable is',counter.toNumber());
+       });
+
+
+
+    //     const test  = await OrderbookInstance.test();
+    //     console.log('the test is',test.toNumber());
         
-        //const contract = new web3.eth.Contract(OrderbookInstance.abi, OrderbookInstance.address);
+    //     //const contract = new web3.eth.Contract(OrderbookInstance.abi, OrderbookInstance.address);
 
-        //Now get evens depending on what you need
-        //contract.getPastEvents("allEvents", {fromBlock: 0, toBlock: "latest"}) .then(console.log) ;
+    //     //Now get evens depending on what you need
+    //     //contract.getPastEvents("allEvents", {fromBlock: 0, toBlock: "latest"}) .then(console.log) ;
 
     
     
-    });
+   
 
     //*******************Test 15*************************
 
-    it('should return both the total and available token balance of accounts[1]', async() => {
-        const OrderbookInstance = await Orderbook.deployed(); 
+    // it('should return both the total and available token balance of accounts[1]', async() => {
+    //     const OrderbookInstance = await Orderbook.deployed(); 
         
-        accounts = await web3.eth.getAccounts();
+    //     accounts = await web3.eth.getAccounts();
         
-        const totalbalance = await OrderbookInstance.TotalTokenBalance(accounts[1], tokenaddress);
-        const availablebalance = await OrderbookInstance.AvailableTokenBalance(accounts[1], tokenaddress);
+    //     const totalbalance = await OrderbookInstance.TokenBalance(accounts[1], tokenaddress);
         
-        console.log('The total token balance of accounts[1] after trade is:',totalbalance.toNumber());
-        console.log('The available token balance of accounts[1] after trade is:',availablebalance.toNumber());
+    //     console.log('The total token balance of accounts[1] after trade is:',totalbalance.toNumber());
     
-    });
-    //*******************Test 16*************************
+    // });
+    // //*******************Test 16*************************
 
-    it('should return both the total and available ether balance of accounts[0]', async() => {
-        const OrderbookInstance = await Orderbook.deployed(); 
+    // it('should return both the total and available ether balance of accounts[0]', async() => {
+    //     const OrderbookInstance = await Orderbook.deployed(); 
         
 
-        accounts = await web3.eth.getAccounts();
+    //     accounts = await web3.eth.getAccounts();
 
-        const totalbalance = await OrderbookInstance.TotalEtherBalance(accounts[0]);
-        const availablebalance = await OrderbookInstance.AvailableEtherBalance(accounts[0]);
+    //     const totalbalance = await OrderbookInstance.EtherBalance(accounts[0]);
         
-        console.log('The total Ether balance of accounts[0] after trade is:',totalbalance.toNumber());
-        console.log('The available Ether balance of accounts[0] after trade is:',availablebalance.toNumber());
+    //     console.log('The total Ether balance of accounts[0] after trade is:',totalbalance.toNumber());
 
         
     
-    });
+    // });
     //*******************Test 11*************************
-    it('should return the BuyList peak', async() => {
-        const OrderbookInstance = await Orderbook.deployed(); 
+    // it('should return the BuyList peak', async() => {
+    //     const OrderbookInstance = await Orderbook.deployed(); 
     
-        const result = await OrderbookInstance.BuyListPeak.call();
-        const {0: addsender, 1: intprice, 2: auxprice, 2: intvolume} = result;
-        console.log('The Buylist peak after match is:', intprice);
+    //     const result = await OrderbookInstance.BuyListPeak.call();
+    //     const {0: addsender, 1: intprice, 2: auxprice, 2: intvolume} = result;
+    //     console.log('The Buylist peak after match is:', intprice);
 
-    });
-    //*******************Test 12*************************
-    it('should return the BuyIndex', async()=>{
-        const OrderbookInstance = await Orderbook.deployed(); 
-        const buyindex =  await OrderbookInstance.BuyIndex();
-        console.log('The BuyIndex after match is:', buyindex.toNumber());
+    // });
+    // //*******************Test 12*************************
+    // it('should return the BuyIndex', async()=>{
+    //     const OrderbookInstance = await Orderbook.deployed(); 
+    //     const buyindex =  await OrderbookInstance.BuyIndex();
+    //     console.log('The BuyIndex after match is:', buyindex.toNumber());
 
-    });
+    // });
 
-    //*******************Test 13*************************
-    it('should return the SellList peak', async() => {
-        const OrderbookInstance = await Orderbook.deployed(); 
+    // //*******************Test 13*************************
+    // it('should return the SellList peak', async() => {
+    //     const OrderbookInstance = await Orderbook.deployed(); 
     
-        const result = await OrderbookInstance.SellListPeak.call();
-        const {0: addsender, 1: intprice, 2: auxprice, 2: intvolume} = result;
-        console.log('The SellList peak after match is:', intprice);
+    //     const result = await OrderbookInstance.SellListPeak.call();
+    //     const {0: addsender, 1: intprice, 2: auxprice, 2: intvolume} = result;
+    //     console.log('The SellList peak after match is:', intprice);
 
-    });
-    //*******************Test 12*************************
-    it('should return the SellIndex', async()=>{
-        const OrderbookInstance = await Orderbook.deployed(); 
-        const buyindex =  await OrderbookInstance.SellIndex();
-        console.log('The SellIndex after match is:', buyindex.toNumber());
+    // });
+    // //*******************Test 12*************************
+    // it('should return the SellIndex', async()=>{
+    //     const OrderbookInstance = await Orderbook.deployed(); 
+    //     const sellindex =  await OrderbookInstance.SellIndex();
+    //     console.log('The SellIndex after match is:', sellindex.toNumber());
 
-    });
+    // });
     //*******************Test 13*************************   
     //it('should return the refunded Ethers', async()=>{
         //const OrderbookInstance = await Orderbook.deployed(); 
