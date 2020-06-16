@@ -54,12 +54,9 @@ describe('Orderbook', function(accounts) {
        
         const receipt = await OrderbookInstance.DepositToken (tokenaddress, 100, {from: accounts[0]});
         
-        const totalbalance = await OrderbookInstance.TotalTokenBalance(accounts[0], tokenaddress);
-        const availablebalance = await OrderbookInstance.AvailableTokenBalance(accounts[0], tokenaddress);
-        
-        console.log('The total token balance of account[0] is:', totalbalance.toNumber());
-        console.log('********************************************');
-        console.log('The available token balance of account[0] is:', availablebalance.toNumber());
+        const totalbalance = await OrderbookInstance.TokenBalance(accounts[0], tokenaddress);
+    
+        console.log('The token balance of account[0] is:', totalbalance.toNumber());
         console.log('********************************************');
         const gasUsed = receipt.receipt.gasUsed;
         console.log(`GasUsed for depositting 100 tokens: ${receipt.receipt.gasUsed}`);
@@ -75,12 +72,9 @@ describe('Orderbook', function(accounts) {
         
         const receipt = await OrderbookInstance.DepositEther (6000, {from: accounts[1]});
 
-        const totalbalance = await OrderbookInstance.TotalEtherBalance(accounts[1]);
-        const availablebalance = await OrderbookInstance.AvailableEtherBalance(accounts[1]);
+        const totalbalance = await OrderbookInstance.EtherBalance(accounts[1]);
         
-        console.log('The total Ether balance of accounts[1] is:',totalbalance.toNumber());
-        console.log('********************************************');
-        console.log('The available Ether balance of accounts[1] is:',availablebalance.toNumber());
+        console.log('The Ether balance of accounts[1] is:',totalbalance.toNumber());
         console.log('********************************************');
         const gasUsed = receipt.receipt.gasUsed;
         console.log(`GasUsed for depositting 6000 Ethers: ${receipt.receipt.gasUsed}`);
@@ -105,12 +99,12 @@ describe('Orderbook', function(accounts) {
         
 
         accounts = await web3.eth.getAccounts();
-        for(let j = 1; j <= 33  ; j++){
+        for(let j = 45; j >= 1  ; j--){
             receipt = await OrderbookInstance.submitAsk (j, 1, {from: accounts[0]});
         
-            const gasUsed = receipt.receipt.gasUsed;
-            array.push(gasUsed);
-            console.log(`GasUsed for a submitask tx is: ${receipt.receipt.gasUsed}`);
+            //const gasUsed = receipt.receipt.gasUsed;
+            //array.push(gasUsed);
+            //console.log(`GasUsed for a submitask tx is: ${receipt.receipt.gasUsed}`);
 
         } 
         
@@ -119,9 +113,9 @@ describe('Orderbook', function(accounts) {
             return a + b;
         }, 0);
 
-        console.log('********************************************');    
-        console.log('cost of submitting 100 submitAsk txs is:',sum);   
-        console.log(array.length,'ask orders has been succsessfully submitted');
+        //console.log('********************************************');    
+        //console.log('cost of submitting 100 submitAsk txs is:',sum);   
+        //console.log(array.length,'ask orders has been succsessfully submitted');
         
    });
     //*******************Test 5*************************
@@ -140,7 +134,7 @@ describe('Orderbook', function(accounts) {
         const OrderbookInstance = await Orderbook.deployed(); 
        
         accounts = await web3.eth.getAccounts();
-        for(let j = 1; j <= 33 ; j++){
+        for(let j = 1; j <= 45 ; j++){
             await OrderbookInstance.submitBid (j, 1, {from: accounts[1]});
         } 
         
@@ -186,35 +180,26 @@ describe('Orderbook', function(accounts) {
     
     
     //*******************Test 12*************************
-    it('should return both the total and available token balance of accounts[1]', async() => {
-        const OrderbookInstance = await Orderbook.deployed(); 
+    // it('should return both the total and available token balance of accounts[1]', async() => {
+    //     const OrderbookInstance = await Orderbook.deployed(); 
         
-        accounts = await web3.eth.getAccounts();
+    //     accounts = await web3.eth.getAccounts();
         
-        const totalbalance = await OrderbookInstance.TotalTokenBalance(accounts[1], tokenaddress);
-        const availablebalance = await OrderbookInstance.AvailableTokenBalance(accounts[1], tokenaddress);
-        
-        console.log('The total token balance of accounts[1] before trade is:',totalbalance.toNumber());
-        console.log('The available token balance of accounts[1] before trade is:',availablebalance.toNumber());
+    //     const totalbalance = await OrderbookInstance.TokenBalance(accounts[1], tokenaddress);
+    //     console.log('The token balance of accounts[1] before trade is:',totalbalance.toNumber());
     
-    });
+    // });
     //*******************Test 13*************************
 
-    it('should return both the total and available ether balance of accounts[0]', async() => {
-        const OrderbookInstance = await Orderbook.deployed(); 
-        
+    // it('should return both the total and available ether balance of accounts[0]', async() => {
+    //     const OrderbookInstance = await Orderbook.deployed(); 
 
-        accounts = await web3.eth.getAccounts();
+    //     accounts = await web3.eth.getAccounts();
 
-        const totalbalance = await OrderbookInstance.TotalEtherBalance(accounts[0]);
-        const availablebalance = await OrderbookInstance.AvailableEtherBalance(accounts[0]);
-        
-        console.log('The total Ether balance of accounts[0] before trade is:',totalbalance.toNumber());
-        console.log('The available Ether balance of accounts[0] before trade is:',availablebalance.toNumber());
+    //     const totalbalance = await OrderbookInstance.EtherBalance(accounts[0]);
+    //     console.log('The Ether balance of accounts[0] before trade is:',totalbalance.toNumber());
 
-        
-    
-    });
+    // });
     
     
     //*******************Test 13*************************
@@ -225,7 +210,7 @@ describe('Orderbook', function(accounts) {
         const state =  await OrderbookInstance.getState();
         console.log('Market is currently:',state.toString());
         
-        const receipt = await OrderbookInstance.MatchOrders();
+        const receipt = await OrderbookInstance.MatchOrders(tokenaddress);
         
         //const result = await OrderbookInstance.BuyListPeak.call();
         //const {0: addsender, 1: intprice, 2: auxprice, 2: intvolume} = result;
@@ -235,6 +220,9 @@ describe('Orderbook', function(accounts) {
         console.log('********************************************');
         const gasUsed = receipt.receipt.gasUsed;
         console.log(`GasUsed for Matching: ${receipt.receipt.gasUsed}`);
+        const counter = await OrderbookInstance.countervariable();
+        console.log('********************************************');
+        console.log('the countervariable is',counter.toNumber());
         
         //const contract = new web3.eth.Contract(OrderbookInstance.abi, OrderbookInstance.address);
 
@@ -245,35 +233,11 @@ describe('Orderbook', function(accounts) {
     
     });
     //*******************Test 16*************************
-    it('should return both the total and available token balance of accounts[1]', async() => {
-        const OrderbookInstance = await Orderbook.deployed(); 
-        
-        accounts = await web3.eth.getAccounts();
-        
-        const totalbalance = await OrderbookInstance.TotalTokenBalance(accounts[1], tokenaddress);
-        const availablebalance = await OrderbookInstance.AvailableTokenBalance(accounts[1], tokenaddress);
-        
-        console.log('The total token balance of accounts[1] after trade is:',totalbalance.toNumber());
-        console.log('The available token balance of accounts[1] after trade is:',availablebalance.toNumber());
     
-    });
+    
     //*******************Test 16*************************
 
-    it('should return both the total and available ether balance of accounts[0]', async() => {
-        const OrderbookInstance = await Orderbook.deployed(); 
-        
-
-        accounts = await web3.eth.getAccounts();
-
-        const totalbalance = await OrderbookInstance.TotalEtherBalance(accounts[0]);
-        const availablebalance = await OrderbookInstance.AvailableEtherBalance(accounts[0]);
-        
-        console.log('The total Ether balance of accounts[0] after trade is:',totalbalance.toNumber());
-        console.log('The available Ether balance of accounts[0] after trade is:',availablebalance.toNumber());
-
-        
     
-    });
     //*******************Test 12*************************
     
 
