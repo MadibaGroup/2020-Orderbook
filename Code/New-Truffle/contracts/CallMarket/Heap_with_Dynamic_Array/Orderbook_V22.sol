@@ -3,11 +3,12 @@ pragma experimental ABIEncoderV2;
 
 import "openzeppelin-solidity/contracts/token/ERC20/IERC20.sol";
 
-
-////Call market with heap (dynamic array is used to store the heap)
+//The last vesrion of the call market implemented by Heap with dynamic array
+//Call market with heap (dynamic array is used to store the heap)
+//Maximum number of order the Match function can handle : 18
 contract Orderbook_V22{
 
-
+uint public test;
 function getState() public view returns (States)
   {
     return state;
@@ -77,7 +78,7 @@ function getState() public view returns (States)
     }
 
 //****************************************************//
-
+    uint256 public countervariable;
     OrderStruct[] BuyList;  //The array that contains Bid OrderStructs (descending (decremental)), we always want the highest bid (maxheap)
     OrderStruct[] SellList; //The array that contains Ask OrderStructs (ascending (incremental)), we always want the lowest ask (minheap)
     
@@ -89,14 +90,14 @@ function getState() public view returns (States)
     
     uint256 public CreationTime;
     uint256 public NumOrders;        //Number of all the orders within the auction
-    uint256 public BuyListCounter;   //the counter for BuyList which sorts the order incrementally
-    uint256 public SellListCounter;  //the counter for SellList which sorts the order decrementally
+    uint256 public BuyListCounter;   //the counter for BuyList which sorts the orders decrementallyincrementally
+    uint256 public SellListCounter;  //the counter for SellList which sorts the orders incrementally
     States state;
     address public Token;            //The token that is being traded in the auction
 
 
 
-    uint public biddingTime = 5 minutes;
+    uint256 public biddingTime = 5 minutes;
 
     event LogBuyList (address _sender, uint256 _price, uint256 _volume);
     event TransferToken (address _from, address _to, uint256 _numofTokens);
@@ -115,7 +116,6 @@ function getState() public view returns (States)
         {
             state = States.Closed;
             CloseMarket();
-            
         }
         _;
     }
@@ -128,8 +128,6 @@ function getState() public view returns (States)
     }
 //**********************************************// 
 
-
-
 //**********************************************//
 //*********Escrow Variables and Functions*******//
 //**********************************************//
@@ -138,29 +136,24 @@ function getState() public view returns (States)
     //so a single account may escrow different tokens at the same time. 
     //For each (account, token) pair, the contract tracks its balance and the time when escrow expires:
     //User (Sellers) => Token => balanace
-    mapping(address => mapping(address => uint256)) public TotalTokenBalance;
-    mapping(address => mapping(address => uint256)) public AvailableTokenBalance;
-    //mapping(address => mapping(address => uint256)) public escrowExpiration;
+    mapping(address => mapping(address => uint256)) public TokenBalance;
     
-    //User (Biders) => balance(Ether)
-    mapping(address => uint256) public TotalEtherBalance;
-    mapping(address => uint256) public AvailableEtherBalance;
+    //User (Biders) => balance(Ether)TokenBalance
+    mapping(address => uint256) public EtherBalance;
 
 //**************DepositToken() Function*********************//   
     //The token holder must first approve the amount to the exchange contract by calling the approve() from the ERC20 token contract
     function DepositToken(address _token, uint256 _numofTokens) public returns (bool) {
         
         require(IERC20(_token).transferFrom(msg.sender, address(this), _numofTokens));
-        TotalTokenBalance[msg.sender][_token] += _numofTokens;
-        AvailableTokenBalance[msg.sender][_token] += _numofTokens;
+        TokenBalance[msg.sender][_token] += _numofTokens;
         return true;
     
     }
 //**************DepositEther() Function*********************//    
     
     function DepositEther(uint256 _numofEthers) public payable returns (bool) {
-        TotalEtherBalance[msg.sender] += _numofEthers;
-        AvailableEtherBalance[msg.sender] += _numofEthers;
+        EtherBalance[msg.sender] += _numofEthers;
         return true;
         
     }
@@ -183,9 +176,7 @@ function getState() public view returns (States)
         return true;
 
     }
-
 //******************** CloseMarket() function ********************//
-    
     function CloseMarket() public returns (bool){
         //MatchOrders(_AuctionID);
         state = States.Closed;
@@ -193,51 +184,31 @@ function getState() public view returns (States)
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
     }
 //******************** MatchOrders() function ********************//
-    function MatchOrders() public AuctionAtStage (States.Closed) returns (bool){
-  
-        uint256 refund;
-        uint256 counter;
+    function MatchOrders(address _token) public AuctionAtStage (States.Closed) returns (bool){
 
-        if (BuyList.length >= SellList.length) {counter = SellList.length;}
-        else {counter = BuyList.length;} 
-        
-        //while (BuyList.length != 0 &&SellList.length != 0 && BuyListPeak().Price >= SellListPeak().Price)
-        for (uint i =1 ; i <= counter; i++)
-        //uint i =1;
-        //while (i <= counter)
+    
+       while (BuyList[0].Price >= SellList[0].Price)
         {   
-            if (BuyListPeak().Price >= SellListPeak().Price)
-            {
-
-                emit TradeHappens (BuyListPeak().Price, SellListPeak().Price);
-                OrderStruct memory temp_BestBid = BuyListPeak();
-                OrderStruct memory temp_BestAsk = SellListPeak();
-                transferToken (temp_BestAsk.Sender, temp_BestBid.Sender, Token, temp_BestBid.Volume);
-                transferEther (temp_BestBid.Sender,temp_BestAsk.Sender, Token, temp_BestAsk.Price);
+            countervariable++;
+            
+            TokenBalance[BuyList[0].Sender][_token] += BuyList[0].Volume;
+            EtherBalance[SellList[0].Sender] += SellList[0].Price;
                 
-                
-                BuyListDelete();
-                SellListDelete();
+            BuyListDelete();
+            SellListDelete();
+            if (BuyList.length == 0 || SellList.length == 0) {break;}
 
 
-
-            }
-            else{break;}
-            //i++;    
         }
-            
-            //Pays the difference to the miner
-            /*if (temp_BestBid.Price - temp_BestAsk.Price != 0) 
-            {
-                EtherBalance[block.coinbase] += temp_BestBid.Price - temp_BestAsk.Price;
-                refund = EtherBalance[block.coinbase]; 
-                EtherBalance[block.coinbase] = 0; 
-                block.coinbase.transfer(refund);
-            }*/
+        //Pays the difference to the miner
+        /*if (temp_BestBid.Price - temp_BestAsk.Price != 0) 
+        {
+            EtherBalance[block.coinbase] += temp_BestBid.Price - temp_BestAsk.Price;
+            refund = EtherBalance[block.coinbase]; 
+            EtherBalance[block.coinbase] = 0; 
+            block.coinbase.transfer(refund);
+        }*/
              
-            
-        
-        
         if (BuyList.length != 0)
         {
             Rrefund_unexecuted_Buy_orders();
@@ -257,14 +228,11 @@ function getState() public view returns (States)
     //After trades happened in the MatchOrders() function, following function will be called to refund the deposited "Ethers" for those trades that did not happen
     function Rrefund_unexecuted_Buy_orders () internal returns (bool) {
 
-        
-
-
-        uint i;
+        uint256 i;
         while (BuyList.length != 0)
         {
             i = BuyList.length - 1;
-            AvailableEtherBalance[BuyList[i].Sender] += BuyList[i].Volume * BuyList[i].Price;
+            EtherBalance[BuyList[i].Sender] += BuyList[i].Volume * BuyList[i].Price;
             BuyList.pop();
             
             
@@ -276,14 +244,11 @@ function getState() public view returns (States)
     //******************** Rrefund_unexecuted_Sell_orders function ********************//
     //After trades happened in the MatchOrders() function, following function will be called to refund the deposited "tokens" for those trades that did not happen
     function Rrefund_unexecuted_Sell_orders () internal returns (bool) {
-        
-        
-        
-        uint i;
+        uint256 i;
         while (SellList.length != 0)
         {
             i = SellList.length - 1;
-            AvailableTokenBalance[SellList[i].Sender][Token] += SellList[i].Volume;
+            TokenBalance[SellList[i].Sender][Token] += SellList[i].Volume;
             SellList.pop();
            
             
@@ -292,50 +257,47 @@ function getState() public view returns (States)
         return true;
     }
   
-//******************** transferToken() & transferEther() internal ********************//    
-    //These two functions are fired During the order matching 
-    function transferToken( address _fromSeller, address _toBuyer, address _token, uint256 _numofTokens) internal
-    {
+// //******************** transferToken() & transferEther() internal ********************//    
+//     //These two functions are fired During the order matching 
+//     function transferToken( address _fromSeller, address _toBuyer, address _token, uint256 _numofTokens) internal
+//     {
 
-        TotalTokenBalance[_fromSeller][_token] -= _numofTokens;
+//         TotalTokenBalance[_fromSeller][_token] -= _numofTokens;
                
-        TotalTokenBalance[_toBuyer][_token] += _numofTokens;
-        AvailableTokenBalance[_toBuyer][_token] += _numofTokens;
+//         TotalTokenBalance[_toBuyer][_token] += _numofTokens;
+//         AvailableTokenBalance[_toBuyer][_token] += _numofTokens;
         
-        emit TransferToken (_fromSeller, _toBuyer, _numofTokens);
-    }
-//******************************************************//    
-    function transferEther( address _fromBuyer, address _toSeller, address _token, uint256 _numofEthers) internal
-    {
-        TotalEtherBalance[_fromBuyer] -= _numofEthers;
+//         emit TransferToken (_fromSeller, _toBuyer, _numofTokens);
+//     }
+// //******************************************************//    
+//     function transferEther( address _fromBuyer, address _toSeller, address _token, uint256 _numofEthers) internal
+//     {
+//         TotalEtherBalance[_fromBuyer] -= _numofEthers;
         
-        TotalEtherBalance[_toSeller] += _numofEthers;
-        AvailableEtherBalance[_toSeller] += _numofEthers;
+//         TotalEtherBalance[_toSeller] += _numofEthers;
+//         AvailableEtherBalance[_toSeller] += _numofEthers;
         
-        emit TransferEther (_fromBuyer, _toSeller, _numofEthers);
-    } 
+//         emit TransferEther (_fromBuyer, _toSeller, _numofEthers);
+//     } 
 //******************************************************// 
 
 
 //******************** claimTokens() & claimEther() ********************//
     //traders can claim their tokens or ethers uisng the following two functions
-
     function claimTokens (address _token, uint256 _numofTokens ) public returns (bool)
     {
-        require (AvailableTokenBalance[msg.sender][_token] > _numofTokens);
-        uint tokensToBeClaimed = _numofTokens ;
-        AvailableTokenBalance[msg.sender][_token] -= tokensToBeClaimed;
-        TotalTokenBalance[msg.sender][_token] -= tokensToBeClaimed;
+        require (TokenBalance[msg.sender][_token] > _numofTokens);
+        uint256 tokensToBeClaimed = _numofTokens ;
+        TokenBalance[msg.sender][_token] -= tokensToBeClaimed;
         IERC20(_token).transfer(msg.sender, tokensToBeClaimed);
         return true;
     }
 //******************************************************//      
     function claimEther (uint256 _numofEthers) public returns (bool)
     {
-        require (AvailableEtherBalance[msg.sender] > _numofEthers);
-        uint EthersToBeClaimed = _numofEthers ;
-        AvailableEtherBalance[msg.sender] -= EthersToBeClaimed;
-        AvailableEtherBalance[msg.sender] -= EthersToBeClaimed;
+        require (EtherBalance[msg.sender] > _numofEthers);
+        uint256 EthersToBeClaimed = _numofEthers ;
+        EtherBalance[msg.sender] -= EthersToBeClaimed;
         msg.sender.transfer(EthersToBeClaimed);
         return true;
     }    
@@ -350,7 +312,7 @@ function getState() public view returns (States)
     AuctionAtStage (States.Opened)
     returns (bool)
     {
-        require (AvailableEtherBalance[msg.sender] >= _volume * _price );
+        require (EtherBalance[msg.sender] >= _volume * _price );
         
         uint256 _finalpriceUint;
         string memory _finalpriceString;
@@ -361,7 +323,7 @@ function getState() public view returns (States)
         if (maxheap_insert(msg.sender, _price, _finalpriceUint, _volume)){
             BuyListCounter--;
             NumOrders++;
-            AvailableEtherBalance[msg.sender] -= _volume * _price;
+            EtherBalance[msg.sender] -= _volume * _price;
             
         }
         
@@ -377,8 +339,7 @@ function getState() public view returns (States)
     AuctionAtStage (States.Opened)
     returns (bool)
     {
-        require( AvailableTokenBalance[msg.sender][Token] >= _volume);
-        
+        require(TokenBalance[msg.sender][Token] >= _volume);
         uint256 _finalpriceUint;
         string memory _finalpriceString;
         _finalpriceString = contcat ( uint2str(_price), uint2str (SellListCounter));
@@ -388,7 +349,7 @@ function getState() public view returns (States)
         {
                 SellListCounter++;
                 NumOrders++;
-                AvailableTokenBalance[msg.sender][Token] -= _volume;
+                TokenBalance[msg.sender][Token] -= _volume;
         }
         
         return true;
@@ -423,8 +384,7 @@ function getState() public view returns (States)
         while (k > 0){                                  //while we havent reached to the top of the heap
             uint256 p = (k-1)/2;                           //we need to compute the parent of this last element which is p = (k-1)/2
             if (BuyList[k].Price > BuyList[p].Price) //if the element is greater than its parent
-            {   //"!SYNTAX!"
-                //Orderbook_V9.swap(SellList, k, p);              //swap the element at index k with its parent
+            {   
                 OrderStruct memory temp = BuyList[k];    //"!SYNTAX!"//swap the element at index k with its parent
                 BuyList[k] = BuyList[p];
                 BuyList[p] = temp;
@@ -445,8 +405,8 @@ function getState() public view returns (States)
         uint256 leftchild = 2*k + 1;
         while (leftchild < BuyList.length)
         {                                   //as long as the left child is within the array that heap is stored in
-            uint max = leftchild;
-            uint rightchild = leftchild + 1;                                     //rightchild = 2k+2
+            uint256 max = leftchild;
+            uint256 rightchild = leftchild + 1;                                     //rightchild = 2k+2
 
             if (rightchild < BuyList.length)                                       //if there is a rightchild
             {
@@ -458,11 +418,9 @@ function getState() public view returns (States)
 
         if (BuyList[k].Price < BuyList[max].Price)                        //compares the k item with the max item and if k is smaller than its greatest children they are swapped
         {
-            //swap k with its greatest children (max)
-            //"!SYNTAX!"
-            //Orderbook_V9.swap (SellList, k, max);
-            OrderStruct memory temp = BuyList[k];    //"!SYNTAX!"//swap the element at index k with its parent
-            BuyList[k] = BuyList[max];
+            
+            OrderStruct memory temp = BuyList[k];
+            BuyList[k] = BuyList[max];    
             BuyList[max] = temp;
             k = max;                                                         //k is set to max
             leftchild =2*k + 1;                                              //l is recompuetd in preparation for the next iteration
@@ -476,23 +434,12 @@ function getState() public view returns (States)
     
 //****************   BuyListpeak()  *********************//
     //BuyListpeak function returns the highest priority element (The highest bid)
-    function BuyListPeak() public  
-    CheckAuctionStage ()
-    //returns (address, uint256, uint256, uint256){
-    returns (OrderStruct memory){
-
+    function BuyListPeak() public   CheckAuctionStage () returns (OrderStruct memory){
         
-        //require (BuyList.length != 0); //throws exception if the maxheap (BuyList) is empty
+        require (BuyList.length != 0,'BuyList is empty!'); //throws exception if the maxheap (BuyList) is empty
         return (BuyList[0]);
-        //return (BuyList[0].Sender, BuyList[0].Price, BuyList[0].AuxPrice, BuyList[0].Volume );
     }
     
-    //Function Overloading: When BuyListpeak() is called from inside of the MatchingOrder(), it recieves an array as paramater  
-    /*function BuyListPeak(OrderStruct[] memory _array) internal view returns (OrderStruct memory){
-
-        require(_array.length != 0); //throws exception if the list is empty
-        return (_array[0]);
-    }*/
     
 //*******************  maxheap_delete () ***************************//
     //the highest priority item will be removed from the list and is returned by the function
@@ -501,7 +448,7 @@ function getState() public view returns (States)
     CheckAuctionStage ()
     returns (OrderStruct memory) 
     {
-        if (BuyList.length == 0) { revert(); }                             //the delete function throws exception if the heap is empty
+        require (BuyList.length != 0,'BuyList is empty!'); //the delete function throws exception if the heap is empty
         if (BuyList.length == 1) {                                      //if the heap has only one items
                      
             OrderStruct memory result =  BuyList[0];
@@ -601,22 +548,12 @@ function getState() public view returns (States)
 
 //****************   SellListpeak()  *********************//
     //SellListpeak function returns the highest priority element (The Lowest ask)
-    function SellListPeak() public 
-    CheckAuctionStage ()
-    //returns (address, uint256, uint256, uint256){
-    returns (OrderStruct memory){
+    function SellListPeak() public  CheckAuctionStage () returns (OrderStruct memory){
 
-        //require(SellList.length != 0); //throws exception if the minheap (SellList) is empty
-        
+        require(SellList.length != 0, 'SellList is empty!'); //throws exception if the minheap (SellList) is empty
         return (SellList[0]);
-        //return (SellList[0].Sender, SellList[0].Price, SellList[0].AuxPrice, SellList[0].Volume );
     }
-    //Function Overloading: When SellListpeak() is called from inside of the MatchingOrder(), it recieves just an array (and not an AuctionID) as paramater  
-    /*function SellListPeak(OrderStruct[] memory _array) internal view returns (OrderStruct memory){
-
-        require(_array.length != 0); //throws exception if the list is empty
-        return (_array[0]);
-    }*/
+    
 
 
 //*******************  minheap_delete () ***************************//
@@ -626,7 +563,8 @@ function getState() public view returns (States)
     CheckAuctionStage ()
     returns (OrderStruct memory)
     {
-        if (SellList.length == 0) { revert(); }                      //the delete function throws exception if the heap is empty
+        require(SellList.length != 0, 'SellList is empty!');             //the delete function throws exception if the heap is empty
+        //if (SellList.length == 0) { revert(); }                      //the delete function throws exception if the heap is empty
         if (SellList.length == 1) {                               // if the heap has only one item
             OrderStruct memory result = SellList[0];
             SellList.pop();                                   //the only element of the heap is removed and returned  
@@ -654,11 +592,14 @@ function getState() public view returns (States)
 //************************************************************************//
 //************************************************************************//
 
-    function returnSelllistlength () public returns (uint256 _result){
-        _result = SellList.length;
+    function returnSellListlength () public returns (uint256 _result){
+        _result = SellList[0].Price;
         return _result;
     }    
-    
+    function returnBuyListlength () public returns (uint256 _result){
+        _result = BuyList[0].Price;
+        return _result;
+    }  
     
 }   
     
