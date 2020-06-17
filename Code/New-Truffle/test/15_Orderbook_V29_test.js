@@ -48,15 +48,12 @@ describe('Orderbook', function(accounts) {
        
         const receipt = await OrderbookInstance.DepositToken (tokenaddress, 15000, {from: accounts[0]});
         
-        const totalbalance = await OrderbookInstance.TotalTokenBalance(accounts[0], tokenaddress);
-        const availablebalance = await OrderbookInstance.AvailableTokenBalance(accounts[0], tokenaddress);
+        const totalbalance = await OrderbookInstance.TokenBalance(accounts[0], tokenaddress);
         
-        console.log('The total token balance of account[0] is:', totalbalance.toNumber());
+        console.log('The token balance of account[0] is:', totalbalance.toNumber());
         console.log('********************************************');
-        console.log('The available token balance of account[0] is:', availablebalance.toNumber());
-        console.log('********************************************');
-        const gasUsed = receipt.receipt.gasUsed;
-        console.log(`GasUsed for depositting 100 tokens: ${receipt.receipt.gasUsed}`);
+        //const gasUsed = receipt.receipt.gasUsed;
+        //console.log(`GasUsed for depositting 100 tokens: ${receipt.receipt.gasUsed}`);
 
     });
 
@@ -69,15 +66,12 @@ describe('Orderbook', function(accounts) {
         
         const receipt = await OrderbookInstance.DepositEther (1000000, {from: accounts[1]});
 
-        const totalbalance = await OrderbookInstance.TotalEtherBalance(accounts[1]);
-        const availablebalance = await OrderbookInstance.AvailableEtherBalance(accounts[1]);
+        const totalbalance = await OrderbookInstance.EtherBalance(accounts[1]);
         
-        console.log('The total Ether balance of accounts[1] is:',totalbalance.toNumber());
+        console.log('The Ether balance of accounts[1] is:',totalbalance.toNumber());
         console.log('********************************************');
-        console.log('The available Ether balance of accounts[1] is:',availablebalance.toNumber());
-        console.log('********************************************');
-        const gasUsed = receipt.receipt.gasUsed;
-        console.log(`GasUsed for depositting 6000 Ethers: ${receipt.receipt.gasUsed}`);
+        //const gasUsed = receipt.receipt.gasUsed;
+        //console.log(`GasUsed for depositting 6000 Ethers: ${receipt.receipt.gasUsed}`);
         
     });
 
@@ -102,17 +96,17 @@ describe('Orderbook', function(accounts) {
         
 
             accounts = await web3.eth.getAccounts();
-            for(let j = 2; j >= 1  ; j--){
+            for(let j = 500; j >= 1  ; j--){
                 receipt = await OrderbookInstance.submitAsk (j, 1, {from: accounts[0]});
         
-                const gasUsed = receipt.receipt.gasUsed;
-                array.push(gasUsed);
-                console.log(`GasUsed for a submitAsk tx is: ${receipt.receipt.gasUsed}`);
+                //const gasUsed = receipt.receipt.gasUsed;
+                //array.push(gasUsed);
+                //console.log(`GasUsed for a submitAsk tx is: ${receipt.receipt.gasUsed}`);
 
             } 
-            console.log(array.length,'asks has been succsessfully submitted');
-            console.log('Gas used for submitting the', array.length,'th ask is:');
-            console.log(`${receipt.receipt.gasUsed}`);
+            //console.log(array.length,'asks has been succsessfully submitted');
+            //console.log('Gas used for submitting the', array.length,'th ask is:');
+            //console.log(`${receipt.receipt.gasUsed}`);
         
    });
 
@@ -126,25 +120,20 @@ describe('Orderbook', function(accounts) {
         
 
         accounts = await web3.eth.getAccounts();
-        for(let j = 1; j <= 10  ; j++){
+        for(let j = 1; j <= 500  ; j++){
             receipt = await OrderbookInstance.submitBid (j, 1, {from: accounts[1]});
         
-            const gasUsed = receipt.receipt.gasUsed;
-            array.push(gasUsed);
-            console.log(`GasUsed for a submibid tx is: ${receipt.receipt.gasUsed}`);
+            //const gasUsed = receipt.receipt.gasUsed;
+            //array.push(gasUsed);
+            //console.log(`GasUsed for a submibid tx is: ${receipt.receipt.gasUsed}`);
 
         } 
-        console.log(array.length,'bids has been succsessfully submitted');
-        console.log('Gas used for submitting the', array.length,'th bid is:');
-        console.log(`${receipt.receipt.gasUsed}`);
-            
-             
-        
-        
+        //console.log(array.length,'bids has been succsessfully submitted');
+        //console.log('Gas used for submitting the', array.length,'th bid is:');
+        //console.log(`${receipt.receipt.gasUsed}`);
+ 
     });
-   
 
-    
     //*******************Test 8*************************
     it('should match the orders', async() => {
         const OrderbookInstance = await Orderbook.deployed(); 
@@ -163,9 +152,9 @@ describe('Orderbook', function(accounts) {
         console.log('********************************************');
         console.log('the countervariable is',counter.toNumber());
         console.log('********************************************');
-        //await OrderbookInstance.changetest();
-        //const test = await OrderbookInstance.test();
-        //console.log('the test is',test);
+        await OrderbookInstance.changetest();
+        const test = await OrderbookInstance.test();
+        console.log('the test is',test.toNumber());
     
         });
     //*******************Test 9*************************

@@ -96,7 +96,7 @@ describe('Orderbook', function(accounts) {
         
 
             accounts = await web3.eth.getAccounts();
-            for(let j = 250; j >= 1  ; j--){
+            for(let j = 10; j >= 1  ; j--){
                 receipt = await OrderbookInstance.submitAsk (j, 1, {from: accounts[0]});
         
                 //const gasUsed = receipt.receipt.gasUsed;
@@ -120,7 +120,7 @@ describe('Orderbook', function(accounts) {
         
 
         accounts = await web3.eth.getAccounts();
-        for(let j = 1; j <= 250  ; j++){
+        for(let j = 20; j <= 30  ; j++){
             receipt = await OrderbookInstance.submitBid (j, 1, {from: accounts[1]});
         
             //const gasUsed = receipt.receipt.gasUsed;
@@ -132,9 +132,7 @@ describe('Orderbook', function(accounts) {
         //console.log('Gas used for submitting the', array.length,'th bid is:');
         //console.log(`${receipt.receipt.gasUsed}`);
             
-        await OrderbookInstance.changetest();
-        const test = await OrderbookInstance.test();
-        console.log('the test is',test.toNumber());  
+        
         
         
     });
@@ -159,9 +157,9 @@ describe('Orderbook', function(accounts) {
         console.log('********************************************');
         console.log('the countervariable is',counter.toNumber());
         console.log('********************************************');
-        //await OrderbookInstance.changetest();
-        //const test = await OrderbookInstance.test();
-        //console.log('the test is',test);
+        await OrderbookInstance.changetest();
+        const test = await OrderbookInstance.test();
+        console.log('the test is',test.toNumber());
     
     });
     //*******************Test 9*************************
