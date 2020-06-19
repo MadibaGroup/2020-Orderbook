@@ -40,7 +40,7 @@ contract('DappToken', function(accounts) {
         tokenaddress = DappTokenInstance.address;
         const receipt = await DappTokenInstance.approve (CallMarketaddress, 15000, {from: accounts[0]});
         const result = await DappTokenInstance.allowance(accounts[0],CallMarketaddress);
-        console.log('Account[0] allowes the orderbook contract to spend:',result.toNumber());
+        console.log('Account[0] allowes the CallMarket contract to spend:',result.toNumber());
         
         console.log('********************************************');
         const gasUsed = receipt.receipt.gasUsed;
@@ -51,7 +51,7 @@ contract('DappToken', function(accounts) {
 });
 
 
-//*******************New test Block for the already deployed orderbook contract *************************
+//*******************New test Block for the already deployed CallMarket contract *************************
 describe('CallMarket', function(accounts) {
     this.timeout(0);
     
@@ -99,7 +99,7 @@ describe('CallMarket', function(accounts) {
         
 
             accounts = await web3.eth.getAccounts();
-            for(let j = 30; j >= 1  ; j--){
+            for(let j = 40; j >= 1  ; j--){
                 receipt = await CallMarketInstance.submitAsk (j, 1, {from: accounts[0]});
         
                 //const gasUsed = receipt.receipt.gasUsed;
@@ -123,7 +123,7 @@ describe('CallMarket', function(accounts) {
         
 
         accounts = await web3.eth.getAccounts();
-        for(let j = 1; j <= 30  ; j++){
+        for(let j = 1; j <= 40  ; j++){
             receipt = await CallMarketInstance.submitBid (j, 1, {from: accounts[1]});
         
             //const gasUsed = receipt.receipt.gasUsed;
@@ -158,7 +158,7 @@ describe('CallMarket', function(accounts) {
         //const test = await CallMarketInstance.test();
         //console.log('********************************************');
         //console.log('the test is',test.toNumber());
-        //console.log('********************************************');
+        console.log('********************************************');
         
         });
 
