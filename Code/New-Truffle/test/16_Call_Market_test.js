@@ -1,5 +1,6 @@
 const CallMarket = artifacts.require('Call_Market.sol');
-const PQ = artifacts.require('PQ1_Heap_Dynamic_Array');
+//const PQ = artifacts.require('PQ1_Heap_Dynamic_Array');
+//const PQ = artifacts.require('PQ2_Heap_Static_Array');
 const DappToken = artifacts.require('DappToken');
 var CallMarketaddress;
 //var PQddress;
@@ -54,7 +55,7 @@ contract('DappToken', function(accounts) {
 //*******************New test Block for the already deployed CallMarket contract *************************
 describe('CallMarket', function(accounts) {
     this.timeout(0);
-    
+   
     //*******************Test 1*************************
     it('should deposit 100 tokens from accounst[0] to the CallMarket contract', async() => {
         
@@ -99,7 +100,7 @@ describe('CallMarket', function(accounts) {
         
 
             accounts = await web3.eth.getAccounts();
-            for(let j = 40; j >= 1  ; j--){
+            for(let j = 50; j >= 1  ; j--){
                 receipt = await CallMarketInstance.submitAsk (j, 1, {from: accounts[0]});
         
                 //const gasUsed = receipt.receipt.gasUsed;
@@ -123,7 +124,7 @@ describe('CallMarket', function(accounts) {
         
 
         accounts = await web3.eth.getAccounts();
-        for(let j = 1; j <= 40  ; j++){
+        for(let j = 1; j <= 50  ; j++){
             receipt = await CallMarketInstance.submitBid (j, 1, {from: accounts[1]});
         
             //const gasUsed = receipt.receipt.gasUsed;
