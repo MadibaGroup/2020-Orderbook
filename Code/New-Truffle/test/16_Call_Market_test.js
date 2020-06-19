@@ -100,7 +100,7 @@ describe('CallMarket', function(accounts) {
         
 
             accounts = await web3.eth.getAccounts();
-            for(let j = 40; j >= 1  ; j--){
+            for(let j = 120; j >= 1  ; j--){
                 receipt = await CallMarketInstance.submitAsk (j, 1, {from: accounts[0]});
         
                 //const gasUsed = receipt.receipt.gasUsed;
@@ -124,7 +124,7 @@ describe('CallMarket', function(accounts) {
         
 
         accounts = await web3.eth.getAccounts();
-        for(let j = 1; j <= 40  ; j++){
+        for(let j = 1; j <= 120  ; j++){
             receipt = await CallMarketInstance.submitBid (j, 1, {from: accounts[1]});
         
             //const gasUsed = receipt.receipt.gasUsed;
