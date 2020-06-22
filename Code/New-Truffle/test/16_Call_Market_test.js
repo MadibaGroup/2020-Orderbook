@@ -91,6 +91,16 @@ describe('CallMarket', function(accounts) {
         //console.log(`GasUsed for depositting 6000 Ethers: ${receipt.receipt.gasUsed}`);
         
     });
+    //*******************Test 3*************************
+
+    it('should open the market on the Dapp Token', async() => {
+        const CallMarketInstance = await CallMarket.deployed(); 
+
+        const receipt = await CallMarketInstance.OpenMarket ();
+        const gasUsed = receipt.receipt.gasUsed;
+        console.log(`GasUsed for openning the market: ${receipt.receipt.gasUsed}`);
+        
+    });
     //*******************Test 4*************************
     
     it('should submit 1 asks from accounst[0]', async() => {
@@ -100,7 +110,7 @@ describe('CallMarket', function(accounts) {
         
 
             accounts = await web3.eth.getAccounts();
-            for(let j = 10; j >= 1  ; j--){
+            for(let j = 35; j >= 1  ; j--){
                 receipt = await CallMarketInstance.submitAsk (j, 1, {from: accounts[0]});
         
                 //const gasUsed = receipt.receipt.gasUsed;
@@ -124,7 +134,7 @@ describe('CallMarket', function(accounts) {
         
 
         accounts = await web3.eth.getAccounts();
-        for(let j = 20; j <= 25  ; j++){
+        for(let j = 1; j <= 35  ; j++){
             receipt = await CallMarketInstance.submitBid (j, 1, {from: accounts[1]});
         
             //const gasUsed = receipt.receipt.gasUsed;
@@ -141,7 +151,8 @@ describe('CallMarket', function(accounts) {
     //*******************Test 8*************************
     it('should match the orders', async() => {
         const CallMarketInstance = await CallMarket.deployed(); 
-        
+    
+    
         const receipt = await CallMarketInstance.MatchOrders();
         console.log('********************************************');
         const gasUsed = receipt.receipt.gasUsed;
@@ -156,15 +167,18 @@ describe('CallMarket', function(accounts) {
         console.log('********************************************');
         console.log('the countervariable is',counter.toNumber());
         console.log('********************************************');
-        const test1 = await CallMarketInstance.test1();
-        console.log('the test is',test1.toNumber());
-        console.log('********************************************');
-        const test2 = await CallMarketInstance.test2();
-        console.log('the test is',test2.toNumber());
-        console.log('********************************************');
-        const test3 = await CallMarketInstance.test3();
-        console.log('the test is',test3.toNumber());
-        console.log('********************************************');
+        // const test1 = await CallMarketInstance.test1();
+        // console.log('********************************************');
+        // console.log('the countervariable is',test1.toNumber());
+        // console.log('********************************************');
+        // const test2 = await CallMarketInstance.test2();
+        // console.log('********************************************');
+        // console.log('the countervariable is',test2.toNumber());
+        // console.log('********************************************');
+        // const SellListCounter = await CallMarketInstance.SellListCounter();
+        // console.log('the countervariable is',SellListCounter.toNumber());
+        // const BuyListCounter = await CallMarketInstance.BuyListCounter();
+        // console.log('the countervariable is',BuyListCounter.toNumber());
         });
 
 
