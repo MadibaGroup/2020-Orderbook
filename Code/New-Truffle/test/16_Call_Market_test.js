@@ -100,7 +100,7 @@ describe('CallMarket', function(accounts) {
         
 
             accounts = await web3.eth.getAccounts();
-            for(let j = 120; j >= 1  ; j--){
+            for(let j = 10; j >= 1  ; j--){
                 receipt = await CallMarketInstance.submitAsk (j, 1, {from: accounts[0]});
         
                 //const gasUsed = receipt.receipt.gasUsed;
@@ -124,7 +124,7 @@ describe('CallMarket', function(accounts) {
         
 
         accounts = await web3.eth.getAccounts();
-        for(let j = 1; j <= 120  ; j++){
+        for(let j = 20; j <= 25  ; j++){
             receipt = await CallMarketInstance.submitBid (j, 1, {from: accounts[1]});
         
             //const gasUsed = receipt.receipt.gasUsed;
@@ -156,11 +156,15 @@ describe('CallMarket', function(accounts) {
         console.log('********************************************');
         console.log('the countervariable is',counter.toNumber());
         console.log('********************************************');
-        //const test = await CallMarketInstance.test();
-        //console.log('********************************************');
-        //console.log('the test is',test.toNumber());
+        const test1 = await CallMarketInstance.test1();
+        console.log('the test is',test1.toNumber());
         console.log('********************************************');
-        
+        const test2 = await CallMarketInstance.test2();
+        console.log('the test is',test2.toNumber());
+        console.log('********************************************');
+        const test3 = await CallMarketInstance.test3();
+        console.log('the test is',test3.toNumber());
+        console.log('********************************************');
         });
 
 
