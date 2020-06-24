@@ -14,7 +14,7 @@ contract Orderbook_V27{
 
     function changetest() public {
         
-        test = BuyFirst.next().Price();
+        test = BuyFirst.Price();
         
     }
     constructor () public{
