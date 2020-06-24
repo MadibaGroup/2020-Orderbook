@@ -90,7 +90,7 @@ describe('CallMarket', function(accounts) {
         
 
             accounts = await web3.eth.getAccounts();
-            for(let j = 2; j >= 1  ; j--){
+            for(let j = 5; j >= 1  ; j--){
                 receipt = await CallMarketInstance.submitAsk (j, 1, {from: accounts[0]});
         
                 const gasUsed = receipt.receipt.gasUsed;
@@ -113,7 +113,7 @@ describe('CallMarket', function(accounts) {
         
 
         accounts = await web3.eth.getAccounts();
-        for(let j = 27; j <= 28  ; j++){
+        for(let j = 1; j <= 20  ; j++){
             receipt = await CallMarketInstance.submitBid (j, 1, {from: accounts[1]});
         
             const gasUsed = receipt.receipt.gasUsed;
@@ -143,36 +143,6 @@ describe('CallMarket', function(accounts) {
         console.log('********************************************');
         const gasUsed = receipt.receipt.gasUsed;
         console.log(`GasUsed for Matching: ${receipt.receipt.gasUsed}`);
-
-        // const test1 = await CallMarketInstance.test1();
-        // console.log('********************************************');
-        // console.log('Number of matches occured:',test1.toNumber());
-        // console.log('********************************************');
-        
-        // const test2 = await CallMarketInstance.test2();
-        // console.log('********************************************');
-        // console.log('Number of matches occured:',test2.toNumber());
-        // console.log('********************************************');
-
-        // const test3 = await CallMarketInstance.test3();
-        // console.log('********************************************');
-        // console.log('Number of matches occured:',test3.toNumber());
-        // console.log('********************************************');
-
-        // const test4 = await CallMarketInstance.test4();
-        // console.log('********************************************');
-        // console.log('Number of matches occured:',test4.toNumber());
-        // console.log('********************************************');
-
-        // const test5 = await CallMarketInstance.test5();
-        // console.log('********************************************');
-        // console.log('Number of matches occured:',test5.toNumber());
-        // console.log('********************************************');
-
-        // const test6 = await CallMarketInstance.test6();
-        // console.log('********************************************');
-        // console.log('Number of matches occured:',test6.toNumber());
-        // console.log('********************************************');
     
     });
     //*******************Test 8*************************
@@ -184,15 +154,15 @@ describe('CallMarket', function(accounts) {
         console.log('Number of matches occured:',counter.toNumber());
         console.log('********************************************');
 
-    //     // const test1 = await CallMarketInstance.test1();
-    //     // console.log('********************************************');
-    //     // console.log('Number of matches occured:',test1.toNumber());
-    //     // console.log('********************************************');
+        // const test1 = await CallMarketInstance.test1();
+        // console.log('********************************************');
+        // console.log('Number of matches occured:',test1.toNumber());
+        // console.log('********************************************');
         
-    //     // const test2 = await CallMarketInstance.test2();
-    //     // console.log('********************************************');
-    //     // console.log('Number of matches occured:',test2.toNumber());
-    //     // console.log('********************************************');
+        // const test2 = await CallMarketInstance.test2();
+        // console.log('********************************************');
+        // console.log('Number of matches occured:',test2.toNumber());
+        // console.log('********************************************');
     });
 
 
