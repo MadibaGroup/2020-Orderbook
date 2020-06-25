@@ -23,8 +23,8 @@ contract PQ2_Heap_Static_Array{
         
     }
     uint256 public MAXORDERS;
-    OrderStruct[50] BuyList;  //The array that contains Bid OrderStructs (descending (decremental)), we always want the highest bid (maxheap)
-    OrderStruct[50] SellList; //The array that contains Ask OrderStructs (ascending (incremental)), we always want the lowest ask (minheap)
+    OrderStruct[80] BuyList;  //The array that contains Bid OrderStructs (descending (decremental)), we always want the highest bid (maxheap)
+    OrderStruct[80] SellList; //The array that contains Ask OrderStructs (ascending (incremental)), we always want the lowest ask (minheap)
     uint256 public SellIndex;
     uint256 public BuyIndex;
 

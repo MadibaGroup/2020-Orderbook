@@ -23,7 +23,7 @@ contract PQ4_Linkedlist{
         BuyList previous = BuyList(0);
         
         //we iterate through our list with 2 conditions:
-        while (current != BuyList(0) && _price <= current.AuxPrice()) //The linkedlist is sorted in an descending order (descreasing)
+        while (current != BuyList(0) && _auxprice <= current.AuxPrice()) //The linkedlist is sorted in an descending order (descreasing)
         {
             previous = current;
             current = current.next();
@@ -95,7 +95,7 @@ contract PQ4_Linkedlist{
         SellList previous = SellList(0);
         
         //we iterate through our list with 2 conditions:
-        while (current != SellList(0) && _price >= current.AuxPrice()) //The linkedlist is sorted in an ascending order (increasing)
+        while (current != SellList(0) && _auxprice >= current.AuxPrice()) //The linkedlist is sorted in an ascending order (increasing)
         {
             previous = current;
             current = current.next();

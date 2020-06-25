@@ -17,48 +17,45 @@ var PQaddress;
 //         await modularExp.js_call();       
 //     });      
 //     };
-module.exports = function (deployer) {
-    deployer.deploy(PQ1);
-    console.log("I was deployed!");
-};
-
-// module.exports =  function (deployer) {
-    
-//     deployer.deploy(PQ2, 60).then (function(){
-//         return deployer.deploy(CallMarket, PQ2.address)
-
-//     });
-   
+// module.exports = function (deployer) {
+//     deployer.deploy(PQ1);
 //     console.log("I was deployed!");
-
-
-
 // };
-module.exports = function (deployer) {
-    deployer.deploy(PQ2);
-    console.log("I was deployed!");
-};
-module.exports = function (deployer) {
-    deployer.deploy(PQ3);
-    console.log("I was deployed!");
-};
-module.exports = function (deployer) {
-    deployer.deploy(PQ4);
-    console.log("I was deployed!");
-};
-module.exports = function (deployer) {
-    deployer.deploy(PQ5);
-    console.log("I was deployed!");
-};
+
+// // module.exports =  function (deployer) {
+    
+// //     deployer.deploy(PQ2, 60).then (function(){
+// //         return deployer.deploy(CallMarket, PQ2.address)
+
+// //     });
+   
+// //     console.log("I was deployed!");
+
+
+
+// // };
+// module.exports = function (deployer) {
+//     deployer.deploy(PQ2);
+//     console.log("I was deployed!");
+// };
+// module.exports = function (deployer) {
+//     deployer.deploy(PQ3);
+//     console.log("I was deployed!");
+// };
+// module.exports = function (deployer) {
+//     deployer.deploy(PQ4);
+//     console.log("I was deployed!");
+// };
+// module.exports = function (deployer) {
+//     deployer.deploy(PQ5);
+//     console.log("I was deployed!");
+// };
 
 
 module.exports =  function (deployer) {
     
     deployer.deploy(CallMarket);
     console.log("I was deployed!");
-   
-    console.log("I was deployed!");
-
 
 
 };

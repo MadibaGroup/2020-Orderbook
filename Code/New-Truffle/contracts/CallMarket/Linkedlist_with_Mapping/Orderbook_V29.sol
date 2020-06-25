@@ -8,11 +8,21 @@ contract Orderbook_V29 {
 
     function changetest() public
     {
-        test = BuyList[BuyHead].Price;
+        test1 = BuyList[BuyTail].Price;
         //if (BuyList[BuyHead].Price > SellList[SellHead].Price) {test= 10;}
+        //test2 = SellList[SellHead].Price;
+        SellListMaxDelete();
+        //BuyListMaxDelete ();
+        test3 = BuyList[SellHead].Price;
+        test4 = SellList[SellTail].Price;
+
     }
 
-    uint256 public test;
+    uint256 public test1;
+    uint256 public test2;
+    uint256 public test3;
+    uint256 public test4;
+
    
 
 
@@ -347,7 +357,28 @@ contract Orderbook_V29 {
         BuyList[_prevId].next = _nextId;
         BuyList[_nextId].prev = _prevId;   
     }
-
+//******************** BuyListMaxDelete() function ********************//
+    
+    function BuyListMaxDelete() public returns (uint256)
+    {
+        
+        Order memory removeObject = BuyList[BuyHead];
+        if (BuyTail == BuyHead)
+        {
+            BuyList_SetHead(0);
+            BuyList_SetTail(0);
+        }
+        else
+        {
+            BuyList_SetHead(removeObject.next);
+            BuyList[removeObject.next].prev = 0;
+            BuyList_Link(removeObject.prev, removeObject.next);
+        }
+        uint256 _price =  removeObject.Price;
+        delete BuyList[removeObject.id];
+        return (_price);
+    
+    }
 //*****************************************************************//
 //*******************  SellList Functions  ************************//
 //*****************************************************************//  
@@ -431,6 +462,26 @@ contract Orderbook_V29 {
     {
         SellList[_prevId].next = _nextId;
         SellList[_nextId].prev = _prevId;    
+    }
+//*******************  SellListMaxDelete () ***************************//
+    //the highest priority item (the smallest ask) will be removed from the list and is returned by the function
+    function SellListMaxDelete() public returns (uint256)
+    {
+       
+        Order memory removeObject = SellList[SellHead];
+        if (SellTail == SellHead)
+        {
+            SellList_SetHead(0);
+            SellList_SetTail(0);
+        }
+        else
+        {
+            SellList_SetHead(removeObject.next);
+            SellList[removeObject.next].prev = 0;
+        }
+        uint256 _price =  removeObject.Price;
+        delete SellList[removeObject.id];
+        return (_price);
     }
 
 

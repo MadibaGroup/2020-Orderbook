@@ -240,9 +240,7 @@ contract PQ1_Heap_Dynamic_Array{
 //*******************  minheap_heapifyDown () ***************************//
     //when we want to remove an element from the heap we remove the root of the heap and add the last item
     //to the root and reorder the heap again
-    function minheap_heapifyDown () internal 
-    //CheckAuctionStage ()
-    returns (bool) {
+    function minheap_heapifyDown () internal returns (bool) {
         uint256 k =0;
         uint256 leftchild = 2*k + 1;
         while (leftchild < SellList.length){               //as long as the left child is within the array that heap is stored in

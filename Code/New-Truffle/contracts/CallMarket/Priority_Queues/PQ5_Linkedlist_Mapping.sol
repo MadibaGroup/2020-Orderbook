@@ -1,5 +1,4 @@
 pragma solidity >=0.4.22;
-pragma experimental ABIEncoderV2;
 
 //Linkedlist implemented with mapping wrapped in a priority queue
 //Maximum number of order the Match function can handle : 18
@@ -58,44 +57,23 @@ contract PQ5_Linkedlist_Mapping{
     //A new buy order will be added in its right position in the list
     function InsertBid(address _sender, uint256 _price, uint256 _volume, uint256 _auxprice) public returns (bool)
     {
-        if (BuyList[BuyHead].Exists == false)
+       OrderStruct memory current = BuyList[BuyHead];
+        while (current.id !=0 && _auxprice <= current.AuxPrice) //The linkedlist is sorted in an desceding order (decreasing)
         {
-            BuyList_AddHead( _sender,  _price,  _volume,  _auxprice);
-            return true;
-        }
-        
-        
-        OrderStruct memory current = BuyList[BuyHead];
-        while (current.id != BuyTail &&  _price < current.Price)
-        {  current = BuyList[current.next]; }  
-        
-        if (current.id == BuyHead && _price < current.Price)
+            current = BuyList[current.next];
+            // we only exit this loop if we find the position to insert our data;
+        }  
+        if (current.prev == 0) //it means the current is equal to first and in that case we have to insert the node as a new head
         {
-            BuyList_InsertAfter(current.id, _sender, _price,  _volume,  _auxprice );
-            return true;
+            BuyList_AddHead(_sender, _price, _volume, _auxprice);
         }
-        
-        if (current.id == BuyHead && _price > current.Price)
+        else //the node next to the privious is no longer the current but it's our new node
         {
-            BuyList_InsertBefore(current.id, _sender, _price,  _volume,  _auxprice );
-            return true;
+            BuyList_InsertAfter(current.prev, _sender, _price, _volume, _auxprice );           
         }
-        
-        if (current.id == BuyTail && _price < current.Price)
-        {
-            BuyList_InsertAfter(current.id, _sender, _price,  _volume,  _auxprice );
-            return true;
-        }
-        
-        if (current.id == BuyTail && _price > current.Price)
-        {
-            BuyList_InsertBefore(current.id,  _sender, _price,  _volume,  _auxprice );
-            return true;
-        }
-        
-      
-        BuyList_InsertBefore(current.id,  _sender, _price,  _volume,  _auxprice );
-        return true;   
+        return true; 
+       
+    
     }    
 
 //******************** BuyList_InsertAfter() function ********************//
@@ -196,14 +174,34 @@ contract PQ5_Linkedlist_Mapping{
     //the highest priority item will be removed from the list and is returned by the function
     function BuyListMaxDelete() public returns (uint256, address)
     {
-        /* //require (BuyHead != 0, 'BuyList is empty!'); //throws exception if the maxheap (BuyList) is empty
-        //OrderStruct memory buytemp = BuyList[BuyHead];
-        uint256 _price =  BuyList[BuyHead].Price;
-        address _sender =  BuyList[BuyHead].Sender;
-        //delete BuyList[BuyHead];
-        BuyHead = BuyList[BuyHead].next;
-        return(_price, _sender); */
+        
         OrderStruct memory removeObject = BuyList[BuyHead];
+        uint256 _price =  removeObject.Price;
+        address _sender = removeObject.Sender;
+
+        if (BuyTail == BuyHead)
+        {
+            BuyHead = 0;
+            BuyTail = 0;
+            
+        }
+        else
+        {
+            BuyHead = removeObject.next;
+            BuyList[removeObject.next].prev = 0;
+            
+        }
+        
+        //delete BuyList[removeObject.id];
+        return (_price,_sender); 
+        
+        
+
+
+        /* OrderStruct memory removeObject = BuyList[BuyHead];
+        BuyList_SetHead(removeObject.next);
+        BuyList[removeObject.next].prev = 0;
+        
         if (BuyTail == BuyHead)
         {
             BuyList_SetHead(0);
@@ -218,17 +216,9 @@ contract PQ5_Linkedlist_Mapping{
         uint256 _price =  removeObject.Price;
         address _sender = removeObject.Sender;
         delete BuyList[removeObject.id];
-        return (_price,_sender);
+        return (_price,_sender); */
     
     }
-
-        
-    
-
-
-
-
-
 
 //****************   BuyListisEmpty()  *********************//
     //checks if the BUyList is empty
@@ -250,45 +240,22 @@ contract PQ5_Linkedlist_Mapping{
     //A new buy order will be added in its right position in the list
     function InsertAsk (address _sender, uint256 _price, uint256 _volume, uint256 _auxprice) public returns (bool)
     {
-        
-        if (SellList[SellHead].Exists == false)
-        {
-            SellList_AddHead( _sender,  _price,  _volume,  _auxprice);
-            return true;
-        }
-        
-        
         OrderStruct memory current = SellList[SellHead];
-        while (current.id != SellTail &&  _price > current.Price)
-        {  current = SellList[current.next]; }  
-        
-        if (current.id == SellHead && _price > current.Price)
+        while (current.id !=0 && _auxprice >= current.AuxPrice) //The linkedlist is sorted in an ascending order (increasing)
         {
-            SellList_InsertAfter(current.id, _sender, _price,  _volume,  _auxprice );
-            return true;
-        }
-        
-        if (current.id == SellHead && _price < current.Price)
+        current = SellList[current.next];
+        // we only exit this loop if we find the position to insert our data;
+        }  
+        if (current.prev == 0) //it means the current is equal to first and in that case we have to insert the node as a new head
         {
-            SellList_InsertBefore(current.id, _sender, _price,  _volume,  _auxprice );
-            return true;
+            SellList_AddHead(_sender, _price, _volume, _auxprice);
         }
-        
-        if (current.id == SellTail && _price > current.Price)
+        else //the node next to the privious is no longer the current but it's our new node
         {
-            SellList_InsertAfter(current.id, _sender, _price,  _volume,  _auxprice );
-            return true;
+        SellList_InsertAfter(current.prev, _sender, _price, _volume, _auxprice);           
         }
-        
-        if (current.id == SellTail && _price < current.Price)
-        {
-            SellList_InsertBefore(current.id,  _sender, _price,  _volume,  _auxprice );
-            return true;
-        }
-        
-      
-        SellList_InsertBefore(current.id,  _sender, _price,  _volume,  _auxprice );
-        return true;         
+        return true;     
+         
     }
 //******************** SellList_InsertAfter() function ********************//
     function SellList_InsertAfter(uint256 _prevId, address _sender, uint256 _price, uint256 _volume, uint256 _auxprice) internal returns (bool)
@@ -379,20 +346,35 @@ contract PQ5_Linkedlist_Mapping{
         //require(SellFirst != SellList(0),'SellList is empty!'); //throws exception if the minheap (SellList) is empty
         return (SellList[SellHead].Sender);
     }
-//*******************  minheap_delete () ***************************//
+//*******************  SellListMaxDelete () ***************************//
     //the highest priority item (the smallest ask) will be removed from the list and is returned by the function
     function SellListMaxDelete() public returns (uint256, address)
     {
-        /* //require(SellHead != 0,'SellList is empty!'); //throws exception if the minheap (SellList) is empty
-        //OrderStruct memory selltemp; 
-        //selltemp = SellList[SellHead];
-        uint256 _price =  SellList[SellHead].Price;
-        address _sender =  SellList[SellHead].Sender;
-        //delete SellList[SellHead];
-        //SellList_SetHead( SellList[SellHead].next);
-        SellHead = SellList[SellHead].next;
-        return (_price,_sender); */
+        
+
+        
         OrderStruct memory removeObject = SellList[SellHead];
+        uint256 _price =  removeObject.Price;
+        address _sender = removeObject.Sender;
+
+        if (SellTail == SellHead)
+        {
+            SellHead = 0;
+            SellTail = 0;
+            
+        }
+        else
+        {
+            SellHead = removeObject.next;
+            SellList[removeObject.next].prev = 0;
+            
+        }
+        
+        //delete SellList[removeObject.id];
+        return (_price,_sender); 
+    
+
+        /* OrderStruct memory removeObject = SellList[SellHead];
         if (SellTail == SellHead)
         {
             SellList_SetHead(0);
@@ -406,7 +388,7 @@ contract PQ5_Linkedlist_Mapping{
         uint256 _price =  removeObject.Price;
         address _sender =  removeObject.Sender;
         delete SellList[removeObject.id];
-        return (_price,_sender);
+        return (_price,_sender); */
     }
 
         
@@ -426,13 +408,6 @@ contract PQ5_Linkedlist_Mapping{
         }
         
     }
-
-
-
-
-
-
-
 
 
 

@@ -96,7 +96,7 @@ describe('Orderbook', function(accounts) {
         
 
             accounts = await web3.eth.getAccounts();
-            for(let j = 500; j >= 1  ; j--){
+            for(let j = 2; j >= 1  ; j--){
                 receipt = await OrderbookInstance.submitAsk (j, 1, {from: accounts[0]});
         
                 //const gasUsed = receipt.receipt.gasUsed;
@@ -120,7 +120,7 @@ describe('Orderbook', function(accounts) {
         
 
         accounts = await web3.eth.getAccounts();
-        for(let j = 1; j <= 500  ; j++){
+        for(let j = 1; j <= 20  ; j++){
             receipt = await OrderbookInstance.submitBid (j, 1, {from: accounts[1]});
         
             //const gasUsed = receipt.receipt.gasUsed;
@@ -135,15 +135,15 @@ describe('Orderbook', function(accounts) {
     });
 
     //*******************Test 8*************************
-    it('should match the orders', async() => {
-        const OrderbookInstance = await Orderbook.deployed(); 
+    // it('should match the orders', async() => {
+    //     const OrderbookInstance = await Orderbook.deployed(); 
         
-        const receipt = await OrderbookInstance.MatchOrders(tokenaddress);
-        console.log('********************************************');
-        const gasUsed = receipt.receipt.gasUsed;
-        console.log(`GasUsed for Matching: ${receipt.receipt.gasUsed}`);
+    //     const receipt = await OrderbookInstance.MatchOrders(tokenaddress);
+    //     console.log('********************************************');
+    //     const gasUsed = receipt.receipt.gasUsed;
+    //     console.log(`GasUsed for Matching: ${receipt.receipt.gasUsed}`);
     
-    });
+    // });
 
     it('should show the countervariable', async() => {
         const OrderbookInstance = await Orderbook.deployed(); 
@@ -153,8 +153,14 @@ describe('Orderbook', function(accounts) {
         console.log('the countervariable is',counter.toNumber());
         console.log('********************************************');
         await OrderbookInstance.changetest();
-        const test = await OrderbookInstance.test();
-        console.log('the test is',test.toNumber());
+        const test1 = await OrderbookInstance.test1();
+        console.log('the test is',test1.toNumber());
+        //const test2 = await OrderbookInstance.test2();
+        //console.log('the test is',test2.toNumber());
+        const test3 = await OrderbookInstance.test3();
+        console.log('the test is',test3.toNumber());
+        const test4 = await OrderbookInstance.test4();
+        console.log('the test is',test4.toNumber());
     
         });
     //*******************Test 9*************************

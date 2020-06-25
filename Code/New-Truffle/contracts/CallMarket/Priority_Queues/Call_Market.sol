@@ -188,7 +188,6 @@ contract Call_Market{
 //******************** MatchOrders() function ********************//
     function MatchOrders() public AuctionAtStage(States.Closed) returns (bool){
        
-        
         (uint256 BBPrice, address BBSender) = PQ.BuyListMaxDelete();
         (uint256 BAPrice, address BASender) = PQ.SellListMaxDelete();
         while (BBPrice >= BAPrice)
@@ -197,8 +196,8 @@ contract Call_Market{
             countervariable++;
             TotalTokenBalance[BBSender] += 1;
             TotalEtherBalance[BASender] += BAPrice;
-            test2 = PQ.testfunction2(); 
-            if (PQ.BuyListisEmpty() == true || PQ.SellListisEmpty() == true) {break;}
+         
+            if (PQ.BuyListisEmpty() || PQ.SellListisEmpty()) {break;}
 
             (BBPrice,BBSender) = PQ.BuyListMaxDelete();
             (BAPrice,BASender) = PQ.SellListMaxDelete();
