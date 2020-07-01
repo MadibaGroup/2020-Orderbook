@@ -14,31 +14,187 @@
 %Mahsa
 %Notes related to design and implementations
 
-%============= Ghazal with Auction Costs Table==================== %
+
+
+EIP-114, or the “1/64ths rule”
+EIP-114 mandates that certain stackdepth-creating opcodes withhold 1/64th of remaining gas from the stack they create. In practice this means:
+The gas required for a successful transaction can be greater than the actual gas spent (similar to how gas refunds behave).
+The extra gas required for a successful transaction varies depending on the transaction’s initial gasamount.
+A long-standing issue with Ganache has been the fact that we haven’t returned EIP-114 compliant gas estimations. This has caused our gas estimates to be too low in cases where a transaction executed certain opcodes. Gas exactimation addresses this by considering how the gas withheld at any nested stack depth/frame affects the gas needed outside of its execution context.
+Let’s see it in action
+
+
+Callstack Depth (hijacked stack/revert)
+
+External function calls can fail any time because they exceed the maximum call stack of 1024. In such situations, Solidity throws an exception.
+
+
+
+%If a transaction runs out of gas before successful completion, then all execution reverts.
+
+
+Also, Solidity \textit{delete()} function does not 
+
+
+
+Clearing Mappings
+
+The Solidity type mapping (see Mapping Types) is a storage-only key-value data structure that does not keep track of the keys that were assigned a non-zero value. Because of that, cleaning a mapping without extra information about the written keys is not possible. (from : https://solidity.readthedocs.io/en/v0.5.12/security-considerations.html) So in order to wipe the unavailable Ether and token balances of all the market participants after matching is completed, we have to iterate over mapping using an array we use to store the mapping keys.
+
+
+
+
+
+In short, the sender of the transaction that causes the storage location to be freed (set to zero) will have an amount (a net 10000 gas per freed storage location) deducted from the total amount of gas used for the transaction.
+
+It's a bit more nuanced in reality:
+
+The gas cost of setting the location to zero is 5000 (G_sreset in the Yellow Paper).
+15000 gas is added into the refund counter (R_sclear in the Yellow Paper).
+At the end of a successful transaction the amount of gas in the refund counter (up to a cap of half the total gas used) is added to the unused gas and returned to the caller (Eqn 72 in the Yellow Paper).
+References above are to this version of the Yellow Paper, which discusses the Refund Counter in sections 6.1 and 6.2.
+
+The gas price is whatever gas price applies to the whole transaction in which the refund occurs
+
+
+
+
+delete a assigns the initial value for the type to a. I.e. for integers it is equivalent to a = 0, but it can also be used on arrays, where it assigns a dynamic array of length zero or a static array of the same length with all elements reset. For structs, it assigns a struct with all members reset.
+
+delete has no effect on whole mappings (as the keys of mappings may be arbitrary and are generally unknown). So if you delete a struct, it will reset all members that are not mappings and also recurse into the members unless they are mappings. However, individual keys and what they map to can be deleted.
+
+It is important to note that delete a really behaves like an assignment to a, i.e. it stores a new object in a.
+
+%============= Test 1 (17_Worst_Case_Matching_test.js) Tables==================== %
+ \section{Worst Case Matching}
+ We run the same truffle test on the five priority queues to examine them in terms of the number of order the call market contract can match.
+ Note that this is a worst case matching where we use same prices for bid and ask orders. In this case, all orders will be executed against each other.
+ Deliverables of this code are: (1) The maximum number of orders the call market can match (2) How much gas the match function uses (which should be close to the limit)
+Results are provided in Table~\ref{tab:worst_case_matching}.
+
+
 \begin{table}[t]
 \centering
-\begin{tabular}{|c|c|c|c|}
+\begin{tabular}{|c|c|c|}
 \hline
-\textbf{\shortstack{Number \\of \\Buy Orders}} & \textbf{\shortstack{Number \\of \\Sell Orders}} & \textbf{\shortstack{Total Number \\of\\ Orders}}  & \textbf{\shortstack{Gas Cost \\in\\ Ether}}  \\ \hline
-1 & 1 & 2 & 127,959 \\
-3 & 3 & 6 &  274,265\\
-5 & 5 & 10 & 449,684 \\
-7 & 7 & 14 & 603,057 \\
-9 & 9 & 18 & 817,224 \\
-11 & 11 & 22 & 982,549 \\
-13 & 13 & 26 & 1,210,410 \\
-15 & 15 & 30 &  1,403,040\\
-17 & 17 & 34 &  1,609,720\\
-19 & 19 & 38 & 1,862,796 \\
-21 & 21 & 42 & 2,057,234 \\
-23 & 23 & 46 &  2,266,225\\
-\hline
-25 & 25 & 50 & \textbf{out of gas} \\
-\hline
+\textbf{Priority Queue} & \textbf{Maximum Number of Matched Orders} & \textbf{Gas Cost in Ether}  \\ \hline
+ 
+Heap with Dynamic Array & 26 pairs & 3,274,994 \\ \hline
+Heap with Static Array & 28 pairs & 3,107,938 \\ \hline
+Mapping with keys stored in Heap & 40 pairs & 5,416,225 \\ \hline
+Linkedlist & 95 pairs & 3,336,416 \\ \hline
+Linkedlist with Mapping & 130 pairs & 3,302,908 \\ \hline
 
 \end{tabular}
-\caption{\footnotesize{Gas used for Match function when using dynamic arrays to store the heap.}\label{}} %Orderbook_V22
+\caption{\footnotesize{}\label{tab:worst_case_matching}}
 \end{table}
+
+%============= Test 1 (18_Average_Case_Matching_test.js) Tables==================== %
+ \section{Normal/Average Case Matching}
+ 
+
+ 
+PQ1 Heap with dynamic array:
+
+ PQ1 can handle 26 pairs at max (we got this from worst case matching), so we run the average test on it (for 5 times to get the average) with 26 asks and 26 bids BUT with random prices (so not all of them are going to match)
+%====%
+26 bids - 26 asks : 
+1- 16 matched, 3,022,922
+2- 14 matched, 2,630,179
+3- 13 matched, 2,756,139
+4- 14 matched, 2,677,851
+5 - 13 matched, 2,484,512
+%================================================%
+PQ2 Heap with static array:
+
+ PQ2 can handle 28 pairs at max (we got this from worst case matching), so we run the average test on it (for 5 times to get the average) with 28 asks and 28 bids BUT with random prices (so not all of them are going to match)
+%====%
+28 bids - 28 asks : 
+1- 11 matched, 1,768,494
+2- 12 matched, 2,045,830
+3- 16 matched, 2,420,384
+4- 17 matched, 2,523,974
+5- 14 matched, 2,234,141
+%================================================%
+PQ3 Mapping with keys stored in Heap:
+
+ PQ3 can handle 40 pairs at max (we got this from worst case matching), so we run the average test on it (for 5 times to get the average) with 40 asks and 40 bids BUT with random prices (so not all of them are going to match)
+%====%
+40 bids - 40 asks : 
+1- 23 matched, 4,349,561
+2- 20 matched, 3,888,163
+3- 20 matched, 3,915,233
+4- 20 matched, 3,899,789
+5- 23 matched, 4,308,653
+
+%================================================%
+PQ4 Linkedlist
+
+PQ4 can handle 95 pairs at max (we got this from worst case matching), so we run the average test on it (for 5 times to get the average) with 95 asks and 95 bids BUT with random prices (so not all of them are going to match)
+%====%
+95 bids - 95 asks : 
+1- 48 matched , 1,747,421
+2- 46 matched, 1,678,536
+3- 41 matched, 1,506,325
+4- 51 matched, 1,850,748
+5- 49 matched, 1,781,863
+
+%================================================%
+PQ5 Linkedlist with Mapping
+
+PQ5 can handle 130 pairs at max (we got this from worst case matching), so we run the average test on it (for 5 times to get the average) with 130 asks and 130 bids BUT with random prices (so not all of them are going to match)
+%====%
+130 bids - 130 asks : 
+1- 64 matched, 1,669,482
+2- 11 matched, 341,421
+3- 39 matched, 1,043,014
+4- 59 matched, 1,544,185
+5- 36 matched, 967,840
+
+
+
+
+
+ We run the same truffle test on the five priority queues to examine them in terms of the number of order the call market contract can match.
+ Note that this is an average case matching where we use random prices for bid and ask orders.
+ Deliverables of this code are: (1) The maximum number of orders the call market can match (2) How much gas the match function uses (which should be close to the limit)
+Results are provided in Table~\ref{tab:normal_case_matching}.
+
+
+\begin{table}[t]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Priority Queue} & \textbf{Maximum Number of Matched Orders} & \textbf{Gas Cost in Ether}  \\ \hline
+ 
+Heap with Dynamic Array &  &  \\ \hline
+Heap with Static Array &  &  \\ \hline
+Mapping with keys stored in Heap &  &  \\ \hline
+Linkedlist &  &  \\ \hline
+Linkedlist with Mapping && \\ \hline
+
+\end{tabular}
+\caption{\footnotesize{}\label{tab:normal_case_matching}}
+\end{table}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
