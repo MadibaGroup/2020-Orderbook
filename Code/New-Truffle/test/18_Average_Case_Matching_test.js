@@ -3,10 +3,23 @@ const DappToken = artifacts.require('DappToken');
 var CallMarketaddress;
 var tokenaddress;
 var accounts;
+var maximum = 100;
+var minimum = 1;
+
+
+// const assert = require(‘assert’);
+// const ganache = require(‘ganache-cli’);
+// const Web3 = require(‘web3’);
+// const web3 = new Web3(ganache.provider());
+//const json = require(‘./../build/contracts/Auction.json’);
+
+
+
+
 
 //Test 1:
 //This truffle code tests 5 priority queues in terms of the number of matches the match function can handle.
-//Note: this is a "worst case" matching where we use same prices for Bids and Asks. In this case, all the orders will be executed against each other.
+//Note: this is a "normal/average case" matching where we use random prices for Bids and Asks and obviously not all of them will be executed against each other.
 //The deliverables of this code are: (1) The maximum number of orders the match function can match (2) How much gas it uses (which should be close to the limit)
 
 contract('CallMarket', function(accounts) {
@@ -14,6 +27,8 @@ contract('CallMarket', function(accounts) {
         const CallMarketInstance = await CallMarket.deployed(); 
         CallMarketaddress = CallMarketInstance.address;
         console.log('The address of the CallMarket contract is:', CallMarketInstance.address);
+        
+
         
     });
 
@@ -87,9 +102,12 @@ describe('CallMarket', function(accounts) {
         
 
             accounts = await web3.eth.getAccounts();
-            for(let j = 180; j >= 1  ; j--){
-                await CallMarketInstance.submitAsk (j, 1, {from: accounts[0]});
-                array.push(j);
+            
+            for(let j = 1; j <= 18  ; j++){
+                var randomnumber = Math.floor(Math.random() * (maximum - minimum + 1)) + minimum;
+                await CallMarketInstance.submitAsk (randomnumber, 1, {from: accounts[0]});
+                array.push(randomnumber);
+                console.log('Ask',j,'price is equal to:', randomnumber);
             } 
             console.log(array.length,'asks has been succsessfully submitted');
          
@@ -104,9 +122,11 @@ describe('CallMarket', function(accounts) {
         
 
         accounts = await web3.eth.getAccounts();
-        for(let j = 1; j <= 180  ; j++){
-            await CallMarketInstance.submitBid (j, 1, {from: accounts[1]});
-            array.push(j);
+        for(let j = 1; j <= 18  ; j++){
+            var randomnumber = Math.floor(Math.random() * (maximum - minimum + 1)) + minimum;
+            await CallMarketInstance.submitBid (randomnumber, 1, {from: accounts[1]});
+            array.push(randomnumber);
+            console.log('Bid',j,'price is equal to:', randomnumber);
 
         } 
         console.log(array.length,'bids has been succsessfully submitted');
@@ -136,8 +156,7 @@ describe('CallMarket', function(accounts) {
         console.log('********************************************');
         console.log('Number of matches occured:',counter.toNumber());
         console.log('********************************************');
-        //console.log(Math.random());
-        //console.log(Math.round(Math.random() * 10))
+    
 
     });
 

@@ -95,7 +95,7 @@ describe('CallMarket', function(accounts) {
         
 
             accounts = await web3.eth.getAccounts();
-            for(let j = 260; j >= 1  ; j--){
+            for(let j = 18; j >= 1  ; j--){
                 await CallMarketInstance.submitAsk (j, 1, {from: accounts[0]});
                 array.push(j);
             } 
@@ -112,7 +112,7 @@ describe('CallMarket', function(accounts) {
         
 
         accounts = await web3.eth.getAccounts();
-        for(let j = 1; j <= 260  ; j++){
+        for(let j = 19; j <= 36  ; j++){
             await CallMarketInstance.submitBid (j, 1, {from: accounts[1]});
             array.push(j);
 
@@ -126,38 +126,46 @@ describe('CallMarket', function(accounts) {
         await CallMarketInstance.CloseMarket();
         
     });
-
+    
     //*******************Test 7*************************
     it('should match the orders', async() => {
-        const CallMarketInstance = await CallMarket.deployed(); 
-        /* const receipt = await CallMarketInstance.MatchOrders({
-            from: account2,
-            gas: 6721975, // i cannot assign more gas above gas limit of ganache... is it possible to increase this limit.... ?
-            gasPrice: '30000000'
-        }); */
-        const receipt = await CallMarketInstance.MatchOrders();
-        //console.log('********************************************');
-        //const gasUsed = receipt.receipt.gasUsed;
-        //console.log(`GasUsed for worst case matching is: ${receipt.receipt.gasUsed}`);
-
-        //await expectRevert.passes( CallMarketInstance.MatchOrders(), 'This method should not run out of gas');
+        const CallMarketInstance = await CallMarket.deployed();
         
-        //let obj= await CallMarketInstance.MatchOrders();
-        //await assertRevert(obj.ExpectedARevertWhenCalled());
+        const receipt =  await CallMarketInstance.MatchOrders();
+        const gasUsed = receipt.receipt.gasUsed;
+        console.log(`GasUsed for worst case matching is: ${receipt.receipt.gasUsed}`); 
         
-        //await truffleAssert.fails(
-            //CallMarketInstance.MatchOrders(),
-            //truffleAssert.ErrorType.REVERT
-        //);
-        
-        /* await truffleAssert.fails(
-            CallMarketInstance.MatchOrders(),
-            truffleAssert.ErrorType.OUT_OF_GAS
-        ); */
-
-       
-    
     });
+
+   
+
+    //     //************ Gas Exatimation ************//
+    //     /* const gasEstimate = await CallMarketInstance.MatchOrders.estimateGas();
+    //     const tx = await CallMarketInstance.MatchOrders({
+    //         gas: gasEstimate
+    //     });
+    //     assert(tx); */
+    //     //*****************************************//
+    //     //await truffleAssert.fails(
+    //         //CallMarketInstance.MatchOrders(),
+    //         //truffleAssert.ErrorType.REVERT
+    //     //);
+        
+    //     /* await truffleAssert.fails(
+    //         CallMarketInstance.MatchOrders(),
+    //         truffleAssert.ErrorType.OUT_OF_GAS
+    //     ); */
+    // });
+    // it('expect a revert in smart contract', async () => {
+    //     let CallMarketInstance = await CallMarket.deployed();
+    //     accounts = await web3.eth.getAccounts();
+    //     try {
+    //          let tx = await CallMarketInstance.MatchOrders({from: accounts[3]});
+    //     } catch(err) {
+    //          //assert(true); // expected the throw
+    //         console.log(err);
+    //     }
+    //  });
     //*******************Test 8*************************
     it('should print how many matches happened', async() => {
         const CallMarketInstance = await CallMarket.deployed(); 
@@ -168,6 +176,22 @@ describe('CallMarket', function(accounts) {
         console.log('********************************************');
         //console.log(Math.random());
         //console.log(Math.round(Math.random() * 10))
+        /* const test1 = await CallMarketInstance.test1();
+        console.log('********************************************');
+        console.log('Number of matches occured:',test1.toNumber());
+        console.log('********************************************')
+        const test2 = await CallMarketInstance.test2();
+        console.log('********************************************');
+        console.log('Number of matches occured:',test2.toNumber());
+        console.log('********************************************')
+        const test3 = await CallMarketInstance.test3();
+        console.log('********************************************');
+        console.log('Number of matches occured:',test3.toNumber());
+        console.log('********************************************')
+        const test4 = await CallMarketInstance.test4();
+        console.log('********************************************');
+        console.log('Number of matches occured:',test4.toNumber());
+        console.log('********************************************') */
 
     });
 
