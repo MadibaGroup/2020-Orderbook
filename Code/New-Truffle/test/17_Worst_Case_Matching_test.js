@@ -1,15 +1,8 @@
 const CallMarket = artifacts.require('Call_Market.sol');
 const DappToken = artifacts.require('DappToken');
-const { expectRevert } = require('@openzeppelin/test-helpers');
-////const { outOfGas } = require('@openzeppelin/test-helpers/src/expectRevert');
-//import assertRevert from 'zeppelin-solidity/test/helpers/assertRevert';
-const truffleAssert = require('truffle-assertions');
-
 var CallMarketaddress;
 var tokenaddress;
 var accounts;
-
-
 
 
 //Test 1:
@@ -17,6 +10,7 @@ var accounts;
 //Note: this is a "worst case" matching where we use same prices for Bids and Asks. In this case, all the orders will be executed against each other.
 //The deliverables of this code are: (1) The maximum number of orders the match function can match (2) How much gas it uses (which should be close to the limit)
 
+//******************* Deploys the CallMaket and stores its address *************************
 contract('CallMarket', function(accounts) {
     it('should store the address of the CallMarket into the var CallMarketaddress', async() => {
         const CallMarketInstance = await CallMarket.deployed(); 
@@ -26,6 +20,7 @@ contract('CallMarket', function(accounts) {
     });
 
 });
+//******************* Deploys the DappToken and allows CallMarket to spend tokens from it *************************
 
 contract('DappToken', function(accounts) {
 
@@ -90,16 +85,15 @@ describe('CallMarket', function(accounts) {
     
     it('should submit asks from accounst[0]', async() => {
         const CallMarketInstance = await CallMarket.deployed(); 
-            var receipt = null;
-            var array = [];
-        
-
-            accounts = await web3.eth.getAccounts();
-            for(let j = 18; j >= 1  ; j--){
-                await CallMarketInstance.submitAsk (j, 1, {from: accounts[0]});
-                array.push(j);
-            } 
-            console.log(array.length,'asks has been succsessfully submitted');
+        var receipt = null;
+        var array = [];
+    
+        accounts = await web3.eth.getAccounts();
+        for(let j = 130; j >= 1  ; j--){
+            await CallMarketInstance.submitAsk (j, 1, {from: accounts[0]});
+            array.push(j);
+        } 
+        console.log(array.length,'asks have been succsessfully submitted');
          
     });
    
@@ -110,14 +104,13 @@ describe('CallMarket', function(accounts) {
         var receipt = null;
         var array = [];
         
-
         accounts = await web3.eth.getAccounts();
-        for(let j = 19; j <= 36  ; j++){
+        for(let j = 131; j <= 260  ; j++){
             await CallMarketInstance.submitBid (j, 1, {from: accounts[1]});
             array.push(j);
 
         } 
-        console.log(array.length,'bids has been succsessfully submitted');
+        console.log(array.length,'bids have been succsessfully submitted');
  
     });
     //*******************Test 6*************************
@@ -137,35 +130,14 @@ describe('CallMarket', function(accounts) {
         
     });
 
-   
 
     //     //************ Gas Exatimation ************//
     //     /* const gasEstimate = await CallMarketInstance.MatchOrders.estimateGas();
     //     const tx = await CallMarketInstance.MatchOrders({
     //         gas: gasEstimate
     //     });
-    //     assert(tx); */
-    //     //*****************************************//
-    //     //await truffleAssert.fails(
-    //         //CallMarketInstance.MatchOrders(),
-    //         //truffleAssert.ErrorType.REVERT
-    //     //);
-        
-    //     /* await truffleAssert.fails(
-    //         CallMarketInstance.MatchOrders(),
-    //         truffleAssert.ErrorType.OUT_OF_GAS
-    //     ); */
-    // });
-    // it('expect a revert in smart contract', async () => {
-    //     let CallMarketInstance = await CallMarket.deployed();
-    //     accounts = await web3.eth.getAccounts();
-    //     try {
-    //          let tx = await CallMarketInstance.MatchOrders({from: accounts[3]});
-    //     } catch(err) {
-    //          //assert(true); // expected the throw
-    //         console.log(err);
-    //     }
-    //  });
+    
+   
     //*******************Test 8*************************
     it('should print how many matches happened', async() => {
         const CallMarketInstance = await CallMarket.deployed(); 
@@ -174,24 +146,9 @@ describe('CallMarket', function(accounts) {
         console.log('********************************************');
         console.log('Number of matches occured:',counter.toNumber());
         console.log('********************************************');
-        //console.log(Math.random());
-        //console.log(Math.round(Math.random() * 10))
-        /* const test1 = await CallMarketInstance.test1();
-        console.log('********************************************');
-        console.log('Number of matches occured:',test1.toNumber());
-        console.log('********************************************')
-        const test2 = await CallMarketInstance.test2();
-        console.log('********************************************');
-        console.log('Number of matches occured:',test2.toNumber());
-        console.log('********************************************')
-        const test3 = await CallMarketInstance.test3();
-        console.log('********************************************');
-        console.log('Number of matches occured:',test3.toNumber());
-        console.log('********************************************')
-        const test4 = await CallMarketInstance.test4();
-        console.log('********************************************');
-        console.log('Number of matches occured:',test4.toNumber());
-        console.log('********************************************') */
+   
+
+        
 
     });
 
