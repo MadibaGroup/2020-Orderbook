@@ -10,7 +10,11 @@ contract PQ4_Linkedlist{
     BuyList public BuyFirst;
     SellList selltemp;
     BuyList buytemp;
-    constructor () public {
+    address payable callmarket;
+
+
+    constructor (address _callmarket) public {
+        callmarket = address(uint160(_callmarket));
         SellFirst = SellList(0);
         BuyFirst = BuyList(0);
     }
@@ -50,7 +54,7 @@ contract PQ4_Linkedlist{
     {
         require (BuyFirst != BuyList(0), 'BuyList is empty!'); //throws exception if the maxheap (BuyList) is empty
         buytemp = BuyFirst;
-        BuyFirst.deletenode();
+        BuyFirst.deletenode(callmarket);
         BuyFirst = buytemp.next();
         return (buytemp.Price(), buytemp.Sender());
     }
@@ -122,7 +126,7 @@ contract PQ4_Linkedlist{
     {
         require(SellFirst != SellList(0),'SellList is empty!'); //throws exception if the minheap (SellList) is empty
         selltemp = SellFirst;
-        SellFirst.deletenode();
+        SellFirst.deletenode(callmarket);
         SellFirst = selltemp.next();
         return (selltemp.Price(), selltemp.Sender());
     }  
@@ -184,9 +188,9 @@ contract SellList {
        
     }
    
-    function deletenode () public {
+    function deletenode (address payable _callmarket) public {
 
-        selfdestruct(block.coinbase);
+        selfdestruct(_callmarket);
         
     }
 }   
@@ -219,7 +223,7 @@ contract BuyList {
     }
    
 
-    function deletenode () public {
-        selfdestruct(block.coinbase);
+    function deletenode (address payable _callmarket) public {
+        selfdestruct(_callmarket);
     }
 } 
