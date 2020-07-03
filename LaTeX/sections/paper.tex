@@ -15,22 +15,56 @@
 %Notes related to design and implementations
 
 
-
-EIP-114, or the “1/64ths rule”
-EIP-114 mandates that certain stackdepth-creating opcodes withhold 1/64th of remaining gas from the stack they create. In practice this means:
-The gas required for a successful transaction can be greater than the actual gas spent (similar to how gas refunds behave).
-The extra gas required for a successful transaction varies depending on the transaction’s initial gasamount.
-A long-standing issue with Ganache has been the fact that we haven’t returned EIP-114 compliant gas estimations. This has caused our gas estimates to be too low in cases where a transaction executed certain opcodes. Gas exactimation addresses this by considering how the gas withheld at any nested stack depth/frame affects the gas needed outside of its execution context.
-Let’s see it in action
-
-
-Callstack Depth (hijacked stack/revert)
-
-External function calls can fail any time because they exceed the maximum call stack of 1024. In such situations, Solidity throws an exception.
+Executed orders are permanently deleted from the storage instantly. 
 
 
 
-%If a transaction runs out of gas before successful completion, then all execution reverts.
+Deletion
+Ethereum gives us a gas refund when we delete variables. Its purpose is an incentive to save space on the blockchain, we use it to reduce the gas cost of our transactions.
+Deleting a variable refunds 15,000 gas up to a maximum of half the gas cost of the transaction. Deleting with the delete keyword is equivalent to assigning the initial value for the data type, such as 0 for integers.
+
+
+
+
+
+Appendix G. Fee Schedule in the Yellow Paper-EIP-150, shows that a gas refund of 15,000 is given for each state slot that is set to zero. These refunds are calculated during execution but only paid back post-execution.
+The Fee Schedule also states that changing a store from a Zero value costs 20,000 but changing a non-Zero store costs only 5000. The notable difference being the 15,000 refund.
+So the net cost of a store and delete is 5000 gas. If the entire 20,000 gas or more was refunded, then there is effectively no net cost for storage operations and its IO overhead. A cheap attack could be launched by continuous store/delete.
+
+heap-mapping with delete mapping (30 orders) : 3,111,416
+heap-mapping without delete mapping (30 orders) : 3,582,291
+
+
+You should be aware the refund is done at the end of the transaction, you have to have enough gas to process each slot upfront. Also your refund can be at most half of the gas used
+Recall that the gas refund can give you up to half of your consumed gas back, so even in the best case, you won't actually break even.
+
+GasToken works by taking advantage of the storage refund in Ethereum
+
+Store data permanently on Ethereum is extremely expensive. It has no 
+
+DApps on Ethereum execute arbitrary code provided by the owner of the DApp. While this code might be writtenin a high-level programming language like Solidity, it is compiled to a compact representation (called ‘bytecode’)that is a set of low-level instructions to the environment (Ethereum virtual machine or EVM). Because differentfunctions will have different complexities, the user running the function pays in proportion to the number ofinstructions, the complexity of the instructions, and the storage requirements. This means that each operation has a fixed price. Naturally the operations might be priced in ETH, since it is the on-board currency, however thiswould cause the price of computation to be as volatile as Ether itself. Instead, Ethereum uses a pseudo-currencycalled gas.5 Each instruction has a fixed price in gas. A user who wants to run a function will offer to pay a certainamount of ETH per unit of gas to the miner who finalizes the function. Miners will generally choose whichfunctions to run first based on how much ETH/gas they offer, and they might ignore functions that offer too littleETH/gas. We describe gas as a pseudo-currency because it cannot be directly stored or transacted, however wewill revisit this below
+
+
+
+The obvious is answer is that you can receive gas refunds for releasing unused storage. In the yellow paper on page 25 'Appendix G. Fee Schedule', you can read the gas costs for each instruction. As you might know, SSTORE will generally create the most costs in your contracts with a significant cost of 20,000 gas per instruction. On the contrary, if you look at R_sclear:
+
+Refund given when the storage value is set to zero from non-zero.
+
+15,000 gas refund means you can actually get 75% of your storing costs back! That is a large amount, do not forget about this. And the solution is simple, just set a value back to 0 once you are sure it will not be used anymore.
+
+
+
+
+
+
+
+
+The only two OPCODEs with negative gas costs are STORAGEKILL(-15000) and GSUICIDEREFUND(-24000).
+
+These occur when storage values are deleted or contacts are suicided.
+
+These OPCODEs grant gas refunds because they free up space in the blockchain.
+
 
 
 Also, Solidity \textit{delete()} function does not 
@@ -62,6 +96,33 @@ The gas price is whatever gas price applies to the whole transaction in which th
 delete a assigns the initial value for the type to a. I.e. for integers it is equivalent to a = 0, but it can also be used on arrays, where it assigns a dynamic array of length zero or a static array of the same length with all elements reset. For structs, it assigns a struct with all members reset.
 
 delete has no effect on whole mappings (as the keys of mappings may be arbitrary and are generally unknown). So if you delete a struct, it will reset all members that are not mappings and also recurse into the members unless they are mappings. However, individual keys and what they map to can be deleted.
+
+
+
+
+
+
+
+
+
+
+
+EIP-114, or the “1/64ths rule”
+EIP-114 mandates that certain stackdepth-creating opcodes withhold 1/64th of remaining gas from the stack they create. In practice this means:
+The gas required for a successful transaction can be greater than the actual gas spent (similar to how gas refunds behave).
+The extra gas required for a successful transaction varies depending on the transaction’s initial gasamount.
+A long-standing issue with Ganache has been the fact that we haven’t returned EIP-114 compliant gas estimations. This has caused our gas estimates to be too low in cases where a transaction executed certain opcodes. Gas exactimation addresses this by considering how the gas withheld at any nested stack depth/frame affects the gas needed outside of its execution context.
+Let’s see it in action
+
+
+Callstack Depth (hijacked stack/revert)
+
+External function calls can fail any time because they exceed the maximum call stack of 1024. In such situations, Solidity throws an exception.
+
+
+
+%If a transaction runs out of gas before successful completion, then all execution reverts.
+
 
 It is important to note that delete a really behaves like an assignment to a, i.e. it stores a new object in a.
 
