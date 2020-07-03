@@ -11,9 +11,12 @@ import "./PQ5_Linkedlist_Mapping.sol";
 contract Call_Market{
 
     //PQ1_Heap_Dynamic_Array public PQ = new PQ1_Heap_Dynamic_Array();
-    //PQ2_Heap_Static_Array public PQ = new PQ2_Heap_Static_Array(100);
+    //PQ2_Heap_Static_Array public PQ = new PQ2_Heap_Static_Array(400);
     //PQ3_Heap_Mapping public PQ = new PQ3_Heap_Mapping();
-    //PQ4_Linkedlist public PQ = new PQ4_Linkedlist();
+    
+    //we pass the address of the callmarket to the Linkedlist as we want selfdestruct() nodes to be able to send Ether back to the callmarket
+    //PQ4_Linkedlist public PQ = new PQ4_Linkedlist(address (this)); 
+
     PQ5_Linkedlist_Mapping public PQ = new PQ5_Linkedlist_Mapping();
     //Mapping public MP = new Mapping(address(this));
 
@@ -190,17 +193,19 @@ contract Call_Market{
        
         (uint256 BBPrice, address BBSender) = PQ.BuyListMaxDelete();
         (uint256 BAPrice, address BASender) = PQ.SellListMaxDelete();
+        
         while (BBPrice >= BAPrice)
         
         {  
             countervariable++;
             TotalTokenBalance[BBSender] += 1;
             TotalEtherBalance[BASender] += BAPrice;
-         
-            if (PQ.BuyListisEmpty() || PQ.SellListisEmpty()) {break;}
+            
+            if (PQ.BuyListisEmpty() == true || PQ.SellListisEmpty() == true) {break;}
 
             (BBPrice,BBSender) = PQ.BuyListMaxDelete();
             (BAPrice,BASender) = PQ.SellListMaxDelete();
+           
         }
         
         //uint refund = refunds[block.coinbase]; 

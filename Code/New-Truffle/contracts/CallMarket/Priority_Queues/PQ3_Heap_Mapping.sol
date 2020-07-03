@@ -4,7 +4,7 @@ pragma experimental ABIEncoderV2;
 
 //Mapping and Heap with dynamic array wrapped in a priority queue
 //The code stores orderstructs in the mapping and have keys for them. and stores the keys in the sorted heap that is implemented by dynamic array
-//Maximum number of order the Match function can handle:
+
 
 contract PQ3_Heap_Mapping{
 
@@ -34,9 +34,7 @@ contract PQ3_Heap_Mapping{
 //*******************  InsertBid() ***************************//
     //the new item will be added to the end of the array list (a buy order is submitted)
     //then heapified up with a call to heapifyUp method
-    function InsertBid (address _sender, uint256 _price, uint256 _volume, uint256 _auxprice) public 
-    //CheckAuctionStage ()
-    returns (bool)
+    function InsertBid (address _sender, uint256 _price, uint256 _volume, uint256 _auxprice) public returns (bool)
     {
         OrderStruct memory neworder = OrderStruct(msg.sender, _price, _volume, true, _auxprice);
         BuyList[BuyListKey] = neworder;
@@ -49,7 +47,7 @@ contract PQ3_Heap_Mapping{
 //*******************  maxheap_heapifyUp () ***************************//
     //this function is called everytime we insert a new element to the end of the array (aka a new Buy order is submitted) and
     //now the heap has to be sorted again
-    function maxheap_heapifyUp () internal returns (bool) {
+    function maxheap_heapifyUp () internal returns(bool) {
     
         uint256 k = BuyListHeap.length - 1;                   //k is set to be the last entry of the array (also heap) which is the element that's just added and has to be moved up
         while (k > 0){                                  //while we havent reached to the top of the heap
@@ -71,11 +69,13 @@ contract PQ3_Heap_Mapping{
     function BuyListMaxDelete() public returns (uint256, address)
     {
         require (BuyListHeap.length != 0, 'BuyList is empty!');                            //the delete function throws exception if the heap is empty
-        uint256 _price =  BuyList[BuyListHeap[0]].Price;
-        address _sender =  BuyList[BuyListHeap[0]].Sender;
+        
         
         if (BuyListHeap.length == 1) {                                      //if the heap has only one items
 
+            
+            uint256 _price =  BuyList[BuyListHeap[0]].Price;
+            address _sender =  BuyList[BuyListHeap[0]].Sender;
             //delete BuyList[BuyListHeap[0]];
             BuyListHeap.pop();                                                 //the only element of the heap is removed and returned 
             BuyListKey--;
@@ -84,18 +84,22 @@ contract PQ3_Heap_Mapping{
         }
 
         //if neither of these conditions are true, then there are at least 2 items in the heap and deletion proceeds
-        
-        //delete BuyList[BuyListHeap[0]];
-        BuyListHeap[0] = BuyListHeap[BuyListHeap.length -1]; //the last elementof the heap is removed and written into the first position
-        BuyListHeap.pop();
-        maxheap_heapifyDown(); //now the siftdown is called
-        BuyListKey--;
-        return (_price, _sender);  
+        else{
+            
+            uint256 _price =  BuyList[BuyListHeap[0]].Price;
+            address _sender =  BuyList[BuyListHeap[0]].Sender;
+            //delete BuyList[BuyListHeap[0]];
+            BuyListHeap[0] = BuyListHeap[BuyListHeap.length -1]; //the last elementof the heap is removed and written into the first position
+            BuyListHeap.pop();
+            maxheap_heapifyDown(); //now the siftdown is called
+            BuyListKey--;
+            return (_price, _sender);  
+        }
     }
 //*******************  maxheap_heapifyDown () ***************************//
     //when we want to remove an element from the heap we remove the root of the heap and add the last item
     //to the root and reorder the heap again
-    function maxheap_heapifyDown () internal returns (bool)
+    function maxheap_heapifyDown () internal returns(bool)
     {
         uint256 k =0;
         uint256 leftchild = 2*k + 1;
@@ -176,7 +180,7 @@ contract PQ3_Heap_Mapping{
 //*******************  minheap_heapifyUp () ***************************//
     //this function is called everytime we insert a new element to the end of the array (aka a new sell order is submitted) and
     //now the heap has to be sorted again
-    function minheap_heapifyUp () internal returns (bool) {
+    function minheap_heapifyUp () internal returns(bool)  {
 
         uint256 k = SellListHeap.length - 1; //k is set to be the last entry of the array(also heap) which is the element that's just added and has to be moved up
         while (k > 0){                                      //while we havent reached to the top of the heap
@@ -193,7 +197,7 @@ contract PQ3_Heap_Mapping{
             else {break;} //if not the break statement exits the loop (it continues until no element index k is not greater than its parent)
         }
         
-        return true;
+        return true; 
     }
 //*******************  SellListMaxDelete () ***************************//
     //the highest priority item (the smallest ask) will be removed from the list and is returned by the function
@@ -201,11 +205,13 @@ contract PQ3_Heap_Mapping{
     function SellListMaxDelete() public returns (uint256, address)
     {
         require (SellListHeap.length != 0, 'BuyList is empty!');                      //the delete function throws exception if the heap is empty
-        uint256 _price =  SellList[SellListHeap[0]].Price;
-        address _sender =  SellList[SellListHeap[0]].Sender;
+        
         
         if (SellListHeap.length == 1) {                               // if the heap has only one item
             
+            
+            uint256 _price =  SellList[SellListHeap[0]].Price;
+            address _sender =  SellList[SellListHeap[0]].Sender;
             //delete SellList[SellListHeap[0]];
             SellListHeap.pop();                                   //the only element of the heap is removed and returned  
             SellListKey --;
@@ -213,18 +219,22 @@ contract PQ3_Heap_Mapping{
         }
 
         //if neither of these conditions are true, then there are at least 2 items in the heap and deletion proceeds
-      
-        //delete SellList[SellListHeap[0]];
-        SellListHeap[0] = SellListHeap[SellListHeap.length -1];                      //the last elementof the heap is removed and written into the first position
-        SellListHeap.pop(); 
-        minheap_heapifyDown();                           //now the heapifyDown is called to restore the ordering of the heap 
-        SellListKey --;
-        return (_price, _sender);    
+        else{
+            
+            uint256 _price =  SellList[SellListHeap[0]].Price;
+            address _sender =  SellList[SellListHeap[0]].Sender;
+            //delete SellList[SellListHeap[0]];
+            SellListHeap[0] = SellListHeap[SellListHeap.length -1];                      //the last elementof the heap is removed and written into the first position
+            SellListHeap.pop(); 
+            minheap_heapifyDown();                           //now the heapifyDown is called to restore the ordering of the heap 
+            SellListKey --;
+            return (_price, _sender);   
+        } 
     }
 //*******************  minheap_heapifyDown () ***************************//
     //when we want to remove an element from the heap we remove the root of the heap and add the last item
     //to the root and reorder the heap again
-    function minheap_heapifyDown () internal  returns (bool) {
+    function minheap_heapifyDown () internal returns(bool) {
         uint256 k =0;
         uint256 leftchild = 2*k + 1;
         while (leftchild < SellListHeap.length){               //as long as the left child is within the array that heap is stored in
@@ -253,6 +263,7 @@ contract PQ3_Heap_Mapping{
 
         }
         return true;
+        
     }
 //****************   SellListMaxPrice()  *********************//
     //SellListpeak function returns the price of the highest priority element (The Lowest ask)

@@ -1,11 +1,5 @@
 var CallMarket = artifacts.require("./Call_Market.sol"); 
-var PQ1 = artifacts.require("./PQ1_Heap_Dynamic_Array.sol"); 
-var PQ2 = artifacts.require("./PQ2_Heap_Static_Array.sol"); 
-var PQ3 = artifacts.require("./PQ3_Heap_Mapping.sol")
-var PQ4 = artifacts.require("./PQ4_Linkedlist.sol")
-var PQ5 = artifacts.require("./PQ5_Linkedlist_Mapping.sol")
-var MP = artifacts.require("./Mapping.sol")
-var PQaddress;
+
 //const BN = require('bn.js');
 
 
