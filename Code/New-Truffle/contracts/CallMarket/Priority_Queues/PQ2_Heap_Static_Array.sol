@@ -2,6 +2,8 @@ pragma solidity >=0.4.22;
 pragma experimental ABIEncoderV2;
 
 //Heap with static array wrapped in a priority queue
+//Maximum number of order the Match function can handle:
+
 contract PQ2_Heap_Static_Array{
     
     constructor (uint256 _MAXORDERS) public
@@ -21,8 +23,8 @@ contract PQ2_Heap_Static_Array{
         
     }
     uint256 public MAXORDERS;
-    OrderStruct[200] BuyList;  //The array that contains Bid OrderStructs (descending (decremental)), we always want the highest bid (maxheap)
-    OrderStruct[200] SellList; //The array that contains Ask OrderStructs (ascending (incremental)), we always want the lowest ask (minheap)
+    OrderStruct[80] BuyList;  //The array that contains Bid OrderStructs (descending (decremental)), we always want the highest bid (maxheap)
+    OrderStruct[80] SellList; //The array that contains Ask OrderStructs (ascending (incremental)), we always want the lowest ask (minheap)
     uint256 public SellIndex;
     uint256 public BuyIndex;
 
@@ -40,20 +42,18 @@ contract PQ2_Heap_Static_Array{
         if (BuyList[0].Exists == false)
         {
             BuyList[0] = neworder; 
-            
         }
        else{
             BuyIndex ++;
             BuyList[BuyIndex] = neworder;
             maxheap_heapifyUp ();
-            
-        }   
-        return true; 
+        }    
     }    
 //*******************  maxheap_heapifyUp () ***************************//
     //this function is called everytime we insert a new element to the end of the array (aka a new Buy order is submitted) and
     //now the heap has to be sorted again
-    function maxheap_heapifyUp () internal returns (bool) {
+    function maxheap_heapifyUp () internal 
+    returns (bool) {
 
         uint256 k = BuyIndex;                   //k is set to be the last entry of the array (also heap) which is the element that's just added and has to be moved up
         while (k > 0){                                  //while we havent reached to the top of the heap
@@ -76,48 +76,44 @@ contract PQ2_Heap_Static_Array{
     //then the heap is reordered uising the heapifyDown method
     function BuyListMaxDelete() public returns (uint256, address) 
     {   
-        require (BuyList[0].Exists == true, 'BuyList is empty!');   //the delete function throws exception if the list is empty
-       
+        require (BuyList[0].Exists != false, 'BuyList is empty!');   //the delete function throws exception if the list is empty
+        uint256 _price =  BuyList[0].Price;
+        address _sender =  BuyList[0].Sender;
         
         if (BuyIndex == 0) 
         { 
-            uint256 _price =  BuyList[0].Price;
-            address _sender =  BuyList[0].Sender;
             delete BuyList[0];
-            return(_price, _sender);
+            return(_price,_sender);
 
         }                           
         if (BuyIndex == 1)
         {                                      //if the heap has two items
                                     
-            uint256 _price =  BuyList[0].Price;
-            address _sender =  BuyList[0].Sender;
             BuyList[0] = BuyList[1]; //the first element of the heap is removed 
             delete BuyList[1];
             BuyIndex --;
-            return(_price, _sender);
+            return(_price,_sender);
             
        
         }
         //if neither of these conditions are true, then there are at least 2 items in the heap and deletion proceeds
-        uint256 _price =  BuyList[0].Price;
-        address _sender =  BuyList[0].Sender;
         BuyList[0] = BuyList[BuyIndex]; //the last elementof the heap is removed and written into the first position
         delete BuyList[BuyIndex];
-        BuyIndex--;
         maxheap_heapifyDown(); //now the siftdown is called
-        
-        return(_price, _sender);
+        BuyIndex--;
+        return(_price,_sender);
     }
 
 //*******************  maxheap_heapifyDown () ***************************//
     //when we want to remove an element from the heap we remove the root of the heap and add the last item
     //to the root and reorder the heap again
-    function maxheap_heapifyDown () internal returns (bool)
+    function maxheap_heapifyDown () internal 
+ 
+    returns (bool)
     {
         uint256 k =0;
         uint256 leftchild = 2*k + 1;
-        while (leftchild <= BuyIndex )
+        while (leftchild < BuyIndex )
         {                                   //as long as the left child is within the array that heap is stored in
             uint256 max = leftchild;
             uint256 rightchild = leftchild + 1;                                     //rightchild = 2k+2
@@ -166,7 +162,7 @@ contract PQ2_Heap_Static_Array{
     //checks if the Buylist is empty or not 
     function BuyListisEmpty() public returns (bool){
         
-        if (BuyList[0].Exists == false)
+        if (BuyList[BuyIndex].Exists == false)
         {
             return true;
 
@@ -205,7 +201,9 @@ contract PQ2_Heap_Static_Array{
 //*******************  minheap_heapifyUp () ***************************//
     //this function is called everytime we insert a new element to the end of the array (aka a new sell order is submitted) and
     //now the heap has to be sorted again
-    function minheap_heapifyUp () internal returns (bool) {
+    function minheap_heapifyUp () internal 
+    //CheckAuctionStage ()
+    returns (bool) {
 
         uint256 k = SellIndex ; //k is set to be the last entry of the array(also heap) which is the element that's just added and has to be moved up
         while (k > 0){                                      //while we havent reached to the top of the heap
@@ -242,7 +240,7 @@ contract PQ2_Heap_Static_Array{
     //checks if the SellList is empty or not 
     function SellListisEmpty() public returns (bool){
         
-        if (SellList[0].Exists == false)
+        if (SellList[SellIndex].Exists == false)
         {
             return true;
 
@@ -258,13 +256,12 @@ contract PQ2_Heap_Static_Array{
     //then the heap is reordered uising the heapifyDown method
     function SellListMaxDelete() public returns (uint256, address)
     {
-        require(SellList[0].Exists == true,'SellList is empty!');            //the delete function throws exception if the list is empty
-        
+        require(SellList[0].Exists != false,'SellList is empty!');            //the delete function throws exception if the list is empty
+        uint256 _price =  SellList[0].Price;
+        address _sender =  SellList[0].Sender;
         
         if (SellIndex == 0) 
         {
-            uint256 _price =  SellList[0].Price;
-            address _sender =  SellList[0].Sender;
             delete SellList[0]; 
             return (_price,_sender);
         }
@@ -272,9 +269,7 @@ contract PQ2_Heap_Static_Array{
         
         if (SellIndex == 1) {                               // if the heap has only one item
    
-            uint256 _price =  SellList[0].Price;
-            address _sender =  SellList[0].Sender;
-            SellList[0] = SellList[1];
+            BuyList[0] = BuyList[1];
             delete SellList[1];                                   //the only element of the heap is removed and returned  
             SellIndex --;
             return (_price,_sender);
@@ -283,23 +278,21 @@ contract PQ2_Heap_Static_Array{
         //if neither of these conditions are true, then there are at least 2 items in the heap and deletion proceeds
       
        
-        uint256 _price =  SellList[0].Price;
-        address _sender =  SellList[0].Sender;
         SellList[0] = SellList[SellIndex];                      //the last elementof the heap is removed and written into the first position
         delete SellList[SellIndex]; 
-        
-        SellIndex --;
         minheap_heapifyDown();                           //now the heapifyDown is called to restore the ordering of the heap 
-        
+        SellIndex--;
         return (_price,_sender);
     }
 //*******************  minheap_heapifyDown () ***************************//
     //when we want to remove an element from the heap we remove the root of the heap and add the last item
     //to the root and reorder the heap again
-    function minheap_heapifyDown () internal returns (bool) {
+    function minheap_heapifyDown () internal 
+    //CheckAuctionStage ()
+    returns (bool) {
         uint256 k =0;
         uint256 leftchild = 2*k + 1;
-        while (leftchild <= SellIndex ){               //as long as the left child is within the array that heap is stored in
+        while (leftchild < SellIndex ){               //as long as the left child is within the array that heap is stored in
             uint256 min = leftchild;
             uint256 rightchild = leftchild + 1;              //rightchild = 2k+2
 

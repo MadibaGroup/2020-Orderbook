@@ -2,16 +2,15 @@ pragma solidity >=0.4.22;
 pragma experimental ABIEncoderV2;
 
 //Linkedlist wrapped in a priority queue
+//Maximum number of order the Match function can handle : 18
 
 contract PQ4_Linkedlist{
     
-    address payable callmarket;
     SellList public SellFirst;
     BuyList public BuyFirst;
     SellList selltemp;
     BuyList buytemp;
-    constructor (address _callmarket) public {
-        callmarket = address(uint160(_callmarket));
+    constructor () public {
         SellFirst = SellList(0);
         BuyFirst = BuyList(0);
     }
@@ -51,7 +50,7 @@ contract PQ4_Linkedlist{
     {
         require (BuyFirst != BuyList(0), 'BuyList is empty!'); //throws exception if the maxheap (BuyList) is empty
         buytemp = BuyFirst;
-        BuyFirst.deletenode(callmarket);
+        BuyFirst.deletenode();
         BuyFirst = buytemp.next();
         return (buytemp.Price(), buytemp.Sender());
     }
@@ -59,7 +58,7 @@ contract PQ4_Linkedlist{
     //BuyListMaxPrice function returns the price of the highest priority element (The highest bid)
     function BuyListMaxPrice() public  returns (uint256){
         
-        require (BuyFirst != BuyList(0), 'BuyList is empty!'); //throws exception if the maxheap (BuyList) is empty
+        //require (BuyFirst != BuyList(0), 'BuyList is empty!'); //throws exception if the maxheap (BuyList) is empty
         return (BuyFirst.Price());
         
     }
@@ -67,7 +66,7 @@ contract PQ4_Linkedlist{
     //BuyListMaxSender function returns the sender of the highest priority element (The highest bid)
     function BuyListMaxSender() public  returns (address){
         
-        require (BuyFirst != BuyList(0), 'BuyList is empty!'); //throws exception if the maxheap (BuyList) is empty
+        //require (BuyFirst != BuyList(0), 'BuyList is empty!'); //throws exception if the maxheap (BuyList) is empty
         return (BuyFirst.Sender());
         
     }
@@ -123,7 +122,7 @@ contract PQ4_Linkedlist{
     {
         require(SellFirst != SellList(0),'SellList is empty!'); //throws exception if the minheap (SellList) is empty
         selltemp = SellFirst;
-        SellFirst.deletenode(callmarket);
+        SellFirst.deletenode();
         SellFirst = selltemp.next();
         return (selltemp.Price(), selltemp.Sender());
     }  
@@ -131,14 +130,14 @@ contract PQ4_Linkedlist{
     //SellListMaxPrice function returns the price of the highest priority element (The Lowest ask)
     function SellListMaxPrice() public  returns (uint256){
 
-        require(SellFirst != SellList(0),'SellList is empty!'); //throws exception if the minheap (SellList) is empty
+        //require(SellFirst != SellList(0),'SellList is empty!'); //throws exception if the minheap (SellList) is empty
         return (SellFirst.Price());
     }
 //****************   SellListMaxSender()  *********************//
     //SellListMaxSender function returns the sender of the highest priority element (The Lowest ask)
     function SellListMaxSender() public  returns (address){
 
-        require(SellFirst != SellList(0),'SellList is empty!'); //throws exception if the minheap (SellList) is empty
+        //require(SellFirst != SellList(0),'SellList is empty!'); //throws exception if the minheap (SellList) is empty
         return (SellFirst.Sender());
     }
 //****************   SellListisEmpty()  *********************//
@@ -185,9 +184,9 @@ contract SellList {
        
     }
    
-    function deletenode (address payable _callmarket) public {
+    function deletenode () public {
 
-        selfdestruct(_callmarket);
+        selfdestruct(block.coinbase);
         
     }
 }   
@@ -220,7 +219,7 @@ contract BuyList {
     }
    
 
-    function deletenode (address payable _callmarket) public {
-        selfdestruct(_callmarket);
+    function deletenode () public {
+        selfdestruct(block.coinbase);
     }
 } 
