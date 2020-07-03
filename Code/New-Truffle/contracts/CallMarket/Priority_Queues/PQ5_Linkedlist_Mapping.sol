@@ -1,7 +1,6 @@
 pragma solidity >=0.4.22;
 
 //Linkedlist implemented with mapping wrapped in a priority queue
-//Maximum number of order the Match function can handle : 18
 
 contract PQ5_Linkedlist_Mapping{
     
@@ -40,18 +39,7 @@ contract PQ5_Linkedlist_Mapping{
     mapping (uint256 => OrderStruct) public SellList;
     mapping (uint256 => OrderStruct) public BuyList;
     
-    uint256 public test1;
-    uint256 public test2;
-    uint256 public test3;
-    function testfunction1() public returns (uint256){
-        //return BuyList[BuyList[BuyList[BuyHead].next].next].Price;
-        return SellList[SellHead].Price;
-
-    }
-    function testfunction2() public returns (uint256){
-        return SellList[SellHead].Price;
-
-    }
+    
 
 //******************** InsertBid() function ********************//
     //A new buy order will be added in its right position in the list
@@ -77,7 +65,7 @@ contract PQ5_Linkedlist_Mapping{
     }    
 
 //******************** BuyList_InsertAfter() function ********************//
-    function BuyList_InsertAfter(uint256 _prevId, address _sender, uint256 _price, uint256 _volume, uint256 _auxprice) internal 
+    function BuyList_InsertAfter(uint256 _prevId, address _sender, uint256 _price, uint256 _volume, uint256 _auxprice) internal returns (bool)
     {
         
         if (_prevId == BuyTail) {
@@ -90,7 +78,7 @@ contract PQ5_Linkedlist_Mapping{
             BuyList_Link(newOrderId, nextOrder.id);
             BuyList_Link(prevOrder.id, newOrderId);  
         }
-        
+        return true;
     }
 //******************** BuyList_InsertBefore() function ********************//
     function BuyList_InsertBefore(uint256 _nextId, address _sender, uint256 _price, uint256 _volume, uint256 _auxprice) internal returns (bool)
@@ -120,9 +108,10 @@ contract PQ5_Linkedlist_Mapping{
         return true;
     }
 //******************** BuyList_SetTail() function ********************//
-    function BuyList_SetTail(uint256 _id) internal
+    function BuyList_SetTail(uint256 _id) internal returns(bool)
     {
         BuyTail = _id;
+        return true;
     }
 //******************** BuyList_AddHead() function ********************//
     function BuyList_AddHead(address _sender, uint256 _price, uint256 _volume, uint256 _auxprice) internal returns (uint256)
@@ -134,9 +123,10 @@ contract PQ5_Linkedlist_Mapping{
         return ordertId;
     }
 //******************** BuyList_SetHead() function ********************//
-    function BuyList_SetHead(uint256 _id) internal
+    function BuyList_SetHead(uint256 _id) internal returns(bool)
     {
         BuyHead = _id;
+        return true;
     }      
     
 //******************** BuyList_CreateObject() function ********************//
@@ -158,7 +148,7 @@ contract PQ5_Linkedlist_Mapping{
     //BuyListMaxPrice function returns the price of the highest priority element (The highest bid)
     function BuyListMaxPrice() public  returns (uint256){
         
-        //require (BuyFirst != BuyList(0), 'BuyList is empty!'); //throws exception if the maxheap (BuyList) is empty
+        require (BuyHead != 0, 'BuyList is empty!'); //throws exception if the maxheap (BuyList) is empty
         return (BuyList[BuyHead].Price);
         
     }
@@ -166,7 +156,7 @@ contract PQ5_Linkedlist_Mapping{
     //BuyListMaxSender function returns the sender of the highest priority element (The highest bid)
     function BuyListMaxSender() public  returns (address){
         
-        //require (BuyFirst != BuyList(0), 'BuyList is empty!'); //throws exception if the maxheap (BuyList) is empty
+        require (BuyHead != 0, 'BuyList is empty!'); //throws exception if the maxheap (BuyList) is empty
         return (BuyList[BuyHead].Sender);
         
     }
@@ -274,6 +264,7 @@ contract PQ5_Linkedlist_Mapping{
         }
         return true;
     }
+//******************** SellList_InsertBefore() function ********************//
     function SellList_InsertBefore(uint256 _nextId, address _sender, uint256 _price, uint256 _volume, uint256 _auxprice) internal returns (bool)
     {
         if (_nextId == SellHead) {
@@ -299,9 +290,10 @@ contract PQ5_Linkedlist_Mapping{
         return true;
     }
 //******************** SellList_SetTail() function ********************//
-    function SellList_SetTail(uint256 _id) internal
+    function SellList_SetTail(uint256 _id) internal returns(bool)
     {
         SellTail = _id;
+        return true;
     }
 //******************** SellList_AddHead() function ********************//
     function SellList_AddHead(address _sender,uint256 _price, uint256 _volume, uint256 _auxprice) internal returns (uint256)
@@ -313,9 +305,10 @@ contract PQ5_Linkedlist_Mapping{
         return ordertId;
     }
 //******************** SellList_SetHead() function ********************//
-    function SellList_SetHead(uint256 _id) internal
+    function SellList_SetHead(uint256 _id) internal returns (bool)
     {
         SellHead = _id;
+        return true;
     }      
 //******************** SellList_CreateObject() function ********************//
     function SellList_CreateObject(address _sender, uint256 _price, uint256 _volume, uint256 _auxprice) internal returns (uint256)
@@ -327,23 +320,24 @@ contract PQ5_Linkedlist_Mapping{
         return order.id;
     }
 //******************** SellList_CreateObject() function ********************//
-    function SellList_Link(uint256 _prevId, uint256 _nextId) internal
+    function SellList_Link(uint256 _prevId, uint256 _nextId) internal returns (bool)
     {
         SellList[_prevId].next = _nextId;
-        SellList[_nextId].prev = _prevId;    
+        SellList[_nextId].prev = _prevId;
+        return true;    
     }
 //****************   SellListMaxPrice()  *********************//
     //SellListMaxPrice function returns the price of the highest priority element (The Lowest ask)
     function SellListMaxPrice() public  returns (uint256){
 
-        //require(SellFirst != SellList(0),'SellList is empty!'); //throws exception if the minheap (SellList) is empty
+        require(SellHead != 0,'SellList is empty!'); //throws exception if the minheap (SellList) is empty
         return (SellList[SellHead].Price);
     }
 //****************   SellListMaxSender()  *********************//
     //SellListMaxSender function returns the sender of the highest priority element (The Lowest ask)
     function SellListMaxSender() public  returns (address){
 
-        //require(SellFirst != SellList(0),'SellList is empty!'); //throws exception if the minheap (SellList) is empty
+        require(SellHead != 0,'SellList is empty!'); //throws exception if the minheap (SellList) is empty
         return (SellList[SellHead].Sender);
     }
 //*******************  SellListMaxDelete () ***************************//

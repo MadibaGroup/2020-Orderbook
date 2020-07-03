@@ -2,9 +2,8 @@ pragma solidity >=0.4.22;
 pragma experimental ABIEncoderV2;
 
 //Heap with dynamic array wrapped in a priority queue
-//Maximum number of order the Match function can handle : 26 asks and 26 buys (52 orders)
-//submitBid: for(let j = 27; j <= 52  ; j++)
-//submitAsk: for(let j = 26; j >= 1  ; j--)
+//Maximum number of order the Match function can handle 
+
 
 contract PQ1_Heap_Dynamic_Array{
 //Every order has some attributes:
@@ -64,7 +63,7 @@ contract PQ1_Heap_Dynamic_Array{
             uint256 _price =  BuyList[0].Price;
             address _sender =  BuyList[0].Sender;
             BuyList.pop();                                                 //the only element of the heap is removed and returned 
-            return (BuyList[0].Price, BuyList[0].Sender);     
+            return (_price ,_sender);     
        
         }
 
@@ -151,9 +150,7 @@ contract PQ1_Heap_Dynamic_Array{
 //*******************  InsertAsk() ***************************//
     //the new item will be added to the end of the array list (an ask order is submitted)
     //then heapified up with a call to heapifyUp method
-    function InsertAsk (address _sender, uint256 _price, uint256 _volume, uint256 _auxprice) public  
-    //CheckAuctionStage ()
-    returns (bool)
+    function InsertAsk (address _sender, uint256 _price, uint256 _volume, uint256 _auxprice) public  returns (bool)
     {
         OrderStruct memory neworder = OrderStruct(_sender, _price , _volume, true, _auxprice); 
         SellList.push(neworder);
@@ -163,9 +160,7 @@ contract PQ1_Heap_Dynamic_Array{
 //*******************  minheap_heapifyUp () ***************************//
     //this function is called everytime we insert a new element to the end of the array (aka a new sell order is submitted) and
     //now the heap has to be sorted again
-    function minheap_heapifyUp () internal 
-    //CheckAuctionStage ()
-    returns (bool) {
+    function minheap_heapifyUp () internal returns (bool) {
 
         uint256 k = SellList.length - 1; //k is set to be the last entry of the array(also heap) which is the element that's just added and has to be moved up
         while (k > 0){                                      //while we havent reached to the top of the heap

@@ -2,7 +2,6 @@ pragma solidity >=0.4.22;
 pragma experimental ABIEncoderV2;
 
 //Linkedlist wrapped in a priority queue
-//Maximum number of order the Match function can handle : 18
 
 contract PQ4_Linkedlist{
     

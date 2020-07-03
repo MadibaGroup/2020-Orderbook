@@ -89,7 +89,7 @@ describe('CallMarket', function(accounts) {
         var array = [];
     
         accounts = await web3.eth.getAccounts();
-        for(let j = 130; j >= 1  ; j--){
+        for(let j = 50; j >= 1  ; j--){
             await CallMarketInstance.submitAsk (j, 1, {from: accounts[0]});
             array.push(j);
         } 
@@ -105,7 +105,7 @@ describe('CallMarket', function(accounts) {
         var array = [];
         
         accounts = await web3.eth.getAccounts();
-        for(let j = 131; j <= 260  ; j++){
+        for(let j = 51; j <= 100  ; j++){
             await CallMarketInstance.submitBid (j, 1, {from: accounts[1]});
             array.push(j);
 

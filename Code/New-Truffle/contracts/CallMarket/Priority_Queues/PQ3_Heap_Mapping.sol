@@ -4,7 +4,7 @@ pragma experimental ABIEncoderV2;
 
 //Mapping and Heap with dynamic array wrapped in a priority queue
 //The code stores orderstructs in the mapping and have keys for them. and stores the keys in the sorted heap that is implemented by dynamic array
-//Maximum number of order the Match function can handle:
+
 
 contract PQ3_Heap_Mapping{
 
@@ -34,9 +34,7 @@ contract PQ3_Heap_Mapping{
 //*******************  InsertBid() ***************************//
     //the new item will be added to the end of the array list (a buy order is submitted)
     //then heapified up with a call to heapifyUp method
-    function InsertBid (address _sender, uint256 _price, uint256 _volume, uint256 _auxprice) public 
-    //CheckAuctionStage ()
-    returns (bool)
+    function InsertBid (address _sender, uint256 _price, uint256 _volume, uint256 _auxprice) public returns (bool)
     {
         OrderStruct memory neworder = OrderStruct(msg.sender, _price, _volume, true, _auxprice);
         BuyList[BuyListKey] = neworder;
@@ -71,11 +69,12 @@ contract PQ3_Heap_Mapping{
     function BuyListMaxDelete() public returns (uint256, address)
     {
         require (BuyListHeap.length != 0, 'BuyList is empty!');                            //the delete function throws exception if the heap is empty
-        uint256 _price =  BuyList[BuyListHeap[0]].Price;
-        address _sender =  BuyList[BuyListHeap[0]].Sender;
+        
         
         if (BuyListHeap.length == 1) {                                      //if the heap has only one items
 
+            uint256 _price =  BuyList[BuyListHeap[0]].Price;
+            address _sender =  BuyList[BuyListHeap[0]].Sender;
             //delete BuyList[BuyListHeap[0]];
             BuyListHeap.pop();                                                 //the only element of the heap is removed and returned 
             BuyListKey--;
@@ -85,6 +84,8 @@ contract PQ3_Heap_Mapping{
 
         //if neither of these conditions are true, then there are at least 2 items in the heap and deletion proceeds
         
+        uint256 _price =  BuyList[BuyListHeap[0]].Price;
+        address _sender =  BuyList[BuyListHeap[0]].Sender;
         //delete BuyList[BuyListHeap[0]];
         BuyListHeap[0] = BuyListHeap[BuyListHeap.length -1]; //the last elementof the heap is removed and written into the first position
         BuyListHeap.pop();
@@ -201,11 +202,12 @@ contract PQ3_Heap_Mapping{
     function SellListMaxDelete() public returns (uint256, address)
     {
         require (SellListHeap.length != 0, 'BuyList is empty!');                      //the delete function throws exception if the heap is empty
-        uint256 _price =  SellList[SellListHeap[0]].Price;
-        address _sender =  SellList[SellListHeap[0]].Sender;
+        
         
         if (SellListHeap.length == 1) {                               // if the heap has only one item
             
+            uint256 _price =  SellList[SellListHeap[0]].Price;
+            address _sender =  SellList[SellListHeap[0]].Sender;
             //delete SellList[SellListHeap[0]];
             SellListHeap.pop();                                   //the only element of the heap is removed and returned  
             SellListKey --;
@@ -214,6 +216,8 @@ contract PQ3_Heap_Mapping{
 
         //if neither of these conditions are true, then there are at least 2 items in the heap and deletion proceeds
       
+        uint256 _price =  SellList[SellListHeap[0]].Price;
+        address _sender =  SellList[SellListHeap[0]].Sender;
         //delete SellList[SellListHeap[0]];
         SellListHeap[0] = SellListHeap[SellListHeap.length -1];                      //the last elementof the heap is removed and written into the first position
         SellListHeap.pop(); 
