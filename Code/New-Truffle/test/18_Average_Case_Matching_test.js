@@ -91,7 +91,7 @@ describe('CallMarket', function(accounts) {
         var array = [];
         
         accounts = await web3.eth.getAccounts();
-        for(let j = 1; j <= 130  ; j++){
+        for(let j = 1; j <= 30  ; j++){
             var randomnumber = Math.floor(Math.random() * (maximum - minimum + 1)) + minimum;
             await CallMarketInstance.submitAsk (randomnumber, 1, {from: accounts[0]});
             array.push(randomnumber);
@@ -108,7 +108,7 @@ describe('CallMarket', function(accounts) {
         var array = [];
         
         accounts = await web3.eth.getAccounts();
-        for(let j = 1; j <= 130  ; j++){
+        for(let j = 1; j <= 30  ; j++){
             var randomnumber = Math.floor(Math.random() * (maximum - minimum + 1)) + minimum;
             await CallMarketInstance.submitBid (randomnumber, 1, {from: accounts[1]});
             array.push(randomnumber);
