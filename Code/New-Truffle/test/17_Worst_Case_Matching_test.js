@@ -4,6 +4,8 @@ var CallMarketaddress;
 var tokenaddress;
 var accounts;
 
+//const delay = require('delay');
+
 
 //Test 1:
 //This truffle code tests 5 priority queues in terms of the number of matches the match function can handle.
@@ -63,7 +65,7 @@ describe('CallMarket', function(accounts) {
 
         accounts = await web3.eth.getAccounts();
         
-        const receipt = await CallMarketInstance.DepositEther (1000000, {from: accounts[1]});
+        const receipt = await CallMarketInstance.DepositEther (10000000000, {from: accounts[1]});
 
         const totalbalance = await CallMarketInstance.TotalEtherBalance(accounts[1]);
         
@@ -89,7 +91,7 @@ describe('CallMarket', function(accounts) {
         var array = [];
     
         accounts = await web3.eth.getAccounts();
-        for(let j = 50; j >= 1  ; j--){
+        for(let j = 1000; j >= 1  ; j--){
             await CallMarketInstance.submitAsk (j, 1, {from: accounts[0]});
             array.push(j);
         } 
@@ -105,7 +107,7 @@ describe('CallMarket', function(accounts) {
         var array = [];
         
         accounts = await web3.eth.getAccounts();
-        for(let j = 51; j <= 100  ; j++){
+        for(let j = 1001; j <= 2000  ; j++){
             await CallMarketInstance.submitBid (j, 1, {from: accounts[1]});
             array.push(j);
 
@@ -123,12 +125,76 @@ describe('CallMarket', function(accounts) {
     //*******************Test 7*************************
     it('should match the orders', async() => {
         const CallMarketInstance = await CallMarket.deployed();
+        // process.on('unhandledRejection', (err) => {
+        //     throw err;
+        //    });
+       
+        //const gasEstimate = await CallMarketInstance.MatchOrders.estimateGas();
+        //const var1 = await web3.eth.getBlock("latest");
+        //const var2 = await var1.gasLimit;
         
-        const receipt =  await CallMarketInstance.MatchOrders();
-        const gasUsed = receipt.receipt.gasUsed;
-        console.log(`GasUsed for worst case matching is: ${receipt.receipt.gasUsed}`); 
+        //const receipt = await  CallMarketInstance.MatchOrders({gas: "4712388", from: accounts[4]});
+        const receipt = await  CallMarketInstance.MatchOrders();
+        //const gasUsed = receipt.receipt.gasUsed;
+        //console.log(`GasUsed for worst case matching is: ${receipt.receipt.gasUsed}`);
+        console.log(receipt);
+        //const var1 = await web3.eth.getBlock("latest");
+        //const var2 = await var1.gasPrice;
+        //console.log(var2.toString());  
+        // function timeout(ms) {
+        //     return new Promise(resolve => setTimeout(resolve, ms));
+        // }
+        //await CallMarketInstance.MatchOrders().estimateGas();
+        //CallMarketInstance.MatchOrders().estimateGas();    
+        // const gasEstimate = await CallMarketInstance.MatchOrders().estimateGas();
+        // await timeout(5000);
+        //console.log(gasEstimate); 
+
+
+
+        // function awaitAll(count, asyncFn) {
+        //     const promises = [];
+          
+        //     for (i = 0; i < count; ++i) {
+        //       promises.push(asyncFn());
+        //     }
+          
+        //     return Promise.all(promises);
+        //   }
+        // awaitAll(30, CallMarketInstance.MatchOrders())
+        //     .then(results => console.log(`GasUsed for worst case matching is: ${results.receipt.gasUsed}`))
+        //     .catch(e => console.error(e));
         
+        //     for (let i = 0, p = Promise.resolve(); i < 10; i++) {
+        //         p = p.then(_ => new Promise(resolve =>
+        //             setTimeout(function () {
+        //                 console.log(i);
+        //                 resolve();
+        //             }, Math.random() * 1000)
+        //         ));
+        //     }    
+
+
+
+
     });
+
+    // it("Should fail", () => {
+    //     return CallMarket.deployed().then((instance) => {
+    //       return instance.MatchOrders().send({gasLimit: 10000000000});
+    //     }).then(() => {
+    //       assert.ok(false, "It didn't fail");
+    //     }, () => {
+    //       assert.ok(true, "Passed");
+    //     });
+    //   });
+        
+
+    
+
+
+        
+    
 
 
     //     //************ Gas Exatimation ************//
