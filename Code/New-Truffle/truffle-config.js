@@ -36,7 +36,9 @@ module.exports = {
    */
   mocha: {
     enableTimeouts: false,
-    //before_timeout: 2000000000 // Here is 2min but can be whatever timeout is suitable for you.
+    //before_timeout: 120000 // Here is 2min but can be whatever timeout is suitable for you.
+    //before_timeout: 300000 // Here is 5min but can be whatever timeout is suitable for you.
+
   },
 
   networks: {
@@ -48,19 +50,29 @@ module.exports = {
     //
     
     development: {
-     host: "127.0.0.1",     // Localhost (default: none)
-     port: 8545,            // Standard Ethereum port (default: none)
-     network_id: "*",       // Any network (default: none)
-     gasLimit: 9007199254740991,
-     gasPrice:1,
-     //gas: 6700000,           // Gas sent with each transaction (default: ~6700000)
-     //gas: 39721,
-     //gas: 6700000,
-     //gas: 4700000,
-     //gas: 4612388,
-     gas:100000000,           // Gas sent with each transaction (default: ~6700000)
+        host: "127.0.0.1",     // Localhost (default: none)
+        port: 8545,            // Standard Ethereum port (default: none)
+        network_id: "*",       // Any network (default: none)
+    
+    //Using the Ethereum current block gas limit and gas price (ganache-cli --gasLimit=0xB32937 --gasPrice=56000000000)
+        gasLimit: 11741495, 
+        gasPrice: 56000000000,        // 56 gwei (in wei), Ganache default is 20000000000 (20gwei)
+        gas:6700000,                  // Gas sent with each transaction (default: ~6700000)
+    
+    //for calculating the refund (ganache-cli --gasLimit=0x1fffffffffffff --gasPrice=1)
+        //gasLimit: 9007199254740991,
+        //gasPrice: 1, 
+        //gas:900000000000000,           
+    
+    //For 1000 orders (ganache-cli --gasLimit=0x1fffffffffffff --gasPrice=1)
+        //gasLimit: 9007199254740991,
+        //gasPrice:1,
+        //gas:900000000000000,  //dynamic array with ".timeout(90000);" at the end of match test in worst case testing
 
     },
+
+
+
 
     // Another network with more advanced options...
     // advanced: {

@@ -4,7 +4,7 @@ var CallMarketaddress;
 var tokenaddress;
 var accounts;
 
-//const delay = require('delay');
+
 
 
 //Test 1:
@@ -40,7 +40,7 @@ contract('DappToken', function(accounts) {
 
 //*******************New test Block for the already deployed CallMarket contract *************************
 describe('CallMarket', function(accounts) {
-    this.timeout(0);
+    //this.timeout(0);
    
     //*******************Test 1*************************
     it('should deposit tokens from accounst[0] to the CallMarket contract', async() => {
@@ -91,7 +91,7 @@ describe('CallMarket', function(accounts) {
         var array = [];
     
         accounts = await web3.eth.getAccounts();
-        for(let j = 1000; j >= 1  ; j--){
+        for(let j = 130; j >= 1  ; j--){
             await CallMarketInstance.submitAsk (j, 1, {from: accounts[0]});
             array.push(j);
         } 
@@ -107,7 +107,7 @@ describe('CallMarket', function(accounts) {
         var array = [];
         
         accounts = await web3.eth.getAccounts();
-        for(let j = 1001; j <= 2000  ; j++){
+        for(let j = 131; j <= 260  ; j++){
             await CallMarketInstance.submitBid (j, 1, {from: accounts[1]});
             array.push(j);
 
@@ -123,98 +123,33 @@ describe('CallMarket', function(accounts) {
     });
     
     //*******************Test 7*************************
-    it('should match the orders', async() => {
+    it('should return the Gasestimate for the match() function', async() => {
+        
         const CallMarketInstance = await CallMarket.deployed();
-        // process.on('unhandledRejection', (err) => {
-        //     throw err;
-        //    });
-       
-        //const gasEstimate = await CallMarketInstance.MatchOrders.estimateGas();
-        //const var1 = await web3.eth.getBlock("latest");
-        //const var2 = await var1.gasLimit;
+        const gasEstimate =  await CallMarketInstance.MatchOrders.estimateGas();
+        console.log(gasEstimate); 
+    });  
+
+    //*******************Test 8*************************
+    it('should match the orders', async() => {
         
-        //const receipt = await  CallMarketInstance.MatchOrders({gas: "4712388", from: accounts[4]});
+        const CallMarketInstance = await CallMarket.deployed();
+
         const receipt = await  CallMarketInstance.MatchOrders();
-        //const gasUsed = receipt.receipt.gasUsed;
-        //console.log(`GasUsed for worst case matching is: ${receipt.receipt.gasUsed}`);
-        console.log(receipt);
-        //const var1 = await web3.eth.getBlock("latest");
-        //const var2 = await var1.gasPrice;
-        //console.log(var2.toString());  
-        // function timeout(ms) {
-        //     return new Promise(resolve => setTimeout(resolve, ms));
-        // }
-        //await CallMarketInstance.MatchOrders().estimateGas();
-        //CallMarketInstance.MatchOrders().estimateGas();    
-        // const gasEstimate = await CallMarketInstance.MatchOrders().estimateGas();
-        // await timeout(5000);
-        //console.log(gasEstimate); 
-
-
-
-        // function awaitAll(count, asyncFn) {
-        //     const promises = [];
-          
-        //     for (i = 0; i < count; ++i) {
-        //       promises.push(asyncFn());
-        //     }
-          
-        //     return Promise.all(promises);
-        //   }
-        // awaitAll(30, CallMarketInstance.MatchOrders())
-        //     .then(results => console.log(`GasUsed for worst case matching is: ${results.receipt.gasUsed}`))
-        //     .catch(e => console.error(e));
+        const gasUsed = receipt.receipt.gasUsed;
+        console.log(`GasUsed for openning the market: ${receipt.receipt.gasUsed}`); 
         
-        //     for (let i = 0, p = Promise.resolve(); i < 10; i++) {
-        //         p = p.then(_ => new Promise(resolve =>
-        //             setTimeout(function () {
-        //                 console.log(i);
-        //                 resolve();
-        //             }, Math.random() * 1000)
-        //         ));
-        //     }    
-
-
-
-
-    });
-
-    // it("Should fail", () => {
-    //     return CallMarket.deployed().then((instance) => {
-    //       return instance.MatchOrders().send({gasLimit: 10000000000});
-    //     }).then(() => {
-    //       assert.ok(false, "It didn't fail");
-    //     }, () => {
-    //       assert.ok(true, "Passed");
-    //     });
-    //   });
-        
-
-    
-
-
-        
-    
-
-
-    //     //************ Gas Exatimation ************//
-    //     /* const gasEstimate = await CallMarketInstance.MatchOrders.estimateGas();
-    //     const tx = await CallMarketInstance.MatchOrders({
-    //         gas: gasEstimate
-    //     });
+    }).timeout(9000000000000000000);     
     
    
-    //*******************Test 8*************************
+    //*******************Test 9*************************
     it('should print how many matches happened', async() => {
         const CallMarketInstance = await CallMarket.deployed(); 
         
         const counter = await CallMarketInstance.countervariable();
         console.log('********************************************');
         console.log('Number of matches occured:',counter.toNumber());
-        console.log('********************************************');
-   
-
-        
+        console.log('********************************************');    
 
     });
 

@@ -11,7 +11,7 @@ import "./PQ5_Linkedlist_Mapping.sol";
 contract Call_Market{
 
     //PQ1_Heap_Dynamic_Array public PQ = new PQ1_Heap_Dynamic_Array();
-    //PQ2_Heap_Static_Array public PQ = new PQ2_Heap_Static_Array(100);
+    //PQ2_Heap_Static_Array public PQ = new PQ2_Heap_Static_Array(56);
     //PQ3_Heap_Mapping public PQ = new PQ3_Heap_Mapping();
     //we pass the address of the callmarket to the linkedlist so that the selfdestruct could send Ethers back to the callmarket
     //PQ4_Linkedlist public PQ = new PQ4_Linkedlist(address(this));

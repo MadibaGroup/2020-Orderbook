@@ -2,7 +2,6 @@ pragma solidity >=0.4.22;
 pragma experimental ABIEncoderV2;
 
 //Heap with dynamic array wrapped in a priority queue
-//Maximum number of order the Match function can handle 
 
 
 contract PQ1_Heap_Dynamic_Array{
