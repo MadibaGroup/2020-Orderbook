@@ -4,6 +4,22 @@
 \section{Introductory Remarks}
 
 
+
+
+decentralized exchanges allow the market participants to be fully authoritative over their assets using their private keys. 
+One issue with decentralized 
+
+Cryptocurrency trading on centralized exchanges has been shown to be vulnerable to cybersecurity hacking and internal frauds over the years, with the most infamous hacks being Mt. Gox and Coincheck. In addition, trading on centralized exchanges is not compatible with DeFi applications since it is technically infeasible to bridge between decentralized applications and centralized servers without compromising the trust model.
+
+
+Digitex is the intelligent combination of the speed and reliability of centralized servers with the trustless security of decentralized smart contracts. The Digitex Futures Exchange interacts with the smart contract so that it can update a trader’s available balance to reflect that trader’s outstanding margin liabilities and his trading profits and losses, but the exchange does not have physical possession of the trader’s funds and is unable to do anything else to the funds held in the smart contract.
+The
+
+
+
+
+
+
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
 \section{Related Work}
@@ -11,8 +27,56 @@
 
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-%Mahsa
-%Notes related to design and implementations
+
+
+
+
+
+% Discussed in the meetings:
+% do the followings for the worst case matching:
+%	1- Find the actual gas limit for the Ethereum blockchain and set the gas limit of ganache to that number
+%	2- Try to find the actual gas cost before the refund for each PQ (and that number should be close to the gas limit). Have another column in the worst case matching table for that number
+
+% Have one chart with all the worst case submission and one for random case submission 
+% Increase the gas limit basically to the infinity and find the gas cost for matching 1000 orders (worst case matching). Why? because Ethereum might improve over the time and we'd like to know how would that affect each PQ in case of handling worst case matching. If you find a problem with Node.js we can just copy that error and discuss it inside the paper. In that chart, we can add horizontal lines for each gas limit (today, proposed, etc) (Ethereum (ETH) miners are currently voting to expand the block gas limit from 10,000,000 to 12,500,000 gas, according to a recent tweet from Bitfly, the parent company of Ethermine pool: https://cointelegraph.com/news/ethereum-miners-vote-to-increase-gas-limit-causing-community-debate)
+
+% Deleting the unavailable mapping remains a challenging issue to solve (have a little section in the paper to discuss our different solutions for it). 
+%	1- we can just create a new mapping everytime the market opens and have a modifier for the claim functions so that they could be called only when the market is closed. 
+%	2- we can have custom keys for the mapping (like a counter we define as a global variable and increment it at the end of the match function). So everytime the new market starts, we just use another portion of the mapping.
+%	3- we can have another smart contract which only stores the mapping and just delete that after the close function. 
+
+% We use one-shot market for the sake of our performance tests on different datastructures. and once we have all the numbers we can think about iterated market.
+
+% Our two competitors are Uinswap and Loopring (that uses ZK roll ups):
+% 	1- Uniswap: we can argue that in traditional markets we have various traditional exchanges. Each of these exchanges have different trading rules and designs which work for different traders.
+%	2- Loopring:
+%		2-1: Barrier to entry: In order for a trader to trade specific ERC20 on Loopring, Loopring has to agree to support that token. It might not be difficult and they probably approve the token as long as it is standard compliant.
+%		2-2: ZK proofs are quick and cheap to verify but they are expensive and time consuming to generate: (1) now they are generating these proofs for free but later they charge traders for doing that. (2) Looping does not probably generate these proofs per every block so the settlement and 				clearing is not happening per block. So we have faster clearing and settlement as we clear everything per block. 
+% 		2-3: Loopring is non-custodial, meaning that the money moves only when the proofs come, so there is a latency in transferring funds to the traders.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Another important "limit" is that the gas refund is provided only 1 time, at the very end of the transaction's execution.
+This means that a transaction cannot use its own gas refund to pay for any part of its execution.
+A refund cannot be used to avoid Out of Gas exceptions
+
+
+
+
+
+
 
 
 Executed orders are permanently deleted from the storage instantly. 
@@ -42,18 +106,33 @@ GasToken works by taking advantage of the storage refund in Ethereum
 
 Store data permanently on Ethereum is extremely expensive. It has no 
 
-DApps on Ethereum execute arbitrary code provided by the owner of the DApp. While this code might be writtenin a high-level programming language like Solidity, it is compiled to a compact representation (called ‘bytecode’)that is a set of low-level instructions to the environment (Ethereum virtual machine or EVM). Because differentfunctions will have different complexities, the user running the function pays in proportion to the number ofinstructions, the complexity of the instructions, and the storage requirements. This means that each operation has a fixed price. Naturally the operations might be priced in ETH, since it is the on-board currency, however thiswould cause the price of computation to be as volatile as Ether itself. Instead, Ethereum uses a pseudo-currencycalled gas.5 Each instruction has a fixed price in gas. A user who wants to run a function will offer to pay a certainamount of ETH per unit of gas to the miner who finalizes the function. Miners will generally choose whichfunctions to run first based on how much ETH/gas they offer, and they might ignore functions that offer too littleETH/gas. We describe gas as a pseudo-currency because it cannot be directly stored or transacted, however wewill revisit this below
+DApps on Ethereum execute arbitrary code provided by the owner of the DApp. While this code might be written
+in a high-level programming language like Solidity, it is compiled to a compact representation (called ‘bytecode’)
+that is a set of low-level instructions to the environment (Ethereum virtual machine or EVM). Because different
+functions will have different complexities, the user running the function pays in proportion to the number of
+instructions, the complexity of the instructions, and the storage requirements. This means that each operation has a fixed price. Naturally the operations might be priced in ETH, since it is the on-board currency, however this
+would cause the price of computation to be as volatile as Ether itself. Instead, Ethereum uses a pseudo-currency
+called gas.5 Each instruction has a fixed price in gas. A user who wants to run a function will offer to pay a certain
+amount of ETH per unit of gas to the miner who finalizes the function. Miners will generally choose which
+functions to run first based on how much ETH/gas they offer, and they might ignore functions that offer too little
+ETH/gas. We describe gas as a pseudo-currency because it cannot be directly stored or transacted, however we
+will revisit this below
 
 
 
-The obvious is answer is that you can receive gas refunds for releasing unused storage. In the yellow paper on page 25 'Appendix G. Fee Schedule', you can read the gas costs for each instruction. As you might know, SSTORE will generally create the most costs in your contracts with a significant cost of 20,000 gas per instruction. On the contrary, if you look at R_sclear:
+The obvious is answer is that you can receive gas refunds for releasing unused storage. In the yellow paper on page 25 'Appendix G. Fee Schedule', you can read the gas costs for each instruction. As you might know, SSTORE will generally create the most costs in your contracts with a significant cost of 20,000 gas per instruction. On the contrary, if you look at %R_sclear:
 
 Refund given when the storage value is set to zero from non-zero.
 
 15,000 gas refund means you can actually get 75% of your storing costs back! That is a large amount, do not forget about this. And the solution is simple, just set a value back to 0 once you are sure it will not be used anymore.
 
 
-
+Cost of a Transaction
+The total cost of a transaction in the Ethereum network is based on two factors:
+gasUsed is the total gas that is consumed
+gasPrice specified in the transaction
+<strong>Transaction Cost</strong>
+Total Transaction Cost = gasUsed * gasPrice
 
 
 
@@ -83,8 +162,8 @@ In short, the sender of the transaction that causes the storage location to be f
 
 It's a bit more nuanced in reality:
 
-The gas cost of setting the location to zero is 5000 (G_sreset in the Yellow Paper).
-15000 gas is added into the refund counter (R_sclear in the Yellow Paper).
+The gas cost of setting the location to zero is 5000 %(G_sreset in the Yellow Paper).
+15000 gas is added into the refund counter %(R_sclear in the Yellow Paper).
 At the end of a successful transaction the amount of gas in the refund counter (up to a cap of half the total gas used) is added to the unused gas and returned to the caller (Eqn 72 in the Yellow Paper).
 References above are to this version of the Yellow Paper, which discusses the Refund Counter in sections 6.1 and 6.2.
 
@@ -126,254 +205,110 @@ External function calls can fail any time because they exceed the maximum call s
 
 It is important to note that delete a really behaves like an assignment to a, i.e. it stores a new object in a.
 
-%============= Test 1 (17_Worst_Case_Matching_test.js) Tables==================== %
- \section{Worst Case Matching}
- We run the same truffle test on the five priority queues to examine them in terms of the number of order the call market contract can match.
- Note that this is a worst case matching where we use same prices for bid and ask orders. In this case, all orders will be executed against each other.
- Deliverables of this code are: (1) The maximum number of orders the call market can match (2) How much gas the match function uses (which should be close to the limit)
-Results are provided in Table~\ref{tab:worst_case_matching}.
+
+\section{Experiments}
+Our application was developed in Solidity using the Truffle development framework and deployed on Ganache-CLI. We used Javascript for testing by leveraging the Mocha testing framework. Followings outline the results of different tests we performed.
+
+%============= Test 1 (17_Worst_Case_Matching_test.js) Tables=================== %
+
+ \subsection{Experiments on the \texttt{Match()} Function}
+
+We executed the same test on the the five different versions of the CallMarket we implemented using five priority queues to examine the cost of the \texttt{Match()} function as well as the maximum pairs of bid and ask orders it can handle in each case. The \texttt{Match()} function's computational cost and the maximum number of orders it can execute in each case (before running out of gas) are outlined in Table~\ref{tab:worst_case_matching}. Note that this is a \textit{worst case matching} test where all bids and asks are submitted as marketable limit orders with specified prices that would be filled undoubtedly, performed using the current Ethereum gas metrics (block gas limit $=$11,741,495 and 1 gas $=$ 56 gwei)~\footnote{https://ethstats.net/}. The last column of Table~\ref{tab:worst_case_matching} shows the gas cost of matching 1000 pairs of bids and asks for each priority queue for which we set the block gas limit to the maximum of  $2^{53}$ (the Javascript's max safe integer).
 
 
-\begin{table}[t]
+%======= estimateGas() function = gasUsed + gasRefund =======%
+
+% Heap with Dynamic Array: match.estimateGas() = 7204994 => gasRefund = 7204994 - 3274994 = 3930000
+% Heap with Static Array: match.estimateGas() = 7337527 => gasRefund = 7337527 - 3107527 = 4230000
+% Mapping with keys stored in Heap: match.estimateGas() = 6644803 => gasRefund = 6644803 - 5414803 = 1230000
+% Linkedlist: match.estimateGas() = 7629847 => gasRefund = 7629847 -  3279847 = 4350000
+% Linkedlist with Mapping: match.estimateGas() = 7227717 => gasRefund = 7227717 -  3297717 = 3930000
+
+%===============================================%
+
+
+% = = = = = = = = = = = =Worst_Case_Matching Table = = = = = = = = = = = = =  %
+
+\begin{table}[]
 \centering
-\begin{tabular}{|c|c|c|}
+\begin{tabular}{|c|c|c|c|c|}
 \hline
-\textbf{Priority Queue} & \textbf{Maximum Number of Matched Orders} & \textbf{Gas Cost in Ether}  \\ \hline
- 
-Heap with Dynamic Array & 26 pairs & 3,274,994 \\ \hline
-Heap with Static Array & 28 pairs & 3,107,938 \\ \hline
-Mapping with keys stored in Heap & 40 pairs & 5,416,225 \\ \hline
-Linkedlist & 95 pairs & 3,336,416 \\ \hline
-Linkedlist with Mapping & 130 pairs & 3,302,908 \\ \hline
+
+\textbf{Priority Queue}    & \textbf{\begin{tabular}[c]{@{}c@{}}Maximum Number \\ of \\ Matched Orders\end{tabular}}      & \textbf{Cost in Gas}      & \multicolumn{1}{l|}{\textbf{Gas Refund}}      & \textbf{\begin{tabular}[c]{@{}c@{}}Cost in Gas\\ for \\ 1000 Pairs of Orders\end{tabular}} \\ \hline
+
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+	Heap with Dynamic Array         			& 26 pairs                & 3,274,994            & 3,930,000             & 457,326,935                      \\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+	Heap with Static Array           			& 28 pairs                & 3,107,527            & 4,230,000             & 333,656,805                       \\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+	Mapping with keys stored in Heap 		& 40 pairs                & 5,414,803            & 1,230,000              & 319,481,722                       \\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+	Linkedlist                       				& 90 pairs                & 3,279,847            & 4,350,000              & 35,823,601                        	\\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+	Linkedlist with Mapping          			& 130 pairs              & 3,297,717            & 3,930,000               & 25,095,370                        \\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
 
 \end{tabular}
 \caption{\footnotesize{}\label{tab:worst_case_matching}}
 \end{table}
 
-%============= Test 1 (18_Average_Case_Matching_test.js) Tables==================== %
- \section{Normal/Average Case Matching}
- 
-
- 
-PQ1 Heap with dynamic array:
-
- PQ1 can handle 26 pairs at max (we got this from worst case matching), so we run the average test on it (for 5 times to get the average) with 26 asks and 26 bids BUT with random prices (so not all of them are going to match)
-%====%
-26 bids - 26 asks : 
-1- 16 matched, 3,022,922
-2- 14 matched, 2,630,179
-3- 13 matched, 2,756,139
-4- 14 matched, 2,677,851
-5 - 13 matched, 2,484,512
-%================================================%
-PQ2 Heap with static array:
-
- PQ2 can handle 28 pairs at max (we got this from worst case matching), so we run the average test on it (for 5 times to get the average) with 28 asks and 28 bids BUT with random prices (so not all of them are going to match)
-%====%
-28 bids - 28 asks : 
-1- 11 matched, 1,768,494
-2- 12 matched, 2,045,830
-3- 16 matched, 2,420,384
-4- 17 matched, 2,523,974
-5- 14 matched, 2,234,141
-%================================================%
-PQ3 Mapping with keys stored in Heap:
-
- PQ3 can handle 40 pairs at max (we got this from worst case matching), so we run the average test on it (for 5 times to get the average) with 40 asks and 40 bids BUT with random prices (so not all of them are going to match)
-%====%
-40 bids - 40 asks : 
-1- 23 matched, 4,349,561
-2- 20 matched, 3,888,163
-3- 20 matched, 3,915,233
-4- 20 matched, 3,899,789
-5- 23 matched, 4,308,653
-
-%================================================%
-PQ4 Linkedlist
-
-PQ4 can handle 95 pairs at max (we got this from worst case matching), so we run the average test on it (for 5 times to get the average) with 95 asks and 95 bids BUT with random prices (so not all of them are going to match)
-%====%
-95 bids - 95 asks : 
-1- 48 matched , 1,747,421
-2- 46 matched, 1,678,536
-3- 41 matched, 1,506,325
-4- 51 matched, 1,850,748
-5- 49 matched, 1,781,863
-
-%================================================%
-PQ5 Linkedlist with Mapping
-
-PQ5 can handle 130 pairs at max (we got this from worst case matching), so we run the average test on it (for 5 times to get the average) with 130 asks and 130 bids BUT with random prices (so not all of them are going to match)
-%====%
-130 bids - 130 asks : 
-1- 64 matched, 1,669,482
-2- 11 matched, 341,421
-3- 39 matched, 1,043,014
-4- 59 matched, 1,544,185
-5- 36 matched, 967,840
 
 
+%============= Test 3 (17_Worst_Case_Submission_test.js) Figures==================== %
 
+ \subsection{Experiments on \texttt{Submit Order()} Functions}
 
+We executed another set of tests on the the five different versions of the CallMarket in which we sent 200 \texttt{SubmitBid} to the CallMarket to simulate two hundred of traders participating in the market. These tests were performed in two levels (i) worst case and (ii) average case submissions. 
+%the data structure used for bids and asks is the same and hence the submission plots for 200 submitbids and 200 submitasks. Do we have to mention that here?
 
- We run the same truffle test on the five priority queues to examine them in terms of the number of order the call market contract can match.
- Note that this is an average case matching where we use random prices for bid and ask orders.
- Deliverables of this code are: (1) The maximum number of orders the call market can match (2) How much gas the match function uses (which should be close to the limit)
-Results are provided in Table~\ref{tab:normal_case_matching}.
+% = = = = = = = = = = = =Worst_Case_Submission = = = = = = = = = = = = =  %
 
+\subsubsection{Worst Case Order Submission}
 
-\begin{table}[t]
+Here each \texttt{SubmitBid()} transaction has a price that is smallest or second-smallest of the transactions after it. Doing so, we ensure all the orders move every time a new order is sent to the market. Figure~\ref{fig:worst_case_submission} shows the gas cost variations for submitting 200 orders in five versions of the CallMarket. The x-axis is the place in line (\eg the 10th person to submit the order) and the and y-axis is the gas cost for sending that transaction.
+
+%And conversely each \texttt{SubmitAsk()} transaction has a price that is biggest or second-biggest of the transactions after it
+
+% = = = = = = = = = = = =Worst_Case_Submission Figure = = = = = = = = = = = = =  %
+
+\begin{figure}[htb!p]
 \centering
-\begin{tabular}{|c|c|c|}
-\hline
-\textbf{Priority Queue} & \textbf{Maximum Number of Matched Orders} & \textbf{Gas Cost in Ether}  \\ \hline
- 
-Heap with Dynamic Array &  &  \\ \hline
-Heap with Static Array &  &  \\ \hline
-Mapping with keys stored in Heap &  &  \\ \hline
-Linkedlist &  &  \\ \hline
-Linkedlist with Mapping && \\ \hline
+\includegraphics[width=0.8\textwidth]{fig/worst_case_submission_3.png}
+\caption{\footnotesize{}  \label{fig:worst_case_submission}}
+\end{figure}
 
-\end{tabular}
-\caption{\footnotesize{}\label{tab:normal_case_matching}}
-\end{table}
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
 
 
+% = = = = = = = = = = = =Average_Case_Submission = = = = = = = = = = = = =  %
 
+\subsubsection{Average Case Order Submission}
 
+Here we test the five versions of the CallMarket when 200 bid orders are entered in random ordering. To do so, we use JavaScript \texttt{Math.random()} function to generate pseudo-random integers between 1 and 100. Figure~\ref{fig:average_case_submission} shows the gas cost variations for submitting 200 orders in five versions of the CallMarket. Again the x-axis is the place in line (\eg the10th person to submit the order) and the and y-axis is the gas cost for submitting that transaction. 
 
+% = = = = = = = = = = = =Average_Case_Submission Figure = = = = = = = = = = = = =  %
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\begin{table}[t]
+\begin{figure}[htb!p]
 \centering
-\begin{tabular}{|c|c|c|c|}
-\hline
-\textbf{\shortstack{Number \\of \\Buy Orders}} & \textbf{\shortstack{Number \\of \\Sell Orders}} & \textbf{\shortstack{Total Number \\of\\ Orders}}  & \textbf{\shortstack{Gas Cost \\in\\ Ether}}  \\ \hline
-1 & 1 & 2 & 144,689 \\
-3 & 3 & 6 & 324,457 \\
-5 & 5 & 10 & 527,289 \\
-7 & 7 & 14 & 710,050 \\
-9 & 9 & 18 & 964,894 \\
-11 & 11 & 22 & 1,176,905 \\
-13 & 13 & 26 & 1,370,191 \\
-15 & 15 & 30 & 1,650,273 \\
-17 & 17 & 34 & 1,953,406 \\
-19 & 19 & 38 & 2,205,141 \\
-21 & 21 & 42 & 2,416,221 \\
-23 & 23 & 46 & 2,713,313 \\
-25 & 25 & 50 & 1,788,509 \\
-27 & 27 & 54 & 2,004,824 \\
-\hline
-29 & 29 & 58 & \textbf{out of gas}\\
-\hline
-\end{tabular}
-\caption{\footnotesize{Gas used for Match function when using static arrays to store the heap.}\label{}} %Orderbook_V23
-\end{table}
+\includegraphics[width=1\textwidth]{fig/average_case_submission_3.png}
+\caption{\footnotesize{}  \label{fig:average_case_submission}}
+\end{figure}
+
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
 
 
 
 
-\begin{table}[t]
-\centering
-\begin{tabular}{|c|c|c|c|}
-\hline
-\textbf{\shortstack{Number \\of \\Buy Orders}} & \textbf{\shortstack{Number \\of \\Sell Orders}} & \textbf{\shortstack{Total Number \\of\\ Orders}}  & \textbf{\shortstack{Gas Cost \\in\\ Ether}}  \\ \hline
-1 & 1 & 2 & 177,622 \\
-3 & 3 & 6 &  341,393\\
-5 & 5 & 10 & 524,680 \\
-7 & 7 & 14 & 685,830\\
-9 & 9 & 18 & 919,636 \\
-11 & 11 & 22 & 1,094,503  \\
-13 & 13 & 26 & 1,347,199 \\
-15 & 15 & 30 & 1,559,796 \\
-17 & 17 & 34 & 1,792,040 \\
-19 & 19 & 38 & 2,076,422 \\
-21 & 21 & 42 & 2,294,229 \\
-23 & 23 & 46 & 2,532,674 \\
-25 & 25 & 50 & 2,776,988 \\
-27 & 27 & 54 & 3,069,163 \\
-29 & 29 & 58 & 3,306,749\\
-31 & 31 & 62 & 3,551,195\\
-\hline
-33 & 33 & 66 & \textbf{out of gas} \\
-\hline
-\end{tabular}
-\caption{\footnotesize{Gas used for Match function when storing the order structs in mappings and storing the keys in the dynamic arrays that represent sorted heap.}\label{}} %Orderbook_V24
-\end{table}
 
 
-%======================================== %
-\section{Performance Tests on Different Datastructures}
 
-%===Heap that is stored in dynamically sized array=== %
-\subsection{Heap that is stored in dynamically sized array}
-Here is the gas cost used for storing N order struct, sorting, and removing them from the heap
-Order structs are stored in a heap with dynamic array
 
-%\begin{table}[t]
-%\centering
-%\begin{tabular}{|c|c|c|}
-%\hline
-%\textbf{\shortstack{Number \\of \\ Orders}} & \textbf{\shortstack{Gas Cost \for Insertion\\ in Ether}}  \textbf{\shortstack{Gas Cost \for Removing\\ in Ether}} \\ \hline
-%1 & 105,118 & 24,430  \\
-%3 & 331,448 & 88,904 \\
-%5 & 603,874 & 184,089 \\
-%7 & 876,300 & 279,312 \\
-%9 & 1,194,820 & 430,737 \\
-%11 & 1,513,340 & 582,200 \\
-%13 & 1,831,860 & 733,663 \\
-%15 & 2,150,380 & 885,164 \\
-%17 & 2,514,996 & 1,092,829 \\
-%19 & 2,879,612 & 1,300,532 \\
-%21 & 3,244,228 & 1,508,235 \\
-%23 & 3,608,844 & 1,715,976 \\
-%25 & 3,973,460 & 1,923,679 \\
-%27 & 4,338,076 & 2,131,420 \\
-%29 & 4,702,692 & 2,339,161 \\
-%31 & 5,067,308 & 2,546,940 \\
-%33 & 5,478,020 & 2,810,845 \\
-%35 & 5,888,732 & 3,074,788\\
-%37 & 6,299,444 & 3,338,731\\
-%39 & 6,710,156 & 3,602,712 \\
-%41 &  &  \\
-%43 &  &  \\
-%45 &  &  \\
-%47 &  &  \\
-%39 &  &  \\
-%39 &  &  \\
-%37 &  &  \\
-%39 &  &  \\
-%
-%
-%
-%\hline
-%
-%
-%
-%
-%
-%
-%33 & 33 & 66 & \textbf{out of gas} \\
-%\hline
-%\end{tabular}
-%\caption{\footnotesize{Gas used for insertion() and remove() functions when using dynamic arrays to store the heap}\label{}} %Heap_Dynamic_Array.sol
-%\end{table}
+
+
+
+
+
+
 %======================================== %
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
