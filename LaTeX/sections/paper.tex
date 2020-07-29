@@ -234,22 +234,23 @@ We executed the same test on the the five different versions of the CallMarket w
 \begin{tabular}{|c|c|c|c|c|}
 \hline
 
-\textbf{Priority Queue}    & \textbf{\begin{tabular}[c]{@{}c@{}}Maximum Number \\ of \\ Matched Orders\end{tabular}}      & \textbf{Cost in Gas}      & \multicolumn{1}{l|}{\textbf{Gas Refund}}      & \textbf{\begin{tabular}[c]{@{}c@{}}Cost in Gas\\ for \\ 1000 Pairs of Orders\end{tabular}} \\ \hline
+\textbf{\thead{Priority Queue}}    & \textbf{\thead{Maximum Number \\ of \\ Matched Orders}}      & \textbf{\thead{Cost in Gas}}      & \textbf{\thead{Cost in Gas \\ (before the \\ gas refund)}}    & \textbf{\thead{Cost in Gas\\ for \\ 1000 Pairs \\ of Orders}} \\ \hline
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-	Heap with Dynamic Array         			& 26 pairs                & 3,274,994            & 3,930,000             & 457,326,935                      \\ \hline
+	\textbf{\thead{Heap with \\ Dynamic Array}}         				& 26 pairs                & 3,274,994            & 7,204,994            & 457,326,935                      \\ \hline
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-	Heap with Static Array           			& 28 pairs                & 3,107,527            & 4,230,000             & 333,656,805                       \\ \hline
+	\textbf{\thead{Heap with \\ Static Array}}           				& 28 pairs                & 3,107,527            & 7,337,527             & 333,656,805                       \\ \hline
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-	Mapping with keys stored in Heap 		& 40 pairs                & 5,414,803            & 1,230,000              & 319,481,722                       \\ \hline
+	\textbf{\thead{Mapping with \\ keys stored \\ in Heap}} 		& 40 pairs                & 5,414,803            & 6,644,803              & 319,481,722                       \\ \hline
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-	Linkedlist                       				& 90 pairs                & 3,279,847            & 4,350,000              & 35,823,601                        	\\ \hline
+	\textbf{Linkedlist}                       							& 90 pairs                & 3,279,847            & 7,629,847              & 35,823,601                        	\\ \hline
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-	Linkedlist with Mapping          			& 130 pairs              & 3,297,717            & 3,930,000               & 25,095,370                        \\ \hline
+	\textbf{\thead{Linkedlist with \\ Mapping}}          				& 130 pairs              & 3,297,717            & 7,227,717               & 25,095,370                        \\ \hline
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
 
 \end{tabular}
-\caption{\footnotesize{}\label{tab:worst_case_matching}}
+\caption{\footnotesize{}
+\label{tab:worst_case_matching}}
 \end{table}
 
 
@@ -273,7 +274,7 @@ Here each \texttt{SubmitBid()} transaction has a price that is smallest or secon
 
 \begin{figure}[htb!p]
 \centering
-\includegraphics[width=0.8\textwidth]{fig/worst_case_submission_3.png}
+\includegraphics[width=1\textwidth]{fig/worst_case_submission_3.png}
 \caption{\footnotesize{}  \label{fig:worst_case_submission}}
 \end{figure}
 
