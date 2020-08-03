@@ -1,12 +1,12 @@
 # Fdb version 3
-["bibtex main"] 1596464622 "main.aux" "main.bbl" "main" 1596464626
+["bibtex main"] 1596481197 "main.aux" "main.bbl" "main" 1596481577
   "/usr/local/texlive/2020/texmf-dist/bibtex/bst/base/abbrv.bst" 1292289607 20329 b5fed53e10044d0f8112183785c759b1 ""
   "bib/DEX.bib" 1596460689 5573 9e5f3237cc8177b72ec05fba1857539b ""
-  "main.aux" 1596464625 3702 b261b1840674835f4a2593c5cad849af "pdflatex"
+  "main.aux" 1596481576 4479 394f2b92b623d9522f1abe2257bb29f9 "pdflatex"
   (generated)
   "main.blg"
   "main.bbl"
-["pdflatex"] 1596464623 "main.tex" "main.pdf" "main" 1596464626
+["pdflatex"] 1596481574 "main.tex" "main.pdf" "main" 1596481577
   "/usr/local/texlive/2020/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1136849721 2971 def0b6c1f0b107b3b936def894055589 ""
   "/usr/local/texlive/2020/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2020/texmf-dist/fonts/tfm/jknappen/ec/ecbx0900.tfm" 1136768653 3584 1a7de6c99457381c64abc1a7c545505f ""
@@ -23,6 +23,7 @@
   "/usr/local/texlive/2020/texmf-dist/fonts/tfm/jknappen/ec/ecti1000.tfm" 1136768653 3072 3bce340d4c075dffe6d4ec732b4c32fe ""
   "/usr/local/texlive/2020/texmf-dist/fonts/tfm/jknappen/ec/ectt0900.tfm" 1136768653 1536 ae7aab2f8a4bc9edfce2899f53ba88c3 ""
   "/usr/local/texlive/2020/texmf-dist/fonts/tfm/jknappen/ec/ectt1000.tfm" 1136768653 1536 06717a2b50de47d4087ac0e6cd759455 ""
+  "/usr/local/texlive/2020/texmf-dist/fonts/tfm/jknappen/ec/ectt1200.tfm" 1136768653 1536 487c9b46984a816c7ed238d0674595c7 ""
   "/usr/local/texlive/2020/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
   "/usr/local/texlive/2020/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex9.tfm" 1246382020 996 a18840b13b499c08ac2de96a99eda4bc ""
   "/usr/local/texlive/2020/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm" 1246382020 916 f87d7c45f9c908e672703b83b72241a3 ""
@@ -58,6 +59,7 @@
   "/usr/local/texlive/2020/texmf-dist/fonts/type1/public/cm-super/sfti1000.pfb" 1215737283 186554 e8f0fa8ca05e038f257a06405232745f ""
   "/usr/local/texlive/2020/texmf-dist/fonts/type1/public/cm-super/sftt0900.pfb" 1215737283 170827 2e4b634de7b58578eae1dc93e51dfe48 ""
   "/usr/local/texlive/2020/texmf-dist/fonts/type1/public/cm-super/sftt1000.pfb" 1215737283 169201 9ebf99020dde51a5086e186761a34e8f ""
+  "/usr/local/texlive/2020/texmf-dist/fonts/type1/public/cm-super/sftt1200.pfb" 1215737283 167085 68de377d2744a68a88fa40a1f610615a ""
   "/usr/local/texlive/2020/texmf-dist/tex/context/base/mkii/supp-pdf.mkii" 1461363279 71627 94eb9990bed73c364d7f53f960cc8c5b ""
   "/usr/local/texlive/2020/texmf-dist/tex/generic/atbegshi/atbegshi.sty" 1575674566 24708 5584a51a7101caf7e6bbf1fc27d8f7b1 ""
   "/usr/local/texlive/2020/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty" 1576625341 40635 c40361e206be584d448876bba8a64a3b ""
@@ -232,18 +234,19 @@
   "/usr/local/texlive/2020/texmf-var/web2c/pdftex/pdflatex.fmt" 1586288259 2432462 fd0fa20e9a3cb5f8169fd0ba1c955158 ""
   "/usr/local/texlive/2020/texmf.cnf" 1586288231 577 d60164b4589a341208aff7a667fbbdcb ""
   "fig/average_uints_insertion.png" 1596462551 97753 c7d5d92e46783cd4274509dcb2f5fff8 ""
+  "fig/meta_tx.png" 1596470925 146977 71759efe45ed21ced47ffabba70c7b5c ""
   "llncs.cls" 1591795646 42776 44493c38e57a29ba7e15792efea18b8f ""
-  "main.aux" 1596464625 3702 b261b1840674835f4a2593c5cad849af "pdflatex"
-  "main.bbl" 1596464623 238 d4b2ffaa4bf566ca0835283b0dd7f6ad "bibtex main"
-  "main.out" 1596464625 50 62845e8102377acefe602285f85bae87 "pdflatex"
+  "main.aux" 1596481576 4479 394f2b92b623d9522f1abe2257bb29f9 "pdflatex"
+  "main.bbl" 1596481198 238 d4b2ffaa4bf566ca0835283b0dd7f6ad "bibtex main"
+  "main.out" 1596481576 50 62845e8102377acefe602285f85bae87 "pdflatex"
   "main.tex" 1594667828 723 52051df6edb2ab3a5f0f78f318d9e7a0 ""
   "sections/abstract.tex" 1591795646 79 3bc50e49b3d0cea211a39b41d97d972b ""
-  "sections/paper.tex" 1596464619 25078 78deb8a9328a2a08b8ebd8b978bdfd09 ""
+  "sections/paper.tex" 1596481563 28270 27fef244dd519e8b3f2ae9d9888a42a1 ""
   "setup/macros.tex" 1591795646 1857 e5819e9d84274ba6a4254bf192156352 ""
   "setup/packages.tex" 1594652465 4118 996194c0670bd3985e04fc8790a778b7 ""
   "setup/table.tex" 1591795646 344 e2583ca7a1372e75bff476a449ebe6ff ""
   (generated)
-  "main.log"
-  "main.pdf"
   "main.aux"
+  "main.pdf"
   "main.out"
+  "main.log"

@@ -205,8 +205,29 @@ External function calls can fail any time because they exceed the maximum call s
 
 It is important to note that delete a really behaves like an assignment to a, i.e. it stores a new object in a.
 
+% = = = = = = = = = = = =Who pays for the close function? = = = = = = = = = = = = =  %
 
+\section{Who Pays the Cost for the \texttt{CloseMarket()} Function?}
 
+Ethereum contracts can only run when a function is called. So if no one calls the \texttt{CloseMarket()} function at the end of the trading period, this function cannot self-execute to modify itself. In addition, upon closing the market the \texttt{Match()} function will be executed which consumes a significant amounts of gas, and the person who closes the market must have enough incentives to do so. We think it is useful to explore the landscape of possible designs for closing the market. 
+
+\begin{enumerate}
+
+\item \textbf {Using the Meta Transactions.} Meta transactions enable users to execute Ethereum functions without paying the gas. Rather than spending gas, users sign their intended action using their private keys and broadcast it to the network with no cost. A third party process (\textit{a relayer}) then crafts the actual transaction on user's behalf, sends the transaction to the Ethereum blockchain, and charges the base contract with the associated fees (see Figure~\ref{fig:meta_tx}). The required gas to pay for the \texttt{Match()} function could be collected as fees. So market participants are charged with certain amounts of fees every time they submit an order, these fees are accumulated in the CallMarket contract and will be used to pay for executing the \texttt{CloseMarket()} function.
+
+% = = = = = = = = = = = =meta_tx Figure = = = = = = = = = = = = =  %
+
+\begin{figure}[htb!p]
+\centering
+\includegraphics[width=0.8\textwidth]{fig/meta_tx.png}
+\caption{\footnotesize{}  \label{fig:meta_tx}}
+\end{figure}
+
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+
+\item \textbf{Using the "Contract Pays" Model.} An alternative solution is to design the market such that the last person to submit an order calls the \texttt{CloseMarket()} function, but in contrast to a normal transaction (where the person initiating the transaction must pay the fee), here the CallMarket contract pays the cost for closing the market and matching the orders respectively. To enforce this design we can use Solidity function modifiers; every time a new order is submitted, a function modifier checks whether (i) the auction period has to end and/or (ii) the maximum number of total orders has reached. If any of these two conditions are met, the \texttt{CloseMarket()} will be called. Again, market participants are charged with certain amounts of fees every time they submit an order, these fees are accumulated in the CallMarket. Once the \texttt{CloseMarket} is successfully executed and orders are matched, the contract transfers its funds to that person. Note that here the person must still have enough gas to cover the execution of the transaction as the funds will be only transferred after the transaction is fully executed. However, market participants are incentivized to do so as they may receive more ethers than they have spent.
+
+\end{enumerate}
 
 
 % = = = = = = = = = = = =Uint testing the PQs Table = = = = = = = = = = = = =  %
@@ -231,9 +252,9 @@ At the time of this writing, Ethereum transaction receipts only contain the net 
 
 So in order to account for refunds inside each priority queue smart contract, we can calculate them manually; first we figure out exactly how much storage is being cleared when dequeuing  the max integers and then we could multiply the number of storage slots cleared by 15,000 (see the last column of Table~\ref{tab:PQ_UnitTests}).
 
-Another way to know the amount of refund in each priority queue is to use \texttt{the estimateGas API} which provides a rough idea about the total amount of gas that is required for a transaction to go through. The \texttt{web3.eth.estimateGas} pretends the transaction is included in the block  and its functions (with the parameters passed) will be executed on the Ethereum blockchain. Doing so, it provides us an estimate of how much gas is needed to be sent with the transaction. The second and third columns of Table~\ref{tab:PQ_UnitTests}) show the total amount of gas required for dequeuing 50 integers from each priority queue (provided by estimateGas) as well as the amount of gas refund ($Total Gas Consumption - gasUsed$). 
+Another way to know the amount of refund in each priority queue is to use \texttt{the estimateGas API} which provides a rough idea about the total amount of gas that is required for a transaction to go through. The \texttt{web3.eth.estimateGas} pretends the transaction is included in the block  and its functions (with the parameters passed) will be executed on the Ethereum blockchain. Doing so, it provides us an estimate of how much gas is needed to be sent with the transaction. The second and third columns of Table~\ref{tab:PQ_UnitTests}) show the total amount of gas required for dequeuing 50 integers from each priority queue (provided by estimateGas) and amount of gas refund ($Total Gas Consumption - gasUsed$) respectively.
 
-Note that in order to urge miners to process smart contract with refunds, the accumulated gas refund can never exceed half the gas used up during computation~\cite{wood2014ethereum}. For example, the amount of gas that has been used when dequeuing 50 integers from the linkedlist with mapping data structure is 731,514 and since $3,000,000 > 731,514/2$, the accumulated refund through the transaction will be $731,514/2 = 365,757$.
+Note that in order to urge miners to process smart contract with refunds, the accumulated gas refund can never exceed half the gas used up during computation~\cite{wood2014ethereum}. So at the end of a successful transaction, the amount of gas in the refund counter (capped at half the net gas used) is returned to the caller. For example, the amount of gas that has been used when dequeuing 50 integers from the linkedlist with mapping data structure is 731,514 and since $3,000,000 > 731,514/2$, the accumulated refund through the transaction will be $731,514/2 = 365,757$.
 
 % = = = = = = = = = = = =Uint testing the PQs Table = = = = = = = = = = = = =  %
 
