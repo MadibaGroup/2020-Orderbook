@@ -29,16 +29,8 @@
 
 
 
-% Discussed in the meetings:
-% do the followings for the worst case matching: (Done!)
-%	1- Find the actual gas limit for the Ethereum blockchain and set the gas limit of ganache to that number
-%	2- Try to find the actual gas cost before the refund for each PQ (and that number should be close to the gas limit). Have another column in the worst case matching table for that number
 
-% Have one chart with all the worst case submission and one for random case submission (Done!)
-% Increase the gas limit basically to the infinity and find the gas cost for matching 1000 orders (worst case matching). Why? because Ethereum might improve over the time and we'd like to know how would that affect each PQ in case of handling worst case matching. If you find a problem with Node.js we can just copy that error and discuss it inside the paper. In that chart, we can add horizontal lines for each gas limit (today, proposed, etc) (Ethereum (ETH) miners are currently voting to expand the block gas limit from 10,000,000 to 12,500,000 gas, according to a recent tweet from Bitfly, the parent company of Ethermine pool: https://cointelegraph.com/news/ethereum-miners-vote-to-increase-gas-limit-causing-community-debate)
-
-
-% We use one-shot market for the sake of our performance tests on different datastructures. and once we have all the numbers we can think about iterated market.
+% = = = = = = = = = = = =Notes Discussed in Meetings = = = = = = = = = = = = =  %
 
 % Our two competitors are Uinswap and Loopring (that uses ZK roll ups):
 % 	1- Uniswap: we can argue that in traditional markets we have various traditional exchanges. Each of these exchanges have different trading rules and designs which work for different traders.
@@ -48,6 +40,9 @@
 % 		2-3: Loopring is non-custodial, meaning that the money moves only when the proofs come, so there is a latency in transferring funds to the traders.
 
 
+% The heap with dynamic array can do 26 pairs of matches at worst case matching whereas Linkedliat does 90 pairs. So if we want to cap the orders over 4 PQs, we’re basically increasing the heap size which makes match more expensive for nothing (every time a match happens and the root is deleted the whole heap is reheapified)
+
+% There will be no ties as we use 2 counters for buy and sell orders. These counters are concatenated them with the price. So we somehow enforce time priority
 
 
 
@@ -62,11 +57,15 @@ To maintain the collateral balance of each market participant, we use two Solidi
 
 \begin{enumerate}
 
-\item \textbf{Creating a New Mapping for \texttt{UnavailableBalance} Every Time the Market Opens.} Instead of clearing the \texttt{UnavailableBalance} of traders at the end of a matching process, we could create a new mapping every time the market opens. Note that using this solution, traders can only claim their funds (using the \texttt{ClaimEther()} and/or \texttt{ClaimToken} methods) only when the market is in state \texttt{Closed}. 
+\item \textbf{Creating a New Mapping Every Time the Market Opens.} Instead of clearing the \texttt{UnavailableBalance} of traders at the end of a matching process, we could create a new mapping every time the market opens. Note that using this solution, traders can only claim their funds (using the \texttt{ClaimEther()} and/or \texttt{ClaimToken} methods) only when the market is in state \texttt{Closed}. 
 
 \item \textbf{Creating Custom Keys for the Mapping.} We can create custom keys for the mapping by defining a counter as a global variable inside the CallMarket smart contract. This counter is incremented at the end of the matching process. So instead of clearing the mapping, we only use another portion of it every time the market opens.
 
-\item \textbf{Creating a Data-Contract that Stores the Mapping.} Another design pattern is to create a smart contract that only stores the \texttt{UnavailableBalance} mapping every time the market opens. This data contract will be killed at the end of the matching process.
+\item \textbf{Storing the Mapping in a Data-Contract.} Another design proposal is to create a smart contract every time the market opens, this data contract only stores the \texttt{UnavailableBalance} mapping and will be killed at the end of the matching process.
+
+\item \textbf{Storing the Mapping keys in an Array.} We can create an array that stores the traders' addresses (\ie the mapping keys). Knowing the keys enable us to iterate over the mapping and delete individual keys and what they map to at the end of the matching process. This is a gas-costly design pattern and would cause a high probability of exceeding the gas limitation inside the \texttt{Match()} function.
+
+
 
 \end{enumerate}
 
@@ -128,9 +127,9 @@ At the time of this writing, Ethereum transaction receipts only contain the net 
 
 So in order to account for refunds inside each priority queue smart contract, we can calculate them manually; first we figure out exactly how much storage is being cleared when dequeuing  the max integers and then we could multiply the number of storage slots cleared by 15,000 (see the last column of Table~\ref{tab:PQ_UnitTests}).
 
-Another way to know the amount of refund in each priority queue is to use \texttt{the estimateGas API} which provides a rough idea about the total amount of gas that is required for a transaction to go through. The \texttt{web3.eth.estimateGas} pretends the transaction is included in the block  and its functions (with the parameters passed) will be executed on the Ethereum blockchain. Doing so, it provides us an estimate of how much gas is needed to be sent with the transaction. The second and third columns of Table~\ref{tab:PQ_UnitTests}) show the total amount of gas required for dequeuing 50 integers from each priority queue (provided by estimateGas) and amount of gas refund ($Total Gas Consumption - gasUsed$) respectively.
+Another way to know the amount of refund in each priority queue is to use the \texttt{estimateGas API} which provides a rough idea about the total amount of gas that is required for a transaction to go through. The \texttt{web3.eth.estimateGas} pretends the transaction is included in the block and its functions (with the parameters passed) will be executed on the Ethereum blockchain. Doing so, it provides us an estimate of how much gas is needed to be sent with the transaction. The second and third columns of Table~\ref{tab:PQ_UnitTests}) show the total amount of gas required for dequeuing 50 integers from each priority queue (provided by estimateGas) and the amount of gas refund ($Total Gas Consumption - gasUsed$) respectively.
 
-Note that in order to urge miners to process smart contract with refunds, the accumulated gas refund can never exceed half the gas used up during computation~\cite{wood2014ethereum}. So at the end of a successful transaction, the amount of gas in the refund counter (capped at half the net gas used) is returned to the caller. For example, the amount of gas that has been used when dequeuing 50 integers from the linkedlist with mapping data structure is 731,514 and since $3,000,000 > 731,514/2$, the accumulated refund through the transaction will be $731,514/2 = 365,757$.
+Note that in order to urge miners to process smart contract with refunds, the accumulated gas refund can never exceed half the gas used up during computation~\cite{wood2014ethereum}. So at the end of a successful transaction, the amount of gas in the refund counter (capped at half the net gas used) is returned to the caller. For example, the amount of gas that has been used when dequeuing 50 integers from the linkedlist with mapping data structure is 731,514 and since $3,000,000 > 731,514/2$, the amount of refund returned to the caller is $731,514/2 = 365,757$.
 
 % = = = = = = = = = = = =Uint testing the PQs Table = = = = = = = = = = = = =  %
 
