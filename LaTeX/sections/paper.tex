@@ -6,14 +6,11 @@
 
 
 
-decentralized exchanges allow the market participants to be fully authoritative over their assets using their private keys. 
-One issue with decentralized 
+%decentralized exchanges allow the market participants to be fully authoritative over their assets using their private keys. 
+%One issue with decentralized 
+%
+%Cryptocurrency trading on centralized exchanges has been shown to be vulnerable to cybersecurity hacking and internal frauds over the years, with the most infamous hacks being Mt. Gox and Coincheck. In addition, trading on centralized exchanges is not compatible with DeFi applications since it is technically infeasible to bridge between decentralized applications and centralized servers without compromising the trust model.
 
-Cryptocurrency trading on centralized exchanges has been shown to be vulnerable to cybersecurity hacking and internal frauds over the years, with the most infamous hacks being Mt. Gox and Coincheck. In addition, trading on centralized exchanges is not compatible with DeFi applications since it is technically infeasible to bridge between decentralized applications and centralized servers without compromising the trust model.
-
-
-Digitex is the intelligent combination of the speed and reliability of centralized servers with the trustless security of decentralized smart contracts. The Digitex Futures Exchange interacts with the smart contract so that it can update a trader’s available balance to reflect that trader’s outstanding margin liabilities and his trading profits and losses, but the exchange does not have physical possession of the trader’s funds and is unable to do anything else to the funds held in the smart contract.
-The
 
 
 
@@ -33,17 +30,13 @@ The
 
 
 % Discussed in the meetings:
-% do the followings for the worst case matching:
+% do the followings for the worst case matching: (Done!)
 %	1- Find the actual gas limit for the Ethereum blockchain and set the gas limit of ganache to that number
 %	2- Try to find the actual gas cost before the refund for each PQ (and that number should be close to the gas limit). Have another column in the worst case matching table for that number
 
-% Have one chart with all the worst case submission and one for random case submission 
+% Have one chart with all the worst case submission and one for random case submission (Done!)
 % Increase the gas limit basically to the infinity and find the gas cost for matching 1000 orders (worst case matching). Why? because Ethereum might improve over the time and we'd like to know how would that affect each PQ in case of handling worst case matching. If you find a problem with Node.js we can just copy that error and discuss it inside the paper. In that chart, we can add horizontal lines for each gas limit (today, proposed, etc) (Ethereum (ETH) miners are currently voting to expand the block gas limit from 10,000,000 to 12,500,000 gas, according to a recent tweet from Bitfly, the parent company of Ethermine pool: https://cointelegraph.com/news/ethereum-miners-vote-to-increase-gas-limit-causing-community-debate)
 
-% Deleting the unavailable mapping remains a challenging issue to solve (have a little section in the paper to discuss our different solutions for it). 
-%	1- we can just create a new mapping everytime the market opens and have a modifier for the claim functions so that they could be called only when the market is closed. 
-%	2- we can have custom keys for the mapping (like a counter we define as a global variable and increment it at the end of the match function). So everytime the new market starts, we just use another portion of the mapping.
-%	3- we can have another smart contract which only stores the mapping and just delete that after the close function. 
 
 % We use one-shot market for the sake of our performance tests on different datastructures. and once we have all the numbers we can think about iterated market.
 
@@ -59,151 +52,34 @@ The
 
 
 
+% = = = = = = = = = = = =Clearing Mappings = = = = = = = = = = = = =  %
+\section{Clearing Mappings}
 
+To facilitate a safe exchange among buyers and sellers, we implement the CallMarket smart contract in the form of a \textit{collateralized}; for market participants to be able to send bid and/or ask orders, they have to first supply assets (depending on what asset they aim to trade) as collaterals  by calling any of the  \texttt{DepositToken()} or \texttt{DepositEther()} methods. The collateralized CallMarket acts as a payment guarantees and market participants cannot default on payment or delivery of their assets.
 
+To maintain the collateral balance of each market participant, we use two Solidity type one-to-one mapping that map Ethereum addresses to 256 bits unsigned integers; \texttt{TotalBalance} and \texttt{UnavailableBalance}. Once market closes and orders are matched, the \texttt{UnavailableBalance} needs to be cleared. However, since it is not possible to delete the entire mapping without knowing the keys~\footnote{https://solidity.readthedocs.io/en/v0.5.12/security-considerations.html}, clearing the \texttt{UnavailableBalance} mapping remains a challenging issue to solve . Here we provide a landscape of solutions for that.
+%only individual keys and what they map to can be deleted.
 
+\begin{enumerate}
 
+\item \textbf{Creating a New Mapping for \texttt{UnavailableBalance} Every Time the Market Opens.} Instead of clearing the \texttt{UnavailableBalance} of traders at the end of a matching process, we could create a new mapping every time the market opens. Note that using this solution, traders can only claim their funds (using the \texttt{ClaimEther()} and/or \texttt{ClaimToken} methods) only when the market is in state \texttt{Closed}. 
 
+\item \textbf{Creating Custom Keys for the Mapping.} We can create custom keys for the mapping by defining a counter as a global variable inside the CallMarket smart contract. This counter is incremented at the end of the matching process. So instead of clearing the mapping, we only use another portion of it every time the market opens.
 
+\item \textbf{Creating a Data-Contract that Stores the Mapping.} Another design pattern is to create a smart contract that only stores the \texttt{UnavailableBalance} mapping every time the market opens. This data contract will be killed at the end of the matching process.
 
+\end{enumerate}
 
+ %Deleting the unavailable mapping remains a challenging issue to solve (have a little section in the paper to discuss our different solutions for it). 
+%	1- we can just create a new mapping everytime the market opens and have a modifier for the claim functions so that they could be called only when the market is closed. 
+%	2- we can have custom keys for the mapping (like a counter we define as a global variable and increment it at the end of the match function). So everytime the new market starts, we just use another portion of the mapping.
+%	3- we can have another smart contract which only stores the mapping and just delete that after the close function. 
 
-Another important "limit" is that the gas refund is provided only 1 time, at the very end of the transaction's execution.
-This means that a transaction cannot use its own gas refund to pay for any part of its execution.
-A refund cannot be used to avoid Out of Gas exceptions
 
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
 
 
 
-
-
-
-
-Executed orders are permanently deleted from the storage instantly. 
-
-
-
-Deletion
-Ethereum gives us a gas refund when we delete variables. Its purpose is an incentive to save space on the blockchain, we use it to reduce the gas cost of our transactions.
-Deleting a variable refunds 15,000 gas up to a maximum of half the gas cost of the transaction. Deleting with the delete keyword is equivalent to assigning the initial value for the data type, such as 0 for integers.
-
-
-
-
-
-Appendix G. Fee Schedule in the Yellow Paper-EIP-150, shows that a gas refund of 15,000 is given for each state slot that is set to zero. These refunds are calculated during execution but only paid back post-execution.
-The Fee Schedule also states that changing a store from a Zero value costs 20,000 but changing a non-Zero store costs only 5000. The notable difference being the 15,000 refund.
-So the net cost of a store and delete is 5000 gas. If the entire 20,000 gas or more was refunded, then there is effectively no net cost for storage operations and its IO overhead. A cheap attack could be launched by continuous store/delete.
-
-heap-mapping with delete mapping (30 orders) : 3,111,416
-heap-mapping without delete mapping (30 orders) : 3,582,291
-
-
-You should be aware the refund is done at the end of the transaction, you have to have enough gas to process each slot upfront. Also your refund can be at most half of the gas used
-Recall that the gas refund can give you up to half of your consumed gas back, so even in the best case, you won't actually break even.
-
-GasToken works by taking advantage of the storage refund in Ethereum
-
-Store data permanently on Ethereum is extremely expensive. It has no 
-
-DApps on Ethereum execute arbitrary code provided by the owner of the DApp. While this code might be written
-in a high-level programming language like Solidity, it is compiled to a compact representation (called ‘bytecode’)
-that is a set of low-level instructions to the environment (Ethereum virtual machine or EVM). Because different
-functions will have different complexities, the user running the function pays in proportion to the number of
-instructions, the complexity of the instructions, and the storage requirements. This means that each operation has a fixed price. Naturally the operations might be priced in ETH, since it is the on-board currency, however this
-would cause the price of computation to be as volatile as Ether itself. Instead, Ethereum uses a pseudo-currency
-called gas.5 Each instruction has a fixed price in gas. A user who wants to run a function will offer to pay a certain
-amount of ETH per unit of gas to the miner who finalizes the function. Miners will generally choose which
-functions to run first based on how much ETH/gas they offer, and they might ignore functions that offer too little
-ETH/gas. We describe gas as a pseudo-currency because it cannot be directly stored or transacted, however we
-will revisit this below
-
-
-
-The obvious is answer is that you can receive gas refunds for releasing unused storage. In the yellow paper on page 25 'Appendix G. Fee Schedule', you can read the gas costs for each instruction. As you might know, SSTORE will generally create the most costs in your contracts with a significant cost of 20,000 gas per instruction. On the contrary, if you look at %R_sclear:
-
-Refund given when the storage value is set to zero from non-zero.
-
-15,000 gas refund means you can actually get 75% of your storing costs back! That is a large amount, do not forget about this. And the solution is simple, just set a value back to 0 once you are sure it will not be used anymore.
-
-
-Cost of a Transaction
-The total cost of a transaction in the Ethereum network is based on two factors:
-gasUsed is the total gas that is consumed
-gasPrice specified in the transaction
-<strong>Transaction Cost</strong>
-Total Transaction Cost = gasUsed * gasPrice
-
-
-
-
-
-The only two OPCODEs with negative gas costs are STORAGEKILL(-15000) and GSUICIDEREFUND(-24000).
-
-These occur when storage values are deleted or contacts are suicided.
-
-These OPCODEs grant gas refunds because they free up space in the blockchain.
-
-
-
-Also, Solidity \textit{delete()} function does not 
-
-
-
-Clearing Mappings
-
-The Solidity type mapping (see Mapping Types) is a storage-only key-value data structure that does not keep track of the keys that were assigned a non-zero value. Because of that, cleaning a mapping without extra information about the written keys is not possible. (from : https://solidity.readthedocs.io/en/v0.5.12/security-considerations.html) So in order to wipe the unavailable Ether and token balances of all the market participants after matching is completed, we have to iterate over mapping using an array we use to store the mapping keys.
-
-
-
-
-
-In short, the sender of the transaction that causes the storage location to be freed (set to zero) will have an amount (a net 10000 gas per freed storage location) deducted from the total amount of gas used for the transaction.
-
-It's a bit more nuanced in reality:
-
-The gas cost of setting the location to zero is 5000 %(G_sreset in the Yellow Paper).
-15000 gas is added into the refund counter %(R_sclear in the Yellow Paper).
-At the end of a successful transaction the amount of gas in the refund counter (up to a cap of half the total gas used) is added to the unused gas and returned to the caller (Eqn 72 in the Yellow Paper).
-References above are to this version of the Yellow Paper, which discusses the Refund Counter in sections 6.1 and 6.2.
-
-The gas price is whatever gas price applies to the whole transaction in which the refund occurs
-
-
-
-
-delete a assigns the initial value for the type to a. I.e. for integers it is equivalent to a = 0, but it can also be used on arrays, where it assigns a dynamic array of length zero or a static array of the same length with all elements reset. For structs, it assigns a struct with all members reset.
-
-delete has no effect on whole mappings (as the keys of mappings may be arbitrary and are generally unknown). So if you delete a struct, it will reset all members that are not mappings and also recurse into the members unless they are mappings. However, individual keys and what they map to can be deleted.
-
-
-
-
-
-
-
-
-
-
-
-EIP-114, or the “1/64ths rule”
-EIP-114 mandates that certain stackdepth-creating opcodes withhold 1/64th of remaining gas from the stack they create. In practice this means:
-The gas required for a successful transaction can be greater than the actual gas spent (similar to how gas refunds behave).
-The extra gas required for a successful transaction varies depending on the transaction’s initial gasamount.
-A long-standing issue with Ganache has been the fact that we haven’t returned EIP-114 compliant gas estimations. This has caused our gas estimates to be too low in cases where a transaction executed certain opcodes. Gas exactimation addresses this by considering how the gas withheld at any nested stack depth/frame affects the gas needed outside of its execution context.
-Let’s see it in action
-
-
-Callstack Depth (hijacked stack/revert)
-
-External function calls can fail any time because they exceed the maximum call stack of 1024. In such situations, Solidity throws an exception.
-
-
-
-%If a transaction runs out of gas before successful completion, then all execution reverts.
-
-
-It is important to note that delete a really behaves like an assignment to a, i.e. it stores a new object in a.
 
 % = = = = = = = = = = = =Who pays for the close function? = = = = = = = = = = = = =  %
 
