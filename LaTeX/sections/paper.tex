@@ -19,8 +19,23 @@
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
-\section{Related Work}
+\section{Order Books}
 
+Order books are data structures that maintain lists of bid and ask orders for various assets (\eg currencies, stocks, bonds \etc) in specific markets. The most common version of order books is what we call a \textit{double auction}, where market participants submit their bid and ask orders and the market clearing price will be calculated as the average between the best bid and best ask prices. Order books often sort the orders based on their price and submission time (this order allocation technique is called price-time priority)~\cite{preis2011price}, where orders are prioritized from highest price to lowest and given any two orders with the same price, they will be sorted based on their submission timestamps.
+
+\par
+
+Looking more closely, order books are rather electronic ledgers that get updated over time. Given the definition of the Etehreum blockchain (\ie a distributed ledger), the idea of implementing an order book in the form of a smart contract will seemingly resolve the existing issues with centralized exchanges. However, this design is not feasible due to some crucial challenges that exist within blockchains:
+
+\begin{itemize}
+
+\item \textbf{Speed.}
+
+\item \textbf{Front-running and Censorship.}
+
+\item \textbf{Enforcing Time.}
+
+\end{itemize}
 
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
