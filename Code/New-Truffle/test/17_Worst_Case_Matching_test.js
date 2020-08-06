@@ -40,7 +40,7 @@ contract('DappToken', function(accounts) {
 
 //*******************New test Block for the already deployed CallMarket contract *************************
 describe('CallMarket', function(accounts) {
-    //this.timeout(0);
+    this.timeout(0);
    
     //*******************Test 1*************************
     it('should deposit tokens from accounst[0] to the CallMarket contract', async() => {
@@ -91,7 +91,7 @@ describe('CallMarket', function(accounts) {
         var array = [];
     
         accounts = await web3.eth.getAccounts();
-        for(let j = 130; j >= 1  ; j--){
+        for(let j = 86; j >= 1  ; j--){
             await CallMarketInstance.submitAsk (j, 1, {from: accounts[0]});
             array.push(j);
         } 
@@ -107,7 +107,7 @@ describe('CallMarket', function(accounts) {
         var array = [];
         
         accounts = await web3.eth.getAccounts();
-        for(let j = 131; j <= 260  ; j++){
+        for(let j = 87; j <= 172  ; j++){
             await CallMarketInstance.submitBid (j, 1, {from: accounts[1]});
             array.push(j);
 
@@ -123,12 +123,12 @@ describe('CallMarket', function(accounts) {
     });
     
     //*******************Test 7*************************
-    it('should return the Gasestimate for the match() function', async() => {
+    // it('should return the Gasestimate for the match() function', async() => {
         
-        const CallMarketInstance = await CallMarket.deployed();
-        const gasEstimate =  await CallMarketInstance.MatchOrders.estimateGas();
-        console.log(gasEstimate); 
-    });  
+    //     const CallMarketInstance = await CallMarket.deployed();
+    //     const gasEstimate =  await CallMarketInstance.MatchOrders.estimateGas();
+    //     console.log(gasEstimate); 
+    // });  
 
     //*******************Test 8*************************
     it('should match the orders', async() => {
@@ -137,9 +137,9 @@ describe('CallMarket', function(accounts) {
 
         const receipt = await  CallMarketInstance.MatchOrders();
         const gasUsed = receipt.receipt.gasUsed;
-        console.log(`GasUsed for openning the market: ${receipt.receipt.gasUsed}`); 
+        console.log(`GasUsed for Matching the orders: ${receipt.receipt.gasUsed}`); 
         
-    }).timeout(9000000000000000000);     
+    });//.timeout(9000000000000000000);     
     
    
     //*******************Test 9*************************

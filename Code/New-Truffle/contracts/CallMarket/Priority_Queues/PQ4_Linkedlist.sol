@@ -61,7 +61,7 @@ contract PQ4_Linkedlist{
     //BuyListMaxPrice function returns the price of the highest priority element (The highest bid)
     function BuyListMaxPrice() public  returns (uint256){
         
-        //require (BuyFirst != BuyList(0), 'BuyList is empty!'); //throws exception if the maxheap (BuyList) is empty
+        require (BuyFirst != BuyList(0), 'BuyList is empty!'); //throws exception if the maxheap (BuyList) is empty
         return (BuyFirst.Price());
         
     }
@@ -69,7 +69,7 @@ contract PQ4_Linkedlist{
     //BuyListMaxSender function returns the sender of the highest priority element (The highest bid)
     function BuyListMaxSender() public  returns (address){
         
-        //require (BuyFirst != BuyList(0), 'BuyList is empty!'); //throws exception if the maxheap (BuyList) is empty
+        require (BuyFirst != BuyList(0), 'BuyList is empty!'); //throws exception if the maxheap (BuyList) is empty
         return (BuyFirst.Sender());
         
     }
@@ -133,14 +133,14 @@ contract PQ4_Linkedlist{
     //SellListMaxPrice function returns the price of the highest priority element (The Lowest ask)
     function SellListMaxPrice() public  returns (uint256){
 
-        //require(SellFirst != SellList(0),'SellList is empty!'); //throws exception if the minheap (SellList) is empty
+        require(SellFirst != SellList(0),'SellList is empty!'); //throws exception if the minheap (SellList) is empty
         return (SellFirst.Price());
     }
 //****************   SellListMaxSender()  *********************//
     //SellListMaxSender function returns the sender of the highest priority element (The Lowest ask)
     function SellListMaxSender() public  returns (address){
 
-        //require(SellFirst != SellList(0),'SellList is empty!'); //throws exception if the minheap (SellList) is empty
+        require(SellFirst != SellList(0),'SellList is empty!'); //throws exception if the minheap (SellList) is empty
         return (SellFirst.Sender());
     }
 //****************   SellListisEmpty()  *********************//

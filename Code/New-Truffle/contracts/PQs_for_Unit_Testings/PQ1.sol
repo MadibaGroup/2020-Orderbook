@@ -6,15 +6,21 @@ pragma experimental ABIEncoderV2;
 
 contract PQ1{
     
-    uint256[] MaxHeap;      //The array that contains integers in (descending (decremental)) order, we always want the highest nuber (maxheap)
+    //uint256[] MaxHeap;      //The array that contains integers in (descending (decremental)) order, we always want the highest nuber (maxheap)
+    struct OrderStruct 
+    {
+        uint256 Number;
 
+    }
+    OrderStruct[] MaxHeap;
 
 //******************* Enqueue() ***************************//
     //the new item will be added to the end of the array list
     //then heapified up with a call to heapifyUp method
     function Enqueue (uint256 _number) public returns (bool)
     {
-        MaxHeap.push(_number);
+        OrderStruct memory neworder = OrderStruct(_number);
+        MaxHeap.push(neworder);
         maxheap_heapifyUp();
         return true;
     }    
@@ -26,9 +32,9 @@ contract PQ1{
         uint256 k = MaxHeap.length - 1;                   //k is set to be the last entry of the array (also heap) which is the element that's just added and has to be moved up
         while (k > 0){                                  //while we havent reached to the top of the heap
             uint256 p = (k-1)/2;                           //we need to compute the parent of this last element which is p = (k-1)/2
-            if (MaxHeap[k] > MaxHeap[p]) //if the element is greater than its parent
+            if (MaxHeap[k].Number > MaxHeap[p].Number) //if the element is greater than its parent
             {   
-                uint256 temp = MaxHeap[k];    //"!SYNTAX!"//swap the element at index k with its parent
+                OrderStruct memory temp = MaxHeap[k];    //"!SYNTAX!"//swap the element at index k with its parent
                 MaxHeap[k] = MaxHeap[p];
                 MaxHeap[p] = temp;
                 k = p;                                  //k moves up one level
@@ -46,14 +52,14 @@ contract PQ1{
         require (MaxHeap.length != 0,'List is empty!'); //the delete function throws exception if the heap is empty
         
         if (MaxHeap.length == 1) {                                      //if the heap has only one items                     
-            uint256 _number =  MaxHeap[0];
+            uint256 _number =  MaxHeap[0].Number;
             MaxHeap.pop();                                                 //the only element of the heap is removed and returned 
             return (_number);     
        
         }
 
         //if neither of these conditions are true, then there are at least 2 items in the heap and deletion proceeds
-        uint256 _number =  MaxHeap[0];
+        uint256 _number =  MaxHeap[0].Number;
         MaxHeap[0] = MaxHeap[MaxHeap.length -1]; //the last elementof the heap is removed and written into the first position
         MaxHeap.pop();
         maxheap_heapifyDown(); //now the siftdown is called
@@ -83,16 +89,16 @@ contract PQ1{
 
             if (rightchild < MaxHeap.length)                                       //if there is a rightchild
             {
-                if (MaxHeap[rightchild] > MaxHeap[leftchild])    //then the right child and left child are compared
+                if (MaxHeap[rightchild].Number > MaxHeap[leftchild].Number)    //then the right child and left child are compared
                 {
                     max++;                                                       //now max is set to rightchild, otherwise max remains to be the leftchild
                 }
             }
 
-        if (MaxHeap[k] < MaxHeap[max])                        //compares the k item with the max item and if k is smaller than its greatest children they are swapped
+        if (MaxHeap[k].Number < MaxHeap[max].Number)                        //compares the k item with the max item and if k is smaller than its greatest children they are swapped
         {
             
-            uint256 temp = MaxHeap[k];
+            OrderStruct memory temp = MaxHeap[k];
             MaxHeap[k] = MaxHeap[max];    
             MaxHeap[max] = temp;
             k = max;                                                         //k is set to max
@@ -110,7 +116,7 @@ contract PQ1{
     function Peek() public  returns (uint256){
         
         require (MaxHeap.length != 0,'List is empty!'); //throws exception if the maxheap (BuyList) is empty
-        return (MaxHeap[0]);
+        return (MaxHeap[0].Number);
         
     }
 

@@ -75,7 +75,7 @@ contract PQ3_Heap_Mapping{
 
             uint256 _price =  BuyList[BuyListHeap[0]].Price;
             address _sender =  BuyList[BuyListHeap[0]].Sender;
-            //delete BuyList[BuyListHeap[0]];
+            delete BuyList[BuyListHeap[0]];
             BuyListHeap.pop();                                                 //the only element of the heap is removed and returned 
             BuyListKey--;
             return (_price, _sender);     
@@ -86,7 +86,7 @@ contract PQ3_Heap_Mapping{
         
         uint256 _price =  BuyList[BuyListHeap[0]].Price;
         address _sender =  BuyList[BuyListHeap[0]].Sender;
-        //delete BuyList[BuyListHeap[0]];
+        delete BuyList[BuyListHeap[0]];
         BuyListHeap[0] = BuyListHeap[BuyListHeap.length -1]; //the last elementof the heap is removed and written into the first position
         BuyListHeap.pop();
         maxheap_heapifyDown(); //now the siftdown is called
@@ -208,7 +208,7 @@ contract PQ3_Heap_Mapping{
             
             uint256 _price =  SellList[SellListHeap[0]].Price;
             address _sender =  SellList[SellListHeap[0]].Sender;
-            //delete SellList[SellListHeap[0]];
+            delete SellList[SellListHeap[0]];
             SellListHeap.pop();                                   //the only element of the heap is removed and returned  
             SellListKey --;
             return (_price, _sender);
@@ -218,7 +218,7 @@ contract PQ3_Heap_Mapping{
       
         uint256 _price =  SellList[SellListHeap[0]].Price;
         address _sender =  SellList[SellListHeap[0]].Sender;
-        //delete SellList[SellListHeap[0]];
+        delete SellList[SellListHeap[0]];
         SellListHeap[0] = SellListHeap[SellListHeap.length -1];                      //the last elementof the heap is removed and written into the first position
         SellListHeap.pop(); 
         minheap_heapifyDown();                           //now the heapifyDown is called to restore the ordering of the heap 

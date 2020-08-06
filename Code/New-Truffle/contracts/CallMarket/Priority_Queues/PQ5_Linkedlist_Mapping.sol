@@ -182,7 +182,7 @@ contract PQ5_Linkedlist_Mapping{
             
         }
         
-        //delete BuyList[removeObject.id];
+        delete BuyList[removeObject.id];
         return (_price,_sender); 
         
         
@@ -364,7 +364,7 @@ contract PQ5_Linkedlist_Mapping{
             
         }
         
-        //delete SellList[removeObject.id];
+        delete SellList[removeObject.id];
         return (_price,_sender); 
     
 

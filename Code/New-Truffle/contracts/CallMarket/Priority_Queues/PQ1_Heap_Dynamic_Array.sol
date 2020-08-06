@@ -58,6 +58,7 @@ contract PQ1_Heap_Dynamic_Array{
     function BuyListMaxDelete() public returns (uint256, address) 
     {
         require (BuyList.length != 0,'BuyList is empty!'); //the delete function throws exception if the heap is empty
+        
         if (BuyList.length == 1) {                                      //if the heap has only one items                     
             uint256 _price =  BuyList[0].Price;
             address _sender =  BuyList[0].Sender;

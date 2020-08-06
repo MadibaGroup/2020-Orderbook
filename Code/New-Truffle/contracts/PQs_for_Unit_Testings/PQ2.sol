@@ -5,25 +5,34 @@ pragma experimental ABIEncoderV2;
 
 contract PQ2{
     
-    uint256[50] MaxHeap;         //The array that contains integers in (descending (decremental)) order, we always want the highest nuber (maxheap)
-    uint256 public Index;
+    //uint256[50] MaxHeap;         //The array that contains integers in (descending (decremental)) order, we always want the highest nuber (maxheap)
+    struct OrderStruct 
+    {
+        uint256 Number;
 
+        
+    }
+    uint256 public Index;
+    OrderStruct[50] MaxHeap;
+    
 
 //*******************  Enqueue() ***************************//
     //the new item will be added to the end of the array list
     //then heapified up with a call to heapifyUp method
     function Enqueue (uint256 _number) public returns (bool)
     {
-
-        if (MaxHeap[0] == 0)
+        OrderStruct memory neworder = OrderStruct(_number);
+        
+        if (MaxHeap[0].Number == 0)
         {
-            MaxHeap[0] = _number; 
+            MaxHeap[0] = neworder; 
         }
        else{
             Index ++;
-            MaxHeap[Index] = _number;
+            MaxHeap[Index] = neworder;
             maxheap_heapifyUp ();
         }    
+        return true;
     }    
 //*******************  maxheap_heapifyUp () ***************************//
     //this function is called everytime we insert a new element to the end of the array 
@@ -33,9 +42,9 @@ contract PQ2{
         uint256 k = Index;                   //k is set to be the last entry of the array (also heap) which is the element that's just added and has to be moved up
         while (k > 0){                                  //while we havent reached to the top of the heap
             uint256 p = (k-1)/2;                           //we need to compute the parent of this last element which is p = (k-1)/2
-            if (MaxHeap[k] > MaxHeap[p]) //if the element is greater than its parent
+            if (MaxHeap[k].Number > MaxHeap[p].Number) //if the element is greater than its parent
             {   
-                uint256 temp = MaxHeap[k];    //swap the element at index k with its parent
+                OrderStruct memory temp = MaxHeap[k];    //swap the element at index k with its parent
                 MaxHeap[k] = MaxHeap[p];
                 MaxHeap[p] = temp;
                 k = p;                                  //k moves up one level
@@ -51,29 +60,29 @@ contract PQ2{
     //then the heap is reordered uising the heapifyDown method
     function RemoveMax() public returns (uint256) 
     {   
-        require (MaxHeap[0] != 0, 'List is empty!');   //the delete function throws exception if the list is empty
+        require (MaxHeap[0].Number != 0, 'List is empty!');   //the delete function throws exception if the list is empty
         
         
         if (Index == 0) 
         {   
-            uint256 _number =  MaxHeap[0];
+            uint256 _number =  MaxHeap[0].Number;
             delete MaxHeap[0];
             return(_number);
 
         }                           
         if (Index == 1)  //if the heap has two items
         {                                     
-            uint256 _number =  MaxHeap[0];
+            uint256 _number =  MaxHeap[0].Number;
                             
             MaxHeap[0] = MaxHeap[1]; //the first element of the heap is removed 
             delete MaxHeap[1];
-            Index --;
+            Index--;
             return(_number);
             
        
         }
         //if neither of these conditions are true, then there are at least 2 items in the heap and deletion proceeds
-        uint256 _number =  MaxHeap[0];
+        uint256 _number =  MaxHeap[0].Number;
         MaxHeap[0] = MaxHeap[Index]; //the last elementof the heap is removed and written into the first position
         delete MaxHeap[Index];
         Index--;
@@ -106,16 +115,16 @@ contract PQ2{
 
             if (rightchild < Index )                                       //if there is a rightchild
             {
-                if (MaxHeap[rightchild] > MaxHeap[leftchild])    //then the right child and left child are compared
+                if (MaxHeap[rightchild].Number > MaxHeap[leftchild].Number)    //then the right child and left child are compared
                 {
                     max++;                                                       //now max is set to rightchild, otherwise max remains to be the leftchild
                 }
             }
 
-        if (MaxHeap[k] < MaxHeap[max])                        //compares the k item with the max item and if k is smaller than its greatest children they are swapped
+        if (MaxHeap[k].Number < MaxHeap[max].Number)                        //compares the k item with the max item and if k is smaller than its greatest children they are swapped
         {
             
-            uint256 temp = MaxHeap[k];    //swap the element at index k with its parent
+            OrderStruct memory temp = MaxHeap[k];    //swap the element at index k with its parent
             MaxHeap[k] = MaxHeap[max];
             MaxHeap[max] = temp;
             k = max;                                                         //k is set to max
@@ -132,15 +141,15 @@ contract PQ2{
     //Retrieves, but does not remove, the head of this queue
     function Peek() public  returns (uint256){
         
-        require (MaxHeap[0] != 0, 'List is empty!'); //throws exception if the maxheap (BuyList) is empty
-        return (MaxHeap[0]);
+        require (MaxHeap[0].Number != 0, 'List is empty!'); //throws exception if the maxheap (BuyList) is empty
+        return (MaxHeap[0].Number);
         
     }
 //****************  isEmpty()  *********************//
     //checks if the Buylist is empty or not 
     function isEmpty() public returns (bool){
         
-        if (MaxHeap[0] == 0)
+        if (MaxHeap[0].Number == 0)
         {
             return true;
 
