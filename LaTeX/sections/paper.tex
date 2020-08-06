@@ -79,9 +79,7 @@ To maintain the collateral balance of each market participant, we use two Solidi
 
 \item \textbf{Storing the Mapping in a Data-Contract.} Another design proposal is to create a smart contract every time the market opens, this data contract only stores the \texttt{UnavailableBalance} mapping and will be killed at the end of the matching process.
 
-\item \textbf{Storing the Mapping keys in an Array.} We can create an array that stores the traders' addresses (\ie the mapping keys). Knowing the keys enable us to iterate over the mapping and delete individual keys and what they map to at the end of the matching process. This is a gas-costly design pattern and would cause a high probability of exceeding the gas limitation inside the \texttt{Match()} function.
-
-
+\item \textbf{Storing the Mapping keys in additional Array.} Another common pattern is to create an additional array on top of the mapping and iterate over that. This array (\eg address[]) stores the traders' addresses and enables us to iterate over the mapping and delete individual keys and what they map to at the end of the matching process. Not that this is a gas-costly design pattern as we would need to maintain a secondary data structure.
 
 \end{enumerate}
 
@@ -92,6 +90,15 @@ To maintain the collateral balance of each market participant, we use two Solidi
 
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+\section{Design Details of PQs}
+
+\subsection {Linkedlist with Mapping}
+Every a trade happens inside the match function, the best bid and ask order have to be removed from the priority queue. There are two different ways to do so; (i) we can only update the head and tail pointers of the linkedlist and/or (ii) we can remove the mapping elements that contain best bid and ask orders from storage completely as well as updating the pointers of the linkedlist. \par
+
+Pros and Cons:
+
+Cons: Each order structs contains eight variables of multiple types and removing them from the storage is identical to setting eight variables to zero. Despite the gas refunds (\texttt{SSTORE} clear refunds 15.000 gas~\cite{wood2014ethereum}) this would yet increase the gas cost which then lowers down the maximum number of orders the \texttt{Match()} method could handle in this case. However, not removing uanessacry data on the Ethereum blockchain is not the best design practice. For this reason, we clear the best bid and ask orders every time a trade happens.
+
 
 
 
