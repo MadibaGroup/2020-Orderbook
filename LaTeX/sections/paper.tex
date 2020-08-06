@@ -25,13 +25,14 @@ Order books are data structures that maintain lists of bid and ask orders for va
 
 \par
 
-Looking more closely, order books are rather electronic ledgers that get updated over time. Given the definition of the Etehreum blockchain (\ie a distributed ledger), the idea of implementing an order book in the form of a smart contract will seemingly resolve the existing issues with centralized exchanges. However, this design is not feasible due to some crucial challenges that exist within blockchains:
+Looking more closely, order books are rather electronic ledgers that get updated over time. Given the definition of the Ethereum blockchain, that is a distributed ledger, the idea of implementing an order book in the form of a smart contract will seemingly resolve the existing issues with centralized exchanges. However, this design is not feasible due to some crucial challenges that exist within blockchains:
 
 \begin{itemize}
 
 \item \textbf{Speed.}
 
 \item \textbf{Front-running and Censorship.}
+why cant you front run pt?
 
 \item \textbf{Enforcing Time.}
 
@@ -146,7 +147,7 @@ Another way to know the amount of refund in each priority queue is to use the \t
 
 Note that in order to urge miners to process smart contract with refunds, the accumulated gas refund can never exceed half the gas used up during computation~\cite{wood2014ethereum}. So at the end of a successful transaction, the amount of gas in the refund counter (capped at half the net gas used) is returned to the caller. For example, the amount of gas that has been used when dequeuing 50 integers from the linkedlist with mapping data structure is 731,514 and since $3,000,000 > 731,514/2$, the amount of refund returned to the caller is $731,514/2 = 365,757$.
 
-% = = = = = = = = = = = =Uint testing the PQs Table = = = = = = = = = = = = =  %
+% = = = = = = = = = = = =Uint testing the PQs Table with 50 Random Integers between 1 and 200 = = = = = = = = = = = = =  %
 
 \begin{table}[]
 \centering
@@ -156,7 +157,7 @@ Note that in order to urge miners to process smart contract with refunds, the ac
 \textbf{\thead{Priority Queue}}    & \textbf{\thead{Net Cost\\in Gas}}      & \textbf{\thead{Total Cost\\in Gas\\(from estimateGas)}}      & \textbf{\thead{Gas Refund \\(from \texttt{estimateGas})}}    & \textbf{\thead{Gas Refund \\(Manually Calculated)}} \\ \hline
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-	\textbf{\thead{Heap with \\ Dynamic Array}}         				& 2,547,031               & 3,312,378		& 765,347             & 750,000                       \\ \hline
+	\textbf{\thead{Heap with \\ Dynamic Array}}         				& 2,575,997               & 3,349,746		& 773,749             & 750,000                       \\ \hline
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
 	\textbf{\thead{Heap with \\ Static Array}}           				& 1,324,856                & 2,090,182     	& 765,326             & 750,000                      \\ \hline
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
@@ -168,11 +169,39 @@ Note that in order to urge miners to process smart contract with refunds, the ac
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
 
 \end{tabular}
-\caption{\footnotesize{}
-\label{tab:PQ_UnitTests}}
+\caption{\footnotesize{PQUnitTests with 50 Random Integers between 1 and 200}
+\label{tab:PQUnitTests_random}}
 \end{table}
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
 
+
+
+% = = = = = = = = = = = =Uint testing the PQs Table with 50 Integers (NOT RANDOM!) = = = = = = = = = = = = =  %
+
+\begin{table}[]
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+
+\textbf{\thead{Priority Queue}}    & \textbf{\thead{Net Cost\\in Gas}}      & \textbf{\thead{Total Cost\\in Gas\\(from estimateGas)}}      & \textbf{\thead{Gas Refund \\(from \texttt{estimateGas})}}    & \textbf{\thead{Gas Refund \\(Manually Calculated)}} \\ \hline
+
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+	\textbf{\thead{Heap with \\ Dynamic Array}}         				& 2,394,202                & 3,159,551           &765,349	    & 750,000                     \\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+	\textbf{\thead{Heap with \\ Static Array}}           				& 1,317,922                & 2,083,240   	& 765,318          & 750,000                     \\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+	\textbf{\thead{Mapping with \\ keys stored \\ in Heap}} 		& 2,629,191                & 4,144,536       	&1,515,345          & 1,500,000                     \\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+	\textbf{Linkedlist}                       							&557,085            		& 1,772,085      	&1,215,000          & 1,200,000                      \\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+	\textbf{\thead{Linkedlist with \\ Mapping}}          				&731,514              	&3,731,514      	& 3,000,000    	  &  3,765,000                       \\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+
+\end{tabular}
+\caption{\footnotesize{PQUnitTests}
+\label{tab:PQ_UnitTests}}
+\end{table}
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
 
 
 %============= Experiments =================== %
@@ -186,7 +215,7 @@ Our application was developed in Solidity using the Truffle development framewor
 
 We executed the same test on the the five different versions of the CallMarket we implemented using five priority queues to examine the cost of the \texttt{Match()} function as well as the maximum pairs of bid and ask orders it can handle in each case. The \texttt{Match()} function's computational cost and the maximum number of orders it can execute in each case (before running out of gas) are outlined in Table~\ref{tab:worst_case_matching}. Note that this is a \textit{worst case matching} test where all bids and asks are submitted as marketable limit orders with specified prices that would be filled undoubtedly, performed using the current Ethereum gas metrics (block gas limit $=$11,741,495 and 1 gas $=$ 56 gwei)~\footnote{https://ethstats.net/}. The last column of Table~\ref{tab:worst_case_matching} shows the gas cost of matching 1000 pairs of bids and asks for each priority queue for which we set the block gas limit to the maximum of  $2^{53}$ (the Javascript's max safe integer).
 
-
+% gas sent with each transaction here is 11,000,000
 %======= estimateGas() function = gasUsed + gasRefund =======%
 
 % Heap with Dynamic Array: match.estimateGas() = 7204994 => gasRefund = 7204994 - 3274994 = 3930000
@@ -208,15 +237,15 @@ We executed the same test on the the five different versions of the CallMarket w
 \textbf{\thead{Priority Queue}}    & \textbf{\thead{Maximum Number \\ of \\ Matched Orders}}      & \textbf{\thead{Net Cost\\in Gas}}          & \textbf{\thead{Net Cost in Gas\\ for \\ 1000 Pairs \\ of Orders}} \\ \hline
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-	\textbf{\thead{Heap with \\ Dynamic Array}}         				& 26 pairs                & 3,274,994                   	& 457,326,935                      \\ \hline
+	\textbf{\thead{Heap with \\ Dynamic Array}}         				& 38 pairs                & 5,372,679                   	& 457,326,935                      \\ \hline
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-	\textbf{\thead{Heap with \\ Static Array}}           				& 28 pairs                & 3,107,527                  	& 333,656,805                       \\ \hline
+	\textbf{\thead{Heap with \\ Static Array}}           				& 42 pairs                & 5,247,636                  	& 333,656,805                       \\ \hline
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-	\textbf{\thead{Mapping with \\ keys stored \\ in Heap}} 		& 40 pairs                & 5,414,803                     & 319,481,722                       \\ \hline
+	\textbf{\thead{Mapping with \\ keys stored \\ in Heap}} 		& 46 pairs                & 5,285,275                     & 226,499,722                        \\ \hline
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-	\textbf{Linkedlist}                       							& 90 pairs                & 3,279,847                      & 35,823,601                        	\\ \hline
+	\textbf{Linkedlist}                       							& 152 pairs                & 5,495,265                     & 35,823,601                        \\ \hline
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-	\textbf{\thead{Linkedlist with \\ Mapping}}          				& 130 pairs              & 3,297,717                       & 25,095,370                        \\ \hline
+	\textbf{\thead{Linkedlist with \\ Mapping}}          				& 86 pairs                 & 5,433,259                     & 62,774,170                        \\ \hline
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
 
 \end{tabular}
