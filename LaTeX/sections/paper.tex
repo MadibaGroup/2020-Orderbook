@@ -21,7 +21,7 @@
 
 \section{Order Books}
 
-Order books are data structures that maintain lists of bid and ask orders for various assets (\eg currencies, stocks, bonds \etc) in specific markets. The most common version of order books is what we call a \textit{double auction}, where market participants submit their bid and ask orders and the market clearing price will be calculated as the average between the best bid and best ask prices. Order books often sort the orders based on their price and submission time (this order allocation technique is called price-time priority)~\cite{preis2011price}, where orders are prioritized from highest price to lowest and given any two orders with the same price, they will be sorted based on their submission timestamps.
+Order books are data structures that maintain lists of bid and ask orders for various assets (\eg currencies, stocks, bonds \etc) in specific markets. The most common version of order books is what we call a \textit{double auction}, where market participants submit their bid and ask orders and the market clearing price will be calculated as the average between the best bid and best ask prices. Order books often sort orders based on their price and submission time (this order allocation technique is called price-time priority)~\cite{preis2011price}, where orders are prioritized from highest price to lowest and given any two orders with the same price, they will be sorted based on their submission timestamps.
 
 \par
 
@@ -32,7 +32,7 @@ Looking more closely, order books are rather electronic ledgers that get updated
 \item \textbf{Speed.}
 
 \item \textbf{Front-running and Censorship.}
-why cant you front run pt?
+
 
 \item \textbf{Enforcing Time.}
 
@@ -61,7 +61,7 @@ why cant you front run pt?
 % There will be no ties as we use 2 counters for buy and sell orders. These counters are concatenated them with the price. So we somehow enforce time priority
 
 
-
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
 
 % = = = = = = = = = = = =Clearing Mappings = = = = = = = = = = = = =  %
 \section{Clearing Mappings}
@@ -83,31 +83,65 @@ To maintain the collateral balance of each market participant, we use two Solidi
 
 \end{enumerate}
 
- %Deleting the unavailable mapping remains a challenging issue to solve (have a little section in the paper to discuss our different solutions for it). 
-%	1- we can just create a new mapping everytime the market opens and have a modifier for the claim functions so that they could be called only when the market is closed. 
-%	2- we can have custom keys for the mapping (like a counter we define as a global variable and increment it at the end of the match function). So everytime the new market starts, we just use another portion of the mapping.
-%	3- we can have another smart contract which only stores the mapping and just delete that after the close function. 
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
 
-
-% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+% = = = = = = = = = = Design Details of PQs = = = = = = = = = = = = = = %
 \section{Design Details of PQs}
 
+
+%= = = = = =Mapping with Keys Stored in Heap = = = = = = =%
+
+\subsection{Mapping with Keys Stored in a Heap}\label{sec:mapping_heap}
+
+To store the orders, here we use Solidity mapping that map orders' ids (256-bit integers) to order structs with their variables of different types. The mapping keys are then stored in a sorted heap that is implemented with a dynamic storage array. Every time a trade happens; (i) the mapping keys associated with the best bid and ask orders are deleted from the heap and the heap is re-sorted, and (ii) the mapping elements containing the best bid and ask orders are deleted from storage completely which refund 15000 gas~\cite{wood2014ethereum}. Deleting the mapping elements is yet a gas-costly operation which lowers down the maximum number of orders the \texttt{Match()} function could handle in this case.~\footnote{Every order structs contains multiple variables of different types and removing them from storage is identical to setting multiple variables to zero.} However, we clear the mapping element once a trade happens in our design as leaving unnecessary data is not a proper design practice.
+
+%= = = = = =Linkedlist = = = = = = =%
+ 
+\subsection {Linkedlist}
+Every time a trade happens, we use the \texttt{self-destruct} operation to remove the nodes (\ie smart contracts) containing the best bid and ask orders from the Ethereum blockchain. When a node is deleted, it transfers its funds (if any) to the payable address of the CallMarket contract that has been previously passed to it as a constructor argument. Also, removing a smart contract from the Ethereum blockchain refunds 24000 gas to the caller.
+
+%= = = = = =Linkedlist with Mapping = = = = = = =%
+
 \subsection {Linkedlist with Mapping}
-Every a trade happens inside the match function, the best bid and ask order have to be removed from the priority queue. There are two different ways to do so; (i) we can only update the head and tail pointers of the linkedlist and/or (ii) we can remove the mapping elements that contain best bid and ask orders from storage completely as well as updating the pointers of the linkedlist. \par
+Every time a trade happens when the \texttt{Match()} function is executed, the best bid and ask orders need to be removed from the data structures. We could do this in two different ways; (i) update the head and tail pointers of the linkedlist and/or (ii) removing the mapping elements that contain the best bid and ask orders from storage completely as well as updating the pointers of the linkedlist. \par
 
-Pros and Cons:
-
-Cons: Each order structs contains eight variables of multiple types and removing them from the storage is identical to setting eight variables to zero. Despite the gas refunds (\texttt{SSTORE} clear refunds 15.000 gas~\cite{wood2014ethereum}) this would yet increase the gas cost which then lowers down the maximum number of orders the \texttt{Match()} method could handle in this case. However, not removing uanessacry data on the Ethereum blockchain is not the best design practice. For this reason, we clear the best bid and ask orders every time a trade happens.
+For the same reason we mentioned in~\ref{sec:mapping_heap}, we clear the best bid and ask order structs from the mapping every time a trade happens as well as updating the pointers.
 
 
 
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
+
+% = = = = = = = = = = = =Closing and Reopening the Market = = = = = = = = = = = = =  %
+
+\section{Closing and Reopening the Market}
+
+% We use one-shot market for the sake of our performance tests on different datastructures. and once we have all the numbers we can think about iterated market.
+
+At the end of the trading period, the market needs to be closed and reopened. However, there is no automatic process to called an Ethereum function and contracts can only run when a function is called. 
+
+%when to close the market?
+%What time period?
 
 
-% = = = = = = = = = = = =Who pays for the close function? = = = = = = = = = = = = =  %
+% = = = = = = = = = = = =How to enforce time on on the Ethereum blockchain? = = = = = = = = = = = = =  %
 
-\section{Who Pays the Cost for the \texttt{CloseMarket()} Function?}
+\subsection{Enforcing Time on the Blockchain}
 
-Ethereum contracts can only run when a function is called. So if no one calls the \texttt{CloseMarket()} function at the end of the trading period, this function cannot self-execute to modify itself. In addition, upon closing the market the \texttt{Match()} function will be executed which consumes a significant amounts of gas, and the person who closes the market must have enough incentives to do so. We think it is useful to explore the landscape of possible designs for closing the market. 
+% We want the market to run on a periodic schedule => it is difficult for market participants to call the \texttt{Close()} function periodically.
+
+% However there are incentives for them to do so: (i) they get paid and refunded (financial incentives), and (ii) Closing the market allow market participants to open it again and start their trading activities
+
+% Another solution pattern to enforce the time is to use the Ethereum Alarm Clock 
+
+
+% = = = = = = = = = = = =Who Pays the Cost for Closing and Reopening the Market?= = = = = = = = = = = = =  %
+
+\subsection{Who Pays the Cost for Closing and Reopening the Market?}
+
+%%%%% Mahsa: Add whatever was discussed in the meeting %%%%% 
+
+
+We think it is useful to explore the landscape of possible designs for closing the market. 
 
 \begin{enumerate}
 
@@ -126,6 +160,10 @@ Ethereum contracts can only run when a function is called. So if no one calls th
 \item \textbf{Using the "Contract Pays" Model.} An alternative solution is to design the market such that the last person to submit an order calls the \texttt{CloseMarket()} function, but in contrast to a normal transaction (where the person initiating the transaction must pay the fee), here the CallMarket contract pays the cost for closing the market and matching the orders respectively. To enforce this design we can use Solidity function modifiers; every time a new order is submitted, a function modifier checks whether (i) the auction period has to end and/or (ii) the maximum number of total orders has reached. If any of these two conditions are met, the \texttt{CloseMarket()} will be called. Again, market participants are charged with certain amounts of fees every time they submit an order, these fees are accumulated in the CallMarket. Once the \texttt{CloseMarket} is successfully executed and orders are matched, the contract transfers its funds to that person. Note that here the person must still have enough gas to cover the execution of the transaction as the funds will be only transferred after the transaction is fully executed. However, market participants are incentivized to do so as they may receive more ethers than they have spent.
 
 \end{enumerate}
+
+
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
+
 
 
 % = = = = = = = = = = = =Uint testing the PQs Table = = = = = = = = = = = = =  %
