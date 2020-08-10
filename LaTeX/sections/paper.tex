@@ -145,6 +145,22 @@ We think it is useful to explore the landscape of possible designs for closing t
 
 \begin{enumerate}
 
+%= = = = = = Miners Close the Market = = = = = = =%
+
+%Jeremy: Miner could close the market as they get paid and the amount could be more than running the function. 
+\item \textbf {Miners Close and Reopen the Market.} The difference between the best bid and ask prices is called the \textit{bid-ask spread}. In our design, when the trade occurs between the the highest bid (the highest amount a buyer is willing to pay for an asset) and lowest ask (the lowest amount a seller is willing to accept for an asset) orders, the bid-ask spread is paid to the miner. In addition to this, a miner could close the market and get refunded. The refund amount could be potentially higher than the bid-ask spread which provides enough economic incentives for the miner to execute the \texttt{Close()} function.
+
+
+% = = = = = = = = = =Processing Orders in Groups= = = = = = = = = = = = = = = %
+% Mahsa: Title is good or needs to be changed?
+
+\item \textbf{Processing Orders in Groups.} Another solution pattern is to process certain number of bid and ask orders upon every execution of the \texttt{CloseMarket()} function rather than treating them as one substantial transaction. A market participant $P_i$ would process $n$ orders from the previous market (\texttt{CloseMarket(n)}) when sending new orders to the current market. This process continues until all the orders in the previous markets are processed. % incentive? => contribution to the community!?
+ 
+
+
+
+%= = = = = =  = =  =  Meta txs =  = = = = = = = = =%
+
 \item \textbf {Using the Meta Transactions.} Meta transactions enable users to execute Ethereum functions without paying the gas. Rather than spending gas, users sign their intended action using their private keys and broadcast it to the network with no cost. A third party process (\textit{a relayer}) then crafts the actual transaction on user's behalf, sends the transaction to the Ethereum blockchain, and charges the base contract with the associated fees (see Figure~\ref{fig:meta_tx}). The required gas to pay for the \texttt{Match()} function could be collected as fees. So market participants are charged with certain amounts of fees every time they submit an order, these fees are accumulated in the CallMarket contract and will be used to pay for executing the \texttt{CloseMarket()} function.
 
 % = = = = = = = = = = = =meta_tx Figure = = = = = = = = = = = = =  %
@@ -157,7 +173,28 @@ We think it is useful to explore the landscape of possible designs for closing t
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
 
-\item \textbf{Using the "Contract Pays" Model.} An alternative solution is to design the market such that the last person to submit an order calls the \texttt{CloseMarket()} function, but in contrast to a normal transaction (where the person initiating the transaction must pay the fee), here the CallMarket contract pays the cost for closing the market and matching the orders respectively. To enforce this design we can use Solidity function modifiers; every time a new order is submitted, a function modifier checks whether (i) the auction period has to end and/or (ii) the maximum number of total orders has reached. If any of these two conditions are met, the \texttt{CloseMarket()} will be called. Again, market participants are charged with certain amounts of fees every time they submit an order, these fees are accumulated in the CallMarket. Once the \texttt{CloseMarket} is successfully executed and orders are matched, the contract transfers its funds to that person. Note that here the person must still have enough gas to cover the execution of the transaction as the funds will be only transferred after the transaction is fully executed. However, market participants are incentivized to do so as they may receive more ethers than they have spent.
+%= = = = = =  = =  =  Users close and get refunded with the contract funds (collected as fees during order submissions) =  = = = = = = = = =%
+
+\item \textbf{Using the "Contract Pays" Model.} An alternative solution is to design the market such that the last person to submit an order calls the \texttt{CloseMarket()} function, but in contrast to a normal transaction (where the person initiating the transaction must pay the fee), here the CallMarket contract pays the cost for closing the market and matching the orders respectively. To enforce this design we can use Solidity function modifiers; every time a new order is submitted, a function modifier checks whether (i) the auction period has to end and/or (ii) the maximum number of total orders has reached. If any of these two conditions are met, the \texttt{CloseMarket()} will be called. Again, market participants are charged with certain amounts of fees every time they submit an order, these fees are accumulated in the CallMarket. Once the \texttt{CloseMarket()} is successfully executed and orders are matched, the contract transfers its funds to that person. Note that here the person must still have enough gas to cover the execution of the transaction as the funds will be only transferred after the transaction is fully executed. However, market participants are incentivized to do so as they may receive more ethers than they have spent.
+
+%= = = = = =  = =  =  Rollups=  = = = = = = = = =%
+
+\item \textbf{Using Rollups.} Rollup is a scaling method that moves the storage and computation of the smart contracts off-chain while maintaining the transaction data on the main chain as call-data. In this technique, any Ethereum user can act as a validator; they can execute the \texttt{CloseMarket()}function and only post the new state of the contract (the updated balance of traders) in the form of \textit{assertions} to the main chain. Rollups improve scalability, provide faster and cheaper execution of the contracts, and eliminate the gas limit as the contract is no longer executed on-chain.
+In the followings we briefly discuss different rollup proposals and techniques. Each approach uses a different method to ensure correction of assertions:
+
+
+\begin{itemize}
+
+\item \textbf{{Non-interactive Rollups.}} In this rollup technique, assertions are posted together with a validity proof that would be later used by validators to check if the \texttt{CloseMarket()} function has been executed correctly. ZK-Rollup scheme is one of the solutions that uses ZK-SNARKs to prove the validity of the assertions in zero-knowledge. ZK proofs are quick and cheap to verify but they are expensive and time consuming to generate. These proofs could be generated (i) for free or (ii) we could charge market participants fo them.
+
+\item \textbf{{Optimistic Rollups.}} In this scheme, assertions are assumed to be valid if there is no dispute posted about them with a certain window of time (also known as the challenge period). Here, dispute resolution is a gas-costly method as the CallMarket contract would have to emulate the transaction on-chain to ensure the correctness the assertion. Also, assertions are publicly available and privacy of data is not protected. However, this does not affect our application as the new state only reflects the updated balances of traders and no secret is involved.
+
+\item \textbf {{Multi-round Interactive Rollups.}} In this design paradigm, \textit{pending assertions} are posted on-chain and they are open to dispute. Once the challenge period is over and no challenge is submitted, the assertion is confirmed and the CallMarket contract transitions to the new state (\ie updates traders' balances). This scheme takes the overhead for the CallMarket contract to execute the \texttt{Close()} on-chain by using rounds to the dispute resolutions. The two parties (asserter and challenger) must run an interactive protocol and the CallMarket smart contract would have to act as a referee and decides which party's claim is true. Arbitrum is an example of multi-round interactive rollups that uses an efficient challenge-based protocol to penalize the dishonest parties~\cite{kalodner2018arbitrum}. 
+
+\end{itemize}
+
+
+
 
 \end{enumerate}
 
