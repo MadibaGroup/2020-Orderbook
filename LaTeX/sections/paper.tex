@@ -28,12 +28,20 @@ Order books are data structures that maintain lists of bid and ask orders for va
 Looking more closely, order books are rather electronic ledgers that get updated over time. Given the definition of the Ethereum blockchain, that is a distributed ledger, the idea of implementing an order book in the form of a smart contract will seemingly resolve the existing issues with centralized exchanges. However, this design is not feasible due to some crucial challenges that exist within blockchains:
 
 \begin{itemize}
-
+%---------+++++++++++++++++++-----------------
 \item \textbf{Speed.}
 
+
+%---------+++++++++++++++++++-----------------
 \item \textbf{Front-running and Censorship.}
 
+
+%---------+++++++++++++++++++-----------------
 \item \textbf{Enforcing Time.}
+
+
+%---------+++++++++++++++++++-----------------
+
 
 \end{itemize}
 
@@ -63,6 +71,7 @@ Looking more closely, order books are rather electronic ledgers that get updated
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
 
 % = = = = = = = = = = = =Clearing Mappings = = = = = = = = = = = = =  %
+
 \section{Clearing Mappings}
 
 To facilitate a safe exchange among buyers and sellers, we implement the CallMarket smart contract in the form of a \textit{collateralized}; for market participants to be able to send bid and/or ask orders, they have to first supply assets (depending on what asset they aim to trade) as collaterals  by calling any of the  \texttt{DepositToken()} or \texttt{DepositEther()} methods. The collateralized CallMarket acts as a payment guarantees and market participants cannot default on payment or delivery of their assets.
@@ -72,13 +81,24 @@ To maintain the collateral balance of each market participant, we use two Solidi
 
 \begin{enumerate}
 
+%---------+++++++++++++++++++-----------------
 \item \textbf{Creating a New Mapping Every Time the Market Opens.} Instead of clearing the \texttt{UnavailableBalance} of traders at the end of a matching process, we could create a new mapping every time the market opens. Note that using this solution, traders can only claim their funds (using the \texttt{ClaimEther()} and/or \texttt{ClaimToken} methods) only when the market is in state \texttt{Closed}. 
 
+
+%---------+++++++++++++++++++-----------------
 \item \textbf{Creating Custom Keys for the Mapping.} We can create custom keys for the mapping by defining a counter as a global variable inside the CallMarket smart contract. This counter is incremented at the end of the matching process. So instead of clearing the mapping, we only use another portion of it every time the market opens.
 
+
+%---------+++++++++++++++++++-----------------
 \item \textbf{Storing the Mapping in a Data-Contract.} Another design proposal is to create a smart contract every time the market opens, this data contract only stores the \texttt{UnavailableBalance} mapping and will be killed at the end of the matching process.
 
-\item \textbf{Storing the Mapping keys in additional Array.} Another common pattern is to create an additional array on top of the mapping and iterate over that. This array (\eg address[]) stores the traders' addresses and enables us to iterate over the mapping and delete individual keys and what they map to at the end of the matching process. Not that this is a gas-costly design pattern as we would need to maintain a secondary data structure.
+
+
+%---------+++++++++++++++++++-----------------
+\item \textbf{Storing the Mapping keys in an additional Array.} Another common pattern is to create an additional array on top of the mapping and iterate over that. This array (\eg address[]) stores the traders' addresses and enables us to iterate over the mapping and delete individual keys and what they map to at the end of the matching process. Not that this is a gas-costly design pattern as we would need to maintain a secondary data structure.
+
+
+%---------+++++++++++++++++++-----------------
 
 \end{enumerate}
 
@@ -88,22 +108,20 @@ To maintain the collateral balance of each market participant, we use two Solidi
 \section{Design Details of PQs}
 
 
-%= = = = = =Mapping with Keys Stored in Heap = = = = = = =%
+%---------+++++++++++++++++++-----------------
 
 \subsection{Mapping with Keys Stored in a Heap}\label{sec:mapping_heap}
 
 To store the orders, here we use Solidity mapping that map orders' ids (256-bit integers) to order structs with their variables of different types. The mapping keys are then stored in a sorted heap that is implemented with a dynamic storage array. Every time a trade happens; (i) the mapping keys associated with the best bid and ask orders are deleted from the heap and the heap is re-sorted, and (ii) the mapping elements containing the best bid and ask orders are deleted from storage completely which refund 15000 gas~\cite{wood2014ethereum}. Deleting the mapping elements is yet a gas-costly operation which lowers down the maximum number of orders the \texttt{Match()} function could handle in this case.~\footnote{Every order structs contains multiple variables of different types and removing them from storage is identical to setting multiple variables to zero.} However, we clear the mapping element once a trade happens in our design as leaving unnecessary data is not a proper design practice.
 
-%= = = = = =Linkedlist = = = = = = =%
- 
+%---------+++++++++++++++++++-----------------
 \subsection {Linkedlist}
 Every time a trade happens, we use the \texttt{self-destruct} operation to remove the nodes (\ie smart contracts) containing the best bid and ask orders from the Ethereum blockchain. When a node is deleted, it transfers its funds (if any) to the payable address of the CallMarket contract that has been previously passed to it as a constructor argument. Also, removing a smart contract from the Ethereum blockchain refunds 24000 gas to the caller.
 
-%= = = = = =Linkedlist with Mapping = = = = = = =%
 
+%---------+++++++++++++++++++-----------------
 \subsection {Linkedlist with Mapping}
 Every time a trade happens when the \texttt{Match()} function is executed, the best bid and ask orders need to be removed from the data structures. We could do this in two different ways; (i) update the head and tail pointers of the linkedlist and/or (ii) removing the mapping elements that contain the best bid and ask orders from storage completely as well as updating the pointers of the linkedlist. \par
-
 For the same reason we mentioned in~\ref{sec:mapping_heap}, we clear the best bid and ask order structs from the mapping every time a trade happens as well as updating the pointers.
 
 
@@ -114,7 +132,7 @@ For the same reason we mentioned in~\ref{sec:mapping_heap}, we clear the best bi
 
 \section{Closing and Reopening the Market}
 
-% We use one-shot market for the sake of our performance tests on different datastructures. and once we have all the numbers we can think about iterated market.
+% We use one-shot market for the sake of our performance tests on different data structures. and once we have all the numbers we can think about iterated market.
 
 At the end of the trading period, the market needs to be closed and reopened. However, there is no automatic process to called an Ethereum function and contracts can only run when a function is called. 
 
@@ -137,21 +155,18 @@ At the end of the trading period, the market needs to be closed and reopened. Ho
 
 \subsection{Who Pays the Cost for Closing and Reopening the Market?}
 
-%%%%% Mahsa: Add whatever was discussed in the meeting %%%%% 
-
-
 We think it is useful to explore the landscape of possible designs for closing the market. 
 
 \begin{enumerate}
 
 %= = = = = = Miners Close the Market = = = = = = =%
 
-%Jeremy: Miner could close the market as they get paid and the amount could be more than running the function. 
-\item \textbf {Miners Close and Reopen the Market.} The difference between the best bid and ask prices is called the \textit{bid-ask spread}. In our design, when the trade occurs between the the highest bid (the highest amount a buyer is willing to pay for an asset) and lowest ask (the lowest amount a seller is willing to accept for an asset) orders, the bid-ask spread is paid to the miner. In addition to this, a miner could close the market and get refunded. The refund amount could be potentially higher than the bid-ask spread which provides enough economic incentives for the miner to execute the \texttt{Close()} function.
+
+\item \textbf {Miners Close and Reopen the Market.} The difference between the best bid and ask prices is called the \textit{bid-ask spread}. In our design, when the trade occurs between the the highest bid (the highest amount a buyer is willing to pay for an asset) and lowest ask (the lowest amount a seller is willing to accept for an asset) orders, the bid-ask spread is paid to the miner. There are possibilities that (i) no trade occurs or (ii) the bid-ask spread is zero (\ie the best bid and best ask prices are identical). So there is enough economic incentive for the the miner to execute the \texttt{CloseMarket()} function and get refunded as the refund amount could be potentially higher than the bid-ask spread. 
+
 
 
 % = = = = = = = = = =Processing Orders in Groups= = = = = = = = = = = = = = = %
-% Mahsa: Title is good or needs to be changed?
 
 \item \textbf{Processing Orders in Groups.} Another solution pattern is to process certain number of bid and ask orders upon every execution of the \texttt{CloseMarket()} function rather than treating them as one substantial transaction. A market participant $P_i$ would process $n$ orders from the previous market (\texttt{CloseMarket(n)}) when sending new orders to the current market. This process continues until all the orders in the previous markets are processed. % incentive? => contribution to the community!?
  
