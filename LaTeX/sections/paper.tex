@@ -1,20 +1,26 @@
 % !TEX root = ../main.tex
 
 
+
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+
+
 \section{Introductory Remarks}
 
+Blockchain is a type of distributed database (or ledger) that is open to anyone who wants to participate, robust against a wide range of faulty and malicious behaviours, and runs without anyone in charge. When a participant looks at her local copy of the ledger, she is assured that (i) anyone has the exact same records and (ii) each record was validated by the "majority" (technically, a computational majority) of participants before it was written into the ledger. Blockchain technology has rapidly gained global interest and become one of the most significant technologies in recent years. It was first introduced in 2008 by Satoshi Nakamoto as an underlying technology of Bitcoin, a peer to peer electronic cash system~\cite{nakamoto2019bitcoin}, whose currency reached a market capitalization of \$137 billion as of January 2020. In 2014, a new blockchain based application known as Ethereum was introduced by Buterin~\cite{buterin2014next}. By implementing a decentralized virtual machine, Ethereum virtual machine (EVM), Ethereum allows network users to execute programmable smart contracts on it. So developers are now able to build decentralized applications (DApps) that are executed correctly according to the consensus rules of the Ethereum network. 
+
+\section{Cryptocurrency Exchanges}
+Strong interest in blockchain and distributed ledger technologies has led into the high trading volume of digital assets and emergence of fast growing cryptocurrency exchanges all over the world. These crypto exchanges (hereafter referred to as exchanges) are similar to stock exchanges but, as the name suggests, facilitate the trading process of different cryptocurrency tokens. Basically, such exchanges provide a trading venue where market participants can buy and/or sell cryptocurrency assets among one another. In this section, we describe two types of trading systems and pinpoint why the need for a highly secure exchange and trading system for cryptocurrencies is crucial.
+
+\subsection{Centralized Exchanges (CEX)}\label{sec:CEX}
+This group of exchanges operate in a traditional manner by providing a centralized platform controlled by exchange operators. Essentially, the exchange acts as a trusted party whom the market participants must trust to handle their assets. Thus, traders transfer the ownership of their assets to the exchange who safeguards customer funds using different methods. Although this group of exchanges make it easier for users to trade digital assets (as it takes the burden of safeguarding off traders), it requires traders to fully trust the exchange operator in taking custody of their assets (\eg Coinbase). Like any other centralized platform, these exchanges are not completely immune to malicious activities. For example, in February 2014, a famous centralized Tokyo-based Bitcoin exchange called MtGox was hacked which led to loss of 650,000 Bitcoins~\cite{TheHisto45:online}. Also, a malicious exchange can simply steal users' funds, in February 2019, QuadrigaCX, one of Canada’s well-known centralized cryptocurrency exchanges, claimed that it cannot access to \$190-million worth of customers’ funds~\cite{SEBIOrde83:online}.
+
+\subsection{Decentralized Exchanges (DEX)}
+
+Unlike centralized exchanges, DEXes facilitate a secure automated peer-to-peer trading process on the blockchain (\eg Ethereum) for market participants with no third parties involved, hence solving the problems that are inherent in centralized exchanges. They provide a better security and privacy by enabling traders to remain fully authoritative over their funds and personal data.  With rising of Decentralized Finance (DeFi) or Open Finance movements, the number of DEX platforms on Ethereum have recently exploded and large volume of trading now occurs on DeFi exchanges (\eg Uniswap).~\footnote{https://uniswap.org}
 
 
-
-%decentralized exchanges allow the market participants to be fully authoritative over their assets using their private keys. 
-%One issue with decentralized 
-%
-%Cryptocurrency trading on centralized exchanges has been shown to be vulnerable to cybersecurity hacking and internal frauds over the years, with the most infamous hacks being Mt. Gox and Coincheck. In addition, trading on centralized exchanges is not compatible with DeFi applications since it is technically infeasible to bridge between decentralized applications and centralized servers without compromising the trust model.
-
-
-
-
-
+However, building a fully decentralized exchange is associated with high costs and technical complexities and hence remains a big challenge. In the following section, we explore the idea of building a decentralized exchange on Ethereum.
 
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
@@ -23,58 +29,222 @@
 
 Order books are data structures that maintain lists of bid and ask orders for various assets (\eg currencies, stocks, bonds \etc) in specific markets. The most common version of order books is what we call a \textit{double auction}, where market participants submit their bid and ask orders and the market clearing price will be calculated as the average between the best bid and best ask prices. Order books often sort orders based on their price and submission time (this order allocation technique is called price-time priority)~\cite{preis2011price}, where orders are prioritized from highest price to lowest and given any two orders with the same price, they will be sorted based on their submission timestamps.
 
-\par
-
 Looking more closely, order books are rather electronic ledgers that get updated over time. Given the definition of the Ethereum blockchain, that is a distributed ledger, the idea of implementing an order book in the form of a smart contract will seemingly resolve the existing issues with centralized exchanges. However, this design is not feasible due to some crucial challenges that exist within blockchains:
 
 \begin{itemize}
 %---------+++++++++++++++++++-----------------
-\item \textbf{Speed.}
+\item \textbf{Speed.} All blockchains are slow in comparison with stock markets which move very fast. For example, high-frequency trading (HFT), is a trading method that uses active computers to process a large number of trades in fractions of a second. However, blockchains are slow-moving as it takes block intervals for transactions to get confirmed.
 
 
 %---------+++++++++++++++++++-----------------
-\item \textbf{Front-running and Censorship.}
-
-
-%---------+++++++++++++++++++-----------------
-\item \textbf{Enforcing Time.}
-
+\item \textbf{Front-running and Censorship.} Traders must broadcast their order messages to the network before they can be placed in the block (\ie order book). In such scenario, the privileged nodes and miners can front-run transactions or completely drop (censor) those that are competing with their own~\cite{eskandari2019sok}. Also, miners could almost control how the order book gets updated by inserting their own order messages after viewing all other orders and before mining the block .
 
 %---------+++++++++++++++++++-----------------
 
 
+\item \textbf{Enforcing Time.} There is no notion of time on blockchains. If two orders arrive at the same price, in the normal world whoever is the first wins. However, one cannot enforce the priority of orders in the blockchain space; if Alice is more well-connected to the network, her order gets broadcast better and executed first although she sends it after Bob. 
+
+%---------+++++++++++++++++++-----------------
 \end{itemize}
 
+According to these issues blockchains cannot solve this particular problem. Many stock exchanges that currently operate on blockchains tackle this issue by using a private network (where not every network participant can be a node or miner) together with a central time-server that establishes the time priority. We propose a different method of implementing a fully decentralized exchange using an alternative data structure known as \textit{a call market} or \textit{frequent batch auction} instead of a time-sensitive order book~\cite{clark2014decentralizing}.
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
 
+\section{Call Market}\label{sec:callmarket}
+
+In this research work, we design and implement a call market on the Ethereum blockchain. In our design, time is treated as discrete and not continuous and orders are accumulated over predetermined time intervals and are processed in batch instead of serially in order of receipt. The trading day is divided into frequent but discrete time intervals; every time the market opens traders submit their ask and bid order messages. These orders are accumulated in a sorted data structure and when the trading period is over, orders are matched against each other.  Our proposed decentralized exchange is both data structure and token agnostic (traders can trade any token that is ERC20 compliant). The upcoming orders are not stored in the Call Market contract, instead they are stored in a priority queue where each element is associated with a priority and is served according to its priority. A priority queue can be implemented using many of the data structures that differ in efficiency and costs. Our main \textit{Call Market} smart contract is written in 268 lines of Solidity, a high level programming language that is syntactically similar to Java~\cite{Ethereum41:online}, using the Truffle development framework and deployed on Ganache-CLI. We used Javascript for testing by leveraging the Mocha testing framework. To facilitate a safe exchange among buyers and sellers, we implement the Call Market smart contract in the form of a \textit{collateralized}; for market participants to be able to send bid and/or ask orders, they have to first supply tokens (depending on what ERC20 tokens they aim to trade) as collaterals by calling any of the  \texttt{DepositToken()} or \texttt{DepositEther()} methods. The collateralized Call Market acts as a payment guarantee so traders cannot default on payment or delivery of their assets. 
+
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+
+\section{Priority Queues}
+
+As mentioned in~\ref{sec:callmarket}, a priority queue can be implemented using different data structures. We implemented five different generic priority queues that support four main functions (see Table~\ref{tab:PQ_API}). Followings describe each implementation. 
+
+% = = = = = = = = = = = =Operations for a generic Priority Queue Table = = = = = = = = = = = = =  %
+\begin{table}[]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+
+\textbf{Method}   & \textbf{Description}    \\ \hline
+
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+	\textbf{Enqueue()}       				& inserts an element into the priority queue                        \\ \hline
+	\textbf{Dequeue()}					& removes and returns the highest priority element 		\\ \hline
+	\textbf{isEmpty()}						& checks if the priority queue is empty 					\\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+
+\end{tabular}
+\caption{\footnotesize{Operations for a generic Priority Queue}
+\label{tab:PQ_API}}
+\end{table}
+% = = = = = = = = = = = = = = = = = = = = =  = = = = = = = = = = =  = = = = = = = = = == = = =  %
+
+
+% = = = = = = = = = = = = = = = = = = = = =  = = =% 
+\subsection{Heap with Dynamic Array}
+
+A Heap is a type of binary tree data structure that comes in two forms of a (i) Max-Heap and (ii) Min-Heap. All the nodes of tree are in a specific order and the root of the tree always represents the highest priority item of the data structure (the largest and smallest values in the Max-Heap and Min-Heap respectively). We implemented a priority queue with a Heap that itself is implemented using Solidity dynamically-sized array.  
+% = = = = = = = = = = = = = = = = = = = = =  = = =% 
+
+\subsection{Heap with Static Array}
+
+%Here, we implemented a priority queue using the Heap that itself is stored in Solidity static arrays. Every time the priority queue contract i
 
 
 
 
-% = = = = = = = = = = = =Notes Discussed in Meetings = = = = = = = = = = = = =  %
-
-% Our two competitors are Uinswap and Loopring (that uses ZK roll ups):
-% 	1- Uniswap: we can argue that in traditional markets we have various traditional exchanges. Each of these exchanges have different trading rules and designs which work for different traders.
-%	2- Loopring:
-%		2-1: Barrier to entry: In order for a trader to trade specific ERC20 on Loopring, Loopring has to agree to support that token. It might not be difficult and they probably approve the token as long as it is standard compliant.
-%		2-2: ZK proofs are quick and cheap to verify but they are expensive and time consuming to generate: (1) now they are generating these proofs for free but later they charge traders for doing that. (2) Looping does not probably generate these proofs per every block so the settlement and 				clearing is not happening per block. So we have faster clearing and settlement as we clear everything per block. 
-% 		2-3: Loopring is non-custodial, meaning that the money moves only when the proofs come, so there is a latency in transferring funds to the traders.
 
 
-% The heap with dynamic array can do 26 pairs of matches at worst case matching whereas Linkedliat does 90 pairs. So if we want to cap the orders over 4 PQs, we’re basically increasing the heap size which makes match more expensive for nothing (every time a match happens and the root is deleted the whole heap is reheapified)
-
-% There will be no ties as we use 2 counters for buy and sell orders. These counters are concatenated them with the price. So we somehow enforce time priority
 
 
-% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
+
+
+We enter 50 unsigned integers to the priority queues in random ordering. To do so, we use JavaScript \texttt{Math.random()} function to generate pseudo-random integers between 1 and 200. Figure~\ref{fig:average_uints_insertion} shows the gas cost variations for entering 50 unsigned integers in the five data structures. The x-axis is the place in line (\eg the10th number entered in the priority queue) and the and y-axis is the cost of that transaction in gas. 
+
+% = = = = = = = = = = = =average_uints_insertion Figure = = = = = = = = = = = = =  %
+
+\begin{figure}[htb!p]
+\centering
+\includegraphics[width=1\textwidth]{fig/average_uints_insertion.png}
+\caption{\footnotesize{}  \label{fig:average_uints_insertion}}
+\end{figure}
+
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
+
+Then, we call the \texttt{Dequeue()} function which iteratively removes the highest priority number from the priority queue (until the data structure is empty). The computational costs for dequeuing 50 unsigned integers in each priority queue are outlined in Table~\ref{tab:PQ_UnitTests}. The tests are performed using the current Ethereum gas metrics (block gas limit $=$11,741,495 and 1 gas $=$ 56 gwei)~\footnote{https://ethstats.net/}. The second column of the table shows the net gas consumption (the gasUsed value derived from transaction receipts) for removing 50 integers from each priority queues.  
+
+At the time of this writing, Ethereum transaction receipts only contain the net gas consumption and not the total gas consumption ( total gas consumption is defined as $gas refunded + gasUsed$ ) and we cannot find out the value of the EVM's refund counter from inside the EVM.
+
+So in order to account for refunds inside each priority queue smart contract, we can calculate them manually; first we figure out exactly how much storage is being cleared when dequeuing  the max integers and then we could multiply the number of storage slots cleared by 15,000 (see the last column of Table~\ref{tab:PQ_UnitTests}).
+
+Another way to know the amount of refund in each priority queue is to use the \texttt{estimateGas API} which provides a rough idea about the total amount of gas that is required for a transaction to go through. The \texttt{web3.eth.estimateGas} pretends the transaction is included in the block and its functions (with the parameters passed) will be executed on the Ethereum blockchain. Doing so, it provides us an estimate of how much gas is needed to be sent with the transaction. The second and third columns of Table~\ref{tab:PQ_UnitTests}) show the total amount of gas required for dequeuing 50 integers from each priority queue (provided by estimateGas) and the amount of gas refund ($Total Gas Consumption - gasUsed$) respectively.
+
+Note that in order to urge miners to process smart contract with refunds, the accumulated gas refund can never exceed half the gas used up during computation~\cite{wood2014ethereum}. So at the end of a successful transaction, the amount of gas in the refund counter (capped at half the net gas used) is returned to the caller. For example, the amount of gas that has been used when dequeuing 50 integers from the linkedlist with mapping data structure is 731,514 and since $3,000,000 > 731,514/2$, the amount of refund returned to the caller is $731,514/2 = 365,757$.
+
+
+
+
+
+
+
+\section{Unit Testing the Priority Queues}
+
+Here we execute the same JavaScrip test on the five priority queues with an end goal of unit testing them. We enter 50 unsigned integers to the priority queues in random ordering. To do so, we use JavaScript \texttt{Math.random()} function to generate pseudo-random integers between 1 and 200. Figure~\ref{fig:average_uints_insertion} shows the gas cost variations for entering 50 unsigned integers in the five data structures. The x-axis is the place in line (\eg the10th number entered in the priority queue) and the and y-axis is the cost of that transaction in gas. 
+
+% = = = = = = = = = = = =average_uints_insertion Figure = = = = = = = = = = = = =  %
+
+\begin{figure}[htb!p]
+\centering
+\includegraphics[width=1\textwidth]{fig/average_uints_insertion.png}
+\caption{\footnotesize{}  \label{fig:average_uints_insertion}}
+\end{figure}
+
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
+
+Then, we call the \texttt{Dequeue()} function which iteratively removes the maximum value of the priority queue (until the data structure is empty). The computational costs for dequeuing 50 unsigned integers in each priority queue are outlined in Table~\ref{tab:PQ_UnitTests}. The tests are performed using the current Ethereum gas metrics (block gas limit $=$11,741,495 and 1 gas $=$ 56 gwei)~\footnote{https://ethstats.net/}. The second column of the table shows the net gas consumption (the gasUsed value derived from transaction receipts) for removing 50 integers from each priority queues.  
+
+At the time of this writing, Ethereum transaction receipts only contain the net gas consumption and not the total gas consumption ( total gas consumption is defined as $gas refunded + gasUsed$ ) and we cannot find out the value of the EVM's refund counter from inside the EVM.
+
+So in order to account for refunds inside each priority queue smart contract, we can calculate them manually; first we figure out exactly how much storage is being cleared when dequeuing  the max integers and then we could multiply the number of storage slots cleared by 15,000 (see the last column of Table~\ref{tab:PQ_UnitTests}).
+
+Another way to know the amount of refund in each priority queue is to use the \texttt{estimateGas API} which provides a rough idea about the total amount of gas that is required for a transaction to go through. The \texttt{web3.eth.estimateGas} pretends the transaction is included in the block and its functions (with the parameters passed) will be executed on the Ethereum blockchain. Doing so, it provides us an estimate of how much gas is needed to be sent with the transaction. The second and third columns of Table~\ref{tab:PQ_UnitTests}) show the total amount of gas required for dequeuing 50 integers from each priority queue (provided by estimateGas) and the amount of gas refund ($Total Gas Consumption - gasUsed$) respectively.
+
+Note that in order to urge miners to process smart contract with refunds, the accumulated gas refund can never exceed half the gas used up during computation~\cite{wood2014ethereum}. So at the end of a successful transaction, the amount of gas in the refund counter (capped at half the net gas used) is returned to the caller. For example, the amount of gas that has been used when dequeuing 50 integers from the linkedlist with mapping data structure is 731,514 and since $3,000,000 > 731,514/2$, the amount of refund returned to the caller is $731,514/2 = 365,757$.
+
+% = = = = = = = = = = = =Uint testing the PQs Table with 50 Random Integers between 1 and 200 = = = = = = = = = = = = =  %
+
+\begin{table}[]
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+
+\textbf{\thead{Priority Queue}}    & \textbf{\thead{Net Cost\\in Gas}}      & \textbf{\thead{Total Cost\\in Gas\\(from estimateGas)}}      & \textbf{\thead{Gas Refund \\(from \texttt{estimateGas})}}    & \textbf{\thead{Gas Refund \\(Manually Calculated)}} \\ \hline
+
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+	\textbf{\thead{Heap with \\ Dynamic Array}}         				& 2,575,997               & 3,349,746		& 773,749             & 750,000                       \\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+	\textbf{\thead{Heap with \\ Static Array}}           				& 1,324,856                & 2,090,182     	& 765,326             & 750,000                      \\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+	\textbf{\thead{Mapping with \\ keys stored \\ in Heap}} 		& 2,863,239                & 4,378,584       	& 1,515,345           & 1,500,000                     \\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+	\textbf{Linkedlist}                       							& 557,085               	& 1,772,085      	& 1,215,000           & 1,200,000                      \\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+	\textbf{\thead{Linkedlist with \\ Mapping}}          				& 731,514              	& 3,731,514       	& 3,000,000     	  &  3,765,000                       \\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+
+\end{tabular}
+\caption{\footnotesize{PQUnitTests with 50 Random Integers between 1 and 200}
+\label{tab:PQUnitTests_random}}
+\end{table}
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
+
+
+
+% = = = = = = = = = = = =Uint testing the PQs Table with 50 Integers (NOT RANDOM!) = = = = = = = = = = = = =  %
+
+\begin{table}[]
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+
+\textbf{\thead{Priority Queue}}    & \textbf{\thead{Net Cost\\in Gas}}      & \textbf{\thead{Total Cost\\in Gas\\(from estimateGas)}}      & \textbf{\thead{Gas Refund \\(from \texttt{estimateGas})}}    & \textbf{\thead{Gas Refund \\(Manually Calculated)}} \\ \hline
+
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+	\textbf{\thead{Heap with \\ Dynamic Array}}         				& 2,394,202                & 3,159,551           &765,349	    & 750,000                     \\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+	\textbf{\thead{Heap with \\ Static Array}}           				& 1,317,922                & 2,083,240   	& 765,318          & 750,000                     \\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+	\textbf{\thead{Mapping with \\ keys stored \\ in Heap}} 		& 2,629,191                & 4,144,536       	&1,515,345          & 1,500,000                     \\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+	\textbf{Linkedlist}                       							&557,085            		& 1,772,085      	&1,215,000          & 1,200,000                      \\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+	\textbf{\thead{Linkedlist with \\ Mapping}}          				&731,514              	&3,731,514      	& 3,000,000    	  &  3,765,000                       \\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+
+\end{tabular}
+\caption{\footnotesize{PQUnitTests}
+\label{tab:PQ_UnitTests}}
+\end{table}
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
+
+
+
+
+
+ In order to choose the best priority queue ()
+
+Note that we have to carefully choose a proper implementation as they have different performance and costs. In order to examine 
+In order to examine the cost and performanmc
+
+%In order to enable our Call Market contract to act as an interface with any priority queue, we implemented generic types of priority queues that support four main functions (see Table~\ref{tab:PQ_API}). Followings describe each implementation. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 % = = = = = = = = = = = =Clearing Mappings = = = = = = = = = = = = =  %
 
 \section{Clearing Mappings}
 
-To facilitate a safe exchange among buyers and sellers, we implement the CallMarket smart contract in the form of a \textit{collateralized}; for market participants to be able to send bid and/or ask orders, they have to first supply assets (depending on what asset they aim to trade) as collaterals  by calling any of the  \texttt{DepositToken()} or \texttt{DepositEther()} methods. The collateralized CallMarket acts as a payment guarantees and market participants cannot default on payment or delivery of their assets.
+
 
 To maintain the collateral balance of each market participant, we use two Solidity type one-to-one mapping that map Ethereum addresses to 256 bits unsigned integers; \texttt{TotalBalance} and \texttt{UnavailableBalance}. Once market closes and orders are matched, the \texttt{UnavailableBalance} needs to be cleared. However, since it is not possible to delete the entire mapping without knowing the keys~\footnote{https://solidity.readthedocs.io/en/v0.5.12/security-considerations.html}, clearing the \texttt{UnavailableBalance} mapping remains a challenging issue to solve . Here we provide a landscape of solutions for that.
 %only individual keys and what they map to can be deleted.
@@ -352,6 +522,29 @@ We executed the same test on the the five different versions of the CallMarket w
 \end{table}
 
 
+% = = = = = = = = = = = =Worst Case Matching on Linkedlist With Mapping Table = = = = = = = = = = = = =  %
+
+\begin{table}[]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+
+\textbf{\thead{Linkedlist with Mapping}}    & \textbf{\thead{Maximum Number \\ of \\ Matched Orders}}      & \textbf{\thead{Net Cost\\in Gas}}          & \textbf{\thead{Net Cost in Gas\\ for \\ 1000 Pairs \\ of Orders}}    \\ \hline
+
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  = = = = = = = = = = = %
+	\textbf{\thead{Clearing the Mapping Elements}}         			& 38 pairs                					& 5,372,679                   				& 457,326,935                      \\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  = = = = = = = = = = = %
+	\textbf{\thead{Using the \texttt{Selfdestruct()}}}           			& 210 pairs	                     				& 5,304,211 							& 25,099,713				\\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  = = = = = = = = = = = %
+	\textbf{\thead{No On-chain Clearing}} 		                       	& 210 pairs							& 5,299,877							& 25,095,370				\\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  = = = = = = = = = = = %
+
+\end{tabular}
+\caption{\footnotesize{}
+\label{tab:worst_case_matching}}
+\end{table}
+
+
 
 %%============= Test 3 (17_Worst_Case_Submission_test.js) Figures==================== %
 %
@@ -398,6 +591,25 @@ We executed the same test on the the five different versions of the CallMarket w
 
 
 
+
+
+
+% = = = = = = = = = = = =Notes Discussed in Meetings = = = = = = = = = = = = =  %
+
+% Our two competitors are Uinswap and Loopring (that uses ZK roll ups):
+% 	1- Uniswap: we can argue that in traditional markets we have various traditional exchanges. Each of these exchanges have different trading rules and designs which work for different traders.
+%	2- Loopring:
+%		2-1: Barrier to entry: In order for a trader to trade specific ERC20 on Loopring, Loopring has to agree to support that token. It might not be difficult and they probably approve the token as long as it is standard compliant.
+%		2-2: ZK proofs are quick and cheap to verify but they are expensive and time consuming to generate: (1) now they are generating these proofs for free but later they charge traders for doing that. (2) Looping does not probably generate these proofs per every block so the settlement and 				clearing is not happening per block. So we have faster clearing and settlement as we clear everything per block. 
+% 		2-3: Loopring is non-custodial, meaning that the money moves only when the proofs come, so there is a latency in transferring funds to the traders.
+
+
+% The heap with dynamic array can do 26 pairs of matches at worst case matching whereas Linkedliat does 90 pairs. So if we want to cap the orders over 4 PQs, we’re basically increasing the heap size which makes match more expensive for nothing (every time a match happens and the root is deleted the whole heap is reheapified)
+
+% There will be no ties as we use 2 counters for buy and sell orders. These counters are concatenated them with the price. So we somehow enforce time priority
+
+
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
 
 
 
