@@ -54,7 +54,7 @@ According to these issues blockchains cannot solve this particular problem. Many
 
 \section{Call Market}\label{sec:callmarket}
 
-In this research work, we design and implement a call market on the Ethereum blockchain. In our design, time is treated as discrete and not continuous and orders are accumulated over predetermined time intervals and are processed in batch instead of serially in order of receipt. The trading day is divided into frequent but discrete time intervals; every time the market opens traders submit their ask and bid order messages. These orders are accumulated in a sorted data structure and when the trading period is over, orders are matched against each other.  Our proposed decentralized exchange is both data structure and token agnostic (traders can trade any token that is ERC20 compliant). The upcoming orders are not stored in the Call Market contract, instead they are stored in a priority queue where each element is associated with a priority and is served according to its priority. Our main \textit{Call Market} smart contract is written in 268 lines of Solidity, a high level programming language that is syntactically similar to Java~\cite{Ethereum41:online}, using the Truffle development framework and deployed on Ganache-CLI. To facilitate a safe exchange among buyers and sellers, we implement the Call Market smart contract in the form of a \textit{collateralized}; for market participants to be able to send bid and/or ask orders, they have to first supply tokens (depending on what ERC20 tokens they aim to trade) as collaterals by calling any of the  \texttt{DepositToken()} or \texttt{DepositEther()} methods. The collateralized Call Market acts as a payment guarantee so traders cannot default on payment or delivery of their assets. 
+In this research work, we design and implement a call market on the Ethereum blockchain. We divide the trading day into frequent but discrete time intervals; every time the market opens traders submit their ask and bid order messages. These orders are accumulated in a sorted data structure and when the trading period is over, orders are matched against each other. Our proposed decentralized exchange is both data structure and token agnostic (traders can trade any token that is ERC20 standard compliant). The upcoming orders are not stored in the call market contract, instead they are stored in a priority queue where each element is associated with a priority and is served according to its priority.
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
@@ -167,6 +167,16 @@ Based on our tests results, the \textit{linked list} and \textit{linked list wit
 
 \subsection{Linked List \textit{vs.} Linked List with Mapping}
 
+There are two main ways to implement each of the \textit{linked list} and \textit{linked list with mapping} priority queues. In this section, we perform a comprehensive comparison between these two with the purpose choosing the proper data structure for implementing the call market.
+
+%---------+++++++++++++++++++-----------------
+
+\subsubsection*{Linked List.} Removing the highest priority element from the list can be done in two ways. We can use the \texttt{self-destruct()} operation to remove the head node of the list (\ie smart contract) from the Ethereum blockchain and transfer its funds (if any) to a payable address (\eg the current block miner or the call market contract). Although the \texttt{self-destruct()} operation does not remove the initial byte code of the contract from the chain, but it frees up the state storage and refunds 24000 gas to the caller. Another design perspective is to only update the head pointer of the linked list and leave the previous head (\ie smart contract) on Ethereum blockchain when removing the highest priority element from the list. Although the first technique is a bit more costly (because it adds an extra operation \texttt{self-destruct()} to the \texttt{dequeue()} function), it results the in the less final net cost due to the 24000 gas refunds. Also, it is best to avoid storing unnecessary storage variables on chain. Table~\ref{tab:LLvsLLMapping} outlines different gas metrics for iteratively dequeuing the highest priority element from the two implementations of sorted linked lists that contain 50 unsigned integers.
+
+%---------+++++++++++++++++++-----------------
+
+\subsubsection*{Linked List with Mapping.} Similarly, linked list with mapping can be implemented in two ways. For dequeuing items from this priority queue we can use the \texttt{delete()} method and remove the mapping element that contains the highest priority item from storage completely  \textbf{and} update the head and tail pointers of the list. Deleting a storage variable is identical to setting a non-zero variable to zero (\texttt{SSTORE} 0) and costs in 5000 gas. So although the \texttt{delete()} method refunds in 15000 gas~\cite{wood2014ethereum}, it is yet a gas-costly operation  as it increases the overall gas cost of the transaction. In another technique, we can only update the head and tail pointers of the linked list when dequeueing the highest priority items and not delete the mapping element associated with the previous pointers. As it can be seen in Table~\ref{tab:LLvsLLMapping}, this scheme consumes less gas to dequeue 50 unsigned integers from this priority queue with respect to the previous technique where we clear up the chain, however, leaving unnecessary storage data on chain is not a proper design practice.
+
 
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
@@ -175,7 +185,7 @@ Based on our tests results, the \textit{linked list} and \textit{linked list wit
 \hline
 \multirow{2}{*}{Gas Metrics}                        							& \multicolumn{2}{c|}{Linked List}           						& \multicolumn{2}{c|}{Linked List with Mapping}     					\\ \cline{2-5} 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  = = = = = =  = = = = = = = = = = = = = = = =  = = = = = =  = = = = = = %
-                                                                						& with \texttt{Self-destruct} 		& without \texttt{Self-destruct}                	& with \texttt{delete} 		& without \texttt{delete}              		\\ \hline                                                                                                                                                                                                                                                          % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  = = = = = =  = = = = = = = = = = = = = = = =  = = = = = =  = = = = = = %
+                                                                						& with \texttt{Self-destruct()} 		& without \texttt{Self-destruct()}                	& with \texttt{delete} 		& without \texttt{delete}              		\\ \hline                                                                                                                                                                                                                                                          % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  = = = = = =  = = = = = = = = = = = = = = = =  = = = = = =  = = = = = = %
                    Net Cost in Gas                          					& 557,085                    			& 721,370                     				& 731,514                     	& 334,689                      				\\ \hline
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  = = = = = =  = = = = = = = = = = = = = = = =  = = = = = =  = = = = = = %
 \thead{Total Cost in Gas \\ (from \texttt{estimateGas})} 		& 1,772,085                  			& 736,370                  					& 3,731,514                     	& 1,099,689                       				\\ \hline
@@ -184,18 +194,27 @@ Based on our tests results, the \textit{linked list} and \textit{linked list wit
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  = = = = = =  = = = = = = = = = = = = = = = =  = = = = = =  = = = = = = %
 
 \end{tabular}
+\caption{\footnotesize{}
+\label{tab:LLvsLLMapping}}
 \end{table}
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
 
 
+Based on Table~\ref{tab:LLvsLLMapping}, the linked list with \texttt{Self-destruct()} appears to be a good candidate for the call market implementation. However, as it can be seen in Figure~\ref{fig:random_insertion}, the associated cost for inserting elements into this priority queue is significantly greater than the linked list with mapping as insertion is identical to creating new contracts. Accordingly, we choose to implement the call market with the linked list with mapping that uses the  the \texttt{delete()} method to clear up the chain every time the highest priority element is removed from the list. In overall this priority queue introduces a moderate gas cost for both insertion (\ie order submission) and removal (\ie matching the orders). 
 
 
+% = = = = = = = = = = = = = Experimentations = = = = = = = = = = = = = = = = = = =  %
 
+\section{Experimentations}
+ 
+As mentioned in~\ref{sec:callmarket}, Our system treats the time as discrete and not continuous; upcoming orders are accumulated over predetermined time intervals and are processed in batch instead of serially in order of receipt. The trading day is divided into frequent but discrete time intervals; every time the market opens traders submit their ask and bid order messages.  These orders are accumulated in a linked list with mapping priority queue and when the trading period is over, orders are matched against each other.  The call market smart contract is written in 268 lines of Solidity, a high level programming language that is syntactically similar to Java~\cite{Ethereum41:online}, using the Truffle development framework and deployed on Ganache-CLI. To facilitate a safe exchange among buyers and sellers, we implement the Call Market smart contract in the form of a \textit{collateralized}; for market participants to be able to send bid and/or ask orders, they have to first supply tokens (depending on what ERC20 tokens they aim to trade) as collaterals by calling any of the  \texttt{DepositToken()} or \texttt{DepositEther()} methods. The collateralized call market acts as a payment guarantee so traders cannot default on payment or delivery of their assets. 
+ We used Javascript for testing by leveraging the Mocha testing framework. Followings outline the results of different tests we performed.
 
+%============= Test 1 (17_Worst_Case_Matching_test.js) Tables=================== %
 
+ \subsection{Experiments on the \texttt{Match()} Function}
 
-
-
+We executed the same test on the the five different versions of the CallMarket we implemented using five priority queues to examine the cost of the \texttt{Match()} function as well as the maximum pairs of bid and ask orders it can handle in each case. The \texttt{Match()} function's computational cost and the maximum number of orders it can execute in each case (before running out of gas) are outlined in Table~\ref{tab:worst_case_matching}. Note that this is a \textit{worst case matching} test where all bids and asks are submitted as marketable limit orders with specified prices that would be filled undoubtedly, performed using the current Ethereum gas metrics (block gas limit $=$11,741,495 and 1 gas $=$ 56 gwei)~\footnote{https://ethstats.net/}. The last column of Table~\ref{tab:worst_case_matching} shows the gas cost of matching 1000 pairs of bids and asks for each priority queue for which we set the block gas limit to the maximum of  $2^{53}$ (the Javascript's max safe integer).
 
 
 % = = = = = = = = = = = =Clearing Mappings = = = = = = = = = = = = =  %
@@ -362,13 +381,6 @@ Our application was developed in Solidity using the Truffle development framewor
 We executed the same test on the the five different versions of the CallMarket we implemented using five priority queues to examine the cost of the \texttt{Match()} function as well as the maximum pairs of bid and ask orders it can handle in each case. The \texttt{Match()} function's computational cost and the maximum number of orders it can execute in each case (before running out of gas) are outlined in Table~\ref{tab:worst_case_matching}. Note that this is a \textit{worst case matching} test where all bids and asks are submitted as marketable limit orders with specified prices that would be filled undoubtedly, performed using the current Ethereum gas metrics (block gas limit $=$11,741,495 and 1 gas $=$ 56 gwei)~\footnote{https://ethstats.net/}. The last column of Table~\ref{tab:worst_case_matching} shows the gas cost of matching 1000 pairs of bids and asks for each priority queue for which we set the block gas limit to the maximum of  $2^{53}$ (the Javascript's max safe integer).
 
 % gas sent with each transaction here is 11,000,000
-%======= estimateGas() function = gasUsed + gasRefund =======%
-
-% Heap with Dynamic Array: match.estimateGas() = 7204994 => gasRefund = 7204994 - 3274994 = 3930000
-% Heap with Static Array: match.estimateGas() = 7337527 => gasRefund = 7337527 - 3107527 = 4230000
-% Mapping with keys stored in Heap: match.estimateGas() = 6644803 => gasRefund = 6644803 - 5414803 = 1230000
-% Linkedlist: match.estimateGas() = 7629847 => gasRefund = 7629847 -  3279847 = 4350000
-% Linkedlist with Mapping: match.estimateGas() = 7227717 => gasRefund = 7227717 -  3297717 = 3930000
 
 %===============================================%
 
