@@ -68,7 +68,7 @@ In this research work, we design and implement a call market on the Ethereum blo
 \begin{tabular}{|c|c|}
 \hline
 
-\textbf{Method}   & \textbf{Description}    \\ \hline
+\textbf{Operation}   & \textbf{Description}    \\ \hline
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
 	\textbf{Enqueue()}       	& inserts an element into the priority queue                        \\ \hline
@@ -77,7 +77,7 @@ In this research work, we design and implement a call market on the Ethereum blo
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
 
 \end{tabular}
-\caption{\footnotesize{Operations for a generic Priority Queue}
+\caption{\footnotesize{Operations for a generic Priority Queue.}
 \label{tab:PQ_API}}
 \end{table}
 % = = = = = = = = = = = = = = = = = = = = =  = = = = = = = = = = =  = = = = = = = = = == = = =  = =%
@@ -161,6 +161,43 @@ Another way to obtain the amount of refund in each priority queue is to use the 
 
 Note that in order to urge miners to process smart contract with refunds, the accumulated gas refund can never exceed half the gas used up during computation~\cite{wood2014ethereum}. So at the end of a successful transaction, the amount of gas in the refund counter (capped at half the net gas used) is returned to the caller. For example, the amount of gas that has been used when dequeuing 50 integers from the linked list with mapping priority queue is 731,514 and since $3,000,000 > 731,514/2$, the amount of refund returned to the caller is $731,514/2 = 365,757$.
 
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
+% A little explanation on gas metrics (Mahsa: please let me know if this is still unclear:)
+
+
+%First let's take a look at the following example:
+
+%Suppose we have a smart contract which uses up 14,000 gas. The gas limit that we have set up is 20,000 gas. The smart contract also includes an SSTORAGE command.
+%So, how much gas will the contract creator get back post computation?
+%Firstly, they will get back (20,000-14,000) = 6,000 units of unused gas.
+%Now, the SSTORAGE command has also been used, so theoretically they should get back 15,000 gas as well.
+%However, the amount of gas that has been used in the contract is 14,000 and since 15,000 > 14,000/2, the REFUND generated will be 14,000/2= 7000.
+%So the total gas that the creator is getting back in the end is 6000+7000 = 13,000.
+
+% +++++++++++++%
+% so in our case, let's take the first row of the above table:
+
+%The transaction consumes 2,518,131 gas
+%The gas limit is set up at  11,741,495
+%Firstly, they sender get back (11,741,495 - 2,518,13) = 9,223,364 units of unused gas.
+%However, the amount of gas that has been used in the contract is 2,518,131 and since 9,223,364 >2,518,131/2, the REFUND generated will be 2,518,131/2= 1,259,065.
+%
+%The total gas cost of transaction estimated by estimateGas is 3,283,480 
+%estimateGas - gasUsed = gasRefund => 3,283,480 - 2,518,131 = 765,349
+%
+%So we can argue that the estimateGas() gives us an approximate total cost of the transaction and it contains the capped refund counter.
+
+
+% error in estimateGas:  
+%   https://ethereum.stackexchange.com/questions/266/what-are-the-limitations-to-estimategas-and-when-would-its-estimate-be-considera
+%   https://github.com/trufflesuite/ganache-core/issues/26
+
+
+%from solidity readdocs: estimateGas Will call estimate the gas a method execution will take when executed in the EVM without. The estimation can differ from the actual gas used when later sending a transaction, as the state of the smart contract can be different at that time.
+% estimateGas works by pretending the transaction was actually being included in the blockchain, and then returning the exact gas amount that would have been charged if that pretend operation was real. In other words, it uses the exact same procedure a miner would use to calculate the actual fee.
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
+
+
 Based on our tests results, the \textit{linked list} and \textit{linked list with mapping} priority queues show the best performance in compared to the different heap implementations. In the next section, we explore the differences between the two different implementations of the linked list priority queue.
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
@@ -171,7 +208,7 @@ There are two main ways to implement each of the \textit{linked list} and \texti
 
 %---------+++++++++++++++++++-----------------
 
-\subsubsection*{Linked List.} Removing the highest priority element from the list can be done in two ways. We can use the \texttt{self-destruct()} operation to remove the head node of the list (\ie smart contract) from the Ethereum blockchain and transfer its funds (if any) to a payable address (\eg the current block miner or the call market contract). Although the \texttt{self-destruct()} operation does not remove the initial byte code of the contract from the chain, but it frees up the state storage and refunds 24000 gas to the caller. Another design perspective is to only update the head pointer of the linked list and leave the previous head (\ie smart contract) on Ethereum blockchain when removing the highest priority element from the list. Although the first technique is a bit more costly (because it adds an extra operation \texttt{self-destruct()} to the \texttt{dequeue()} function), it results the in the less final net cost due to the 24000 gas refunds. Also, it is best to avoid storing unnecessary storage variables on chain. Table~\ref{tab:LLvsLLMapping} outlines different gas metrics for iteratively dequeuing the highest priority element from the two implementations of sorted linked lists that contain 50 unsigned integers.
+\subsubsection*{Linked List.} Removing the highest priority element from the list can be done in two ways. We can use the \texttt{self-destruct()} operation to destroy the head node of the list (\ie smart contract) from the Ethereum blockchain and transfer its funds (if any) to a payable address (\eg the current block miner or the call market contract). Although the \texttt{self-destruct()} operation does not remove the initial byte code of the contract from the chain, but it frees up the state storage and refunds 24000 gas to the caller. Another design perspective is to only update the head pointer of the linked list and leave the previous head (\ie smart contract) on Ethereum blockchain when removing the highest priority element from the list. Although the first technique is a bit more costly (because it adds an extra operation \texttt{self-destruct()} to the \texttt{dequeue()} function), it results the in the less final net cost due to the 24000 gas refunds. Also, it is best to avoid storing unnecessary storage variables on chain. Table~\ref{tab:LLvsLLMapping} outlines different gas metrics for iteratively dequeuing the highest priority element from the two implementations of sorted linked lists that contain 50 unsigned integers.
 
 %---------+++++++++++++++++++-----------------
 
@@ -203,19 +240,118 @@ There are two main ways to implement each of the \textit{linked list} and \texti
 Based on Table~\ref{tab:LLvsLLMapping}, the linked list with \texttt{Self-destruct()} appears to be a good candidate for the call market implementation. However, as it can be seen in Figure~\ref{fig:random_insertion}, the associated cost for inserting elements into this priority queue is significantly greater than the linked list with mapping as insertion is identical to creating new contracts. Accordingly, we choose to implement the call market with the linked list with mapping that uses the  the \texttt{delete()} method to clear up the chain every time the highest priority element is removed from the list. In overall this priority queue introduces a moderate gas cost for both insertion (\ie order submission) and removal (\ie matching the orders). 
 
 
+
 % = = = = = = = = = = = = = Experimentations = = = = = = = = = = = = = = = = = = =  %
 
 \section{Experimentations}
  
-As mentioned in~\ref{sec:callmarket}, Our system treats the time as discrete and not continuous; upcoming orders are accumulated over predetermined time intervals and are processed in batch instead of serially in order of receipt. The trading day is divided into frequent but discrete time intervals; every time the market opens traders submit their ask and bid order messages.  These orders are accumulated in a linked list with mapping priority queue and when the trading period is over, orders are matched against each other.  The call market smart contract is written in 268 lines of Solidity, a high level programming language that is syntactically similar to Java~\cite{Ethereum41:online}, using the Truffle development framework and deployed on Ganache-CLI. To facilitate a safe exchange among buyers and sellers, we implement the Call Market smart contract in the form of a \textit{collateralized}; for market participants to be able to send bid and/or ask orders, they have to first supply tokens (depending on what ERC20 tokens they aim to trade) as collaterals by calling any of the  \texttt{DepositToken()} or \texttt{DepositEther()} methods. The collateralized call market acts as a payment guarantee so traders cannot default on payment or delivery of their assets. 
- We used Javascript for testing by leveraging the Mocha testing framework. Followings outline the results of different tests we performed.
+As mentioned in~\ref{sec:callmarket}, Our system treats the time as discrete and not continuous; upcoming orders are accumulated over predetermined time intervals and are processed in batch instead of serially in order of receipt. The trading day is divided into frequent but discrete time intervals; every time the market opens traders submit their ask and bid order messages.  These orders are accumulated in a linked list with mapping priority queue and when the trading period is over, orders are matched against each other. The call market smart contract is written in 268 lines of Solidity, a high level programming language that is syntactically similar to Java~\cite{Ethereum41:online}, using the Truffle development framework and deployed on Ganache-CLI, Table~\ref{tab:callmarket_functions} represents the call market's primary operations.
 
-%============= Test 1 (17_Worst_Case_Matching_test.js) Tables=================== %
 
- \subsection{Experiments on the \texttt{Match()} Function}
+% = = = = = = = = = = = = = = = = = = = = =Call market operations Table = = = = = = = = = = = =  = = = = = =  %
+\begin{table}[]
+\begin{tabular}{|l|l|}
+\hline
+\multicolumn{1}{|c|}{\textbf{Operation}} & \multicolumn{1}{c|}{\textbf{Description}}                            			\\ \hline
 
-We executed the same test on the the five different versions of the CallMarket we implemented using five priority queues to examine the cost of the \texttt{Match()} function as well as the maximum pairs of bid and ask orders it can handle in each case. The \texttt{Match()} function's computational cost and the maximum number of orders it can execute in each case (before running out of gas) are outlined in Table~\ref{tab:worst_case_matching}. Note that this is a \textit{worst case matching} test where all bids and asks are submitted as marketable limit orders with specified prices that would be filled undoubtedly, performed using the current Ethereum gas metrics (block gas limit $=$11,741,495 and 1 gas $=$ 56 gwei)~\footnote{https://ethstats.net/}. The last column of Table~\ref{tab:worst_case_matching} shows the gas cost of matching 1000 pairs of bids and asks for each priority queue for which we set the block gas limit to the maximum of  $2^{53}$ (the Javascript's max safe integer).
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
+	DepositToken()                           & Deposits ERC20 standard compliant tokens in the call market contract \\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
+	DepositEther()                           	& Deposits Ethers in the call market contract                         			 \\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
+	OpenMarket()                             & Opens the market                                                    					 \\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
+	CloseMarket()                            & Closes the market                                                    					\\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
+	SubmitBid()                              & Inserts the upcoming bid order messages inside the priority queue    \\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
+	SubmitAsk()                              & Inserts the upcoming ask order messages inside the priority queue    \\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
+	MatchOrders()                           & Matches the orders against each other                                			\\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
+	ClaimTokens()                           & Transfers collateral tokens back to the trader                       			\\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
+	ClaimEther()                             & Transfers collateral Ethers back to the trader                       			\\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
+\end{tabular}
+\caption{\footnotesize{Primary operations of the call market smart contract.}
+\label{tab:callmarket_functions}}
+\end{table}
 
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
+
+
+To facilitate a safe exchange among buyers and sellers, we implement the Call Market smart contract in the form of a \textit{collateralized}; for market participants to be able to send bid and/or ask orders, they have to first supply tokens (depending on what ERC20 tokens they aim to trade) as collaterals by calling any of the  \texttt{DepositToken()} or \texttt{DepositEther()} methods. The collateralized call market acts as a payment guarantee so traders cannot default on payment or delivery of their assets. 
+
+Followings outline results of the experiments we performed using Javascript and leveraging Mocha testing framework.
+ 
+%============= Worst_Case_Matching_test.js Tables=================== %
+
+ \subsection{Experiments}
+
+%  = = = = = = = = = = % 
+
+
+Table~\ref{tab:worst_case_matching} outlines the \texttt{Match()} function's computational costs and performance for three different implementations of the call market. We used three different designs of the linked list with mapping priority queue. (1) Every time a trade happens, we use the \texttt{delete()} method to remove the mapping elements that contains best bid and ask orders item from storage completely \textbf{and} update the head and tail pointers of the list. (2) We only update the pointers of the priority queue and do not remove the best bid and ask orders during the entire matching process. Instead we destroy the priority queue smart contract~\footnote{We execute a public function defined in the priority queue smart contract which itself calls the \texttt{self-destruct()} operation and transfers its funds (if any) to the call market contract.} once the matching is completed. (3) In the last implementation, we allow the matching process to be completed and do not clear any on chain data. As it can be seen in Table~\ref{tab:worst_case_matching}, the \texttt{Match()} operatin shows a better performance when killing the priority contract and/or not clearing data from the chain. Although deleting the priority queue contract adds an extra external call to the \texttt{Match()} function and should technically increase the gas cost, the 24000 gas refunds from \texttt{selfdestruct()} would compensate the cost. So it can still match as same number of orders (before running out of gas)as in the no on chain clearing implementation. The last column of Table~\ref{tab:worst_case_matching} reflects the gas cost for matching 1000 pairs of bids and asks for which we set the block gas limit to the maximum of  $2^{53}$ (the Javascript's max safe integer).
+
+Note that this is a \textit{worst case matching} test where all bids and asks are submitted as marketable limit orders with specified prices that would be filled undoubtedly, performed using the current Ethereum gas metrics (block gas limit $=$11,741,495 and 1 gas $=$ 56 gwei)~\footnote{https://ethstats.net/}. 
+
+% = = = = = = = = = = = =Worst Case Matching on Linkedlist With Mapping Table = = = = = = = = = = = = =  %
+
+\begin{table}[]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+
+\textbf{\thead{Linked List with Mapping}}    & \textbf{\thead{Maximum Number \\ of \\ Matched Orders}}      & \textbf{\thead{Net Cost\\in Gas}}          & \textbf{\thead{Net Cost in Gas\\ for \\ 1000 Pairs \\ of Orders}}    \\ \hline
+
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  = = = = = = = = = = = %
+	\textbf{\thead{Clearing the Mapping Elements}}         			& 38 pairs                					& 5,372,679                   				& 457,326,935                      \\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  = = = = = = = = = = = %
+	\textbf{\thead{Deleting the Priority Queue Contract}}           	& 210 pairs	                     				& 5,304,211 							& 25,099,713				\\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  = = = = = = = = = = = %
+	\textbf{\thead{No On-chain Clearing}} 		                       	& 210 pairs							& 5,299,877							& 25,095,370				\\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  = = = = = = = = = = = %
+
+\end{tabular}
+\caption{\footnotesize{}
+\label{tab:worst_case_matching}}
+\end{table}
+
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
+
+
+%  = = = = = = = = = = % 
+%Mahsa: Im not sure which of these tables are good for this section!?
+%  = = = = = = = = = = % 
+
+
+
+% = = = = = = = = = = = =Worst_Case_Matching Table = = = = = = = = = = = = =  %
+
+\begin{table}[]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+
+\textbf{\thead{Priority Queue}}    & \textbf{\thead{Maximum Number \\ of \\ Matched Orders}}      & \textbf{\thead{Net Cost\\in Gas}}          & \textbf{\thead{Net Cost in Gas\\ for \\ 1000 Pairs \\ of Orders}} \\ \hline
+
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+	\textbf{\thead{Heap with \\ Dynamic Array}}         				& 38 pairs                & 5,372,679                   	& 457,326,935                      \\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+	\textbf{\thead{Heap with \\ Static Array}}           				& 42 pairs                & 5,247,636                  	& 333,656,805                       \\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+	\textbf{\thead{Mapping with \\ keys stored \\ in Heap}} 		& 46 pairs                & 5,285,275                     & 226,499,722                        \\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+	\textbf{Linkedlist}                       							& 152 pairs                & 5,495,265                     & 35,823,601                        \\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+	\textbf{\thead{Linkedlist with \\ Mapping}}          				& 86 pairs                 & 5,433,259                     & 62,774,170                        \\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+
+\end{tabular}
+\caption{\footnotesize{}
+\label{tab:worst_case_matching}}
+\end{table}
 
 % = = = = = = = = = = = =Clearing Mappings = = = = = = = = = = = = =  %
 
@@ -369,70 +505,6 @@ In the followings we briefly discuss different rollup proposals and techniques. 
 
 
 
-%============= Experiments =================== %
-\section{Experiments}
-
-Our application was developed in Solidity using the Truffle development framework and deployed on Ganache-CLI. We used Javascript for testing by leveraging the Mocha testing framework. Followings outline the results of different tests we performed.
-
-%============= Test 1 (17_Worst_Case_Matching_test.js) Tables=================== %
-
- \subsection{Experiments on the \texttt{Match()} Function}
-
-We executed the same test on the the five different versions of the CallMarket we implemented using five priority queues to examine the cost of the \texttt{Match()} function as well as the maximum pairs of bid and ask orders it can handle in each case. The \texttt{Match()} function's computational cost and the maximum number of orders it can execute in each case (before running out of gas) are outlined in Table~\ref{tab:worst_case_matching}. Note that this is a \textit{worst case matching} test where all bids and asks are submitted as marketable limit orders with specified prices that would be filled undoubtedly, performed using the current Ethereum gas metrics (block gas limit $=$11,741,495 and 1 gas $=$ 56 gwei)~\footnote{https://ethstats.net/}. The last column of Table~\ref{tab:worst_case_matching} shows the gas cost of matching 1000 pairs of bids and asks for each priority queue for which we set the block gas limit to the maximum of  $2^{53}$ (the Javascript's max safe integer).
-
-% gas sent with each transaction here is 11,000,000
-
-%===============================================%
-
-
-% = = = = = = = = = = = =Worst_Case_Matching Table = = = = = = = = = = = = =  %
-
-\begin{table}[]
-\centering
-\begin{tabular}{|c|c|c|c|}
-\hline
-
-\textbf{\thead{Priority Queue}}    & \textbf{\thead{Maximum Number \\ of \\ Matched Orders}}      & \textbf{\thead{Net Cost\\in Gas}}          & \textbf{\thead{Net Cost in Gas\\ for \\ 1000 Pairs \\ of Orders}} \\ \hline
-
-% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-	\textbf{\thead{Heap with \\ Dynamic Array}}         				& 38 pairs                & 5,372,679                   	& 457,326,935                      \\ \hline
-% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-	\textbf{\thead{Heap with \\ Static Array}}           				& 42 pairs                & 5,247,636                  	& 333,656,805                       \\ \hline
-% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-	\textbf{\thead{Mapping with \\ keys stored \\ in Heap}} 		& 46 pairs                & 5,285,275                     & 226,499,722                        \\ \hline
-% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-	\textbf{Linkedlist}                       							& 152 pairs                & 5,495,265                     & 35,823,601                        \\ \hline
-% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-	\textbf{\thead{Linkedlist with \\ Mapping}}          				& 86 pairs                 & 5,433,259                     & 62,774,170                        \\ \hline
-% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-
-\end{tabular}
-\caption{\footnotesize{}
-\label{tab:worst_case_matching}}
-\end{table}
-
-
-% = = = = = = = = = = = =Worst Case Matching on Linkedlist With Mapping Table = = = = = = = = = = = = =  %
-
-\begin{table}[]
-\centering
-\begin{tabular}{|c|c|c|c|}
-\hline
-
-\textbf{\thead{Linkedlist with Mapping}}    & \textbf{\thead{Maximum Number \\ of \\ Matched Orders}}      & \textbf{\thead{Net Cost\\in Gas}}          & \textbf{\thead{Net Cost in Gas\\ for \\ 1000 Pairs \\ of Orders}}    \\ \hline
-
-% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  = = = = = = = = = = = %
-	\textbf{\thead{Clearing the Mapping Elements}}         			& 38 pairs                					& 5,372,679                   				& 457,326,935                      \\ \hline
-% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  = = = = = = = = = = = %
-	\textbf{\thead{Using the \texttt{Selfdestruct()}}}           			& 210 pairs	                     				& 5,304,211 							& 25,099,713				\\ \hline
-% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  = = = = = = = = = = = %
-	\textbf{\thead{No On-chain Clearing}} 		                       	& 210 pairs							& 5,299,877							& 25,095,370				\\ \hline
-% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  = = = = = = = = = = = %
-
-\end{tabular}
-\caption{\footnotesize{}
-\label{tab:worst_case_matching}}
-\end{table}
 
 
 
