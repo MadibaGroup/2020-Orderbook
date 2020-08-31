@@ -186,11 +186,11 @@ There are two main ways to implement each of the \textit{linked list} and \texti
 
 %---------+++++++++++++++++++-----------------
 
-\subsubsection*{Linked List.} Removing the highest priority element from the list can be done in two ways. We can use the \texttt{SELFDESTRUCT} operation to destroy the head node of the list (\ie smart contract) from the Ethereum blockchain and transfer its funds (if any) to a payable address (\eg the current block miner or the call market contract). Although the \texttt{SELFDESTRUCT} operation does not remove the initial byte code of the contract from the chain, but it frees up the state storage and refunds 24000 gas to the caller. Another design perspective is to only update the head pointer of the linked list and leave the previous head (\ie smart contract) on Ethereum blockchain when removing the highest priority element from the list. Although the first technique is a bit more costly (because it adds an extra operation \texttt{SELFDESTRUCT} to the \texttt{dequeue()} function), it results the in the less final net cost due to the 24000 gas refunds. Also, it is best to avoid storing unnecessary storage variables on chain. Table~\ref{tab:LLvsLLMapping} outlines different gas metrics for iteratively dequeuing the highest priority element from the two implementations of sorted linked lists that contain 50 unsigned integers.
+\subsubsection*{Linked List.} Removing the highest priority element from the list can be done in two ways. We can use the \texttt{SELFDESTRUCT} operation to destroy the head node of the list (\ie smart contract) from the Ethereum blockchain and transfer its funds (if any) to a payable address (\eg the current block miner or the call market contract). Although the \texttt{SELFDESTRUCT} operation does not remove the initial byte code of the contract from the chain, but it frees up the state storage and refunds 24000 gas to the caller. Another design perspective is to only update the head pointer of the linked list and leave the previous head (\ie smart contract) on Ethereum blockchain when removing the highest priority element from the list. Although the first technique is a bit more costly (because it adds an extra operation \texttt{SELFDESTRUCT} to the \texttt{dequeue()} function), it results in the less final net cost due to the 24000 gas refunds. Also, it is best to avoid storing unnecessary storage variables on chain. Table~\ref{tab:LLvsLLMapping} outlines different gas metrics for iteratively dequeuing highest priority elements in the two implementations of sorted linked lists that contain 50 unsigned integers.
 
 %---------+++++++++++++++++++-----------------
 
-\subsubsection*{Linked List with Mapping.} Similarly, linked list with mapping can be implemented in two ways. For dequeuing items from this priority queue we can use the \texttt{DELETE} method and remove the mapping element that contains the highest priority item from storage completely  \textbf{and} update the head and tail pointers of the list. Deleting a storage variable is identical to setting a non-zero variable to zero (\texttt{SSTORE} 0) that costs 20,000 gas but with15,000 refunded~\cite{wood2014ethereum}. So although the \texttt{DELETE} method refunds in 15000 gas, it is yet a gas-costly operation  as it increases the overall gas cost of the transaction. In another technique, we can only update the head and tail pointers of the linked list when dequeueing the highest priority items and not delete the mapping element associated with the previous pointers. As it can be seen in Table~\ref{tab:LLvsLLMapping}, this scheme consumes less gas to dequeue 50 unsigned integers from this priority queue with respect to the previous technique where we clear up the chain, however, leaving unnecessary storage data on chain is not a proper design practice.
+\subsubsection*{Linked List with Mapping.} Similarly, linked list with mapping can be implemented in two ways. For dequeuing items from this priority queue we can use the \texttt{DELETE} method and remove the mapping element that contains the highest priority item from storage completely  \textbf{and} update the head and tail pointers of the list. Deleting a storage variable is identical to setting a non-zero variable to zero (\texttt{SSTORE} 0) that costs 20,000 gas but with 15,000 refunded~\cite{wood2014ethereum}. So although the \texttt{DELETE} method refunds in 15000 gas, it is yet a gas-costly operation  as it increases the overall gas cost of the transaction. In another technique, we can only update the head and tail pointers of the linked list when dequeueing the highest priority item and not delete the mapping element associated with the previous pointers. As it can be seen in the last two columns of Table~\ref{tab:LLvsLLMapping}, this scheme consumes less gas for dequeuing 50 unsigned integers compared to the previous technique where we clear up the chain, however, leaving unnecessary storage data on chain is not a proper design practice.
 
 
 
@@ -265,9 +265,6 @@ Followings outline results of the experiments we performed using Javascript and 
 
  \subsection{Experiments}
 
-%  = = = = = = = = = = % 
-
-
 Table~\ref{tab:worst_case_matching} outlines the \texttt{Match()} function's computational costs and performance for three different implementations of the call market. We used three different designs of the linked list with mapping priority queue. (1) Every time a trade happens, we use the \texttt{DELETE} method to remove the mapping elements that contains best bid and ask orders from storage completely \textbf{and} update the head and tail pointers of the list. (2) We only update the pointers of the priority queue and do not remove the best bid and ask orders during the entire matching process. Instead we destroy the priority queue smart contract~\footnote{We execute a public function defined in the priority queue smart contract which itself calls the \texttt{self-destruct()} operation and transfers its funds (if any) to the call market contract.} once the matching is completed. (3) In the last implementation, we allow the matching process to be completed and do not clear any on chain data. As it can be seen in Table~\ref{tab:worst_case_matching}, the \texttt{Match()} operation shows a better performance when killing the priority contract and/or not clearing data from the chain. Although deleting the priority queue contract adds an extra external call to the \texttt{Match()} function and should technically increase the gas cost, the 24000 gas refunds from \texttt{SELFDESTRUCT} would compensate the cost. So it can still match as same number of orders (before running out of gas)as in the no on chain clearing implementation. The last column of Table~\ref{tab:worst_case_matching} reflects the gas cost for matching 1000 pairs of bids and asks for which we set the block gas limit to the maximum of  $2^{53}$ (the Javascript's max safe integer).
 
 Note that this is a \textit{worst case matching} test where all bids and asks are submitted as marketable limit orders with specified prices that would be filled undoubtedly, performed using the current Ethereum gas metrics (block gas limit $=$11,741,495 and 1 gas $=$ 56 gwei)~\footnote{https://ethstats.net/}. 
@@ -282,7 +279,7 @@ Note that this is a \textit{worst case matching} test where all bids and asks ar
 \textbf{\thead{Linked List with Mapping}}    & \textbf{\thead{Maximum Number \\ of \\ Matched Orders}}      & \textbf{\thead{Net Cost\\in Gas}}          & \textbf{\thead{Net Cost in Gas\\ for \\ 1000 Pairs \\ of Orders}}    \\ \hline
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  = = = = = = = = = = = %
-	\textbf{\thead{Clearing the Mapping Elements}}         			& 38 pairs                					& 5,372,679                   				& 457,326,935                      \\ \hline
+	\textbf{\thead{Clearing the Mapping Elements}}         			& 86 pairs                					& 5,433,259                   				& 62,774,170                      \\ \hline
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  = = = = = = = = = = = %
 	\textbf{\thead{Destroying the Priority Queue Contract}}           	& 210 pairs	                     				& 5,304,211 							& 25,099,713				\\ \hline
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  = = = = = = = = = = = %
@@ -291,7 +288,7 @@ Note that this is a \textit{worst case matching} test where all bids and asks ar
 
 \end{tabular}
 \caption{\footnotesize{}
-\label{tab:worst_case_matching}}
+\label{tab:LLMApping_worst_case_matching}}
 \end{table}
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
@@ -329,9 +326,13 @@ Note that this is a \textit{worst case matching} test where all bids and asks ar
 \label{tab:worst_case_matching}}
 \end{table}
 
+
+\section{Call Market Different Design and Implementation Details }
+
+
 % = = = = = = = = = = = =Clearing Mappings = = = = = = = = = = = = =  %
 
-\section{Clearing Mappings}
+\subsection{Clearing Mappings}
 
 
 
@@ -389,7 +390,7 @@ For the same reason we mentioned in~\ref{sec:mapping_heap}, we clear the best bi
 
 % = = = = = = = = = = = =Closing and Reopening the Market = = = = = = = = = = = = =  %
 
-\section{Closing and Reopening the Market}
+\subsection{Closing and Reopening the Market}
 
 % We use one-shot market for the sake of our performance tests on different data structures. and once we have all the numbers we can think about iterated market.
 
