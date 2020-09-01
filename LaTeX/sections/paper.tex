@@ -95,7 +95,7 @@ In this research work, we design and implement a call market on the Ethereum blo
 
 %---------+++++++++++++++++++-----------------
 
-\item\textbf{{Mapping with keys stored in Heap.}} This priority queue stores items inside a Solidity mapping that maps the mapping keys (256-bit integers) to these items. The mapping keys are then stored (based on the value they are mapped to) in a sorted Heap that is implemented with a dynamically-sized array.
+\item\textbf{{Mapping with Keys Stored in Heap.}} This priority queue stores items inside a Solidity mapping that maps the mapping keys (256-bit integers) to these items. The mapping keys are then stored (based on the value they are mapped to) in a sorted Heap that is implemented with a dynamically-sized array.
 
 %---------+++++++++++++++++++-----------------
 
@@ -124,8 +124,9 @@ Next, we used Javascript for testing by leveraging the Mocha testing framework a
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
 
-Then, we called the \texttt{Dequeue()} function which iteratively removes the highest priority number from the priority queues (until the data structure is empty). The computational costs for dequeuing 50 unsigned integers in each priority queue are outlined in Table~\ref{tab:PQUnitTests}. These tests are performed using the current Ethereum gas metrics (block gas limit $=$11,741,495 and 1 gas $=$ 56 gwei)~\footnote{https://ethstats.net/}. The second column of the table shows the net gas consumption (the gasUsed value derived from transaction receipts) for removing 50 integers from each priority queues.  
+Then, we called the \texttt{Dequeue()} function which iteratively removes the highest priority number from the priority queues (until the data structure is empty). The computational costs for dequeuing 50 unsigned integers in each priority queue are outlined in Table~\ref{tab:PQUnitTests} where (\full) indicates the full refund and (\prt) means the amount of refund is bounded. These tests are performed using the current Ethereum gas metrics (block gas limit $=$11,741,495 and 1 gas $=$ 56 gwei)~\footnote{https://ethstats.net/}. The second column of the table shows the net gas consumption (the gasUsed value derived from transaction receipts) for removing 50 integers from each priority queues.  
 
+%Truffle gas limit for the tests: 11741495
 
 % = = = = = = = = = = = =Gas costs and refunds for Dequeueing 50 integers from each PQ  = = = = = = = = = = = = =  %
 
@@ -154,35 +155,52 @@ Then, we called the \texttt{Dequeue()} function which iteratively removes the hi
 \end{table}
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
 
+% Below is the same table but with "Full, Partial,None" for refunds
+
+
+\begin{table}[]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+
+\textbf{\thead{Priority Queue}}    & \textbf{\thead{Net Cost in Gas\\ (\texttt{gasUsed})}}             & \textbf{\thead{Gas Refunds from Deleting a Storage}} \\ \hline
+
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+	\textbf{\thead{Heap with \\ Dynamic Array}}         				& 2,518,131            		      & \full                      \\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+	\textbf{\thead{Heap with \\ Static Array}}           				& 1,385,307                             & \full                      \\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+	\textbf{\thead{Mapping with \\ keys stored \\ in Heap}} 		& 2,781,684                            & \full                     \\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+	\textbf{Linked List}                       							& 557,085               	           & \full                      \\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+	\textbf{\thead{Linked List with \\ Mapping}}          				& 731,514              	     	  &  \full                       \\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+
+\end{tabular}
+\caption{\footnotesize{The gas metrics associated with dequeuing 50 items from five priority queues.}
+\label{tab:PQUnitTests}}
+\end{table}
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
+
 At the time of this writing, Ethereum transaction receipts only contain the net gas consumption (\texttt{gasUsed}) and we cannot obtain the value of the EVM's refund counter from inside the EVM~\cite{signer2018gas}. So in order to account for refunds inside each priority queue smart contract we calculate them manually; first we figure out exactly how much storage is being cleared when dequeuing the highest priority elements (\texttt{SSTORE} instruction) and then we multiply the number of storage slots cleared by 15,000 (see the last column of Table~\ref{tab:PQUnitTests}).
 
 Note that in order to urge miners to process smart contracts with refunds, the accumulated gas refund can never exceed half the gas used up during computation~\cite{wood2014ethereum}. So at the end of a successful transaction, the amount of gas in the refund counter (capped at half the net gas used) is returned to the caller. Let's take a closer look at the last row of Table~\ref{tab:PQUnitTests}; gas that has been used for dequeuing 50 integers from the linked list with mapping priority queue is 731,514 and the gas limit has been set up to 11,741,495. Firstly, the caller will receive $(11,741,495 - 731,514) = 11,009,981$ units of unused gas. Also, the amount of refund we manually calculated based on the storage deletions is 3,765,000, and since this number is greater than half of he amount of gas that has been used in the contract ($3,765,000 > 731,514/2$), the refund generated will be $731,514/2 = 365,757$. So the caller of this transaction will eventually receive is $11,009,981 + 365,757 = 11,375,738$ units of gas.
 
 %& \textbf{\thead{Net Cost\\in Gas\\ (\texttt{gasUsed})}}  
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
-% A little explanation on gas metrics (Mahsa: please let me know if this is still unclear:)
-
-
-%First let's take a look at the following example:
-
-%Suppose we have a smart contract which uses up 14,000 gas. The gas limit that we have set up is 20,000 gas. The smart contract also includes an SSTORAGE command.
-%So, how much gas will the contract creator get back post computation?
-%Firstly, they will get back (20,000-14,000) = 6,000 units of unused gas.
-%Now, the SSTORAGE command has also been used, so theoretically they should get back 15,000 gas as well.
-%However, the amount of gas that has been used in the contract is 14,000 and since 15,000 > 14,000/2, the REFUND generated will be 14,000/2= 7000.
-%So the total gas that the creator is getting back in the end is 6000+7000 = 13,000.
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
 
 
-Based on our tests results, the \textit{linked list} and \textit{linked list with mapping} priority queues show the best performance in compared to the different heap implementations. In the next section, we explore the differences between the two different implementations of the linked list priority queue.
+Based on our tests results, the \textit{linked list} and \textit{linked list with mapping} priority queues show a better performance in compared to the different heap implementations. In the next section, we explore the differences between the two different implementations of the linked list priority queue.
 
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
 
-\subsection{Linked List \textit{vs.} Linked List with Mapping}
+\subsection{Linked List \textit{vs.} Linked List with Mapping}\label{sec:LLvsLLMapping}
 
-There are two main ways to implement each of the \textit{linked list} and \textit{linked list with mapping} priority queues. In this section, we perform a comprehensive comparison between these two with the purpose choosing the proper data structure for implementing the call market.
+There are two main ways to implement each of the \textit{linked list} and \textit{linked list with mapping} priority queues. In this section, we perform a comprehensive comparison between these two with the purpose of choosing the proper data structure for implementing the call market.
 
 %---------+++++++++++++++++++-----------------
 
@@ -203,7 +221,28 @@ There are two main ways to implement each of the \textit{linked list} and \texti
                                                                 								& with \texttt{SELFDESTRUCT} 		& without \texttt{SELFDESTRUCT}                	& with \texttt{DELETE} 		& without \texttt{DELETE}              		\\ \hline                                                                                                                                                                                                                                                          % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  = = = = = =  = = = = = = = = = = = = = = = =  = = = = = =  = = = = = = %
                   \textbf{\thead{Net Cost in Gas\\(\texttt{gasUsed})}}                        				& 557,085                    			& 721,370                     			& 731,514                     		& 334,689                      				\\ \hline
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  = = = = = =  = = = = = = = = = = = = = = = =  = = = = = =  = = = = = = %
- \textbf{\thead{Gas Refund \\from Deleting a Storage\\(Manually Calculated)}}            & 1,200,000                 				& 0                      					& 3,765,000                    		& 765,000                       				\\ \hline
+ \textbf{\thead{Gas Refund \\from Deleting a Storage\\(Manually Calculated)}}            			& 1,200,000                 					& 0                					& 3,765,000                    		& 765,000                       				\\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  = = = = = =  = = = = = = = = = = = = = = = =  = = = = = =  = = = = = = %
+
+\end{tabular}
+\caption{\footnotesize{}
+\label{tab:LLvsLLMapping}}
+\end{table}
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
+
+% Below is the same table but with "Full, Partial,None" for refunds
+
+
+
+\begin{table}[]
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\multirow{2}{*}{\textbf{Gas Metrics}}                        							& \multicolumn{2}{c|}{\textbf{Linked List}}           						& \multicolumn{2}{c|}{\textbf{Linked List with Mapping}}     					\\ \cline{2-5} 
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  = = = = = =  = = = = = = = = = = = = = = = =  = = = = = =  = = = = = = %
+                                                                								& with \texttt{SELFDESTRUCT} 		& without \texttt{SELFDESTRUCT}                	& with \texttt{DELETE} 		& without \texttt{DELETE}              		\\ \hline                                                                                                                                                                                                                                                          % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  = = = = = =  = = = = = = = = = = = = = = = =  = = = = = =  = = = = = = %
+                  \textbf{\thead{Net Cost in Gas\\(\texttt{gasUsed})}}                    & 557,085                    			& 721,370                     			& 731,514                     		& 334,689                      				\\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  = = = = = =  = = = = = = = = = = = = = = = =  = = = = = =  = = = = = = %
+ \textbf{\thead{Gas Refund \\from Deleting a Storage}}            			& \full                 					& $\times$                 					& \full                    		& \prt                       				\\ \hline
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  = = = = = =  = = = = = = = = = = = = = = = =  = = = = = =  = = = = = = %
 
 \end{tabular}
@@ -221,9 +260,9 @@ Based on Table~\ref{tab:LLvsLLMapping}, the linked list with \texttt{SELFDESTRUC
 
 \section{Experimentations}
  
-As mentioned in~\ref{sec:callmarket}, Our system treats the time as discrete and not continuous; upcoming orders are accumulated over predetermined time intervals and are processed in batch instead of serially in order of receipt. The trading day is divided into frequent but discrete time intervals; every time the market opens traders submit their ask and bid order messages.  These orders are accumulated in a linked list with mapping priority queue and when the trading period is over, orders are matched against each other. The call market smart contract is written in 268 lines of Solidity, a high level programming language that is syntactically similar to Java~\cite{Ethereum41:online}, using the Truffle development framework and deployed on Ganache-CLI, Table~\ref{tab:callmarket_functions} represents the call market's primary operations.
+As mentioned in~\ref{sec:callmarket}, Our system treats the time as discrete and not continuous; upcoming orders are accumulated over predetermined time intervals and are processed in batch instead of serially in order of receipt. The trading day is divided into frequent but discrete time intervals; every time the market opens traders submit their ask and bid order messages. These orders are accumulated in a linked list with mapping priority queue and when the trading period is over, orders are matched against each other. The call market smart contract is written in 268 lines of Solidity, a high level programming language that is syntactically similar to Java~\cite{Ethereum41:online}, using the Truffle development framework and deployed on Ganache-CLI, Table~\ref{tab:callmarket_functions} represents the call market's primary operations.
 
-
+%GitHub repo:  \footnote{\CallMarketRepo}
 % = = = = = = = = = = = = = = = = = = = = =Call market operations Table = = = = = = = = = = = =  = = = = = =  %
 \begin{table}[]
 \begin{tabular}{|l|l|}
@@ -265,9 +304,13 @@ Followings outline results of the experiments we performed using Javascript and 
 
  \subsection{Experiments}
 
-Table~\ref{tab:worst_case_matching} outlines the \texttt{Match()} function's computational costs and performance for three different implementations of the call market. We used three different designs of the linked list with mapping priority queue. (1) Every time a trade happens, we use the \texttt{DELETE} method to remove the mapping elements that contains best bid and ask orders from storage completely \textbf{and} update the head and tail pointers of the list. (2) We only update the pointers of the priority queue and do not remove the best bid and ask orders during the entire matching process. Instead we destroy the priority queue smart contract~\footnote{We execute a public function defined in the priority queue smart contract which itself calls the \texttt{self-destruct()} operation and transfers its funds (if any) to the call market contract.} once the matching is completed. (3) In the last implementation, we allow the matching process to be completed and do not clear any on chain data. As it can be seen in Table~\ref{tab:worst_case_matching}, the \texttt{Match()} operation shows a better performance when killing the priority contract and/or not clearing data from the chain. Although deleting the priority queue contract adds an extra external call to the \texttt{Match()} function and should technically increase the gas cost, the 24000 gas refunds from \texttt{SELFDESTRUCT} would compensate the cost. So it can still match as same number of orders (before running out of gas)as in the no on chain clearing implementation. The last column of Table~\ref{tab:worst_case_matching} reflects the gas cost for matching 1000 pairs of bids and asks for which we set the block gas limit to the maximum of  $2^{53}$ (the Javascript's max safe integer).
+Table~\ref{tab:worst_case_matching} outlines the \texttt{Match()} function's computational costs and performance for three different implementations of the call market. We used three different designs of the linked list with mapping priority queue. (1) Every time a trade happens, we use the \texttt{DELETE} method to remove the mapping elements that contains best bid and ask orders from storage completely \textbf{and} update the head and tail pointers of the list. (2) We only update the pointers of the priority queue and do not remove the best bid and ask orders during the entire matching process. Instead we destroy the priority queue smart contract~\footnote{We execute a public function defined in the priority queue smart contract which itself calls the \texttt{self-destruct()} operation and transfers its funds (if any) to the call market contract.} once the matching is completed. (3) In the last implementation, we allow the matching process to be completed and do not clear any on chain data. As it can be seen in Table~\ref{tab:worst_case_matching}, the \texttt{Match()} operation shows a better performance when killing the priority contract and/or not clearing data from the chain. However, leaving unnecessary storage data on chain is not a proper design practice (note that as mentioned in Section~\ref{sec:LLvsLLMapping}, destroying a smart contract does not remove the initial byte code of the contract from the chain but it frees up the state storage and refunds 24000 gas to the caller.)
+The last column of Table~\ref{tab:worst_case_matching} reflects the gas cost for matching 1000 pairs of bids and asks for which we set the block gas limit to the maximum of  $2^{53}$ (the Javascript's max safe integer).
 
 Note that this is a \textit{worst case matching} test where all bids and asks are submitted as marketable limit orders with specified prices that would be filled undoubtedly, performed using the current Ethereum gas metrics (block gas limit $=$11,741,495 and 1 gas $=$ 56 gwei)~\footnote{https://ethstats.net/}. 
+
+%Although deleting the priority queue contract adds an extra external call to the \texttt{Match()} function and should technically increase the gas cost, the 24000 gas refunds from \texttt{SELFDESTRUCT} would compensate the cost. So it can still match as same number of orders (before running out of gas) as in the no on chain clearing implementation.
+
 
 % = = = = = = = = = = = =Worst Case Matching on Linkedlist With Mapping Table = = = = = = = = = = = = =  %
 
@@ -292,12 +335,6 @@ Note that this is a \textit{worst case matching} test where all bids and asks ar
 \end{table}
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
-
-
-%  = = = = = = = = = = % 
-%Mahsa: Im not sure which of these tables are good for this section!?
-%  = = = = = = = = = = % 
-
 
 
 % = = = = = = = = = = = =Worst_Case_Matching Table = = = = = = = = = = = = =  %
@@ -334,59 +371,28 @@ Note that this is a \textit{worst case matching} test where all bids and asks ar
 
 \subsection{Clearing Mappings}
 
-
-
-To maintain the collateral balance of each market participant, we use two Solidity type one-to-one mapping that map Ethereum addresses to 256 bits unsigned integers; \texttt{TotalBalance} and \texttt{UnavailableBalance}. Once market closes and orders are matched, the \texttt{UnavailableBalance} needs to be cleared. However, since it is not possible to delete the entire mapping without knowing the keys~\footnote{https://solidity.readthedocs.io/en/v0.5.12/security-considerations.html}, clearing the \texttt{UnavailableBalance} mapping remains a challenging issue to solve . Here we provide a landscape of solutions for that.
+To maintain the collateral balance of each market participant, we use two Solidity type one-to-one mappings that map Ethereum addresses to 256 bits unsigned integers; \texttt{TotalBalance} and \texttt{UnavailableBalance}. Once market closes and orders are matched, the \texttt{UnavailableBalance} needs to be cleared. However, since it is not possible to delete the entire mapping without knowing the keys~\footnote{https://solidity.readthedocs.io/en/v0.5.12/security-considerations.html}, clearing the \texttt{UnavailableBalance} mapping remains a challenging issue to solve. Here we provide a landscape of solutions for that.
 %only individual keys and what they map to can be deleted.
 
-\begin{enumerate}
+\begin{itemize}
 
 %---------+++++++++++++++++++-----------------
-\item \textbf{Creating a New Mapping Every Time the Market Opens.} Instead of clearing the \texttt{UnavailableBalance} of traders at the end of a matching process, we could create a new mapping every time the market opens. Note that using this solution, traders can only claim their funds (using the \texttt{ClaimEther()} and/or \texttt{ClaimToken} methods) only when the market is in state \texttt{Closed}. 
-
-
-%---------+++++++++++++++++++-----------------
-\item \textbf{Creating Custom Keys for the Mapping.} We can create custom keys for the mapping by defining a counter as a global variable inside the CallMarket smart contract. This counter is incremented at the end of the matching process. So instead of clearing the mapping, we only use another portion of it every time the market opens.
-
+\item \textbf{Creating a New Mapping Every Time the Market Opens.} Instead of clearing the \texttt{UnavailableBalance} of traders at the end of a matching process, we could create a new mapping every time the market opens. Note that in this scheme traders can claim their funds back (using the \texttt{ClaimEther()} and/or \texttt{ClaimToken} methods) only when the market is closed (\ie the market is in the \texttt{Closed} state).
 
 %---------+++++++++++++++++++-----------------
-\item \textbf{Storing the Mapping in a Data-Contract.} Another design proposal is to create a smart contract every time the market opens, this data contract only stores the \texttt{UnavailableBalance} mapping and will be killed at the end of the matching process.
-
-
+\item \textbf{Creating Custom Keys for the Mapping.} We can create custom keys for the mapping by defining a counter as a global variable inside the call market smart contract and increment it only once at the end of the matching process. So instead of clearing the mapping, we only use another portion of it every time the market opens.
 
 %---------+++++++++++++++++++-----------------
-\item \textbf{Storing the Mapping keys in an additional Array.} Another common pattern is to create an additional array on top of the mapping and iterate over that. This array (\eg address[]) stores the traders' addresses and enables us to iterate over the mapping and delete individual keys and what they map to at the end of the matching process. Not that this is a gas-costly design pattern as we would need to maintain a secondary data structure.
-
+\item \textbf{Storing the Mapping in a Data-Contract.} Another design proposal is to create a new smart contract every time the market opens, this data contract only stores the \texttt{UnavailableBalance} mapping and will be destroyed (using the \texttt{SELFDESTRUCT} operation) at the end of the matching process.
 
 %---------+++++++++++++++++++-----------------
+\item \textbf{Storing the Mapping keys in an additional Array.} Another common pattern is to create an additional array on top of the mapping and iterate over that. This array (\eg address[]) stores the traders' addresses and enables us to iterate over the mapping and delete individual keys and what they map to at the end of the matching process. Note that this is a gas-costly design pattern as we would need to maintain a secondary data structure. 
 
-\end{enumerate}
+%---------+++++++++++++++++++-----------------
+\end{itemize}
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
 
-% = = = = = = = = = = Design Details of PQs = = = = = = = = = = = = = = %
-\section{Design Details of PQs}
-
-
-%---------+++++++++++++++++++-----------------
-
-\subsection{Mapping with Keys Stored in a Heap}\label{sec:mapping_heap}
-
-To store the orders, here we use Solidity mapping that map orders' ids (256-bit integers) to order structs with their variables of different types. The mapping keys are then stored in a sorted heap that is implemented with a dynamic storage array. Every time a trade happens; (i) the mapping keys associated with the best bid and ask orders are deleted from the heap and the heap is re-sorted, and (ii) the mapping elements containing the best bid and ask orders are deleted from storage completely which refund 15000 gas~\cite{wood2014ethereum}. Deleting the mapping elements is yet a gas-costly operation which lowers down the maximum number of orders the \texttt{Match()} function could handle in this case.~\footnote{Every order structs contains multiple variables of different types and removing them from storage is identical to setting multiple variables to zero.} However, we clear the mapping element once a trade happens in our design as leaving unnecessary data is not a proper design practice.
-
-%---------+++++++++++++++++++-----------------
-\subsection {Linkedlist}
-Every time a trade happens, we use the \texttt{SELFDESTRUCT} operation to remove the nodes (\ie smart contracts) containing the best bid and ask orders from the Ethereum blockchain. When a node is deleted, it transfers its funds (if any) to the payable address of the CallMarket contract that has been previously passed to it as a constructor argument. Also, removing a smart contract from the Ethereum blockchain refunds 24000 gas to the caller.
-
-
-%---------+++++++++++++++++++-----------------
-\subsection {Linkedlist with Mapping}
-Every time a trade happens when the \texttt{Match()} function is executed, the best bid and ask orders need to be removed from the data structures. We could do this in two different ways; (i) update the head and tail pointers of the linkedlist and/or (ii) removing the mapping elements that contain the best bid and ask orders from storage completely as well as updating the pointers of the linkedlist. \par
-For the same reason we mentioned in~\ref{sec:mapping_heap}, we clear the best bid and ask order structs from the mapping every time a trade happens as well as updating the pointers.
-
-
-
-% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
 
 % = = = = = = = = = = = =Closing and Reopening the Market = = = = = = = = = = = = =  %
 
@@ -399,10 +405,10 @@ At the end of the trading period, the market needs to be closed and reopened. Ho
 %when to close the market?
 %What time period?
 
-
+\begin{itemize}
 % = = = = = = = = = = = =How to enforce time on on the Ethereum blockchain? = = = = = = = = = = = = =  %
 
-\subsection{Enforcing Time on the Blockchain}
+\item\textbf{{Enforcing Time on the Blockchain.}}
 
 % We want the market to run on a periodic schedule => it is difficult for market participants to call the \texttt{Close()} function periodically.
 
@@ -413,26 +419,17 @@ At the end of the trading period, the market needs to be closed and reopened. Ho
 
 % = = = = = = = = = = = =Who Pays the Cost for Closing and Reopening the Market?= = = = = = = = = = = = =  %
 
-\subsection{Who Pays the Cost for Closing and Reopening the Market?}
+\item\textbf{{Who Pays the Cost for Closing and Reopening the Market?}}
 
 We think it is useful to explore the landscape of possible designs for closing the market. 
 
-\begin{enumerate}
+\begin{itemize}
 
 %= = = = = = Miners Close the Market = = = = = = =%
-
-
 \item \textbf {Miners Close and Reopen the Market.} The difference between the best bid and ask prices is called the \textit{bid-ask spread}. In our design, when the trade occurs between the the highest bid (the highest amount a buyer is willing to pay for an asset) and lowest ask (the lowest amount a seller is willing to accept for an asset) orders, the bid-ask spread is paid to the miner. There are possibilities that (i) no trade occurs or (ii) the bid-ask spread is zero (\ie the best bid and best ask prices are identical). So there is enough economic incentive for the the miner to execute the \texttt{CloseMarket()} function and get refunded as the refund amount could be potentially higher than the bid-ask spread. 
-
-
-
 % = = = = = = = = = =Processing Orders in Groups= = = = = = = = = = = = = = = %
 
 \item \textbf{Processing Orders in Groups.} Another solution pattern is to process certain number of bid and ask orders upon every execution of the \texttt{CloseMarket()} function rather than treating them as one substantial transaction. A market participant $P_i$ would process $n$ orders from the previous market (\texttt{CloseMarket(n)}) when sending new orders to the current market. This process continues until all the orders in the previous markets are processed. % incentive? => contribution to the community!?
- 
-
-
-
 %= = = = = =  = =  =  Meta txs =  = = = = = = = = =%
 
 \item \textbf {Using the Meta Transactions.} Meta transactions enable users to execute Ethereum functions without paying the gas. Rather than spending gas, users sign their intended action using their private keys and broadcast it to the network with no cost. A third party process (\textit{a relayer}) then crafts the actual transaction on user's behalf, sends the transaction to the Ethereum blockchain, and charges the base contract with the associated fees (see Figure~\ref{fig:meta_tx}). The required gas to pay for the \texttt{Match()} function could be collected as fees. So market participants are charged with certain amounts of fees every time they submit an order, these fees are accumulated in the CallMarket contract and will be used to pay for executing the \texttt{CloseMarket()} function.
@@ -472,18 +469,19 @@ In the followings we briefly discuss different rollup proposals and techniques. 
 \item \textbf{{Using Trusted Execution Environments.}} Another way of achieving execution of the \texttt{CloseMarket()} function is incorporating the Ethereum blockchain into the Trusted Execution Environments (TEEs) and decoupling the contract execution from consensus mechanism. TEEs enable secure execution of applications in an isolated processing environment called the \textit{enclave}. Here, the enclave could execute the \texttt{CloseMarket()} function off-chain in TEEs and publish an on-chain attestation Quote to the CallMarket contract. The contract then verifies the correctness of the Quote and if validated correctly, it transitions to the new state. Ekiden is an example that uses Intel SGX to solve the scalability and confidentiality issues with the smart contract execution~\cite{cheng2019ekiden}. A drawback of this scheme is in order to achieve confidentiality-preserving smart contracts we have to trust a trusted party in the form of the hardware manufacturer (\eg Intel).
 
 
-\end{enumerate}
+\end{itemize}
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
+\end{itemize}
+
+% = = = = = = = = = = = =Transferring the Collateral back to the traders = = = = = = = = = = = = =  %
+\subsection{Transferring the Collateral back to Traders.}
 
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
 
 
 
-
-
-
-
-
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
 
 
 % = = = = = = = = = = = =Notes Discussed in Meetings = = = = = = = = = = = = =  %
