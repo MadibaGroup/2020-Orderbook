@@ -3,64 +3,76 @@
 
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-
-
 \section{Introductory Remarks}
 
 Blockchain is a type of distributed database (or ledger) that is open to anyone who wants to participate, robust against a wide range of faulty and malicious behaviours, and runs without anyone in charge. When a participant looks at her local copy of the ledger, she is assured that (i) anyone has the exact same records and (ii) each record was validated by the "majority" (technically, a computational majority) of participants before it was written into the ledger. Blockchain technology has rapidly gained global interest and become one of the most significant technologies in recent years. It was first introduced in 2008 by Satoshi Nakamoto as an underlying technology of Bitcoin, a peer to peer electronic cash system~\cite{nakamoto2019bitcoin}, whose currency reached a market capitalization of \$137 billion as of January 2020. In 2014, a new blockchain based application known as Ethereum was introduced by Buterin~\cite{buterin2014next}. By implementing a decentralized virtual machine, Ethereum virtual machine (EVM), Ethereum allows network users to execute programmable smart contracts on it. So developers are now able to build decentralized applications (DApps) that are executed correctly according to the consensus rules of the Ethereum network. 
 
+% = = = = = = = = = = = = = = = = =
+\subsection*{Contributions.}
+
+
+
+
+
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 \section{Cryptocurrency Exchanges}
-Strong interest in blockchain and distributed ledger technologies has led into the high trading volume of digital assets and emergence of fast growing cryptocurrency exchanges all over the world. These crypto exchanges (hereafter referred to as exchanges) are similar to stock exchanges but, as the name suggests, facilitate the trading process of different cryptocurrency tokens. Basically, such exchanges provide a trading venue where market participants can buy and/or sell cryptocurrency assets among one another. In this section, we describe two types of trading systems and pinpoint why the need for a highly secure exchange and trading system for cryptocurrencies is crucial.
 
+Strong interest in blockchain and distributed ledger technologies has led into the high trading volume of digital assets and emergence of fast growing cryptocurrency exchanges all over the world. These crypto exchanges are similar to stock exchanges but, as the name suggests, facilitate the trading process of different cryptocurrency tokens. Basically, such exchanges provide a trading venue where market participants can buy and/or sell cryptocurrency assets among one another. In this section, we describe two types of crypto exchanges.
+
+% = = = = = = = = = = = = = = = = =
 \subsection{Centralized Exchanges (CEX)}\label{sec:CEX}
-This group of exchanges operate in a traditional manner by providing a centralized platform controlled by exchange operators. Essentially, the exchange acts as a trusted party whom the market participants must trust to handle their assets. Thus, traders transfer the ownership of their assets to the exchange who safeguards customer funds using different methods. Although this group of exchanges make it easier for users to trade digital assets (as it takes the burden of safeguarding off traders), it requires traders to fully trust the exchange operator in taking custody of their assets (\eg Coinbase). Like any other centralized platform, these exchanges are not completely immune to malicious activities. For example, in February 2014, a famous centralized Tokyo-based Bitcoin exchange called MtGox was hacked which led to loss of 650,000 Bitcoins~\cite{TheHisto45:online}. Also, a malicious exchange can simply steal users' funds, in February 2019, QuadrigaCX, one of Canada’s well-known centralized cryptocurrency exchanges, claimed that it cannot access to \$190-million worth of customers’ funds~\cite{SEBIOrde83:online}.
 
+This group of exchanges operate in a traditional manner by providing a centralized platform controlled by exchange operators. Essentially, the exchange acts as a trusted party whom the market participants must trust to handle their assets. Traders transfer the ownership of their assets to the exchange who safeguards customer funds using different methods. Centralized exchanges ease trading process of digital assets as they do not place the burden of safeguarding of the assets onto individualst, however, traders must fully trust the exchange operator in taking custody of their assets (\eg Coinbase).~\footnote{https://www.coinbase.com} Similar to any centralized platform these exchanges are not completely immune to malicious activities. For example in February 2014, a famous centralized Tokyo-based Bitcoin exchange called MtGox was hacked which led to loss of 650,000 Bitcoins~\cite{TheHisto45:online}. Also, a malicious exchange operator can simply steal users' funds; in February 2019, QuadrigaCX, Canada’s well-known centralized cryptocurrency exchange, claimed that it cannot access to \$190-million worth of customers’ funds~\cite{SEBIOrde83:online}.
+
+
+% = = = = = = = = = = = = = = = = =
 \subsection{Decentralized Exchanges (DEX)}
 
-Unlike centralized exchanges, DEXes facilitate a secure automated peer-to-peer trading process on the blockchain (\eg Ethereum) for market participants with no third parties involved, hence solving the problems that are inherent in centralized exchanges. They provide a better security and privacy by enabling traders to remain fully authoritative over their funds and personal data.  With rising of Decentralized Finance (DeFi) or Open Finance movements, the number of DEX platforms on Ethereum have recently exploded and large volume of trading now occurs on DeFi exchanges (\eg Uniswap).~\footnote{https://uniswap.org}
+Unlike centralized exchanges, DEXes facilitate a secure automated peer-to-peer trading process on blockchains (\eg Ethereum) for market participants with no third parties involved, hence solving the issues that are inherent in centralized exchanges. This group of exchanges provide a better security and privacy by enabling traders to remain fully authoritative over their funds and personal data. With rising of Decentralized Finance (DeFi) or Open Finance movements, the number of DEX platforms on Ethereum have recently exploded and large volume of trading now occurs on DeFi exchanges (\eg Uniswap).~\footnote{https://uniswap.org}
 
 
-However, building a fully decentralized exchange is associated with high costs and technical complexities and hence remains a big challenge. In the following section, we explore the idea of building a decentralized exchange on Ethereum.
+However due to the high cost and technical limitations introduced by blockchain technologies, building a fully decentralized exchange has remained a major challenge. In the following section, we explore the idea of building a decentralized exchange on Ethereum.
 
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
 \section{Order Books}
 
-Order books are data structures that maintain lists of bid and ask orders for various assets (\eg currencies, stocks, bonds \etc) in specific markets. The most common version of order books is what we call a \textit{double auction}, where market participants submit their bid and ask orders and the market clearing price will be calculated as the average between the best bid and best ask prices. Order books often sort orders based on their price and submission time (this order allocation technique is called price-time priority)~\cite{preis2011price}, where orders are prioritized from highest price to lowest and given any two orders with the same price, they will be sorted based on their submission timestamps.
+Order books are electronic data structures that maintain lists of bid and ask orders for various assets (\eg currencies, stocks, bonds \etc) in specific markets. The most common version of order books is a \textit{double auction}, where market participants submit their bid and ask orders and the market clearing price will be calculated as the average between the best bid and ask prices. Order books often sort orders based on their price and submission time, this order allocation technique is called price-time priority~\cite{preis2011price} where orders are prioritized from highest price to lowest and given any two orders with the same price, they will be sorted based on their submission timestamps.
 
-Looking more closely, order books are rather electronic ledgers that get updated over time. Given the definition of the Ethereum blockchain, that is a distributed ledger, the idea of implementing an order book in the form of a smart contract will seemingly resolve the existing issues with centralized exchanges. However, this design is not feasible due to some crucial challenges that exist within blockchains:
+Looking more closely, order books are rather electronic ledgers that get updated over time. Given the definition of the Ethereum blockchain, that is a distributed ledger, the idea of implementing an order book in the form of a smart contract will seemingly resolve the existing issues with centralized exchanges (see Section~\ref{sec:CEX}). However, this design is not feasible due to some technical limitations that exist within blockchains:
 
+% = = = = = = = = = = = = = = = = =
 \begin{itemize}
 %---------+++++++++++++++++++-----------------
-\item \textbf{Speed.} All blockchains are slow in comparison with stock markets which move very fast. For example, high-frequency trading (HFT), is a trading method that uses active computers to process a large number of trades in fractions of a second. However, blockchains are slow-moving as it takes block intervals for transactions to get confirmed.
 
-
-%---------+++++++++++++++++++-----------------
-\item \textbf{Front-running and Censorship.} Traders must broadcast their order messages to the network before they can be placed in the block (\ie order book). In such scenario, the privileged nodes and miners can front-run transactions or completely drop (censor) those that are competing with their own~\cite{eskandari2019sok}. Also, miners could almost control how the order book gets updated by inserting their own order messages after viewing all other orders and before mining the block .
+\item \textbf{Speed.} All blockchains are slow-moving as it takes block intervals for transactions to get confirmed. On the other hand stock markets move very fast;  high-frequency trading (HFT) is a trading method example that uses active computers to process a large number of trades in fractions of a second. 
 
 %---------+++++++++++++++++++-----------------
 
+\item \textbf{Front-running and Censorship.} Traders must broadcast their order messages to the network before they can be placed in the block (\ie order book). In such scenario, privileged nodes and miners can front-run transactions or completely drop (censor) those that are competing with their own~\cite{eskandari2019sok}. Also, miners could almost control how the order book gets updated by inserting their own order messages after viewing all other orders and before mining the block .
 
-\item \textbf{Enforcing Time.} There is no notion of time on blockchains. If two orders arrive at the same price, in the normal world whoever is the first wins. However, one cannot enforce the priority of orders in the blockchain space; if Alice is more well-connected to the network, her order gets broadcast better and executed first although she sends it after Bob. 
+%---------+++++++++++++++++++-----------------
+
+\item \textbf{Enforcing Time.} There is no notion of time on blockchains.I if two orders arrive at the same price, in the normal world whoever is the first wins. However, we cannot enforce the priority of orders in the blockchain space; if Alice is more well-connected to the network her order gets broadcast better and executed first although she sends it after Bob. 
 
 %---------+++++++++++++++++++-----------------
 \end{itemize}
+% = = = = = = = = = = = = = = = = =
 
-According to these issues blockchains cannot solve this particular problem. Many stock exchanges that currently operate on blockchains tackle this issue by using a private network (where not every network participant can be a node or miner) together with a central time-server that establishes the time priority. We propose a different method of implementing a fully decentralized exchange using an alternative data structure known as \textit{a call market} or \textit{frequent batch auction} instead of a time-sensitive order book~\cite{clark2014decentralizing}.
+Based on these issues blockchains cannot solve this particular problem. Many stock exchanges that currently operate on blockchains tackle this issue by using a private network (where not every network participant can be a node or miner) together with a central time-server that establishes the time priority. We propose a different method of implementing a fully decentralized exchange using an alternative data structure known as \textit{a call market} or \textit{frequent batch auction} instead of a time-sensitive order book~\cite{clark2014decentralizing}.
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-
 
 \section{Call Market}\label{sec:callmarket}
 
-In this research work, we design and implement a call market on the Ethereum blockchain. We divide the trading day into frequent but discrete time intervals; every time the market opens traders submit their ask and bid order messages. These orders are accumulated in a sorted data structure and when the trading period is over, orders are matched against each other. Our proposed decentralized exchange is both data structure and token agnostic (traders can trade any token that is ERC20 standard compliant). The upcoming orders are not stored in the call market contract, instead they are stored in a priority queue where each element is associated with a priority and is served according to its priority.
+In this research work, we design and implement a call market on the Ethereum blockchain. We divide the trading day into frequent but discrete time intervals; every time the market opens traders submit their ask and bid order messages. These orders are accumulated in a sorted data structure and when the trading period is over, orders are matched against each other. Our proposed decentralized exchange is both data structure and token agnostic (traders can trade ERC20 standard compliant token). The upcoming orders are not stored in the call market contract, instead they are stored in a priority queue where each element is associated with a priority and is served according to its priority.
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
-\section{Priority Queues}
+\subsection{Priority Queues}
 
- A priority queue can be implemented using many of the data structures that differ in performance and costs. In order to choose the appropriate data structure for better performance and costs, we implemented and examined five different generic priority queues that support four main functions (see Table~\ref{tab:PQ_API}). Followings describe each implementation. 
+A priority queue can be implemented using many of the data structures that differ in performance and costs. In order to choose the appropriate data structure, we implemented and examined five different generic priority queues that support four main functions (see Table~\ref{tab:PQ_API}). We discuss each implementation below. 
 
 % = = = = = = = = = = = =Operations for a generic Priority Queue Table = = =  = = = = = = = = = = = %
 \begin{table}[]
@@ -83,36 +95,38 @@ In this research work, we design and implement a call market on the Ethereum blo
 % = = = = = = = = = = = = = = = = = = = = =  = = = = = = = = = = =  = = = = = = = = = == = = =  = =%
 
 
+
+% = = = = = = = = = = = = = = = = =
 \begin{enumerate}
 
 %---------+++++++++++++++++++-----------------
 
-\item\textbf{{Heap with Dynamic Array.}} A Heap is a type of binary tree data structure that comes in two forms of a (i) Max-Heap and (ii) Min-Heap. All the nodes of tree are in a specific order and the root of the tree always represents the highest priority item of the data structure (the largest and smallest values in the Max-Heap and Min-Heap respectively). We implemented a priority queue with a Heap that itself is represented by Solidity dynamically-sized array.  
+\item\textbf{{Heap with Dynamic Array.}} A heap is a type of binary tree data structure that comes in two forms of a (i) Max-Heap and (ii) Min-Heap. All the nodes of tree are in a specific order and the root of the tree always represents the highest priority item of the data structure (the largest and smallest values in the Max-Heap and Min-Heap respectively). We implemented a priority queue with a heap that itself is represented by a Solidity dynamically-sized array. 
 
 %---------+++++++++++++++++++-----------------
 
-\item\textbf{{Heap with Static Array.}} A Heap can be also represented by a Solidity storage array in which the storage is statically allocated. To do this, we pass the required sized of the array as a smart contract constructor parameter. 
+\item\textbf{{Heap with Static Array.}} A heap can be also represented by a Solidity storage array in which the storage is statically allocated. To do this, we pass the required size of the array as a constructor parameter to the priority queue smart contract. 
 
 %---------+++++++++++++++++++-----------------
 
-\item\textbf{{Mapping with Keys Stored in Heap.}} This priority queue stores items inside a Solidity mapping that maps the mapping keys (256-bit integers) to these items. The mapping keys are then stored (based on the value they are mapped to) in a sorted Heap that is implemented with a dynamically-sized array.
+\item\textbf{{Mapping with Keys Stored in a Heap.}} This priority queue stores items inside a Solidity mapping that maps them to mapping keys (256-bit integers). These keys are then stored in a sorted heap (based on the value they are mapped to) that is implemented with a dynamically-sized array.
 
 %---------+++++++++++++++++++-----------------
 
-\item\textbf{{Linked List.}} Here we used a sorted singly Linked List to implement the priority queue. A Linked List is a linear data structure made of a chain of items (also known as nodes) where each item contains a value and a pointer to the next node in the list. In our implementation, each node is represented by a smart contract that contains the data and a pointer to its next smart contract in the list.
+\item\textbf{{Linked List.}} Here we used a sorted singly linked list to implement the priority queue. A linked list is a linear data structure made of a chain of items (also known as nodes) where each item contains a value and a pointer to the next node in the list. In an object-oriented programming language a linked list can be easily implemented with a recursive struct; struct that contains a member variable in its own type. However, Solidity does not support recursive structs because the size of the struct has to be finite. So in our implementation, each node is represented by a smart contract that contains the data and a pointer of its own type to its next smart contract in the list.
 
 %---------+++++++++++++++++++-----------------
 
-\item\textbf{{Linked List with Mapping.}} Here we used Solidity mapping to implement our priority queue with a sorted doubly Linked List where every node points to it previous \textbf{and} next node in the list. The Linked List entries are first wrapped in an struct data type that contains (i) the unique id of that element, (ii) the unique id of its previous item in the list, and (iii) the unique id of its next item in the list. These structs are then stored in the mapping indexed by item id. 
+\item\textbf{{Linked List with Mapping.}} Here we used Solidity mapping to implement a sorted doubly linked list priority queue where every node points to it previous \textbf{and} next node in the list. The Linked List entries are first wrapped in an struct data type that contains (i) the unique id of that element, (ii) the unique id of its previous item in the list, and (iii) the unique id of its next item in the list. These structs are then stored in the mapping indexed by item id. 
 
 %---------+++++++++++++++++++-----------------
 
 \end{enumerate}
-
+% = = = = = = = = = = = = = = = = =
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
 
-Next, we used Javascript for testing by leveraging the Mocha testing framework and performed our priority queue performance tests. We entered 50 pseudo-random integers between 1 and 200 to the priority queues and obtained the associated gas costs. Figure~\ref{fig:random_insertion} represents the gas costs variations for entering 50 unsigned integers to the five priority queues; the x-axis is the place in line (\eg the10th number entered in the priority queue) and the and y-axis is the cost of that transaction in gas.
+In the next step, we used Javascript for testing by leveraging the Mocha testing framework and performed performance tests on the five priority queues. We entered 50 pseudo-random integers between 1 and 200 to the priority queues and obtained the associated gas costs for 200 transactions. Figure~\ref{fig:random_insertion} represents the gas costs variations for entering 50 unsigned integers to the five priority queues; the x-axis is the place in line (\eg the10th number entered in the priority queue) and the and y-axis is the cost of that transaction in gas.
 
 % = = = = = = = = = = = =random_insertion Figure = = = = = = = = = = = = =  %
 
