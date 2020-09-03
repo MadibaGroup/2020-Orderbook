@@ -1,0 +1,24 @@
+% !TEX root = ../main.tex
+
+
+% = = = = = = = = = = = =Gas costs and refunds for Dequeueing 50 integers from each PQ  = = = = = = = = = = = = =  %
+
+\begin{table}[t]
+\centering
+\begin{tabular}{|p{7cm}|r|r|r|}
+
+\multicolumn{1}{c}{\.} & \headrow{Gas Costs (\texttt{gasUsed})} & \headrow{Refund (Manual)} & \headrow{Full Refund?} \\ \hline
+
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+Linked List with \texttt{SELFDESTRUCT}       		& 557,085          & 1,200,000     &\full  \\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+Linked List w/o \texttt{SELFDESTRUCT}         		& 721,370          & 0     &$\times$  \\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+Linked List with Mapping and \texttt{DELETE}		& 731,514          & 3,765,000     &\full  \\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+Linked List with Mapping and w/o \texttt{DELETE}    & 334,689          & 765,000     &\full  \\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+
+\end{tabular}
+\caption{The gas metrics associated with dequeuing 50 items from five priority queues variants. For the refund, (\full) indicates the  refund was capped at the maximum amount and (\prt) means a greater refund would be possible.\label{tab:cleaning}}
+\end{table}

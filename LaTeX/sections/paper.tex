@@ -15,18 +15,36 @@ Blockchain is a type of distributed database (or ledger) that is open to anyone 
 
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-\section{Cryptocurrency Exchanges}
+\section{Preliminaries}
 
 Strong interest in blockchain and distributed ledger technologies has led into the high trading volume of digital assets and emergence of fast growing cryptocurrency exchanges all over the world. These crypto exchanges are similar to stock exchanges but, as the name suggests, facilitate the trading process of different cryptocurrency tokens. Basically, such exchanges provide a trading venue where market participants can buy and/or sell cryptocurrency assets among one another. In this section, we describe two types of crypto exchanges.
 
+
+\subsection{Blockchain}
+
+* transparency, front-running
+* slow but is becoming more efficient over time, expensive
+* Gas model: gas limit, how much, per transaction vs per block, Solidity/EVM quirks: gas refunds
+
+At the time of this writing, Ethereum transaction receipts only contain the net gas consumption (\texttt{gasUsed}) and we cannot obtain the value of the EVM's refund counter from inside the EVM~\cite{signer2018gas}. So in order to account for refunds inside each priority queue smart contract we calculate them manually; first we figure out exactly how much storage is being cleared when dequeuing the highest priority elements (\texttt{SSTORE} instruction) and then we multiply the number of storage slots cleared by 15,000 (see the last column of Table~\ref{tab:PQUnitTests}).
+
+Note that in order to urge miners to process smart contracts with refunds, the accumulated gas refund can never exceed half the gas used up during computation~\cite{wood2014ethereum}. So at the end of a successful transaction, the amount of gas in the refund counter (capped at half the net gas used) is returned to the caller. 
+
+
+Based on these issues blockchains cannot solve this particular problem. Many stock exchanges that currently operate on blockchains tackle this issue by using a private network (where not every network participant can be a node or miner) together with a central time-server that establishes the time priority. We propose a different method of implementing a fully decentralized exchange using an alternative data structure known as \textit{a call market} or \textit{frequent batch auction} instead of a time-sensitive order book~\cite{clark2014decentralizing}.
+
+
+
+\subsection{Exchanges}
+
 % = = = = = = = = = = = = = = = = =
-\subsection{Centralized Exchanges (CEX)}\label{sec:CEX}
+\subsubsection{Centralized Exchanges (CEX)}\label{sec:CEX}
 
 This group of exchanges operate in a traditional manner by providing a centralized platform controlled by exchange operators. Essentially, the exchange acts as a trusted party whom the market participants must trust to handle their assets. Traders transfer the ownership of their assets to the exchange who safeguards customer funds using different methods. Centralized exchanges ease trading process of digital assets as they do not place the burden of safeguarding of the assets onto individualst, however, traders must fully trust the exchange operator in taking custody of their assets (\eg Coinbase).~\footnote{https://www.coinbase.com} Similar to any centralized platform these exchanges are not completely immune to malicious activities. For example in February 2014, a famous centralized Tokyo-based Bitcoin exchange called MtGox was hacked which led to loss of 650,000 Bitcoins~\cite{TheHisto45:online}. Also, a malicious exchange operator can simply steal users' funds; in February 2019, QuadrigaCX, Canada’s well-known centralized cryptocurrency exchange, claimed that it cannot access to \$190-million worth of customers’ funds~\cite{SEBIOrde83:online}.
 
 
 % = = = = = = = = = = = = = = = = =
-\subsection{Decentralized Exchanges (DEX)}
+\subsubsection{Decentralized Exchanges (DEX)}
 
 Unlike centralized exchanges, DEXes facilitate a secure automated peer-to-peer trading process on blockchains (\eg Ethereum) for market participants with no third parties involved, hence solving the issues that are inherent in centralized exchanges. This group of exchanges provide a better security and privacy by enabling traders to remain fully authoritative over their funds and personal data. With rising of Decentralized Finance (DeFi) or Open Finance movements, the number of DEX platforms on Ethereum have recently exploded and large volume of trading now occurs on DeFi exchanges (\eg Uniswap).~\footnote{https://uniswap.org}
 
@@ -36,7 +54,7 @@ However due to the high cost and technical limitations introduced by blockchain 
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
-\section{Order Books}
+\subsection{Order Books}
 
 Order books are electronic data structures that maintain lists of bid and ask orders for various assets (\eg currencies, stocks, bonds \etc) in specific markets. The most common version of order books is a \textit{double auction}, where market participants submit their bid and ask orders and the market clearing price will be calculated as the average between the best bid and ask prices. Order books often sort orders based on their price and submission time, this order allocation technique is called price-time priority~\cite{preis2011price} where orders are prioritized from highest price to lowest and given any two orders with the same price, they will be sorted based on their submission timestamps.
 
@@ -60,22 +78,13 @@ Looking more closely, order books are rather electronic ledgers that get updated
 \end{itemize}
 % = = = = = = = = = = = = = = = = =
 
-Based on these issues blockchains cannot solve this particular problem. Many stock exchanges that currently operate on blockchains tackle this issue by using a private network (where not every network participant can be a node or miner) together with a central time-server that establishes the time priority. We propose a different method of implementing a fully decentralized exchange using an alternative data structure known as \textit{a call market} or \textit{frequent batch auction} instead of a time-sensitive order book~\cite{clark2014decentralizing}.
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
-\section{Call Market}\label{sec:callmarket}
-
-In this research work, we design and implement a call market on the Ethereum blockchain. We divide the trading day into frequent but discrete time intervals; every time the market opens traders submit their ask and bid order messages. These orders are accumulated in a sorted data structure and when the trading period is over, orders are matched against each other. Our proposed decentralized exchange is both data structure and token agnostic (traders can trade ERC20 standard compliant token). The upcoming orders are not stored in the call market contract, instead they are stored in a priority queue where each element is associated with a priority and is served according to its priority.
-
-% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-
-\subsection{Priority Queues}
-
-A priority queue can be implemented using many of the data structures that differ in performance and costs. In order to choose the appropriate data structure, we implemented and examined five different generic priority queues that support four main functions (see Table~\ref{tab:PQ_API}). We discuss each implementation below. 
+\section{Priority Queue}\label{sec:pq}
 
 % = = = = = = = = = = = =Operations for a generic Priority Queue Table = = =  = = = = = = = = = = = %
-\begin{table}[]
+\begin{table}[t]
 \centering
 \begin{tabular}{|c|c|}
 \hline
@@ -94,14 +103,18 @@ A priority queue can be implemented using many of the data structures that diffe
 \end{table}
 % = = = = = = = = = = = = = = = = = = = = =  = = = = = = = = = = =  = = = = = = = = = == = = =  = =%
 
+In designing \cm, performance within Ethereum's limited gas model became the main bottleneck. Within a call market, recording trades and accessing them to close the market is the most time consuming step. For this reason, we decided to do a deep study of the best data-structure for this specific task. While data structures are well studied for many languages, Solidity/EVM have their own quirks (\eg gas refunds, a relatively cheap mapping data structure, and no actual support for object oriented programming) that make them difficult to assess which will perform best without actually deploying and evaluating each variant. 
 
+When closing a call market, the orders are examined in order: highest to lowest price for bids, and lowest to highest price for asks. It most circumstances, the market closing algorithm does not have to consider any deeper bids/asks from the list when choosing whether the current best bid and ask can be fulfilled. The only exception is in the case of a tie on price, which we return to later. For this reason, the ideal data structure for storing bids/asks is a \textit{priority queue} (see Table~\ref{tab:PQ_API}) where each order's priority is its price. Specifically, we use two PQs---one for bids where the highest price is the highest priority, and one for asks where the lowest price is the highest priority. 
+
+There are numerous ways of implementing a PQ. A PQ has an underlying list---common options include a static array, dynamic array, and linked list. The most expensive operation is keeping the data sorted---common options include (i) sorting during each enqueue, (ii) sorting for each dequeue, or (iii) splitting the difference by using a heap as the underlying data structure. Respectively, the time complexities are (i) linear enqueue and constant dequeue, (ii) constant enqueue and linear dequeue, and (iii) logarithmic enqueue and logarithmic dequeue. This said, Solidity/EVM has its own specific considerations to take into account. As closing the market is very expensive with any PQ, we rule out using (ii) as fully sorting while dequeuing would be prohibitive. We experiment with the following 5 options for (i) and (iii):
 
 % = = = = = = = = = = = = = = = = =
 \begin{enumerate}
 
 %---------+++++++++++++++++++-----------------
 
-\item\textbf{{Heap with Dynamic Array.}} A heap is a type of binary tree data structure that comes in two forms of a (i) Max-Heap and (ii) Min-Heap. All the nodes of tree are in a specific order and the root of the tree always represents the highest priority item of the data structure (the largest and smallest values in the Max-Heap and Min-Heap respectively). We implemented a priority queue with a heap that itself is represented by a Solidity dynamically-sized array. 
+\item\textbf{{Heap with Dynamic Array.}} A heap is a type of binary tree data structure that comes in two forms of a (i) Max-Heap and (ii) Min-Heap. All the nodes of tree are in a specific order and the root of the tree always represents the highest priority item of the data structure (the largest and smallest values in the Max-Heap and Min-Heap respectively). We implemented a priority queue with a heap that stores its data in a dynamically-sized array. 
 
 %---------+++++++++++++++++++-----------------
 
@@ -109,15 +122,15 @@ A priority queue can be implemented using many of the data structures that diffe
 
 %---------+++++++++++++++++++-----------------
 
-\item\textbf{{Mapping with Keys Stored in a Heap.}} This priority queue stores items inside a Solidity mapping that maps them to mapping keys (256-bit integers). These keys are then stored in a sorted heap (based on the value they are mapped to) that is implemented with a dynamically-sized array.
+\item\textbf{{Heap with Mapping.}} In the above implementations, the heap stores the entire order (as a struct) in the heap. In this variant, we store the order struct in a Solidity mapping and store the mapping's key in the heap.  
 
 %---------+++++++++++++++++++-----------------
 
-\item\textbf{{Linked List.}} Here we used a sorted singly linked list to implement the priority queue. A linked list is a linear data structure made of a chain of items (also known as nodes) where each item contains a value and a pointer to the next node in the list. In an object-oriented programming language a linked list can be easily implemented with a recursive struct; struct that contains a member variable in its own type. However, Solidity does not support recursive structs because the size of the struct has to be finite. So in our implementation, each node is represented by a smart contract that contains the data and a pointer of its own type to its next smart contract in the list.
+\item\textbf{{Linked List.}} In this variant, we insert a new element into its correct position (based on its price) when running enqueue. The PQ itself stores elements in a linked list (enabling us to efficiently insert a new element between two existing elements). Solidity is described as object-oriented but the equivalent of an object is an entire smart contract. Therefore an object-oriented linked list must either (i) create each node in the list as a struct---but this is not possible as Solidity does not support recursive structs---or (ii) make every node in the list its own contract. The latter option seems wasteful and unusual, but we try it out anyways. Thus each node is its own contract and contains the order data and a pointer to the address of the next contract in the list.
 
 %---------+++++++++++++++++++-----------------
 
-\item\textbf{{Linked List with Mapping.}} Here we used Solidity mapping to implement a sorted doubly linked list priority queue where every node points to it previous \textbf{and} next node in the list. The Linked List entries are first wrapped in an struct data type that contains (i) the unique id of that element, (ii) the unique id of its previous item in the list, and (iii) the unique id of its next item in the list. These structs are then stored in the mapping indexed by item id. 
+\item\textbf{{Linked List with Mapping.}} Finally, we try a variant of a linked list using a Solidity mapping. The value of the mapping is a struct with order data and the key of the next (and previous) node in the list. The contract stores the key of the first node (head) in the list. 
 
 %---------+++++++++++++++++++-----------------
 
@@ -125,98 +138,39 @@ A priority queue can be implemented using many of the data structures that diffe
 % = = = = = = = = = = = = = = = = =
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
+\subsection{Priority Queue Evaluation} 
 
-In the next step, we used Javascript for testing by leveraging the Mocha testing framework and performed performance tests on the five priority queues. We entered 50 pseudo-random integers between 1 and 200 to the priority queues and obtained the associated gas costs for 200 transactions. Figure~\ref{fig:random_insertion} represents the gas costs variations for entering 50 unsigned integers to the five priority queues; the x-axis is the place in line (\eg the10th number entered in the priority queue) and the and y-axis is the cost of that transaction in gas.
+\subsubsection{Enqueue performance.} We implemented, deployed, and tested each priority queue using Truffle and Ganache.\footnote{Github: Link removed for anonymity.} We tried a variety of tests (including testing the full call market with each varient) with consistent results in performance. A simple test to showcase the performance profile is shown in Figure~\ref{fig:random_insertion}. We simply enqueue 50 integers chosen at random from a fixed interval in each PQ variant. The bigger the PQ gets, the longer enqueue takes---a linear increase for the linked list variants, and logarithmic for the heap variants. 
 
 % = = = = = = = = = = = =random_insertion Figure = = = = = = = = = = = = =  %
 
-\begin{figure}[htb!p]
+\begin{figure}[t]
 \centering
-\includegraphics[width=1\textwidth]{fig/random_insertion.png}
-\caption{\footnotesize{Gas costs for entering 50 items into five different priority queues.}  \label{fig:random_insertion}}
+\includegraphics[width=0.8\textwidth]{fig/random_insertion.png}
+\caption{\footnotesize{Gas costs for enqueuing random items into five different priority queue variants. For the x-axis, a value of 10 indicates it is the 10th number entered in the priority queue. The y-axis is the cost of enqueue in gas.}  \label{fig:random_insertion}}
 \end{figure}
+
+\input{tables/dequeue.tex}
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
 
-Then, we called the \texttt{Dequeue()} function which iteratively removes the highest priority number from the priority queues (until the data structure is empty). The computational costs for dequeuing 50 unsigned integers in each priority queue are outlined in Table~\ref{tab:PQUnitTests} where (\full) indicates the full refund and (\prt) means the amount of refund is bounded. These tests are performed using the current Ethereum gas metrics (block gas limit $=$11,741,495 and 1 gas $=$ 56 gwei)~\footnote{https://ethstats.net/}. The second column of the table shows the net gas consumption (the gasUsed value derived from transaction receipts) for removing 50 integers from each priority queues.  
 
-%Truffle gas limit for the tests: 11741495
+\subsubsection{Dequeue performance.} For each PQ variant storing 50 random integers, the \texttt{Dequeue()} function is iterated until the data structure is empty. The total gas cost for fully dequeuing the priority queue variants is outlined in Table~\ref{tab:PQUnitTests}. These tests are performed using the following Ethereum gas metrics: block gas limit $=$11,741,495 and 1 gas $=$ 56 gwei.\footnote{\[July 2020:\] https://ethstats.net/} Dequeuing removes data from the contract's storage. Recall this results in a gas refund. Based on our manual estimates (EVM does not expose the refund counter), every variant receives the maximum gas refund possible (\ie half the total cost of the transaction). In other words, each of them actually consumes twice the \texttt{gasUsed} amount in gas before the refund, however none of them are better or worst based on how much of a refund they generate.  
 
-% = = = = = = = = = = = =Gas costs and refunds for Dequeueing 50 integers from each PQ  = = = = = = = = = = = = =  %
-
-\begin{table}[]
-\centering
-\begin{tabular}{|c|c|c|}
-\hline
-
-\textbf{\thead{Priority Queue}}    & \textbf{\thead{Net Cost in Gas\\ (\texttt{gasUsed})}}             & \textbf{\thead{Gas Refunds from Deleting a Storage\\(Manually Calculated)}} \\ \hline
-
-% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-	\textbf{\thead{Heap with \\ Dynamic Array}}         				& 2,518,131            		      & 750,000                       \\ \hline
-% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-	\textbf{\thead{Heap with \\ Static Array}}           				& 1,385,307                             & 750,000                      \\ \hline
-% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-	\textbf{\thead{Mapping with \\ keys stored \\ in Heap}} 		& 2,781,684                            & 1,500,000                     \\ \hline
-% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-	\textbf{Linked List}                       							& 557,085               	           & 1,200,000                      \\ \hline
-% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-	\textbf{\thead{Linked List with \\ Mapping}}          				& 731,514              	     	  &  3,765,000                       \\ \hline
-% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-
-\end{tabular}
-\caption{\footnotesize{The gas metrics associated with dequeuing 50 items from five priority queues.}
-\label{tab:PQUnitTests}}
-\end{table}
-% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
-
-% Below is the same table but with "Full, Partial,None" for refunds
-
-
-\begin{table}[]
-\centering
-\begin{tabular}{|c|c|c|}
-\hline
-
-\textbf{\thead{Priority Queue}}    & \textbf{\thead{Net Cost in Gas\\ (\texttt{gasUsed})}}             & \textbf{\thead{Gas Refunds from Deleting a Storage}} \\ \hline
-
-% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-	\textbf{\thead{Heap with \\ Dynamic Array}}         				& 2,518,131            		      & \full                      \\ \hline
-% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-	\textbf{\thead{Heap with \\ Static Array}}           				& 1,385,307                             & \full                      \\ \hline
-% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-	\textbf{\thead{Mapping with \\ keys stored \\ in Heap}} 		& 2,781,684                            & \full                     \\ \hline
-% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-	\textbf{Linked List}                       							& 557,085               	           & \full                      \\ \hline
-% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-	\textbf{\thead{Linked List with \\ Mapping}}          				& 731,514              	     	  &  \full                       \\ \hline
-% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-
-\end{tabular}
-\caption{\footnotesize{The gas metrics associated with dequeuing 50 items from five priority queues.}
-\label{tab:PQUnitTests}}
-\end{table}
-% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
-
-At the time of this writing, Ethereum transaction receipts only contain the net gas consumption (\texttt{gasUsed}) and we cannot obtain the value of the EVM's refund counter from inside the EVM~\cite{signer2018gas}. So in order to account for refunds inside each priority queue smart contract we calculate them manually; first we figure out exactly how much storage is being cleared when dequeuing the highest priority elements (\texttt{SSTORE} instruction) and then we multiply the number of storage slots cleared by 15,000 (see the last column of Table~\ref{tab:PQUnitTests}).
-
-Note that in order to urge miners to process smart contracts with refunds, the accumulated gas refund can never exceed half the gas used up during computation~\cite{wood2014ethereum}. So at the end of a successful transaction, the amount of gas in the refund counter (capped at half the net gas used) is returned to the caller. Let's take a closer look at the last row of Table~\ref{tab:PQUnitTests}; gas that has been used for dequeuing 50 integers from the linked list with mapping priority queue is 731,514 and the gas limit has been set up to 11,741,495. Firstly, the caller will receive $(11,741,495 - 731,514) = 11,009,981$ units of unused gas. Also, the amount of refund we manually calculated based on the storage deletions is 3,765,000, and since this number is greater than half of he amount of gas that has been used in the contract ($3,765,000 > 731,514/2$), the refund generated will be $731,514/2 = 365,757$. So the caller of this transaction will eventually receive is $11,009,981 + 365,757 = 11,375,738$ units of gas.
-
-%& \textbf{\thead{Net Cost\\in Gas\\ (\texttt{gasUsed})}}  
-% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
-
-% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
-
-
-Based on our tests results, the \textit{linked list} and \textit{linked list with mapping} priority queues show a better performance in compared to the different heap implementations. In the next section, we explore the differences between the two different implementations of the linked list priority queue.
+\subsubsection{Decision.} Based on enqueing, the heap variants are the cheapest in terms of gas, while based on dequeuing, the link list variants are cheapest. This is in accordance with the theoretical worst-case time complexity for each. However, (i) the linked list variants are materially cheaper than the heap variants at dequeuing, and (ii) dequeuing in a call market must be done as a batch, whereas enqueuing is paid for one at a time by the trader submitting the order, and (iii) Ethereum will not permit more than hundreds of orders so the asymptotic behaviour is not a significant factor. For these reasons, we suggest using a linked list variant for this specific application. As it can be seen in Figure~\ref{fig:random_insertion}, the associated cost for inserting elements into a linked list PQ is significantly greater than the linked list with mapping, as each insertion cause the creation of a new contracts. Accordingly, we choose to implement the call market with the linked list with mapping. Overall this PQ balances a moderate gas cost for insertion (\ie order submission) with one for removal (\ie matching the orders). 
 
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
 
-\subsection{Linked List \textit{vs.} Linked List with Mapping}\label{sec:LLvsLLMapping}
+\subsection{Cost/Benefit of cleaning up after yourself}
+\label{sec:LLvsLLMapping}
+\label{sec:gasrefund}
 
-There are two main ways to implement each of the \textit{linked list} and \textit{linked list with mapping} priority queues. In this section, we perform a comprehensive comparison between these two with the purpose of choosing the proper data structure for implementing the call market.
+\input{tables/cleaning.tex}
 
 %---------+++++++++++++++++++-----------------
+
+% With 50 selfdestructs
 
 \subsubsection*{Linked List.} Removing the highest priority element from the list can be done in two ways. We can use the \texttt{SELFDESTRUCT} operation to destroy the head node of the list (\ie smart contract) from the Ethereum blockchain and transfer its funds (if any) to a payable address (\eg the current block miner or the call market contract). Although the \texttt{SELFDESTRUCT} operation does not remove the initial byte code of the contract from the chain, but it frees up the state storage and refunds 24000 gas to the caller. Another design perspective is to only update the head pointer of the linked list and leave the previous head (\ie smart contract) on Ethereum blockchain when removing the highest priority element from the list. Although the first technique is a bit more costly (because it adds an extra operation \texttt{SELFDESTRUCT} to the \texttt{dequeue()} function), it results in the less final net cost due to the 24000 gas refunds. Also, it is best to avoid storing unnecessary storage variables on chain. Table~\ref{tab:LLvsLLMapping} outlines different gas metrics for iteratively dequeuing highest priority elements in the two implementations of sorted linked lists that contain 50 unsigned integers.
 
@@ -225,54 +179,17 @@ There are two main ways to implement each of the \textit{linked list} and \texti
 \subsubsection*{Linked List with Mapping.} Similarly, linked list with mapping can be implemented in two ways. For dequeuing items from this priority queue we can use the \texttt{DELETE} method and remove the mapping element that contains the highest priority item from storage completely  \textbf{and} update the head and tail pointers of the list. Deleting a storage variable is identical to setting a non-zero variable to zero (\texttt{SSTORE} 0) that costs 20,000 gas but with 15,000 refunded~\cite{wood2014ethereum}. So although the \texttt{DELETE} method refunds in 15000 gas, it is yet a gas-costly operation  as it increases the overall gas cost of the transaction. In another technique, we can only update the head and tail pointers of the linked list when dequeueing the highest priority item and not delete the mapping element associated with the previous pointers. As it can be seen in the last two columns of Table~\ref{tab:LLvsLLMapping}, this scheme consumes less gas for dequeuing 50 unsigned integers compared to the previous technique where we clear up the chain, however, leaving unnecessary storage data on chain is not a proper design practice.
 
 
-
-% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
-\begin{table}[]
-\begin{tabular}{|c|c|c|c|c|}
-\hline
-\multirow{2}{*}{\textbf{Gas Metrics}}                        							& \multicolumn{2}{c|}{\textbf{Linked List}}           						& \multicolumn{2}{c|}{\textbf{Linked List with Mapping}}     					\\ \cline{2-5} 
-% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  = = = = = =  = = = = = = = = = = = = = = = =  = = = = = =  = = = = = = %
-                                                                								& with \texttt{SELFDESTRUCT} 		& without \texttt{SELFDESTRUCT}                	& with \texttt{DELETE} 		& without \texttt{DELETE}              		\\ \hline                                                                                                                                                                                                                                                          % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  = = = = = =  = = = = = = = = = = = = = = = =  = = = = = =  = = = = = = %
-                  \textbf{\thead{Net Cost in Gas\\(\texttt{gasUsed})}}                        				& 557,085                    			& 721,370                     			& 731,514                     		& 334,689                      				\\ \hline
-% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  = = = = = =  = = = = = = = = = = = = = = = =  = = = = = =  = = = = = = %
- \textbf{\thead{Gas Refund \\from Deleting a Storage\\(Manually Calculated)}}            			& 1,200,000                 					& 0                					& 3,765,000                    		& 765,000                       				\\ \hline
-% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  = = = = = =  = = = = = = = = = = = = = = = =  = = = = = =  = = = = = = %
-
-\end{tabular}
-\caption{\footnotesize{}
-\label{tab:LLvsLLMapping}}
-\end{table}
-% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
-
-% Below is the same table but with "Full, Partial,None" for refunds
-
-
-
-\begin{table}[]
-\begin{tabular}{|c|c|c|c|c|}
-\hline
-\multirow{2}{*}{\textbf{Gas Metrics}}                        							& \multicolumn{2}{c|}{\textbf{Linked List}}           						& \multicolumn{2}{c|}{\textbf{Linked List with Mapping}}     					\\ \cline{2-5} 
-% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  = = = = = =  = = = = = = = = = = = = = = = =  = = = = = =  = = = = = = %
-                                                                								& with \texttt{SELFDESTRUCT} 		& without \texttt{SELFDESTRUCT}                	& with \texttt{DELETE} 		& without \texttt{DELETE}              		\\ \hline                                                                                                                                                                                                                                                          % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  = = = = = =  = = = = = = = = = = = = = = = =  = = = = = =  = = = = = = %
-                  \textbf{\thead{Net Cost in Gas\\(\texttt{gasUsed})}}                    & 557,085                    			& 721,370                     			& 731,514                     		& 334,689                      				\\ \hline
-% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  = = = = = =  = = = = = = = = = = = = = = = =  = = = = = =  = = = = = = %
- \textbf{\thead{Gas Refund \\from Deleting a Storage}}            			& \full                 					& $\times$                 					& \full                    		& \prt                       				\\ \hline
-% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  = = = = = =  = = = = = = = = = = = = = = = =  = = = = = =  = = = = = = %
-
-\end{tabular}
-\caption{\footnotesize{}
-\label{tab:LLvsLLMapping}}
-\end{table}
-% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
-
-
-Based on Table~\ref{tab:LLvsLLMapping}, the linked list with \texttt{SELFDESTRUCT} appears to be a good candidate for the call market implementation. However, as it can be seen in Figure~\ref{fig:random_insertion}, the associated cost for inserting elements into this priority queue is significantly greater than the linked list with mapping as insertion is identical to creating new contracts. Accordingly, we choose to implement the call market with the linked list with mapping that uses the  the \texttt{DELETE} method to clear up the chain every time the highest priority element is removed from the list. In overall this priority queue introduces a moderate gas cost for both insertion (\ie order submission) and removal (\ie matching the orders). 
+ that uses the  the \texttt{DELETE} method to clear up the chain every time the highest priority element is removed from the list. In 
 
 
 
 % = = = = = = = = = = = = = Experimentations = = = = = = = = = = = = = = = = = = =  %
 
-\section{Experimentations}
+\section{Call Market Design}
+
+
+
+In this research work, we design and implement a call market on the Ethereum blockchain. We divide the trading day into frequent but discrete time intervals; every time the market opens traders submit their ask and bid order messages. These orders are accumulated in a sorted data structure and when the trading period is over, orders are matched against each other. Our proposed decentralized exchange is both data structure and token agnostic (traders can trade ERC20 standard compliant token). The upcoming orders are not stored in the call market contract, instead they are stored in a priority queue where each element is associated with a priority and is served according to its priority.
  
 As mentioned in~\ref{sec:callmarket}, Our system treats the time as discrete and not continuous; upcoming orders are accumulated over predetermined time intervals and are processed in batch instead of serially in order of receipt. The trading day is divided into frequent but discrete time intervals; every time the market opens traders submit their ask and bid order messages. These orders are accumulated in a linked list with mapping priority queue and when the trading period is over, orders are matched against each other. The call market smart contract is written in 268 lines of Solidity, a high level programming language that is syntactically similar to Java~\cite{Ethereum41:online}, using the Truffle development framework and deployed on Ganache-CLI, Table~\ref{tab:callmarket_functions} represents the call market's primary operations.
 

@@ -1,4 +1,72 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
+
+\bibitem{Ethereum41:online}
+Ethereum development tutorial · ethereum/wiki wiki.
+\newblock
+  \url{https://github.com/ethereum/wiki/wiki/Ethereum-Development-Tutorial}.
+\newblock (Accessed on 24/08/2020).
+
+\bibitem{buterin2014next}
+V.~Buterin et~al.
+\newblock A next-generation smart contract and decentralized application
+  platform.
+\newblock {\em white paper}, 3:37, 2014.
+
+\bibitem{cheng2019ekiden}
+R.~Cheng, F.~Zhang, J.~Kos, W.~He, N.~Hynes, N.~Johnson, A.~Juels, A.~Miller,
+  and D.~Song.
+\newblock Ekiden: A platform for confidentiality-preserving, trustworthy, and
+  performant smart contracts.
+\newblock In {\em 2019 IEEE European Symposium on Security and Privacy
+  (EuroS\&P)}, pages 185--200. IEEE, 2019.
+
+\bibitem{clark2014decentralizing}
+J.~Clark, J.~Bonneau, E.~W. Felten, J.~A. Kroll, A.~Miller, and A.~Narayanan.
+\newblock On decentralizing prediction markets and order books.
+\newblock In {\em Workshop on the Economics of Information Security, State
+  College, Pennsylvania}, 2014.
+
+\bibitem{eskandari2019sok}
+S.~Eskandari, S.~Moosavi, and J.~Clark.
+\newblock Sok: Transparent dishonesty: front-running attacks on blockchain.
+\newblock 2019.
+
+\bibitem{kalodner2018arbitrum}
+H.~Kalodner, S.~Goldfeder, X.~Chen, S.~M. Weinberg, and E.~W. Felten.
+\newblock Arbitrum: Scalable, private smart contracts.
+\newblock In {\em 27th $\{$USENIX$\}$ Security Symposium ($\{$USENIX$\}$
+  Security 18)}, pages 1353--1370, 2018.
+
+\bibitem{nakamoto2019bitcoin}
+S.~Nakamoto.
+\newblock Bitcoin: A peer-to-peer electronic cash system.
+\newblock Technical report, Manubot, 2019.
+
+\bibitem{TheHisto45:online}
+A.~Norry.
+\newblock The history of the mt gox hack: Bitcoin's biggest heist.
+\newblock \url{https://blockonomi.com/mt-gox-hack/}, June 2019.
+\newblock (Accessed on 12/31/2019).
+
+\bibitem{preis2011price}
+T.~Preis.
+\newblock Price-time priority and pro rata matching in an order book model of
+  financial markets.
+\newblock In {\em Econophysics of Order-driven Markets}, pages 65--72.
+  Springer, 2011.
+
+\bibitem{SEBIOrde83:online}
+Securities and E.~B. of~India.
+\newblock Sebi | order in the matter of nse colocation.
+\newblock
+  \url{https://www.sebi.gov.in/enforcement/orders/apr-2019/order-in-the-matter-of-nse-colocation_42880.html},
+  2019.
+\newblock (Accessed on 11/11/2019).
+
+\bibitem{signer2018gas}
+C.~Signer.
+\newblock Gas cost analysis for ethereum smart contracts.
+\newblock Master's thesis, ETH Zurich, Department of Computer Science, 2018.
 
 \bibitem{wood2014ethereum}
 G.~Wood et~al.
