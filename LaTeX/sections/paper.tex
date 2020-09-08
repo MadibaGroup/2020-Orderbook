@@ -22,8 +22,60 @@ Strong interest in blockchain and distributed ledger technologies has led into t
 
 \subsection{Blockchain}
 
-* transparency, front-running
-* slow but is becoming more efficient over time, expensive
+
+
+\begin{itemize}
+
+% transparency, front-running:
+\item \textbf{Transparency and Front-running.} Blockchains (in general)  are transparent --- transactions are first relay around the network before being selected by a miner, validated, and included in a block. This allows malicious nodes/miners observe and front-run the transactions by dropping them or attempting to insert their own transactions before the observed transactions~\cite{eskandari2019sok}. In context of a decentralized exchange, front-running attacks enable the malicious nodes to have their orders executed before others and benefit from it.
+
+
+% slow but is becoming more efficient over time, expensive
+\item \textbf{Speed.} Blockchains are not fast architectures --- speed is one of the factors that diminishes the real world potential of blockchains. Blockchains are slow-moving as it takes block interval (\ie time it takes to mine a block) for transactions to be confirmed and included in valid blocks. So it is difficult to push a stock market on the blockchain as stock markets move extremely fast. High-frequency trading (HFT) is a trading method example that uses active computers to process a large number of trades in fractions of a second.  Currently in Ethereum 1.0 blocks are produced at intervals every 10 to19 seconds, note that this is not yet suitable for time sensitive transactions. However, capabilities of blockchains will be further enhanced ad they will become more efficient over time; Ethereum 2.0 has a shorter block time of 12 seconds. 
+
+% Gas model: gas limit, how much, per transaction vs per block, Solidity/EVM quirks: gas refunds
+\item \textbf{Gas Parameter in Ethereum Transactions.} 
+
+Gas is the Ethereum's pseudo-currency and a key variable for the execution of smart contracts. DApps written in high-level programming languages are compiled and translated into a compact representation (called ‘bytecode’) to be further executed on the Ethereum virtual machine or EVM. Each of these opcodes has a fixed amount of gas assigned and is a measure of computational effort. Separating ether from gas prevents transactions cost from being too expensive as they are less impacted by ETH price fluctuations. Gas unit does not a have a monetary value and as mentioned it only  measures the computational work undertaken by miners. To pay miners, Ethereum introduces a \texttt{gas price} --- small denomination of ether called \textbf{Gwei} attached to each gas unit. Essentially, gas price indicates how much users are willing to pay per unit of gas, clearly the higher gas price leads to the faster execution of a transaction. Miners also need to know the total amount of computational work a user is requesting, called the \texttt{gas limit}. \texttt{Gas limit} is a parameter that limits the amount of gas users would spend in a transaction. It protects users from spending unlimited ETH on their transactions and must be set carefully. If the \texttt{gas limit} is too low, the transaction will exceed the limit, all changes will be reversed but the users must still pay for the computational work performed by the miner. 
+
+
+
+
+
+
+
+
+
+
+
+
+gas is what makes ethereum furnctiom,  it safegaurds the network from overload and incentivises people too keep ethereum running. By seperating eth from gas, txs cost are less influneced by chning price of Eth so keeping txs from being too expensive 
+
+
+
+
+
+
+gas price: how much you pay per gas unit
+gas limit: how much work you are requesting 
+
+
+
+
+
+
+gas cost (Ether) = gasPrice * gasCost(gas)
+
+
+gas limit: is a parameter that limits the amount of gas you spend in a transaction (how to estimate? using estimateGas)
+gas price how to estimate: using ethgassation 
+by defaluth the gas minimum gas limit for ethereum txs is 21000 gas
+
+
+
+a block also has a gas limit field, it defines a maximum amount of gas all txs in th eblock combined are allowed to consume. this block gas limit determines the maximum number of transactions within the block. this block gas limt is not fixed and set by miners  
+
+
 * Gas model: gas limit, how much, per transaction vs per block, Solidity/EVM quirks: gas refunds
 
 At the time of this writing, Ethereum transaction receipts only contain the net gas consumption (\texttt{gasUsed}) and we cannot obtain the value of the EVM's refund counter from inside the EVM~\cite{signer2018gas}. So in order to account for refunds inside each priority queue smart contract we calculate them manually; first we figure out exactly how much storage is being cleared when dequeuing the highest priority elements (\texttt{SSTORE} instruction) and then we multiply the number of storage slots cleared by 15,000 (see the last column of Table~\ref{tab:PQUnitTests}).
@@ -33,7 +85,7 @@ Note that in order to urge miners to process smart contracts with refunds, the a
 
 Based on these issues blockchains cannot solve this particular problem. Many stock exchanges that currently operate on blockchains tackle this issue by using a private network (where not every network participant can be a node or miner) together with a central time-server that establishes the time priority. We propose a different method of implementing a fully decentralized exchange using an alternative data structure known as \textit{a call market} or \textit{frequent batch auction} instead of a time-sensitive order book~\cite{clark2014decentralizing}.
 
-
+\end{itemize}
 
 \subsection{Exchanges}
 
