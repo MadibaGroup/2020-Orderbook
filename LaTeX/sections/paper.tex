@@ -27,60 +27,39 @@ Strong interest in blockchain and distributed ledger technologies has led into t
 \begin{itemize}
 
 % transparency, front-running:
-\item \textbf{Transparency and Front-running.} Blockchains (in general)  are transparent --- transactions are first relay around the network before being selected by a miner, validated, and included in a block. This allows malicious nodes/miners observe and front-run the transactions by dropping them or attempting to insert their own transactions before the observed transactions~\cite{eskandari2019sok}. In context of a decentralized exchange, front-running attacks enable the malicious nodes to have their orders executed before others and benefit from it.
+\item \textbf{Transparency and Front-running.} Blockchains (in general)  are transparent --- transactions are first relay around the network before being selected by a miner, validated, and included in a block. This allows malicious nodes/miners to observe and front-run the transactions by dropping them or attempting to insert their own transactions before the observed transactions~\cite{eskandari2019sok}. In the context of a DEX, front-running attacks enable malicious nodes to have their orders executed before others and benefit from it.
 
 
 % slow but is becoming more efficient over time, expensive
-\item \textbf{Speed.} Blockchains are not fast architectures --- speed is one of the factors that diminishes the real world potential of blockchains. Blockchains are slow-moving as it takes block interval (\ie time it takes to mine a block) for transactions to be confirmed and included in valid blocks. So it is difficult to push a stock market on the blockchain as stock markets move extremely fast. High-frequency trading (HFT) is a trading method example that uses active computers to process a large number of trades in fractions of a second.  Currently in Ethereum 1.0 blocks are produced at intervals every 10 to19 seconds, note that this is not yet suitable for time sensitive transactions. However, capabilities of blockchains will be further enhanced ad they will become more efficient over time; Ethereum 2.0 has a shorter block time of 12 seconds. 
+\item \textbf{Speed.} Blockchains are not fast architectures --- speed is one of the factors that diminishes the real world potential of blockchains. Blockchains are slow-moving as it takes block interval (\ie time it takes to mine a block) for transactions to be confirmed and included in valid blocks. So it is difficult to push a stock market on the blockchain as stock markets move extremely fast. High-frequency trading (HFT) is a trading method example that uses active computers to process a large number of trades in fractions of a second. In Ethereum 1.0 blocks are produced at intervals every 10 to19 seconds, note that this is not yet suitable for time sensitive transactions. However, capabilities of blockchains will be further enhanced ad they will become more efficient over time; Ethereum 2.0 has a shorter block time of 12 seconds. 
 
 % Gas model: gas limit, how much, per transaction vs per block, Solidity/EVM quirks: gas refunds
 \item \textbf{Gas Parameter in Ethereum Transactions.} 
 
-Gas is the Ethereum's pseudo-currency and a key variable for the execution of smart contracts. DApps written in high-level programming languages are compiled and translated into a compact representation (called ‘bytecode’) to be further executed on the Ethereum virtual machine or EVM. Each of these opcodes has a fixed amount of gas assigned and is a measure of computational effort. Separating ether from gas prevents transactions cost from being too expensive as they are less impacted by ETH price fluctuations. Gas unit does not a have a monetary value and as mentioned it only  measures the computational work undertaken by miners. To pay miners, Ethereum introduces a \texttt{gas price} --- small denomination of ether called \textbf{Gwei} attached to each gas unit. Essentially, gas price indicates how much users are willing to pay per unit of gas, clearly the higher gas price leads to the faster execution of a transaction. Miners also need to know the total amount of computational work a user is requesting, called the \texttt{gas limit}. \texttt{Gas limit} is a parameter that limits the amount of gas users would spend in a transaction. It protects users from spending unlimited ETH on their transactions and must be set carefully. If the \texttt{gas limit} is too low, the transaction will exceed the limit, all changes will be reversed but the users must still pay for the computational work performed by the miner. 
+Gas is the Ethereum's pseudo-currency and a key variable for the execution of smart contracts. DApps written in high-level programming languages are compiled and translated into a compact representation (called ‘bytecode’) to be further executed on the Ethereum virtual machine or EVM. Each of these opcodes has a fixed amount of gas assigned and is a measure of computational effort. Separating ETH from gas prevents transactions cost from being too expensive as they are less impacted by ETH price fluctuations. Gas unit does not a have a monetary value and as mentioned, it only  measures the computational work undertaken by miners. To pay miners, Ethereum introduces a \texttt{gas price} --- small denomination of ether called \textbf{Gwei} attached to each gas unit. Essentially, gas price indicates how much users are willing to pay per unit of gas, clearly the higher gas price leads to the faster execution of a transaction. Miners also need to know the total amount of computational work a user is requesting, called the \texttt{gas limit}. \texttt{Gas limit} is a parameter that limits the amount of gas users would spend in a transaction. It protects users from spending unlimited ETH on their transactions and must be set carefully. If the \texttt{gas limit} is too low, the transaction will exceed the limit, all operations will be reverted while the user must pay for the computational work performed by the miner. By default the gas limit for an Ethereum transaction is 21,000 gas. An Ethereum block also has a \texttt{block gas limit} field which is set by the Ethereum miners and indicates the maximum amount of gas all the transactions in that block are allowed to consume, the Ethereum \texttt{block gas limit} is currently 11,741,495. \footnote{\[July 2020:\] https://ethstats.net/} 
+
+
+\subsection*{Gas Refunds.}There are two particular EVM operations with negative gas --- certain amount of gas is refunded to the sender at the end of the transaction. These operation include:
+
+\paragraph{\texttt{SELFDESTRUCT}.}This operation destroys and deletes the originating contract and refunds its balance (if any) to a designated receiver address. Note that the Ethereum storage is implemented in the form of a has map and EVM is not statistically aware of which storage slots are held by the contract. Because of this the \texttt{SELFDESTRUCT} operation does not remove the initial byte code of the contract from the chain, but it frees up the state storage and has a refund of 24,000 gas.
+
+\paragraph{\texttt{SSTORE}.} This operation clears the Ethereum storage and has15,000 gas refunds. 
+
+
+Note that in order to urge miners to process smart contracts with refunds, the accumulated gas refund can never exceed half the gas used up during computation~\cite{wood2014ethereum}. So at the end of a successful transaction, the amount of gas in the refund counter (capped at half the net gas used) is returned to the caller. At the time of this writing, Ethereum transaction receipts only account for the \texttt{gasUsed}, which is the total amount of gas units spent during a transaction, and we are not able to obtain the value of the EVM's refund counter from inside the EVM~\cite{signer2018gas}. So in order to account for refunds, we decide to calculate them manually; first we figure out exactly how much storage is being cleared or how many smart contracts are being destroyed, then we multiply these numbers by 24,000 and 15,000 respectively. 
 
 
 
 
-
-
-
-
-
-
-
-
-gas is what makes ethereum furnctiom,  it safegaurds the network from overload and incentivises people too keep ethereum running. By seperating eth from gas, txs cost are less influneced by chning price of Eth so keeping txs from being too expensive 
-
-
-
-
-
-
-gas price: how much you pay per gas unit
-gas limit: how much work you are requesting 
-
-
-
-
-
-
-gas cost (Ether) = gasPrice * gasCost(gas)
-
-
-gas limit: is a parameter that limits the amount of gas you spend in a transaction (how to estimate? using estimateGas)
-gas price how to estimate: using ethgassation 
-by defaluth the gas minimum gas limit for ethereum txs is 21000 gas
-
-
-
-a block also has a gas limit field, it defines a maximum amount of gas all txs in th eblock combined are allowed to consume. this block gas limit determines the maximum number of transactions within the block. this block gas limt is not fixed and set by miners  
-
-
-* Gas model: gas limit, how much, per transaction vs per block, Solidity/EVM quirks: gas refunds
-
-At the time of this writing, Ethereum transaction receipts only contain the net gas consumption (\texttt{gasUsed}) and we cannot obtain the value of the EVM's refund counter from inside the EVM~\cite{signer2018gas}. So in order to account for refunds inside each priority queue smart contract we calculate them manually; first we figure out exactly how much storage is being cleared when dequeuing the highest priority elements (\texttt{SSTORE} instruction) and then we multiply the number of storage slots cleared by 15,000 (see the last column of Table~\ref{tab:PQUnitTests}).
-
-Note that in order to urge miners to process smart contracts with refunds, the accumulated gas refund can never exceed half the gas used up during computation~\cite{wood2014ethereum}. So at the end of a successful transaction, the amount of gas in the refund counter (capped at half the net gas used) is returned to the caller. 
+%gas price: how much you pay per gas unit
+%gas limit: how much work you are requesting 
+%gas cost (Ether) = gasPrice * gasCost(gas)
+%gas limit: is a parameter that limits the amount of gas you spend in a transaction (how to estimate? using estimateGas)
+%gas price how to estimate: using ethgassation 
+%by defaluth the gas minimum gas limit for ethereum txs is 21000 gas
+%a block also has a gas limit field, it defines a maximum amount of gas all txs in th eblock combined are allowed to consume. this block gas limit determines the maximum number of transactions within the block. this block gas limt is not fixed and set by miners  
+%
+%ers to process smart contracts with refunds, the accumulated gas refund can never exceed half the gas used up during computation~\cite{wood2014ethereum}. So at the end of a successful transaction, the amount of gas in the refund counter (capped at half the net gas used) is returned to the caller. 
 
 
 Based on these issues blockchains cannot solve this particular problem. Many stock exchanges that currently operate on blockchains tackle this issue by using a private network (where not every network participant can be a node or miner) together with a central time-server that establishes the time priority. We propose a different method of implementing a fully decentralized exchange using an alternative data structure known as \textit{a call market} or \textit{frequent batch auction} instead of a time-sensitive order book~\cite{clark2014decentralizing}.
@@ -209,7 +188,7 @@ There are numerous ways of implementing a PQ. A PQ has an underlying list---comm
 
 \subsubsection{Dequeue performance.} For each PQ variant storing 50 random integers, the \texttt{Dequeue()} function is iterated until the data structure is empty. The total gas cost for fully dequeuing the priority queue variants is outlined in Table~\ref{tab:PQUnitTests}. These tests are performed using the following Ethereum gas metrics: block gas limit $=$11,741,495 and 1 gas $=$ 56 gwei.\footnote{\[July 2020:\] https://ethstats.net/} Dequeuing removes data from the contract's storage. Recall this results in a gas refund. Based on our manual estimates (EVM does not expose the refund counter), every variant receives the maximum gas refund possible (\ie half the total cost of the transaction). In other words, each of them actually consumes twice the \texttt{gasUsed} amount in gas before the refund, however none of them are better or worst based on how much of a refund they generate.  
 
-\subsubsection{Decision.} Based on enqueing, the heap variants are the cheapest in terms of gas, while based on dequeuing, the link list variants are cheapest. This is in accordance with the theoretical worst-case time complexity for each. However, (i) the linked list variants are materially cheaper than the heap variants at dequeuing, and (ii) dequeuing in a call market must be done as a batch, whereas enqueuing is paid for one at a time by the trader submitting the order, and (iii) Ethereum will not permit more than hundreds of orders so the asymptotic behaviour is not a significant factor. For these reasons, we suggest using a linked list variant for this specific application. As it can be seen in Figure~\ref{fig:random_insertion}, the associated cost for inserting elements into a linked list PQ is significantly greater than the linked list with mapping, as each insertion cause the creation of a new contracts. Accordingly, we choose to implement the call market with the linked list with mapping. Overall this PQ balances a moderate gas cost for insertion (\ie order submission) with one for removal (\ie matching the orders). 
+\subsubsection{Decision.} Based on enqueuing, the heap variants are the cheapest in terms of gas, while based on dequeuing, the link list variants are cheapest. This is in accordance with the theoretical worst-case time complexity for each. However, (i) the linked list variants are materially cheaper than the heap variants at dequeuing, and (ii) dequeuing in a call market must be done as a batch, whereas enqueuing is paid for one at a time by the trader submitting the order, and (iii) Ethereum will not permit more than hundreds of orders so the asymptotic behaviour is not a significant factor. For these reasons, we suggest using a linked list variant for this specific application. As it can be seen in Figure~\ref{fig:random_insertion}, the associated cost for inserting elements into a linked list PQ is significantly greater than the linked list with mapping, as each insertion cause the creation of a new contracts. Accordingly, we choose to implement the call market with the linked list with mapping. Overall this PQ balances a moderate gas cost for insertion (\ie order submission) with one for removal (\ie matching the orders). 
 
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
