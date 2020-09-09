@@ -1,0 +1,49 @@
+This is BibTeX, Version 0.99d (TeX Live 2019)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: main.aux
+The style file: abbrv.bst
+Database file #1: bib/DEX.bib
+Warning--to sort, need author or key in Ethereum41:online
+Warning--empty journal in eskandari2019sok
+You've used 12 entries,
+            2118 wiz_defined-function locations,
+            562 strings with 5931 characters,
+and the built_in function-call counts, 3948 in all, are:
+= -- 387
+> -- 195
+< -- 3
++ -- 80
+- -- 66
+* -- 236
+:= -- 654
+add.period$ -- 40
+call.type$ -- 12
+change.case$ -- 68
+chr.to.int$ -- 0
+cite$ -- 14
+duplicate$ -- 153
+empty$ -- 310
+format.name$ -- 66
+if$ -- 842
+int.to.chr$ -- 0
+int.to.str$ -- 12
+missing$ -- 7
+newline$ -- 65
+num.names$ -- 22
+pop$ -- 91
+preamble$ -- 1
+purify$ -- 55
+quote$ -- 0
+skip$ -- 116
+stack$ -- 0
+substring$ -- 180
+swap$ -- 39
+text.length$ -- 3
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 48
+warning$ -- 2
+while$ -- 34
+width$ -- 14
+write$ -- 133
+(There were 2 warnings)
