@@ -1,4 +1,6 @@
-pragma solidity >=0.4.22;
+//pragma solidity >=0.4.22;
+pragma solidity 0.5.12;
+
 pragma experimental ABIEncoderV2;
 
 //Linkedlist wrapped in a priority queue
@@ -7,8 +9,8 @@ contract PQ4_Linkedlist{
     
     SellList public SellFirst;
     BuyList public BuyFirst;
-    SellList selltemp;
-    BuyList buytemp;
+    SellList internal selltemp;
+    BuyList internal buytemp;
     address payable callmarket;
 
 
@@ -192,6 +194,8 @@ contract SellList {
         selfdestruct(_callmarket);
         
     }
+    
+    
 }   
 
 //*****************************************************************//
@@ -205,6 +209,7 @@ contract BuyList {
     uint256 public Volume;
     bool public Exists;
     uint256 public AuxPrice;
+    
     constructor(address _sender, uint256 _price, uint256 _volume, bool _exists, uint256 _auxprice) public {
         
         Sender = _sender;
@@ -220,7 +225,6 @@ contract BuyList {
         next = _bidorder;
        
     }
-   
 
     function deletenode (address payable _callmarket) public {
         selfdestruct(_callmarket);

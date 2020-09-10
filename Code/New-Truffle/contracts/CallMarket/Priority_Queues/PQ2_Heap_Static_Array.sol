@@ -1,5 +1,4 @@
-pragma solidity >=0.4.22;
-pragma experimental ABIEncoderV2;
+pragma solidity 0.5.12;
 
 //Heap with static array wrapped in a priority queue
 
@@ -9,6 +8,17 @@ contract PQ2_Heap_Static_Array{
     {
         MAXORDERS = _MAXORDERS;
     }
+
+/**
+*   @dev 
+    Order structs with its element:
+        Sender: The address of the trader submitting the order
+        Price: The price of the order
+        Volume: The volume of the order, it is considered 1 by now
+        AuxPrice: The contcantenation of the order's price and the counter which helps to sort the heap when there are ties
+    BuyList: The array that contains bid OrderStructs, it is a maxheap (decrementally ordered)
+    SellList: The array that contains ask OrderStructs, it is a minheap (incrementally ordered)
+*/
 
 //Every order has some attributes:
     struct OrderStruct 
@@ -22,8 +32,8 @@ contract PQ2_Heap_Static_Array{
         
     }
     uint256 public MAXORDERS;
-    OrderStruct[42] BuyList;  //The array that contains Bid OrderStructs (descending (decremental)), we always want the highest bid (maxheap)
-    OrderStruct[42] SellList; //The array that contains Ask OrderStructs (ascending (incremental)), we always want the lowest ask (minheap)
+    OrderStruct[42] internal BuyList;  //The array that contains Bid OrderStructs (descending (decremental)), we always want the highest bid (maxheap)
+    OrderStruct[42] internal SellList; //The array that contains Ask OrderStructs (ascending (incremental)), we always want the lowest ask (minheap)
     uint256 public SellIndex;
     uint256 public BuyIndex;
 
@@ -46,7 +56,8 @@ contract PQ2_Heap_Static_Array{
             BuyIndex ++;
             BuyList[BuyIndex] = neworder;
             maxheap_heapifyUp ();
-        }    
+        }  
+        return true;  
     }    
 //*******************  maxheap_heapifyUp () ***************************//
     //this function is called everytime we insert a new element to the end of the array (aka a new Buy order is submitted) and

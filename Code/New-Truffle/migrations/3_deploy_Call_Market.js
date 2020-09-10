@@ -5,6 +5,11 @@ var PQ3 = artifacts.require("./PQ3_Heap_Mapping.sol")
 var PQ4 = artifacts.require("./PQ4_Linkedlist.sol")
 var PQ5 = artifacts.require("./PQ5_Linkedlist_Mapping.sol")
 var MP = artifacts.require("./Mapping.sol")
+
+//var Int = artifacts.require("solidity-util/lib/Integers.sol");
+//var Str = artifacts.require("node_modules/solidity-util/lib/Strings.sol");
+
+
 var PQaddress;
 
 //const BN = require('bn.js');
@@ -47,15 +52,12 @@ var PQaddress;
 //     deployer.deploy(PQ4);
 //     console.log("I was deployed!");
 // };
-// module.exports = function (deployer) {
-//     deployer.deploy(PQ5);
-//     console.log("I was deployed!");
-// };
+
 
 
 module.exports =  function (deployer) {
     
-    deployer.deploy(CallMarket);
+    deployer.deploy(CallMarket)
     console.log("I was deployed!");
 
 
@@ -64,4 +66,12 @@ module.exports =  function (deployer) {
 // module.exports = function (deployer) {
 //     deployer.deploy(MP);
 //     console.log("I was deployed!");
+// };
+
+
+// module.exports = function (deployer) {
+//     deployer.deploy(Int).then(() => {
+//         deployer.deploy(CallMarket);
+//     });
+//     deployer.link(Int, User);
 // };

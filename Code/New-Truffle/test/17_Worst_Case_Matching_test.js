@@ -144,7 +144,7 @@ describe('CallMarket', function(accounts) {
     
    
     //*******************Test 9*************************
-    it('should print how many matches happened', async() => {
+    /* it('should print how many matches happened', async() => {
         const CallMarketInstance = await CallMarket.deployed(); 
         
         const counter = await CallMarketInstance.countervariable();
@@ -152,7 +152,7 @@ describe('CallMarket', function(accounts) {
         console.log('Number of matches occured:',counter.toNumber());
         console.log('********************************************');    
 
-    });
+    }); */
 
 
         

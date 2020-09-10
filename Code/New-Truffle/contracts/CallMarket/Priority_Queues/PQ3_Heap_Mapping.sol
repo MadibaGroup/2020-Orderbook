@@ -1,4 +1,6 @@
-pragma solidity >=0.4.22;
+//pragma solidity >=0.4.22;
+pragma solidity 0.5.12;
+
 pragma experimental ABIEncoderV2;
 
 
@@ -24,8 +26,8 @@ contract PQ3_Heap_Mapping{
     uint256 public BuyListKey;
     uint256 public SellListKey;
 
-    uint256[] BuyListHeap;
-    uint256[] SellListHeap;
+    uint256[] internal BuyListHeap;
+    uint256[] internal SellListHeap;
 
 //*****************************************************************//
 //*******************  maxheap Functions (BuyList) ****************//

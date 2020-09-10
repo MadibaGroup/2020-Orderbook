@@ -1,9 +1,11 @@
-pragma solidity >=0.4.22;
+//pragma solidity >=0.4.22;
+pragma solidity 0.5.12;
 
 //Linkedlist implemented with mapping wrapped in a priority queue
 
 contract PQ5_Linkedlist_Mapping{
     
+
     constructor() public 
     {
         SellHead = 0;
@@ -12,6 +14,7 @@ contract PQ5_Linkedlist_Mapping{
         BuyHead = 0;
         BuyTail = 0;
         BuyListCounter = 1;
+        
 
     }
     
@@ -403,7 +406,10 @@ contract PQ5_Linkedlist_Mapping{
         
     }
 
-
+//****************   deletePQ()  *********************//
+    function deletePQ (address payable _callmarket) public {
+        selfdestruct(_callmarket);
+    }
 
 
 }
