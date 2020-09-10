@@ -91,7 +91,7 @@ describe('CallMarket', function(accounts) {
         var array = [];
     
         accounts = await web3.eth.getAccounts();
-        for(let j = 86; j >= 1  ; j--){
+        for(let j = 10; j >= 1  ; j--){
             await CallMarketInstance.submitAsk (j, 1, {from: accounts[0]});
             array.push(j);
         } 
@@ -107,7 +107,7 @@ describe('CallMarket', function(accounts) {
         var array = [];
         
         accounts = await web3.eth.getAccounts();
-        for(let j = 87; j <= 172  ; j++){
+        for(let j = 11; j <= 20  ; j++){
             await CallMarketInstance.submitBid (j, 1, {from: accounts[1]});
             array.push(j);
 
@@ -138,6 +138,7 @@ describe('CallMarket', function(accounts) {
         const receipt = await  CallMarketInstance.MatchOrders();
         const gasUsed = receipt.receipt.gasUsed;
         console.log(`GasUsed for Matching the orders: ${receipt.receipt.gasUsed}`); 
+        console.log('the tx receipt is:', receipt);
         
     });//.timeout(9000000000000000000);     
     

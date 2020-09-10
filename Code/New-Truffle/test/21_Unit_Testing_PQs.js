@@ -1,4 +1,4 @@
-const PQ = artifacts.require('PQ1.sol');
+const PQ = artifacts.require('PQ5.sol');
 var maximum = 200;
 var minimum = 1;
 
@@ -19,14 +19,11 @@ contract('PQ', function(accounts) {
         
         for(let j = 1; j <= 50  ; j++){
 
-            //var randomnumber = Math.floor(Math.random() * (maximum - minimum + 1)) + minimum;
-            //receipt = await PQInstance.Enqueue (randomnumber);
-            receipt = await PQInstance.Enqueue (j);
+            var randomnumber = Math.floor(Math.random() * (maximum - minimum + 1)) + minimum;
+            receipt = await PQInstance.Enqueue (randomnumber);
             const gasUsed = receipt.receipt.gasUsed;
             console.log(`GasUsed for a inserting the integer is: ${receipt.receipt.gasUsed}`);
-            //console.log(`${receipt.receipt.gasUsed}`);
-            //array.push(randomnumber);
-            array.push(j);
+            array.push(randomnumber);
         } 
         console.log(array.length,'integers have been succsessfully inserted');
 
@@ -38,21 +35,9 @@ contract('PQ', function(accounts) {
         const PQInstance = await PQ.deployed();  
         const gasEstimate =  await PQInstance.Dequeue.estimateGas();
         console.log('Gas Estimate is:', gasEstimate); 
-    });  
-    //*******************Test 3*************************
-    // it('should give the peek', async() => {
-            
-    //     const PQInstance = await PQ.deployed(); 
+    }); 
     
-    //     const result = await PQInstance.Peek.call();
-    //     console.log('The peek is', result.toNumber());
-        
-    //     await PQInstance.RemoveMax();
-    //     const result2 = await PQInstance.Peek.call();
-    //     console.log('The peek is', result2.toNumber());
-            
-    // }); 
-    //*******************Test 4*************************
+    //*******************Test 3*************************
     it('should remove 50 numbers from the list', async() => {
             
         const PQInstance = await PQ.deployed(); 
