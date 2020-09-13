@@ -1,4 +1,4 @@
-const CallMarket = artifacts.require('Call_Market.sol');
+const CallMarket = artifacts.require('CallMarket.sol');
 const DappToken = artifacts.require('DappToken');
 var CallMarketaddress;
 var tokenaddress;
@@ -47,7 +47,7 @@ describe('CallMarket', function(accounts) {
 
         accounts = await web3.eth.getAccounts();
        
-        const receipt = await CallMarketInstance.DepositToken (tokenaddress, 15000, {from: accounts[0]});
+        const receipt = await CallMarketInstance.depositToken (tokenaddress, 15000, {from: accounts[0]});
         
         const totalbalance = await CallMarketInstance.TotalTokenBalance(accounts[0]);
         
@@ -63,7 +63,7 @@ describe('CallMarket', function(accounts) {
 
         accounts = await web3.eth.getAccounts();
         
-        const receipt = await CallMarketInstance.DepositEther (1000000, {from: accounts[1]});
+        const receipt = await CallMarketInstance.depositEther (1000000, {from: accounts[1]});
 
         const totalbalance = await CallMarketInstance.TotalEtherBalance(accounts[1]);
         

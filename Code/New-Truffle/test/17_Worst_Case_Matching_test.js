@@ -1,4 +1,4 @@
-const CallMarket = artifacts.require('Call_Market.sol');
+const CallMarket = artifacts.require('CallMarket.sol');
 const DappToken = artifacts.require('DappToken');
 var CallMarketaddress;
 var tokenaddress;
@@ -49,9 +49,9 @@ describe('CallMarket', function(accounts) {
 
         accounts = await web3.eth.getAccounts();
        
-        const receipt = await CallMarketInstance.DepositToken (tokenaddress, 15000, {from: accounts[0]});
+        const receipt = await CallMarketInstance.depositToken (tokenaddress, 15000, {from: accounts[0]});
         
-        const totalbalance = await CallMarketInstance.TotalTokenBalance(accounts[0]);
+        const totalbalance = await CallMarketInstance.totalTokenBalance(accounts[0]);
         
         console.log('The token balance of account[0] is:', totalbalance.toNumber());
         console.log('********************************************');
@@ -65,9 +65,9 @@ describe('CallMarket', function(accounts) {
 
         accounts = await web3.eth.getAccounts();
         
-        const receipt = await CallMarketInstance.DepositEther (10000000000, {from: accounts[1]});
+        const receipt = await CallMarketInstance.depositEther (10000000000, {from: accounts[1]});
 
-        const totalbalance = await CallMarketInstance.TotalEtherBalance(accounts[1]);
+        const totalbalance = await CallMarketInstance.totalEtherBalance(accounts[1]);
         
         console.log('The Ether balance of accounts[1] is:',totalbalance.toNumber());
         console.log('********************************************');
@@ -78,7 +78,7 @@ describe('CallMarket', function(accounts) {
     it('should open the market on the Dapp Token', async() => {
         const CallMarketInstance = await CallMarket.deployed(); 
 
-        const receipt = await CallMarketInstance.OpenMarket ();
+        const receipt = await CallMarketInstance.openMarket ();
         const gasUsed = receipt.receipt.gasUsed;
         console.log(`GasUsed for openning the market: ${receipt.receipt.gasUsed}`);
         
@@ -118,7 +118,7 @@ describe('CallMarket', function(accounts) {
     //*******************Test 6*************************
     it('should close the market on the Dapp Token', async() => {
         const CallMarketInstance = await CallMarket.deployed(); 
-        await CallMarketInstance.CloseMarket();
+        await CallMarketInstance.closeMarket();
         
     });
     
@@ -126,7 +126,7 @@ describe('CallMarket', function(accounts) {
     // it('should return the Gasestimate for the match() function', async() => {
         
     //     const CallMarketInstance = await CallMarket.deployed();
-    //     const gasEstimate =  await CallMarketInstance.MatchOrders.estimateGas();
+    //     const gasEstimate =  await CallMarketInstance.matchOrders.estimateGas();
     //     console.log(gasEstimate); 
     // });  
 
@@ -135,7 +135,7 @@ describe('CallMarket', function(accounts) {
         
         const CallMarketInstance = await CallMarket.deployed();
 
-        const receipt = await  CallMarketInstance.MatchOrders();
+        const receipt = await  CallMarketInstance.matchOrders();
         const gasUsed = receipt.receipt.gasUsed;
         console.log(`GasUsed for Matching the orders: ${receipt.receipt.gasUsed}`); 
         console.log('the tx receipt is:', receipt);
