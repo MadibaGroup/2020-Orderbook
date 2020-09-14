@@ -151,12 +151,15 @@ As expected, the numbers closely track the performance of the PQ itself suggesti
 
 \subsection{Security Analysis} \label{sec:front}
 
-\paragraph{Front-running.} 
-% Front running -> drop trades, move to next block, can't front-run
-% Take 1000 trades over a window of time -> shuffle -> what is different between A and B?u
-% No price improvement changes people waiting to trade?
+\paragraph{Code Security.} We used two security audit tools, \textit{Slither}\footnote{https://github.com/crytic/slither} and \textit{SmartCheck},\footnote{https://tool.smartdec.net} on \cm to find vulnerabilities and bad practices across 67 tests. \cm passes all test except some `informational' warnings (\eg a costly loop) that are intentional design choices.
 
-\paragraph{Contract Security.} We used two security audit tools, \textit{Slither}\footnote{https://github.com/crytic/slither} and \textit{SmartCheck},\footnote{https://tool.smartdec.net}, on \cm to find vulnerabilities and bad practices. We received 100\% success rate in a total of 67 audits performed by considering 'Informational' checks as 'passed'.
+\paragraph{Front-running.} The primary motivation for using a call market, as opposed to a continuous time orderbook, is to mitigate front-running attacks~\cite{clark2014decentralizing,eskandari2019sok,daian2019flash}. Consider a sequence of 100 orders submitted within a window of time to market A, and the same sequence randomly shuffled and submitted to market B. If A and B are continuous, the orders that are executed in A could be quite different from B. In a call market, the outcome of A and B will be exactly equivalent. For this reason, there is no threat from miners reordering transactions or users offering higher gas rates to have their orders executed before other orders already broadcast to the network. 
+
+In a traditional call market, a market clearing price is chosen and all trades are executed at this price. All bids made at a higher price will receive the assets for the lower clearing price (and conversely for lower ask prices): this is called a price improvement. A miner about to mine on a set of transactions, including orders, could insert its own orders that make arbitrage profit by lowering the other traders' price improvements. For this reason, in \cm, all price improvements are given to the miner (using \texttt{block.coinbase.transfer()}). This does not actively hurt traders---they always receive the same price from their order---and it removes any incentive to front-run these profits.
+
+Potential for front-running still exists around ties on price and cancelations (see below). Finally, \textit{displacement attacks}~\cite{eskandari2019sok} are possible where competitive orders are delayed long enough for the market to close without them. For all these reasons, we say \cm reduces front-running attacks but stop short of saying it is completely solved by \cm. 
+
+
 
 
 
@@ -165,36 +168,17 @@ As expected, the numbers closely track the performance of the PQ itself suggesti
 
 \section{Design alternatives and extensions}
 
+As a module, we try to keep \cm as simple as possible, and allow customization and extensions as appropriate. We discuss potential modifications here.  
+
+\subsection{Token Divisibility and Volumes} 
+
+We implement a very simple market where orders all have the same volume: 1 token. Traders submit multiple orders to increase volume. To extend orders with a volume field, it must first be determined if the token are non-divisible or divisible (and to what precision). In this case, \texttt{MarketClose()} needs look at multiple bids to fulfill a single ask (and vice-versa) and declare its trading rules on partial fills. We also simplify the market rules around ties on price: we execut them FIFO (breaking front-running resistance for ties on prices). A common trading rule (that does resist front-running) is to fill ties in proportion to their volume (\ie \textit{pro rata} allocation)\footnote{If Alice and Bob bid the same price for 100 tokens and 20 tokens respectively, and there are only 60 tokens left in marketable asks, Alice receives 50 and Bob 10.} however this approach is also contingent on the divisibility of tokens. Consider the following corner-case: 3 equally priced bids of 1 non-divisible token and 1 ask at the same price. There is not good option: (1) the bids could all be dropped (fair but not market efficient), (2) bids could be prioritized based on time as in \cm (front-running is viable, but in this corner case only), or (3) the bid could be randomly chosen (\cf~\cite{mavroudis2019libra}; blockchain `randomness' is generally deterministic and manipulatable by miners~\cite{bonneau2015random,buenz2017proofs} and counter-measures could take a few blocks to select~\cite{boneh2018verifiable}).
+
+\subsection{Cancelations}
 
 
 
-\subsection{Resolving ties}
-
-\subsection{Price level / volume level}
-
-\subsection{Clearing Mappings}
-
-To maintain the collateral balance of each market participant, we use two Solidity type one-to-one mappings that map Ethereum addresses to 256 bits unsigned integers; \texttt{TotalBalance} and \texttt{UnavailableBalance}. Once market closes and orders are matched, the \texttt{UnavailableBalance} needs to be cleared. However, since it is not possible to delete the entire mapping without knowing the keys~\footnote{https://solidity.readthedocs.io/en/v0.5.12/security-considerations.html}, clearing the \texttt{UnavailableBalance} mapping remains a challenging issue to solve. Here we provide a landscape of solutions for that.
-%only individual keys and what they map to can be deleted.
-
-\begin{itemize}
-
-%---------+++++++++++++++++++-----------------
-\item \textbf{Creating a New Mapping Every Time the Market Opens.} Instead of clearing the \texttt{UnavailableBalance} of traders at the end of a matching process, we could create a new mapping every time the market opens. Note that in this scheme traders can claim their funds back (using the \texttt{ClaimEther()} and/or \texttt{ClaimToken} methods) only when the market is closed (\ie the market is in the \texttt{Closed} state).
-
-%---------+++++++++++++++++++-----------------
-\item \textbf{Creating Custom Keys for the Mapping.} We can create custom keys for the mapping by defining a counter as a global variable inside the call market smart contract and increment it only once at the end of the matching process. So instead of clearing the mapping, we only use another portion of it every time the market opens.
-
-%---------+++++++++++++++++++-----------------
-\item \textbf{Storing the Mapping in a Data-Contract.} Another design proposal is to create a new smart contract every time the market opens, this data contract only stores the \texttt{UnavailableBalance} mapping and will be destroyed (using the \texttt{SELFDESTRUCT} operation) at the end of the matching process.
-
-%---------+++++++++++++++++++-----------------
-\item \textbf{Storing the Mapping keys in an additional Array.} Another common pattern is to create an additional array on top of the mapping and iterate over that. This array (\eg address[]) stores the traders' addresses and enables us to iterate over the mapping and delete individual keys and what they map to at the end of the matching process. Note that this is a gas-costly design pattern as we would need to maintain a secondary data structure. 
-
-%---------+++++++++++++++++++-----------------
-\end{itemize}
-
-% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
+\subsection{Market clearing price -> informational only}
 
 
 % = = = = = = = = = = = =Closing and Reopening the Market = = = = = = = = = = = = =  %
@@ -243,11 +227,11 @@ We think it is useful to explore the landscape of possible designs for closing t
 
 % = = = = = = = = = = = =meta_tx Figure = = = = = = = = = = = = =  %
 
-\begin{figure}[htb!p]
-\centering
-\includegraphics[width=0.8\textwidth]{fig/meta_tx.png}
-\caption{\footnotesize{}  \label{fig:meta_tx}}
-\end{figure}
+%\begin{figure}[htb!p]
+%\centering
+%\includegraphics[width=0.8\textwidth]{fig/meta_tx.png}
+%\caption{\footnotesize{}  \label{fig:meta_tx}}
+%\end{figure}
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
 
@@ -288,6 +272,29 @@ In the followings we briefly discuss different rollup proposals and techniques. 
 % Options for non-collaterialized markets
 
 
+\subsection{Clearing Mappings}
+
+To maintain the collateral balance of each market participant, we use two Solidity type one-to-one mappings that map Ethereum addresses to 256 bits unsigned integers; \texttt{TotalBalance} and \texttt{UnavailableBalance}. Once market closes and orders are matched, the \texttt{UnavailableBalance} needs to be cleared. However, since it is not possible to delete the entire mapping without knowing the keys~\footnote{https://solidity.readthedocs.io/en/v0.5.12/security-considerations.html}, clearing the \texttt{UnavailableBalance} mapping remains a challenging issue to solve. Here we provide a landscape of solutions for that.
+%only individual keys and what they map to can be deleted.
+
+\begin{itemize}
+
+%---------+++++++++++++++++++-----------------
+\item \textbf{Creating a New Mapping Every Time the Market Opens.} Instead of clearing the \texttt{UnavailableBalance} of traders at the end of a matching process, we could create a new mapping every time the market opens. Note that in this scheme traders can claim their funds back (using the \texttt{ClaimEther()} and/or \texttt{ClaimToken} methods) only when the market is closed (\ie the market is in the \texttt{Closed} state).
+
+%---------+++++++++++++++++++-----------------
+\item \textbf{Creating Custom Keys for the Mapping.} We can create custom keys for the mapping by defining a counter as a global variable inside the call market smart contract and increment it only once at the end of the matching process. So instead of clearing the mapping, we only use another portion of it every time the market opens.
+
+%---------+++++++++++++++++++-----------------
+\item \textbf{Storing the Mapping in a Data-Contract.} Another design proposal is to create a new smart contract every time the market opens, this data contract only stores the \texttt{UnavailableBalance} mapping and will be destroyed (using the \texttt{SELFDESTRUCT} operation) at the end of the matching process.
+
+%---------+++++++++++++++++++-----------------
+\item \textbf{Storing the Mapping keys in an additional Array.} Another common pattern is to create an additional array on top of the mapping and iterate over that. This array (\eg address[]) stores the traders' addresses and enables us to iterate over the mapping and delete individual keys and what they map to at the end of the matching process. Note that this is a gas-costly design pattern as we would need to maintain a secondary data structure. 
+
+%---------+++++++++++++++++++-----------------
+\end{itemize}
+
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
 
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %

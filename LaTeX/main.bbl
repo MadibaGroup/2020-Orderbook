@@ -6,16 +6,26 @@ Ethereum development tutorial · ethereum/wiki wiki.
   \url{https://github.com/ethereum/wiki/wiki/Ethereum-Development-Tutorial}.
 \newblock (Accessed on 24/08/2020).
 
+\bibitem{boneh2018verifiable}
+D.~Boneh, J.~Bonneau, B.~B\"unz, and B.~Fisch.
+\newblock Verifiable delay functions.
+\newblock In {\em CRYPTO}, 2018.
+
+\bibitem{bonneau2015random}
+J.~Bonneau, J.~Clark, and S.~Goldfeder.
+\newblock On bitcoin as a public randomness source.
+\newblock \url{https://eprint.iacr.org/2015/1015.pdf}, 2015.
+\newblock Accessed: 2015-10-25.
+
 \bibitem{Bra13}
 R.~Brandom.
 \newblock This princeton professor is building a bitcoin-inspired prediction
   market, Nov 2013.
 
-\bibitem{buterin2014next}
-V.~Buterin et~al.
-\newblock A next-generation smart contract and decentralized application
-  platform.
-\newblock {\em white paper}, 3:37, 2014.
+\bibitem{buenz2017proofs}
+B.~B{\"u}nz, S.~Goldfeder, and J.~Bonneau.
+\newblock Proofs-of-delay and randomness beacons in ethereum.
+\newblock 2017.
 
 \bibitem{cheng2019ekiden}
 R.~Cheng, F.~Zhang, J.~Kos, W.~He, N.~Hynes, N.~Johnson, A.~Juels, A.~Miller,
@@ -36,12 +46,12 @@ P.~Daian, S.~Goldfeder, T.~Kell, Y.~Li, X.~Zhao, I.~Bentov, L.~Breidenbach, and
   A.~Juels.
 \newblock Flash boys 2.0: Frontrunning, transaction reordering, and consensus
   instability in decentralized exchanges.
-\newblock {\em arXiv preprint arXiv:1904.05234}, 2019.
+\newblock In {\em IEEE Symposium on Security and Privacy}, 2020.
 
 \bibitem{eskandari2019sok}
 S.~Eskandari, S.~Moosavi, and J.~Clark.
 \newblock Sok: Transparent dishonesty: front-running attacks on blockchain.
-\newblock 2019.
+\newblock In {\em WTSC}. FC, 2019.
 
 \bibitem{Har03}
 L.~Harris.
@@ -54,10 +64,10 @@ H.~Kalodner, S.~Goldfeder, X.~Chen, S.~M. Weinberg, and E.~W. Felten.
 \newblock In {\em 27th $\{$USENIX$\}$ Security Symposium ($\{$USENIX$\}$
   Security 18)}, pages 1353--1370, 2018.
 
-\bibitem{nakamoto2019bitcoin}
-S.~Nakamoto.
-\newblock Bitcoin: A peer-to-peer electronic cash system.
-\newblock Technical report, Manubot, 2019.
+\bibitem{mavroudis2019libra}
+V.~Mavroudis and H.~Melton.
+\newblock Libra: Fair order-matching for electronic financial exchanges.
+\newblock In {\em ACM AFT}, 2019.
 
 \bibitem{TheHisto45:online}
 A.~Norry.
@@ -81,6 +91,6 @@ C.~Signer.
 \bibitem{wood2014ethereum}
 G.~Wood et~al.
 \newblock Ethereum: A secure decentralised generalised transaction ledger.
-\newblock {\em Ethereum project yellow paper}, 151(2014):1--32, 2014.
+\newblock Technical Report 2014, Ethereum, 2014.
 
 \end{thebibliography}
