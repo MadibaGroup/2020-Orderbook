@@ -1,15 +1,10 @@
-var CallMarket = artifacts.require("./Call_Market.sol"); 
-var PQ1 = artifacts.require("./PQ1_Heap_Dynamic_Array.sol"); 
-var PQ2 = artifacts.require("./PQ2_Heap_Static_Array.sol"); 
-var PQ3 = artifacts.require("./PQ3_Heap_Mapping.sol")
-var PQ4 = artifacts.require("./PQ4_Linkedlist.sol")
-var PQ5 = artifacts.require("./PQ5_Linkedlist_Mapping.sol")
-var MP = artifacts.require("./Mapping.sol")
-
-//var Int = artifacts.require("solidity-util/lib/Integers.sol");
-//var Str = artifacts.require("node_modules/solidity-util/lib/Strings.sol");
-
-
+var CallMarket = artifacts.require("./CallMarket.sol"); 
+var PQ1 = artifacts.require("./HeapDynamicArray.sol"); 
+var PQ2 = artifacts.require("./HeapStaticArray.sol"); 
+var PQ3 = artifacts.require("./HeapMapping.sol");
+var PQ4 = artifacts.require("./LinkedList.sol");
+var PQ5 = artifacts.require("./LinkedListMapping.sol");
+var MP = artifacts.require("./Mapping.sol");
 var PQaddress;
 
 //const BN = require('bn.js');
