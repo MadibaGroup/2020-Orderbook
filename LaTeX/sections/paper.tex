@@ -1,144 +1,75 @@
 % !TEX root = ../main.tex
 
-
-
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+
 \section{Introductory Remarks}
 
-Blockchain is a type of distributed database (or ledger) that is open to anyone who wants to participate, robust against a wide range of faulty and malicious behaviours, and runs without anyone in charge. When a participant looks at her local copy of the ledger, she is assured that (i) anyone has the exact same records and (ii) each record was validated by the "majority" (technically, a computational majority) of participants before it was written into the ledger. Blockchain technology has rapidly gained global interest and become one of the most significant technologies in recent years. It was first introduced in 2008 by Satoshi Nakamoto as an underlying technology of Bitcoin, a peer to peer electronic cash system~\cite{nakamoto2019bitcoin}, whose currency reached a market capitalization of \$137 billion as of January 2020. In 2014, a new blockchain based application known as Ethereum was introduced by Buterin~\cite{buterin2014next}. By implementing a decentralized virtual machine, Ethereum virtual machine (EVM), Ethereum allows network users to execute programmable smart contracts on it. So developers are now able to build decentralized applications (DApps) that are executed correctly according to the consensus rules of the Ethereum network. 
+For better or worst, blockchain technologies like Ethereum have dramatically lowered the barrier to entry for developing and deploying financial technology. New tokens have been launched with a few clicks of a user interface, and large investment infrastructures have been developed and deployed with little regulatory oversight. Blockchain exchange services allow order-based trading of digital currencies, tokens, and other digital assets. Such exchanges are a key component to blockchain-based economic activity. 
+
+For years, exchanges have operated either entirely off-chain by trusted operators or partially on-chain by semi-trusted operators. A fully on-chain exchange is feasible but considered too slow, at least for a public blockchain like Ethereum. We believe it is a very good time to do a deep dive into understanding precisely \textit{how slow} for the following reasons: (1) public blockchains are becoming faster (both in theory and slowly in practice) and the efficiency of an on-chain exchange will increase in time, (2) demand for on-chain trading is exemplified by the recent popularity of dealer-based (or quote-based) trading like Uniswap and Curve Finance, and (3) stablecoins have become a popular and allow on-chain trading with pricing in USD (or other government currency).
 
 % = = = = = = = = = = = = = = = = =
-\subsection*{Contributions.}
-Our design \cm is intended as a simple module that developers can modify as they choose. By adding \cm to an ERC20 (or similar) token contract, everything that is needed for buying/selling tokens is immediately available on chain without involving any third party exchanges. The main advantage of blockchain is low barriers of entry and this further lowers the barrier. 
 
+\paragraph{Contributions.}
 
+We design and implement \cm, a fully on-chain call market in Solidity---a high-level programming language for Ethereum. We choose Ethereum as a `hostile' environment for an orderbook: Ethereum is public (strongest adversary) and slow (lower-bound benchmark) relative to more scalable blockchains, including the anticipated Ethereum 2.0. \cm is intended as a simple module that developers can modify as they choose. By adding \cm to an ERC20 (or similar) token contract, everything that is needed for buying/selling tokens is immediately available on chain without involving any third party exchanges. \cm is non-custodial, transparent, and mitigates front-running attacks that are generally possible on-chain.
 
+While Solidity and EVM are like many common programming languages, they also have quirks that require experimentation to best optimize performance (\eg factoring in the gas costs of operations, gas refunds, limits to Solidity's object oriented design, clearing mappings). We test five priority queues---the core data structure of the call market---and various options for cleaning up our data once finished with it. The bottom line is that the current benchmark for a \cm-esque design is in the low hundreds of trade executions per block on Ethereum today. This positions \cm as a feasible design for certain types of markets today (low liquidity, small number of traders) but also as an early study on technology that is likely to improve vastly in the coming years. 
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+
 \section{Preliminaries}
 
-Strong interest in blockchain and distributed ledger technologies has led into the high trading volume of digital assets and emergence of fast growing cryptocurrency exchanges all over the world. These crypto exchanges are similar to stock exchanges but, as the name suggests, facilitate the trading process of different cryptocurrency tokens. Basically, such exchanges provide a trading venue where market participants can buy and/or sell cryptocurrency assets among one another. In this section, we describe two types of crypto exchanges.
+\subsection{Market Structure}
+
+\paragraph{Execution systems.} There are three main approaches to arranging a trade. In a \emph{quote-driven} market, a dealer uses their own inventory to offer a price for buying or selling an asset. In a \emph{brokered exchange}, a broker finds a buyer and seller. In an \emph{order-driven} market, offers to buy (\emph{bids}) and sell (\emph{offers}/\emph{asks}) from many traders are placed as orders in an orderbook. Order-driven markets can be \emph{continuous}, with buyers/sellers at any time adding orders to the orderbook (\emph{makers}) or executing against an existing order (\emph{takers}); or they can be \emph{called}, where all traders submit orders within a window of time and orders are matched in a batch like an auction. 
+
+\subsection{Decentralized Order Matching}
+
+\paragraph{Central exchanges (CEX).} Traditional financial markets (\eg NYSE and NASDAQ) use order-matching systems to arrange trades. An exchange will list one or more assets (stocks, bonds, derivatives, or more exotic securities) to be traded with each given its own orderbook priced in a currency (\eg USD). Exchanges for blockchain-based assets (also called cryptoassets by enthusiasts) can operate the same way, using a centralized exchange (CEX) design where a firm operates the platform as a trusted third party in every aspect: custodianship over assets/currency being traded, exchanging assets fairly, and offering the best possible price execution. Security breaches and fraud (\eg MtGox~\cite{TheHisto45:online}, QuadrigaCX~\cite{SEBIOrde83:online}, and many others) in centralized exchanges have become a common source of lost funds for users, while accusations of unfair trade execution have been levelled but are difficult to prove. 
+
+\paragraph{On-chain orderbooks.} For trades between two blockchain-based assets (\eg a digital asset priced with a cryptocurrency, stablecoin, or second digital asset), order matching can be performed `on-chain' by deploying the order-matching system either on a dedicated blockchain or inside a decentralized application (DApp; \textit{a.k.a.} smart contract). In this model, traders entrust their assets to an autonomously operating DApp with known source code instead of a third party custodian that can abscond with or lose the funds. The trading rules will operate as coded, clearing and settling can be guaranteed, and order submission is handled by the blockchain---a reasonably fair and transparent system (but see front-running below). Finally, anyone can create an on-chain orderbook for any asset (on the same chain) at any time. While they sound ideal, performance is a substantial issue and the main subject of this paper. 
+
+In this paper, we focus on benchmarking an orderbook for a public blockchain (\eg Ethereum). Ethereum is widely-used and we stand to learn the most from working in a performance-hostile environment (\ie Ethereum is good lower-bound). Exchanges could be given their own dedicated blockchain, where trade execution logic can be moved at the consensus level. Permissioned blockchains (\eg NASDAQ Linq, tZero) can also increase execution time and throughput, possibly with some reduction in transparency and trust.
+
+\paragraph{On-chain dealers.} Another on-chain advantage is that other smart contracts, not just human users, can initiate trades, enabling broader decentralized finance (DeFi) applications. This has fuelled a resurgence in on-chain exchange but through a quote-driven design rather than an order-driven one. Automated market makers  (\eg Uniswap) have all the trust advantages of an on-chain orderbook, plus they are very efficient relative to an on-chain orderbook. The trade-off is that they operate as a dealer---the DApp exchanges assets from its own inventory. This inventory is loaded into the DApp by an investor who will not make money on the trades themselves, but hope for long term profit through trading fees. By contrast, an orderbook requires no upfront inventory and does not have to charge trading fees (but can). Finally, there is a complicated difference in their price dynamics (\eg market impact of a trade, slippage between the best bid/offer and actual average execution price, \etc)---deserving of an entire research paper to precisely define. We leave it as an assertion that with equal liquidity, orderbooks have more favourable price dynamics for traders.
+
+\paragraph{Hybrid designs.} Before on-chain dealers became prominent in the late 2010s, the most popular design was hybrid order-driven exchanges with some trusted off-chain components and some on-chain functionality. Some (\eg EtherDelta) were envisioned as operating fully on-chain, but performance limitations drove developers to move key components, such as the order matching system, off-chain to a centralized database. A landscape of DEX designs exist: many avoiding taking custodianship of assets off-chain, and virtually all (for order-driven markets) operate the orderbook itself off-chain. A non-custodial DEX solves the big issue of a CEX---the operator stealing the funds---however trade execution is still not provably fair. A mitigation is to issue a proof of correct execution to the DApp (\eg Loopring) but these proofs have blindspots (discussed in section~\ref{sec:rollups}). \cm offers key advantages in this model. 
 
 
-\subsection{Blockchain}
 
+\subsection{Related Work}
 
+\paragraph{Blockchain limitations and solution.} While an orderbook is a ledger and blockchains provide a distributed ledger, it is not straightforward to drop a continuous-time orderbook onto a blockchain. An older 2014 paper~\cite{clark2014decentralizing} on the `Princeton prediction market'~\cite{Bra13} motivates our work. The authors observe the following limitations of on-chain continous orderbooks: block intervals are slow and not continuous, there is no support for accurate time-stamping, transactions can be dropped or reordered by miners, fast traders can react to submitted orders/cancelations when broadcast to network but not in a block and have their orders appear first (as examined in later work on front-running: \cite{eskandari2019sok,daian2019flash}).
 
-\begin{itemize}
+\paragraph{Call markets.} The researchers propose using a call market instead of a continuous-time market~\cite{clark2014decentralizing}. Orders are collected and placed into the orderbook over a window of time (\eg 1 or more blocks), then the market is closed and the orders are processed in batch: the best bids are matched to the best asks in order. If the prices overlap, the miner keeps the difference (which they could extract anyways through front-running). Call markets largely side-step front-running attacks from other traders because reordering trades has no impact (discussed more in section~\ref{sec:front}). The paper does not include an implementation and was envisioned as an alt-coin (Ethereum was still in development in 2014) with market closing being done by the miners themselves as part of the blockchain logic.
 
-% transparency, front-running:
-\item \textbf{Transparency and Front-running.} Blockchains (in general)  are transparent --- transactions are first relay around the network before being selected by a miner, validated, and included in a block. This allows malicious nodes/miners to observe and front-run the transactions by dropping them or attempting to insert their own transactions before the observed transactions~\cite{eskandari2019sok}. In the context of a DEX, front-running attacks enable malicious nodes to have their orders executed before others and benefit from it.
-
-
-% slow but is becoming more efficient over time, expensive
-\item \textbf{Speed.} Blockchains are not fast architectures --- speed is one of the factors that diminishes the real world potential of blockchains. Blockchains are slow-moving as it takes block interval (\ie time it takes to mine a block) for transactions to be confirmed and included in valid blocks. So it is difficult to push a stock market on the blockchain as stock markets move extremely fast. High-frequency trading (HFT) is a trading method example that uses active computers to process a large number of trades in fractions of a second. In Ethereum 1.0 blocks are produced at intervals every 10 to19 seconds, note that this is not yet suitable for time sensitive transactions. However, capabilities of blockchains will be further enhanced ad they will become more efficient over time; Ethereum 2.0 has a shorter block time of 12 seconds. 
-
-% Gas model: gas limit, how much, per transaction vs per block, Solidity/EVM quirks: gas refunds
-\item \textbf{Gas Parameter in Ethereum Transactions.} 
-
-Gas is the Ethereum's pseudo-currency and a key variable for the execution of smart contracts. DApps written in high-level programming languages are compiled and translated into a compact representation (called ‘bytecode’) to be further executed on the Ethereum virtual machine or EVM. Each of these opcodes has a fixed amount of gas assigned and is a measure of computational effort. Separating ETH from gas prevents transactions cost from being too expensive as they are less impacted by ETH price fluctuations. Gas unit does not a have a monetary value and as mentioned, it only  measures the computational work undertaken by miners. To pay miners, Ethereum introduces a \texttt{gas price} --- small denomination of ether called \textbf{Gwei} attached to each gas unit. Essentially, gas price indicates how much users are willing to pay per unit of gas, clearly the higher gas price leads to the faster execution of a transaction. Miners also need to know the total amount of computational work a user is requesting, called the \texttt{gas limit}. \texttt{Gas limit} is a parameter that limits the amount of gas users would spend in a transaction. It protects users from spending unlimited ETH on their transactions and must be set carefully. If the \texttt{gas limit} is too low, the transaction will exceed the limit, all operations will be reverted while the user must pay for the computational work performed by the miner. By default the gas limit for an Ethereum transaction is 21,000 gas. An Ethereum block also has a \texttt{block gas limit} field which is set by the Ethereum miners and indicates the maximum amount of gas all the transactions in that block are allowed to consume, the Ethereum \texttt{block gas limit} is currently 11,741,495. \footnote{\[July 2020:\] https://ethstats.net/} 
-
-
-\subsection*{Gas Refunds.}There are two particular EVM operations with negative gas --- certain amount of gas is refunded to the sender at the end of the transaction. These operation include:
-
-\paragraph{\texttt{SELFDESTRUCT}.}This operation destroys and deletes the originating contract and refunds its balance (if any) to a designated receiver address. Note that the Ethereum storage is implemented in the form of a has map and EVM is not statistically aware of which storage slots are held by the contract. Because of this the \texttt{SELFDESTRUCT} operation does not remove the initial byte code of the contract from the chain, but it frees up the state storage and has a refund of 24,000 gas.
-
-\paragraph{\texttt{SSTORE}.} This operation clears the Ethereum storage and has15,000 gas refunds. 
-
-
-Note that in order to urge miners to process smart contracts with refunds, the accumulated gas refund can never exceed half the gas used up during computation~\cite{wood2014ethereum}. So at the end of a successful transaction, the amount of gas in the refund counter (capped at half the net gas used) is returned to the caller. At the time of this writing, Ethereum transaction receipts only account for the \texttt{gasUsed}, which is the total amount of gas units spent during a transaction, and we are not able to obtain the value of the EVM's refund counter from inside the EVM~\cite{signer2018gas}. So in order to account for refunds, we decide to calculate them manually; first we figure out exactly how much storage is being cleared or how many smart contracts are being destroyed, then we multiply these numbers by 24,000 and 15,000 respectively. 
+Large exchanges, like the NYSE and NASDAQ, use a two minute call market every day at opening and closing time (in between, the exchange runs as a continuous time market). Other exchanges, called crossing networks, also operate as a call market at various times throughout the trading day.\footnote{A crossing network uses a secondary market for determining the closing price. Many prominent crossing networks are operated internally within a brokerage for its clients, and often as a `	dark pool' with an unpublished orderbook.} Call market are studied widely in finance~\cite{Har03}. Time-sensitive traders submit orders early, especially in crossing networks that close at a randomly determined time (traders risk missing the call if they wait too long). A blockchain happens to provide this function naturally, as blocks are published unpredictably. Price-sensitive traders wait to base their pricing off the already submitted orders and do not mind missing a call if it obtains them a better price. 
 
 
 
 
-%gas price: how much you pay per gas unit
-%gas limit: how much work you are requesting 
-%gas cost (Ether) = gasPrice * gasCost(gas)
-%gas limit: is a parameter that limits the amount of gas you spend in a transaction (how to estimate? using estimateGas)
-%gas price how to estimate: using ethgassation 
-%by defaluth the gas minimum gas limit for ethereum txs is 21000 gas
-%a block also has a gas limit field, it defines a maximum amount of gas all txs in th eblock combined are allowed to consume. this block gas limit determines the maximum number of transactions within the block. this block gas limt is not fixed and set by miners  
-%
-%ers to process smart contracts with refunds, the accumulated gas refund can never exceed half the gas used up during computation~\cite{wood2014ethereum}. So at the end of a successful transaction, the amount of gas in the refund counter (capped at half the net gas used) is returned to the caller. 
 
-
-Based on these issues blockchains cannot solve this particular problem. Many stock exchanges that currently operate on blockchains tackle this issue by using a private network (where not every network participant can be a node or miner) together with a central time-server that establishes the time priority. We propose a different method of implementing a fully decentralized exchange using an alternative data structure known as \textit{a call market} or \textit{frequent batch auction} instead of a time-sensitive order book~\cite{clark2014decentralizing}.
-
-\end{itemize}
-
-\subsection{Exchanges}
-
-% = = = = = = = = = = = = = = = = =
-\subsubsection{Centralized Exchanges (CEX)}\label{sec:CEX}
-
-This group of exchanges operate in a traditional manner by providing a centralized platform controlled by exchange operators. Essentially, the exchange acts as a trusted party whom the market participants must trust to handle their assets. Traders transfer the ownership of their assets to the exchange who safeguards customer funds using different methods. Centralized exchanges ease trading process of digital assets as they do not place the burden of safeguarding of the assets onto individualst, however, traders must fully trust the exchange operator in taking custody of their assets (\eg Coinbase).~\footnote{https://www.coinbase.com} Similar to any centralized platform these exchanges are not completely immune to malicious activities. For example in February 2014, a famous centralized Tokyo-based Bitcoin exchange called MtGox was hacked which led to loss of 650,000 Bitcoins~\cite{TheHisto45:online}. Also, a malicious exchange operator can simply steal users' funds; in February 2019, QuadrigaCX, Canada’s well-known centralized cryptocurrency exchange, claimed that it cannot access to \$190-million worth of customers’ funds~\cite{SEBIOrde83:online}.
-
-
-% = = = = = = = = = = = = = = = = =
-\subsubsection{Decentralized Exchanges (DEX)}
-
-Unlike centralized exchanges, DEXes facilitate a secure automated peer-to-peer trading process on blockchains (\eg Ethereum) for market participants with no third parties involved, hence solving the issues that are inherent in centralized exchanges. This group of exchanges provide a better security and privacy by enabling traders to remain fully authoritative over their funds and personal data. With rising of Decentralized Finance (DeFi) or Open Finance movements, the number of DEX platforms on Ethereum have recently exploded and large volume of trading now occurs on DeFi exchanges (\eg Uniswap).~\footnote{https://uniswap.org}
-
-
-However due to the high cost and technical limitations introduced by blockchain technologies, building a fully decentralized exchange has remained a major challenge. In the following section, we explore the idea of building a decentralized exchange on Ethereum.
 
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-
-\subsection{Order Books}
-
-Order books are electronic data structures that maintain lists of bid and ask orders for various assets (\eg currencies, stocks, bonds \etc) in specific markets. The most common version of order books is a \textit{double auction}, where market participants submit their bid and ask orders and the market clearing price will be calculated as the average between the best bid and ask prices. Order books often sort orders based on their price and submission time, this order allocation technique is called price-time priority~\cite{preis2011price} where orders are prioritized from highest price to lowest and given any two orders with the same price, they will be sorted based on their submission timestamps.
-
-Looking more closely, order books are rather electronic ledgers that get updated over time. Given the definition of the Ethereum blockchain, that is a distributed ledger, the idea of implementing an order book in the form of a smart contract will seemingly resolve the existing issues with centralized exchanges (see Section~\ref{sec:CEX}). However, this design is not feasible due to some technical limitations that exist within blockchains:
-
-% = = = = = = = = = = = = = = = = =
-\begin{itemize}
-%---------+++++++++++++++++++-----------------
-
-\item \textbf{Speed.} All blockchains are slow-moving as it takes block intervals for transactions to get confirmed. On the other hand stock markets move very fast;  high-frequency trading (HFT) is a trading method example that uses active computers to process a large number of trades in fractions of a second. 
-
-%---------+++++++++++++++++++-----------------
-
-\item \textbf{Front-running and Censorship.} Traders must broadcast their order messages to the network before they can be placed in the block (\ie order book). In such scenario, privileged nodes and miners can front-run transactions or completely drop (censor) those that are competing with their own~\cite{eskandari2019sok}. Also, miners could almost control how the order book gets updated by inserting their own order messages after viewing all other orders and before mining the block .
-
-%---------+++++++++++++++++++-----------------
-
-\item \textbf{Enforcing Time.} There is no notion of time on blockchains.I if two orders arrive at the same price, in the normal world whoever is the first wins. However, we cannot enforce the priority of orders in the blockchain space; if Alice is more well-connected to the network her order gets broadcast better and executed first although she sends it after Bob. 
-
-%---------+++++++++++++++++++-----------------
-\end{itemize}
-% = = = = = = = = = = = = = = = = =
-
-
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
-\section{Priority Queue}\label{sec:pq}
+\section{Priority Queues}\label{sec:pq}
 
-% = = = = = = = = = = = =Operations for a generic Priority Queue Table = = =  = = = = = = = = = = = %
-\begin{table}[t]
-\centering
-\begin{tabular}{|c|c|}
-\hline
+\input{tables/pq.tex}
 
-\textbf{Operation}   & \textbf{Description}    \\ \hline
-
-% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-	\textbf{Enqueue()}       	& inserts an element into the priority queue                        \\ \hline
-	\textbf{Dequeue()}		& removes and returns the highest priority element 		\\ \hline
-	\textbf{isEmpty()}			& checks if the priority queue is empty 					\\ \hline
-% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
-
-\end{tabular}
-\caption{\footnotesize{Operations for a generic Priority Queue.}
-\label{tab:PQ_API}}
-\end{table}
-% = = = = = = = = = = = = = = = = = = = = =  = = = = = = = = = = =  = = = = = = = = = == = = =  = =%
-
-In designing \cm, performance within Ethereum's limited gas model became the main bottleneck. Within a call market, recording trades and accessing them to close the market is the most time consuming step. For this reason, we decided to do a deep study of the best data-structure for this specific task. While data structures are well studied for many languages, Solidity/EVM have their own quirks (\eg gas refunds, a relatively cheap mapping data structure, and no actual support for object oriented programming) that make them difficult to assess which will perform best without actually deploying and evaluating each variant. 
+In designing \cm within Ethereum's gas model, performance is the main bottleneck. For a call market, processing all the trades and closing the market is the most time consuming step. The most critical design decision is the data structure for holding orders. While data structures are well studied for many languages, Solidity/EVM has its own unique aspects (\eg gas refunds, a relatively cheap mapping data structure, only partial support for object oriented programming) that creates difficulties in assessing which will perform best without actually deploying and evaluating each variant. 
 
 When closing a call market, the orders are examined in order: highest to lowest price for bids, and lowest to highest price for asks. It most circumstances, the market closing algorithm does not have to consider any deeper bids/asks from the list when choosing whether the current best bid and ask can be fulfilled. The only exceptions are in the case of a tie on price or a canceled order, both of which we return to later. For this reason, the ideal data structure for storing bids/asks is a \textit{priority queue} (see Table~\ref{tab:PQ_API}) where each order's priority is its price. Specifically, we use two PQs---one for bids where the highest price is the highest priority, and one for asks where the lowest price is the highest priority. 
 
-There are numerous ways of implementing a PQ. A PQ has an underlying list---common options include a static array, dynamic array, and linked list. The most expensive operation is keeping the data sorted---common options include (i) sorting during each enqueue, (ii) sorting for each dequeue, or (iii) splitting the difference by using a heap as the underlying data structure. Respectively, the time complexities are (i) linear enqueue and constant dequeue, (ii) constant enqueue and linear dequeue, and (iii) logarithmic enqueue and logarithmic dequeue. This said, Solidity/EVM has its own specific considerations to take into account. As closing the market is very expensive with any PQ, we rule out using (ii) as fully sorting while dequeuing would be prohibitive. We experiment with the following 5 options for (i) and (iii):
+There are numerous ways of implementing a PQ. A PQ has an underlying list---common options include a static array, dynamic array, and linked list. The most expensive operation is keeping the data sorted---common options include (i) sorting during each enqueue, (ii) sorting for each dequeue, or (iii) splitting the difference by using a heap as the underlying data structure. Respectively, the time complexities are (i) linear enqueue and constant dequeue, (ii) constant enqueue and linear dequeue, and (iii) logarithmic enqueue and logarithmic dequeue. As closing the market is very expensive with any PQ, we rule out using (ii) as fully sorting while dequeuing would be prohibitive. We experiment with the following 5 options for (i) and (iii):
 
 % = = = = = = = = = = = = = = = = =
 \begin{enumerate}
@@ -186,9 +117,9 @@ There are numerous ways of implementing a PQ. A PQ has an underlying list---comm
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
 
 
-\subsubsection{Dequeue performance.} For each PQ variant storing 50 random integers, the \texttt{Dequeue()} function is iterated until the data structure is empty. The total gas cost for fully dequeuing the priority queue variants is outlined in Table~\ref{tab:PQUnitTests}. These tests are performed using the following Ethereum gas metrics: block gas limit $=$11,741,495 and 1 gas $=$ 56 gwei.\footnote{\[July 2020:\] https://ethstats.net/} Dequeuing removes data from the contract's storage. Recall this results in a gas refund. Based on our manual estimates (EVM does not expose the refund counter), every variant receives the maximum gas refund possible (\ie half the total cost of the transaction). In other words, each of them actually consumes twice the \texttt{gasUsed} amount in gas before the refund, however none of them are better or worst based on how much of a refund they generate.  
+\subsubsection{Dequeue performance.} For each PQ variant storing 50 random integers, the \texttt{Dequeue()} function is iterated until the data structure is empty. The total gas cost for fully dequeuing the priority queue variants is outlined in Table~\ref{tab:PQUnitTests}. These tests are performed using the following Ethereum gas metrics: block gas limit $=$11,741,495 and 1 gas $=$ 56 gwei.\footnote{EthStats (July 2020): \url{https://ethstats.net/}} Dequeuing removes data from the contract's storage. Recall this results in a gas refund. Based on our manual estimates (EVM does not expose the refund counter), every variant receives the maximum gas refund possible (\ie half the total cost of the transaction). In other words, each of them actually consumes twice the \texttt{gasUsed} amount in gas before the refund, however none of them are better or worst based on how much of a refund they generate.  
 
-\subsubsection{Decision.} Based on enqueuing, the heap variants are the cheapest in terms of gas, while based on dequeuing, the link list variants are cheapest. This is in accordance with the theoretical worst-case time complexity for each. However, (i) the linked list variants are materially cheaper than the heap variants at dequeuing, and (ii) dequeuing in a call market must be done as a batch, whereas enqueuing is paid for one at a time by the trader submitting the order, and (iii) Ethereum will not permit more than hundreds of orders so the asymptotic behaviour is not a significant factor. For these reasons, we suggest using a linked list variant for this specific application. As it can be seen in Figure~\ref{fig:random_insertion}, the associated cost for inserting elements into a linked list PQ is significantly greater than the linked list with mapping, as each insertion cause the creation of a new contracts. Accordingly, we choose to implement the call market with the linked list with mapping. Overall this PQ balances a moderate gas cost for insertion (\ie order submission) with one for removal (\ie matching the orders). 
+\subsubsection{Discussion.} Based on enqueuing, the heap variants are the cheapest in terms of gas, while based on dequeuing, the link list variants are cheapest. This is in accordance with the theoretical worst-case time complexity for each. However, (i) the linked list variants are materially cheaper than the heap variants at dequeuing, and (ii) dequeuing in a call market must be done as a batch, whereas enqueuing is paid for one at a time by the trader submitting the order, and (iii) Ethereum will not permit more than hundreds of orders so the asymptotic behaviour is not a significant factor. For these reasons, we suggest using a linked list variant for this specific application. As it can be seen in Figure~\ref{fig:random_insertion}, the associated cost for inserting elements into a linked list PQ is significantly greater than the linked list with mapping, as each insertion cause the creation of a new contracts. Accordingly, we choose to implement the call market with the linked list with mapping. Overall this PQ balances a moderate gas cost for insertion (\ie order submission) with one for removal (\ie matching the orders). 
 
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
@@ -318,15 +249,15 @@ As expected, the numbers closely track the performance of the PQ itself suggesti
 \textblue{Optimize for closing market, even at cost of higher submission.}
 
 
-
-
-
 % = = = = = = = = = = = =Clearing Mappings = = = = = = = = = = = = =  %
 
 
 \section{Call Market Different Design and Implementation Details }
 
-
+\subsection{Front-running} \label{sec:front}
+% Front running -> drop trades, move to next block, can't front-run
+% Take 1000 trades over a window of time -> shuffle -> what is different between A and B?u
+% No price improvement changes people waiting to trade?
 
 \subsection{Clearing Mappings}
 
@@ -413,6 +344,7 @@ We think it is useful to explore the landscape of possible designs for closing t
 
 %= = = = = =  = =  =  Rollups=  = = = = = = = = =%
 
+\label{sec:rollups}
 \item \textbf{Using Rollups.} Rollup is a scaling method that moves the storage and computation of the smart contracts off-chain while maintaining the transaction data on the main chain as call-data. In this technique, any Ethereum user can act as a validator; they can execute the \texttt{CloseMarket()}function and only post the new state of the contract (the updated balance of traders) in the form of \textit{assertions} to the main chain. Rollups improve scalability, provide faster and cheaper execution of the contracts, and eliminate the gas limit as the contract is no longer executed on-chain.
 In the followings we briefly discuss different rollup proposals and techniques. Each approach uses a different method to ensure correction of assertions:
 
@@ -531,8 +463,6 @@ In the followings we briefly discuss different rollup proposals and techniques. 
 
  
 %\subsubsection*{Acknowledgements.} J. Clark thanks ...
-
-
 
 
 

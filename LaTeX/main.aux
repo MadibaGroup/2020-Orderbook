@@ -17,76 +17,86 @@
 \gdef\HyperFirstAtBeginDocument#1{#1}
 \providecommand\HyField@AuxAddToFields[1]{}
 \providecommand\HyField@AuxAddToCoFields[2]{}
-\citation{nakamoto2019bitcoin}
-\citation{buterin2014next}
-\citation{eskandari2019sok}
 \providecommand \oddpage@label [2]{}
-\@writefile{toc}{\contentsline {title}{\Large  \bf  TradeIn: Revisiting fully on-chain exchanges}{1}{chapter.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {title}{\Large  \bf  \textsf  {Lissy}\xspace  : Revisiting fully on-chain orderbooks}{1}{chapter.1}\protected@file@percent }
 \@writefile{toc}{\authcount {1}}
 \@writefile{toc}{\contentsline {author}{}{1}{chapter.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {1}Introductory Remarks}{1}{section.1.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {2}Preliminaries}{1}{section.1.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Blockchain}{2}{subsection.1.2.1}\protected@file@percent }
-\citation{wood2014ethereum}
-\citation{signer2018gas}
-\citation{clark2014decentralizing}
+\@writefile{toc}{\contentsline {paragraph}{Contributions.}{1}{section*.2}\protected@file@percent }
 \citation{TheHisto45:online}
 \citation{SEBIOrde83:online}
-\@writefile{toc}{\contentsline {paragraph}{\texttt  {SELFDESTRUCT}.}{3}{section*.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{\texttt  {SSTORE}.}{3}{section*.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Exchanges}{3}{subsection.1.2.2}\protected@file@percent }
-\newlabel{sec:CEX}{{2.2}{3}{Centralized Exchanges (CEX)}{section*.6}{}}
-\@writefile{toc}{\contentsline {subsubsection}{Centralized Exchanges (CEX)}{3}{section*.6}\protected@file@percent }
-\citation{preis2011price}
-\@writefile{toc}{\contentsline {subsubsection}{Decentralized Exchanges (DEX)}{4}{section*.7}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Order Books}{4}{subsection.1.2.3}\protected@file@percent }
-\citation{eskandari2019sok}
-\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces \relax \fontsize  {9}{11}\selectfont  \abovedisplayskip 8.5\p@ plus3\p@ minus4\p@ \abovedisplayshortskip \z@ plus2\p@ \belowdisplayshortskip 4\p@ plus2\p@ minus2\p@ \def \leftmargin \leftmargini \parsep 0\p@ plus1\p@ minus\p@ \topsep 8\p@ plus2\p@ minus4\p@ \itemsep 0\p@ {\leftmargin \leftmargini \parsep 0\p@ plus1\p@ minus\p@ \topsep 8\p@ plus2\p@ minus4\p@ \itemsep 0\p@ }\belowdisplayskip \abovedisplayskip {Operations for a generic Priority Queue.} \relax }}{5}{table.caption.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2}Preliminaries}{2}{section.1.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Market Structure}{2}{subsection.1.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Execution systems.}{2}{section*.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Decentralized Order Matching}{2}{subsection.1.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Central exchanges (CEX).}{2}{section*.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{On-chain orderbooks.}{3}{section*.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{On-chain dealers.}{3}{section*.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Hybrid designs.}{3}{section*.7}\protected@file@percent }
+\citation{clark2014decentralizing}
+\citation{Bra13}
+\citation{eskandari2019sok,daian2019flash}
+\citation{clark2014decentralizing}
+\citation{Har03}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Related Work}{4}{subsection.1.2.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Blockchain limitations and solution.}{4}{section*.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Call markets.}{4}{section*.9}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3}Priority Queues}{4}{section.1.3}\protected@file@percent }
+\newlabel{sec:pq}{{3}{4}{Priority Queues}{section.1.3}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces \relax \fontsize  {9}{11}\selectfont  \abovedisplayskip 8.5\p@ plus3\p@ minus4\p@ \abovedisplayshortskip \z@ plus2\p@ \belowdisplayshortskip 4\p@ plus2\p@ minus2\p@ \def \leftmargin \leftmargini \parsep 0\p@ plus1\p@ minus\p@ \topsep 8\p@ plus2\p@ minus4\p@ \itemsep 0\p@ {\leftmargin \leftmargini \parsep 0\p@ plus1\p@ minus\p@ \topsep 8\p@ plus2\p@ minus4\p@ \itemsep 0\p@ }\belowdisplayskip \abovedisplayskip {Operations for a generic Priority Queue.} \relax }}{5}{table.caption.10}\protected@file@percent }
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
-\newlabel{tab:PQ_API}{{1}{5}{\footnotesize {Operations for a generic Priority Queue.} \relax }{table.caption.8}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {3}Priority Queue}{5}{section.1.3}\protected@file@percent }
-\newlabel{sec:pq}{{3}{5}{Priority Queue}{section.1.3}{}}
+\newlabel{tab:PQ_API}{{1}{5}{\footnotesize {Operations for a generic Priority Queue.} \relax }{table.caption.10}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Priority Queue Evaluation}{6}{subsection.1.3.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{Enqueue performance.}{6}{section*.9}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces \relax \fontsize  {9}{11}\selectfont  \abovedisplayskip 8.5\p@ plus3\p@ minus4\p@ \abovedisplayshortskip \z@ plus2\p@ \belowdisplayshortskip 4\p@ plus2\p@ minus2\p@ \def \leftmargin \leftmargini \parsep 0\p@ plus1\p@ minus\p@ \topsep 8\p@ plus2\p@ minus4\p@ \itemsep 0\p@ {\leftmargin \leftmargini \parsep 0\p@ plus1\p@ minus\p@ \topsep 8\p@ plus2\p@ minus4\p@ \itemsep 0\p@ }\belowdisplayskip \abovedisplayskip {Gas costs for enqueuing random items into five different priority queue variants. For the x-axis, a value of 10 indicates it is the 10th number entered in the priority queue. The y-axis is the cost of enqueue in gas.} \relax }}{7}{figure.caption.10}\protected@file@percent }
-\newlabel{fig:random_insertion}{{1}{7}{\footnotesize {Gas costs for enqueuing random items into five different priority queue variants. For the x-axis, a value of 10 indicates it is the 10th number entered in the priority queue. The y-axis is the cost of enqueue in gas.} \relax }{figure.caption.10}{}}
-\@writefile{toc}{\contentsline {subsubsection}{Dequeue performance.}{7}{section*.12}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{Decision.}{7}{section*.13}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces \relax \fontsize  {9}{11}\selectfont  \abovedisplayskip 8.5\p@ plus3\p@ minus4\p@ \abovedisplayshortskip \z@ plus2\p@ \belowdisplayshortskip 4\p@ plus2\p@ minus2\p@ \def \leftmargin \leftmargini \parsep 0\p@ plus1\p@ minus\p@ \topsep 8\p@ plus2\p@ minus4\p@ \itemsep 0\p@ {\leftmargin \leftmargini \parsep 0\p@ plus1\p@ minus\p@ \topsep 8\p@ plus2\p@ minus4\p@ \itemsep 0\p@ }\belowdisplayskip \abovedisplayskip {The gas metrics associated with dequeuing 50 items from five priority queues variants. For the refund, ($\bullet $) indicates the refund was capped at the maximum amount and ($\circ $) means a greater refund would be possible.} \relax }}{8}{table.caption.11}\protected@file@percent }
-\newlabel{tab:PQUnitTests}{{2}{8}{\footnotesize {The gas metrics associated with dequeuing 50 items from five priority queues variants. For the refund, (\full ) indicates the refund was capped at the maximum amount and (\prt ) means a greater refund would be possible.} \relax }{table.caption.11}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces The gas metrics associated with dequeuing 50 items from five priority queues variants. For the refund, ($\bullet $) indicates the refund was capped at the maximum amount and ($\circ $) means a greater refund would be possible.\relax }}{8}{table.caption.14}\protected@file@percent }
-\newlabel{tab:cleaning}{{3}{8}{The gas metrics associated with dequeuing 50 items from five priority queues variants. For the refund, (\full ) indicates the refund was capped at the maximum amount and (\prt ) means a greater refund would be possible.\relax }{table.caption.14}{}}
+\@writefile{toc}{\contentsline {subsubsection}{Enqueue performance.}{6}{section*.11}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces \relax \fontsize  {9}{11}\selectfont  \abovedisplayskip 8.5\p@ plus3\p@ minus4\p@ \abovedisplayshortskip \z@ plus2\p@ \belowdisplayshortskip 4\p@ plus2\p@ minus2\p@ \def \leftmargin \leftmargini \parsep 0\p@ plus1\p@ minus\p@ \topsep 8\p@ plus2\p@ minus4\p@ \itemsep 0\p@ {\leftmargin \leftmargini \parsep 0\p@ plus1\p@ minus\p@ \topsep 8\p@ plus2\p@ minus4\p@ \itemsep 0\p@ }\belowdisplayskip \abovedisplayskip {The gas metrics associated with dequeuing 50 items from five priority queues variants. For the refund, ($\bullet $) indicates the refund was capped at the maximum amount and ($\circ $) means a greater refund would be possible.} \relax }}{6}{table.caption.13}\protected@file@percent }
+\newlabel{tab:PQUnitTests}{{2}{6}{\footnotesize {The gas metrics associated with dequeuing 50 items from five priority queues variants. For the refund, (\full ) indicates the refund was capped at the maximum amount and (\prt ) means a greater refund would be possible.} \relax }{table.caption.13}{}}
+\@writefile{toc}{\contentsline {subsubsection}{Dequeue performance.}{6}{section*.14}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces \relax \fontsize  {9}{11}\selectfont  \abovedisplayskip 8.5\p@ plus3\p@ minus4\p@ \abovedisplayshortskip \z@ plus2\p@ \belowdisplayshortskip 4\p@ plus2\p@ minus2\p@ \def \leftmargin \leftmargini \parsep 0\p@ plus1\p@ minus\p@ \topsep 8\p@ plus2\p@ minus4\p@ \itemsep 0\p@ {\leftmargin \leftmargini \parsep 0\p@ plus1\p@ minus\p@ \topsep 8\p@ plus2\p@ minus4\p@ \itemsep 0\p@ }\belowdisplayskip \abovedisplayskip {Gas costs for enqueuing random items into five different priority queue variants. For the x-axis, a value of 10 indicates it is the 10th number entered in the priority queue. The y-axis is the cost of enqueue in gas.} \relax }}{7}{figure.caption.12}\protected@file@percent }
+\newlabel{fig:random_insertion}{{1}{7}{\footnotesize {Gas costs for enqueuing random items into five different priority queue variants. For the x-axis, a value of 10 indicates it is the 10th number entered in the priority queue. The y-axis is the cost of enqueue in gas.} \relax }{figure.caption.12}{}}
+\@writefile{toc}{\contentsline {subsubsection}{Discussion.}{7}{section*.15}\protected@file@percent }
 \citation{wood2014ethereum}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces The gas metrics associated with dequeuing 50 items from five priority queues variants. For the refund, ($\bullet $) indicates the refund was capped at the maximum amount and ($\circ $) means a greater refund would be possible.\relax }}{8}{table.caption.16}\protected@file@percent }
+\newlabel{tab:cleaning}{{3}{8}{The gas metrics associated with dequeuing 50 items from five priority queues variants. For the refund, (\full ) indicates the refund was capped at the maximum amount and (\prt ) means a greater refund would be possible.\relax }{table.caption.16}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Cost/Benefit of cleaning up after yourself}{8}{subsection.1.3.2}\protected@file@percent }
+\newlabel{sec:LLvsLLMapping}{{3.2}{8}{Cost/Benefit of cleaning up after yourself}{subsection.1.3.2}{}}
+\newlabel{sec:gasrefund}{{3.2}{8}{Cost/Benefit of cleaning up after yourself}{subsection.1.3.2}{}}
 \citation{eskandari2019sok}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Cost/Benefit of cleaning up after yourself}{9}{subsection.1.3.2}\protected@file@percent }
-\newlabel{sec:LLvsLLMapping}{{3.2}{9}{Cost/Benefit of cleaning up after yourself}{subsection.1.3.2}{}}
-\newlabel{sec:gasrefund}{{3.2}{9}{Cost/Benefit of cleaning up after yourself}{subsection.1.3.2}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {4}Call Market Design}{9}{section.1.4}\protected@file@percent }
 \citation{Ethereum41:online}
-\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces \relax \fontsize  {9}{11}\selectfont  \abovedisplayskip 8.5\p@ plus3\p@ minus4\p@ \abovedisplayshortskip \z@ plus2\p@ \belowdisplayshortskip 4\p@ plus2\p@ minus2\p@ \def \leftmargin \leftmargini \parsep 0\p@ plus1\p@ minus\p@ \topsep 8\p@ plus2\p@ minus4\p@ \itemsep 0\p@ {\leftmargin \leftmargini \parsep 0\p@ plus1\p@ minus\p@ \topsep 8\p@ plus2\p@ minus4\p@ \itemsep 0\p@ }\belowdisplayskip \abovedisplayskip {Primary operations of the call market smart contract.} \relax }}{10}{table.caption.15}\protected@file@percent }
-\newlabel{tab:callmarket_functions}{{4}{10}{\footnotesize {Primary operations of the call market smart contract.} \relax }{table.caption.15}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Performance of \textsf  {Tradine}\xspace  for each PQ variant.\relax }}{10}{table.caption.16}\protected@file@percent }
-\newlabel{tab:worst_case_matching}{{5}{10}{Performance of \cm for each PQ variant.\relax }{table.caption.16}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces \relax \fontsize  {9}{11}\selectfont  \abovedisplayskip 8.5\p@ plus3\p@ minus4\p@ \abovedisplayshortskip \z@ plus2\p@ \belowdisplayshortskip 4\p@ plus2\p@ minus2\p@ \def \leftmargin \leftmargini \parsep 0\p@ plus1\p@ minus\p@ \topsep 8\p@ plus2\p@ minus4\p@ \itemsep 0\p@ {\leftmargin \leftmargini \parsep 0\p@ plus1\p@ minus\p@ \topsep 8\p@ plus2\p@ minus4\p@ \itemsep 0\p@ }\belowdisplayskip \abovedisplayskip {Primary operations of the call market smart contract.} \relax }}{9}{table.caption.17}\protected@file@percent }
+\newlabel{tab:callmarket_functions}{{4}{9}{\footnotesize {Primary operations of the call market smart contract.} \relax }{table.caption.17}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Call Market Design}{9}{section.1.4}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Performance of \textsf  {Lissy}\xspace  for each PQ variant.\relax }}{10}{table.caption.18}\protected@file@percent }
+\newlabel{tab:worst_case_matching}{{5}{10}{Performance of \cm for each PQ variant.\relax }{table.caption.18}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Performance}{10}{subsection.1.4.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {5}Call Market Different Design and Implementation Details }{11}{section.1.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Clearing Mappings}{11}{subsection.1.5.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Closing and Reopening the Market}{12}{subsection.1.5.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces \relax \fontsize  {9}{11}\selectfont  \abovedisplayskip 8.5\p@ plus3\p@ minus4\p@ \abovedisplayshortskip \z@ plus2\p@ \belowdisplayshortskip 4\p@ plus2\p@ minus2\p@ \def \leftmargin \leftmargini \parsep 0\p@ plus1\p@ minus\p@ \topsep 8\p@ plus2\p@ minus4\p@ \itemsep 0\p@ {\leftmargin \leftmargini \parsep 0\p@ plus1\p@ minus\p@ \topsep 8\p@ plus2\p@ minus4\p@ \itemsep 0\p@ }\belowdisplayskip \abovedisplayskip {} \relax }}{13}{figure.caption.17}\protected@file@percent }
-\newlabel{fig:meta_tx}{{2}{13}{\footnotesize {} \relax }{figure.caption.17}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Front-running}{11}{subsection.1.5.1}\protected@file@percent }
+\newlabel{sec:front}{{5.1}{11}{Front-running}{subsection.1.5.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Clearing Mappings}{11}{subsection.1.5.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Closing and Reopening the Market}{11}{subsection.1.5.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces \relax \fontsize  {9}{11}\selectfont  \abovedisplayskip 8.5\p@ plus3\p@ minus4\p@ \abovedisplayshortskip \z@ plus2\p@ \belowdisplayshortskip 4\p@ plus2\p@ minus2\p@ \def \leftmargin \leftmargini \parsep 0\p@ plus1\p@ minus\p@ \topsep 8\p@ plus2\p@ minus4\p@ \itemsep 0\p@ {\leftmargin \leftmargini \parsep 0\p@ plus1\p@ minus\p@ \topsep 8\p@ plus2\p@ minus4\p@ \itemsep 0\p@ }\belowdisplayskip \abovedisplayskip {} \relax }}{13}{figure.caption.19}\protected@file@percent }
+\newlabel{fig:meta_tx}{{2}{13}{\footnotesize {} \relax }{figure.caption.19}{}}
+\newlabel{sec:rollups}{{5.3}{13}{Closing and Reopening the Market}{figure.caption.19}{}}
 \citation{kalodner2018arbitrum}
 \citation{cheng2019ekiden}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4}Transferring the Collateral back to Traders.}{14}{subsection.1.5.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6}Concluding Remarks}{14}{section.1.6}\protected@file@percent }
 \bibdata{bib/DEX}
 \bibcite{Ethereum41:online}{1}
-\bibcite{buterin2014next}{2}
-\bibcite{cheng2019ekiden}{3}
-\bibcite{clark2014decentralizing}{4}
-\bibcite{eskandari2019sok}{5}
-\bibcite{kalodner2018arbitrum}{6}
-\bibcite{nakamoto2019bitcoin}{7}
-\bibcite{TheHisto45:online}{8}
-\bibcite{preis2011price}{9}
-\bibcite{SEBIOrde83:online}{10}
-\bibcite{signer2018gas}{11}
-\bibcite{wood2014ethereum}{12}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Transferring the Collateral back to Traders.}{15}{subsection.1.5.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {6}Concluding Remarks}{15}{section.1.6}\protected@file@percent }
+\bibcite{Bra13}{2}
+\bibcite{buterin2014next}{3}
+\bibcite{cheng2019ekiden}{4}
+\bibcite{clark2014decentralizing}{5}
+\bibcite{daian2019flash}{6}
+\bibcite{eskandari2019sok}{7}
+\bibcite{Har03}{8}
+\bibcite{kalodner2018arbitrum}{9}
+\bibcite{nakamoto2019bitcoin}{10}
+\bibcite{TheHisto45:online}{11}
+\bibcite{SEBIOrde83:online}{12}
+\bibcite{signer2018gas}{13}
+\bibcite{wood2014ethereum}{14}
+\citation{wood2014ethereum}
+\citation{signer2018gas}
+\@writefile{toc}{\contentsline {section}{\numberline {A}Ethereum's Gas Model}{16}{section.A.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{\texttt  {SELFDESTRUCT}.}{16}{section*.22}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{\texttt  {SSTORE}.}{16}{section*.23}\protected@file@percent }

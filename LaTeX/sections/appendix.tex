@@ -1,0 +1,29 @@
+% !TEX root = ../main.tex
+
+\section{Ethereum's Gas Model} 
+
+Gas is the Ethereum's pseudo-currency and a key variable for the execution of smart contracts. DApps written in high-level programming languages are compiled and translated into a compact representation (called ‘bytecode’) to be further executed on the Ethereum virtual machine or EVM. Each of these opcodes has a fixed amount of gas assigned and is a measure of computational effort. Separating ETH from gas prevents transactions cost from being too expensive as they are less impacted by ETH price fluctuations. Gas unit does not a have a monetary value and as mentioned, it only  measures the computational work undertaken by miners. To pay miners, Ethereum introduces a \texttt{gas price} --- small denomination of ether called \textbf{Gwei} attached to each gas unit. Essentially, gas price indicates how much users are willing to pay per unit of gas, clearly the higher gas price leads to the faster execution of a transaction. Miners also need to know the total amount of computational work a user is requesting, called the \texttt{gas limit}. \texttt{Gas limit} is a parameter that limits the amount of gas users would spend in a transaction. It protects users from spending unlimited ETH on their transactions and must be set carefully. If the \texttt{gas limit} is too low, the transaction will exceed the limit, all operations will be reverted while the user must pay for the computational work performed by the miner. By default the gas limit for an Ethereum transaction is 21,000 gas. An Ethereum block also has a \texttt{block gas limit} field which is set by the Ethereum miners and indicates the maximum amount of gas all the transactions in that block are allowed to consume, the Ethereum \texttt{block gas limit} is currently 11,741,495. \footnote{\[July 2020:\] https://ethstats.net/} 
+
+
+\subsection*{Gas Refunds.}There are two particular EVM operations with negative gas --- certain amount of gas is refunded to the sender at the end of the transaction. These operation include:
+
+\paragraph{\texttt{SELFDESTRUCT}.}This operation destroys and deletes the originating contract and refunds its balance (if any) to a designated receiver address. Note that the Ethereum storage is implemented in the form of a has map and EVM is not statistically aware of which storage slots are held by the contract. Because of this the \texttt{SELFDESTRUCT} operation does not remove the initial byte code of the contract from the chain, but it frees up the state storage and has a refund of 24,000 gas.
+
+\paragraph{\texttt{SSTORE}.} This operation clears the Ethereum storage and has15,000 gas refunds. 
+
+
+Note that in order to urge miners to process smart contracts with refunds, the accumulated gas refund can never exceed half the gas used up during computation~\cite{wood2014ethereum}. So at the end of a successful transaction, the amount of gas in the refund counter (capped at half the net gas used) is returned to the caller. At the time of this writing, Ethereum transaction receipts only account for the \texttt{gasUsed}, which is the total amount of gas units spent during a transaction, and we are not able to obtain the value of the EVM's refund counter from inside the EVM~\cite{signer2018gas}. So in order to account for refunds, we decide to calculate them manually; first we figure out exactly how much storage is being cleared or how many smart contracts are being destroyed, then we multiply these numbers by 24,000 and 15,000 respectively. 
+
+
+
+
+%gas price: how much you pay per gas unit
+%gas limit: how much work you are requesting 
+%gas cost (Ether) = gasPrice * gasCost(gas)
+%gas limit: is a parameter that limits the amount of gas you spend in a transaction (how to estimate? using estimateGas)
+%gas price how to estimate: using ethgassation 
+%by defaluth the gas minimum gas limit for ethereum txs is 21000 gas
+%a block also has a gas limit field, it defines a maximum amount of gas all txs in th eblock combined are allowed to consume. this block gas limit determines the maximum number of transactions within the block. this block gas limt is not fixed and set by miners  
+%
+%ers to process smart contracts with refunds, the accumulated gas refund can never exceed half the gas used up during computation~\cite{wood2014ethereum}. So at the end of a successful transaction, the amount of gas in the refund counter (capped at half the net gas used) is returned to the caller. 
+

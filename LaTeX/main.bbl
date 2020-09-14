@@ -6,6 +6,11 @@ Ethereum development tutorial · ethereum/wiki wiki.
   \url{https://github.com/ethereum/wiki/wiki/Ethereum-Development-Tutorial}.
 \newblock (Accessed on 24/08/2020).
 
+\bibitem{Bra13}
+R.~Brandom.
+\newblock This princeton professor is building a bitcoin-inspired prediction
+  market, Nov 2013.
+
 \bibitem{buterin2014next}
 V.~Buterin et~al.
 \newblock A next-generation smart contract and decentralized application
@@ -26,10 +31,22 @@ J.~Clark, J.~Bonneau, E.~W. Felten, J.~A. Kroll, A.~Miller, and A.~Narayanan.
 \newblock In {\em Workshop on the Economics of Information Security, State
   College, Pennsylvania}, 2014.
 
+\bibitem{daian2019flash}
+P.~Daian, S.~Goldfeder, T.~Kell, Y.~Li, X.~Zhao, I.~Bentov, L.~Breidenbach, and
+  A.~Juels.
+\newblock Flash boys 2.0: Frontrunning, transaction reordering, and consensus
+  instability in decentralized exchanges.
+\newblock {\em arXiv preprint arXiv:1904.05234}, 2019.
+
 \bibitem{eskandari2019sok}
 S.~Eskandari, S.~Moosavi, and J.~Clark.
 \newblock Sok: Transparent dishonesty: front-running attacks on blockchain.
 \newblock 2019.
+
+\bibitem{Har03}
+L.~Harris.
+\newblock {\em Trading and exchanges: market microstructure for practitioners}.
+\newblock Oxford, 2003.
 
 \bibitem{kalodner2018arbitrum}
 H.~Kalodner, S.~Goldfeder, X.~Chen, S.~M. Weinberg, and E.~W. Felten.
@@ -47,13 +64,6 @@ A.~Norry.
 \newblock The history of the mt gox hack: Bitcoin's biggest heist.
 \newblock \url{https://blockonomi.com/mt-gox-hack/}, June 2019.
 \newblock (Accessed on 12/31/2019).
-
-\bibitem{preis2011price}
-T.~Preis.
-\newblock Price-time priority and pro rata matching in an order book model of
-  financial markets.
-\newblock In {\em Econophysics of Order-driven Markets}, pages 65--72.
-  Springer, 2011.
 
 \bibitem{SEBIOrde83:online}
 Securities and E.~B. of~India.
