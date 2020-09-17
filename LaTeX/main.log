@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2020.4.8)  15 SEP 2020 08:27
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2020.4.8)  16 SEP 2020 15:46
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1171,12 +1171,12 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 
 {/usr/local/texlive/2019/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2] [3]
- (./tables/pq.tex) [4]
+ [4] (./tables/pq.tex)
 [5]
-<fig/random_insertion.png, id=99, 419.5675pt x 319.1925pt>
+<fig/random_insertion.png, id=121, 419.5675pt x 319.1925pt>
 File: fig/random_insertion.png Graphic file (type png)
 <use fig/random_insertion.png>
-Package pdftex.def Info: fig/random_insertion.png  used on input line 92.
+Package pdftex.def Info: fig/random_insertion.png  used on input line 83.
 (pdftex.def)             Requested size: 277.69987pt x 211.26189pt.
  (./tables/dequeue.tex
 LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 9
@@ -1184,21 +1184,18 @@ LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 9
 
 (/usr/local/texlive/2019/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2019/12/16 v2.5j Standard LaTeX font definitions
-)) [6] [7 <./fig/random_insertion.png>] (./tables/cleaning.tex) [8] (./tables/f
-unctions.tex
+)) [6]
+(./tables/cleaning.tex) [7 <./fig/random_insertion.png>] [8]
+(./tables/functions.tex
 Overfull \hbox (10.40005pt too wide) in paragraph at lines 5--30
 [][] 
  []
 
-) (./tables/performance.tex [9])
-Underfull \vbox (badness 10000) has occurred while \output is active []
+) [9] (./tables/performance.tex) [10] [11] [12]
 
- [10]
-[11]
+LaTeX Warning: Reference `fig:meta_tx' on page 13 undefined on input line 211.
 
-LaTeX Warning: Reference `fig:meta_tx' on page 12 undefined on input line 210.
-
-[12] [13] [14]) [15] (./main.bbl
+[13]) [14] (./main.bbl
 Underfull \hbox (badness 3078) in paragraph at lines 4--8
 []\T1/cmr/m/n/9 Ethereum de-vel-op-ment tu-to-rial \TS1/cmr/m/n/9 · \T1/cmr/m/n
 /9 ethereum/wiki wiki.  []$\T1/cmtt/m/n/9 https : / / github .
@@ -1210,9 +1207,9 @@ Underfull \hbox (badness 6758) in paragraph at lines 4--8
 rial$[]\T1/cmr/m/n/9 .  (Ac-cessed on
  []
 
-) [16
+[15
 
-] (./sections/appendix.tex [17
+]) [16] (./sections/appendix.tex [17
 
 ]) [18]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 53.
@@ -1229,13 +1226,13 @@ LaTeX Warning: There were undefined references.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 53.
  ) 
 Here is how much of TeX's memory you used:
- 24751 strings out of 480994
- 463658 string characters out of 5912143
- 751864 words of memory out of 5000000
- 39586 multiletter control sequences out of 15000+600000
+ 24762 strings out of 480994
+ 463885 string characters out of 5912143
+ 752864 words of memory out of 5000000
+ 39594 multiletter control sequences out of 15000+600000
  550808 words of font info for 68 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 63i,12n,81p,1862b,460s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 63i,12n,81p,1862b,466s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2019/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}
 {/usr/local/texlive/2019/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}<
 /usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></
@@ -1259,10 +1256,10 @@ st/fonts/type1/public/cm-super/sfti0900.pfb></usr/local/texlive/2019/texmf-dist
 /fonts/type1/public/cm-super/sfti1000.pfb></usr/local/texlive/2019/texmf-dist/f
 onts/type1/public/cm-super/sftt0900.pfb></usr/local/texlive/2019/texmf-dist/fon
 ts/type1/public/cm-super/sftt1000.pfb>
-Output written on main.pdf (18 pages, 489827 bytes).
+Output written on main.pdf (18 pages, 489954 bytes).
 PDF statistics:
- 369 PDF objects out of 1000 (max. 8388607)
- 299 compressed objects within 3 object streams
- 106 named destinations out of 1000 (max. 500000)
+ 391 PDF objects out of 1000 (max. 8388607)
+ 312 compressed objects within 4 object streams
+ 109 named destinations out of 1000 (max. 500000)
  26 words of extra memory for PDF output out of 10000 (max. 10000000)
 

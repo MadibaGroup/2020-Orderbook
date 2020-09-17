@@ -1,5 +1,7 @@
 % !TEX root = ../main.tex
 
+% Extended discussion on cleaning up data structures in Ethereum
+
 \section{Ethereum's Gas Model} 
 
 Gas is the Ethereum's pseudo-currency and a key variable for the execution of smart contracts. DApps written in high-level programming languages are compiled and translated into a compact representation (called ‘bytecode’) to be further executed on the Ethereum virtual machine or EVM. Each of these opcodes has a fixed amount of gas assigned and is a measure of computational effort. Separating ETH from gas prevents transactions cost from being too expensive as they are less impacted by ETH price fluctuations. Gas unit does not a have a monetary value and as mentioned, it only  measures the computational work undertaken by miners. To pay miners, Ethereum introduces a \texttt{gas price} --- small denomination of ether called \textbf{Gwei} attached to each gas unit. Essentially, gas price indicates how much users are willing to pay per unit of gas, clearly the higher gas price leads to the faster execution of a transaction. Miners also need to know the total amount of computational work a user is requesting, called the \texttt{gas limit}. \texttt{Gas limit} is a parameter that limits the amount of gas users would spend in a transaction. It protects users from spending unlimited ETH on their transactions and must be set carefully. If the \texttt{gas limit} is too low, the transaction will exceed the limit, all operations will be reverted while the user must pay for the computational work performed by the miner. By default the gas limit for an Ethereum transaction is 21,000 gas. An Ethereum block also has a \texttt{block gas limit} field which is set by the Ethereum miners and indicates the maximum amount of gas all the transactions in that block are allowed to consume, the Ethereum \texttt{block gas limit} is currently 11,741,495. \footnote{July 2020: https://ethstats.net/} 
@@ -11,10 +13,30 @@ Gas is the Ethereum's pseudo-currency and a key variable for the execution of sm
 
 \paragraph{\texttt{SSTORE}.} This operation clears the Ethereum storage and has15,000 gas refunds. 
 
-
 Note that in order to urge miners to process smart contracts with refunds, the accumulated gas refund can never exceed half the gas used up during computation~\cite{wood2014ethereum}. So at the end of a successful transaction, the amount of gas in the refund counter (capped at half the net gas used) is returned to the caller. At the time of this writing, Ethereum transaction receipts only account for the \texttt{gasUsed}, which is the total amount of gas units spent during a transaction, and we are not able to obtain the value of the EVM's refund counter from inside the EVM~\cite{signer2018gas}. So in order to account for refunds, we decide to calculate them manually; first we figure out exactly how much storage is being cleared or how many smart contracts are being destroyed, then we multiply these numbers by 24,000 and 15,000 respectively. 
 
 
+\subsection{Clearing Mappings}
+
+To maintain the collateral balance of each market participant, we use two Solidity type one-to-one mappings that map Ethereum addresses to 256 bits unsigned integers; \texttt{TotalBalance} and \texttt{UnavailableBalance}. Once market closes and orders are matched, the \texttt{UnavailableBalance} needs to be cleared. However, since it is not possible to delete the entire mapping without knowing the keys~\footnote{https://solidity.readthedocs.io/en/v0.5.12/security-considerations.html}, clearing the \texttt{UnavailableBalance} mapping remains a challenging issue to solve. Here we provide a landscape of solutions for that.
+%only individual keys and what they map to can be deleted.
+
+\begin{itemize}
+
+%---------+++++++++++++++++++-----------------
+\item \textbf{Creating a New Mapping Every Time the Market Opens.} Instead of clearing the \texttt{UnavailableBalance} of traders at the end of a matching process, we could create a new mapping every time the market opens. Note that in this scheme traders can claim their funds back (using the \texttt{ClaimEther()} and/or \texttt{ClaimToken} methods) only when the market is closed (\ie the market is in the \texttt{Closed} state).
+
+%---------+++++++++++++++++++-----------------
+\item \textbf{Creating Custom Keys for the Mapping.} We can create custom keys for the mapping by defining a counter as a global variable inside the call market smart contract and increment it only once at the end of the matching process. So instead of clearing the mapping, we only use another portion of it every time the market opens.
+
+%---------+++++++++++++++++++-----------------
+\item \textbf{Storing the Mapping in a Data-Contract.} Another design proposal is to create a new smart contract every time the market opens, this data contract only stores the \texttt{UnavailableBalance} mapping and will be destroyed (using the \texttt{SELFDESTRUCT} operation) at the end of the matching process.
+
+%---------+++++++++++++++++++-----------------
+\item \textbf{Storing the Mapping keys in an additional Array.} Another common pattern is to create an additional array on top of the mapping and iterate over that. This array (\eg address[]) stores the traders' addresses and enables us to iterate over the mapping and delete individual keys and what they map to at the end of the matching process. Note that this is a gas-costly design pattern as we would need to maintain a secondary data structure. 
+
+%---------+++++++++++++++++++-----------------
+\end{itemize}
 
 
 %gas price: how much you pay per gas unit
@@ -29,4 +51,21 @@ Note that in order to urge miners to process smart contracts with refunds, the a
 
 
 % \input{tables/eval.tex}
+
+%\section{Rollups}
+%
+%\subsection{Using Rollups.} Rollup is a scaling method that moves the storage and computation of the smart contracts off-chain while maintaining the transaction data on the main chain as call-data. In this technique, any Ethereum user can act as a validator; they can execute the \texttt{CloseMarket()}function and only post the new state of the contract (the updated balance of traders) in the form of \textit{assertions} to the main chain. Rollups improve scalability, provide faster and cheaper execution of the contracts, and eliminate the gas limit as the contract is no longer executed on-chain.
+%
+%In the followings we briefly discuss different rollup proposals and techniques. Each approach uses a different method to ensure correction of assertions:
+%
+%\paragraph{Non-interactive Rollups.} In this rollup technique, assertions are posted together with a validity proof that would be later used by validators to check if the \texttt{CloseMarket()} function has been executed correctly. ZK-Rollup scheme is one of the solutions that uses ZK-SNARKs to prove the validity of the assertions in zero-knowledge. ZK proofs are quick and cheap to verify but they are expensive and time consuming to generate. These proofs could be generated (i) for free or (ii) the CallMarket contract could collect proportional fees for every trade that is successfully executed.
+%
+%\paragraph{Optimistic Rollups.} In this scheme, assertions are assumed to be valid if there is no dispute posted about them with a certain window of time (a.k.a. "the challenge period'). Here, dispute resolution is a gas-costly method as the CallMarket contract would have to emulate the transaction on-chain to ensure the correctness the assertion. This scheme introduces a tradeoff between privacy and performance as all the assertions are publicly available and accessible. However, here the new state only reflects the updated balances of traders and no secret is involved. 
+%
+%\paragraph{{Multi-round Interactive Rollups.}} In this design paradigm, \textit{pending assertions} are posted on-chain and they are open to dispute. Once the challenge period is over and no challenge is submitted, the assertion is confirmed and the CallMarket contract transitions to the new state (\ie updates traders' balances). This scheme takes the overhead for the CallMarket contract to execute the \texttt{Close()} on-chain by using rounds to the dispute resolutions. The two parties (asserter and challenger) must run an interactive protocol and the CallMarket smart contract would have to act as a referee and decides which party's claim is true. Arbitrum is an example of multi-round interactive rollups that uses an efficient challenge-based protocol to penalize the dishonest parties~\cite{kalodner2018arbitrum}. 
+%
+%%= = = = = =  = =  =  SGX=  = = = = = = = = =%
+%
+%\paragraph{{Using Trusted Execution Environments.}} Another way of achieving execution of the \texttt{CloseMarket()} function is incorporating the Ethereum blockchain into the Trusted Execution Environments (TEEs) and decoupling the contract execution from consensus mechanism. TEEs enable secure execution of applications in an isolated processing environment called the \textit{enclave}. Here, the enclave could execute the \texttt{CloseMarket()} function off-chain in TEEs and publish an on-chain attestation Quote to the CallMarket contract. The contract then verifies the correctness of the Quote and if validated correctly, it transitions to the new state. Ekiden is an example that uses Intel SGX to solve the scalability and confidentiality issues with the smart contract execution~\cite{cheng2019ekiden}. A drawback of this scheme is in order to achieve confidentiality-preserving smart contracts we have to trust a trusted party in the form of the hardware manufacturer (\eg Intel).
+
 

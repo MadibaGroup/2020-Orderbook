@@ -6,6 +6,18 @@ Ethereum development tutorial · ethereum/wiki wiki.
   \url{https://github.com/ethereum/wiki/wiki/Ethereum-Development-Tutorial}.
 \newblock (Accessed on 24/08/2020).
 
+\bibitem{bentov2017tesseract}
+I.~Bentov, Y.~Ji, F.~Zhang, Y.~Li, X.~Zhao, L.~Breidenbach, P.~Daian, and
+  A.~Juels.
+\newblock Tesseract: Real-time cryptocurrency exchange using trusted hardware.
+\newblock 2019.
+
+\bibitem{biryukov2017findel}
+A.~Biryukov, D.~Khovratovich, and S.~Tikhomirov.
+\newblock Findel: Secure derivative contracts for ethereum.
+\newblock In {\em International Conference on Financial Cryptography and Data
+  Security}, pages 453--467. Springer, 2017.
+
 \bibitem{boneh2018verifiable}
 D.~Boneh, J.~Bonneau, B.~B\"unz, and B.~Fisch.
 \newblock Verifiable delay functions.
@@ -48,6 +60,12 @@ P.~Daian, S.~Goldfeder, T.~Kell, Y.~Li, X.~Zhao, I.~Bentov, L.~Breidenbach, and
   instability in decentralized exchanges.
 \newblock In {\em IEEE Symposium on Security and Privacy}, 2020.
 
+\bibitem{eskandari2017feasibility}
+S.~Eskandari, J.~Clark, V.~Sundaresan, and M.~Adham.
+\newblock On the feasibility of decentralized derivatives markets.
+\newblock In {\em International Conference on Financial Cryptography and Data
+  Security}, pages 553--567. Springer, 2017.
+
 \bibitem{eskandari2019sok}
 S.~Eskandari, S.~Moosavi, and J.~Clark.
 \newblock Sok: Transparent dishonesty: front-running attacks on blockchain.
@@ -58,11 +76,23 @@ L.~Harris.
 \newblock {\em Trading and exchanges: market microstructure for practitioners}.
 \newblock Oxford, 2003.
 
+\bibitem{heilman2020arwen}
+E.~Heilman, S.~Lipmann, and S.~Goldberg.
+\newblock The arwen trading protocols.
+\newblock In {\em International Conference on Financial Cryptography and Data
+  Security}, pages 156--173. Springer, 2020.
+
 \bibitem{kalodner2018arbitrum}
 H.~Kalodner, S.~Goldfeder, X.~Chen, S.~M. Weinberg, and E.~W. Felten.
 \newblock Arbitrum: Scalable, private smart contracts.
 \newblock In {\em 27th $\{$USENIX$\}$ Security Symposium ($\{$USENIX$\}$
   Security 18)}, pages 1353--1370, 2018.
+
+\bibitem{massacci2018futuresmex}
+F.~Massacci, C.~N. Ngo, J.~Nie, D.~Venturi, and J.~Williams.
+\newblock Futuresmex: secure, distributed futures market exchange.
+\newblock In {\em 2018 IEEE Symposium on Security and Privacy (SP)}, pages
+  335--353. IEEE, 2018.
 
 \bibitem{mavroudis2019libra}
 V.~Mavroudis and H.~Melton.
@@ -88,9 +118,24 @@ C.~Signer.
 \newblock Gas cost analysis for ethereum smart contracts.
 \newblock Master's thesis, ETH Zurich, Department of Computer Science, 2018.
 
+\bibitem{TP07}
+C.~Thorpe and D.~C. Parkes.
+\newblock Cryptographic securities exchanges.
+\newblock In {\em Financial Cryptography}, 2007.
+
+\bibitem{TW12}
+C.~Thorpe and S.~R. Willis.
+\newblock Cryptographic rule-based trading.
+\newblock In {\em Financial Cryptography}, 2012.
+
 \bibitem{wood2014ethereum}
 G.~Wood et~al.
 \newblock Ethereum: A secure decentralised generalised transaction ledger.
 \newblock Technical Report 2014, Ethereum, 2014.
+
+\bibitem{YSLT10}
+W.~Yuen, P.~Syverson, Z.~Liu, and C.~Thorpe.
+\newblock Intention-disguised algorithmic trading.
+\newblock In {\em Financial Cryptography}, 2010.
 
 \end{thebibliography}
