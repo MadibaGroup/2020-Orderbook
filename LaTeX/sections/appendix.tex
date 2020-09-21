@@ -3,7 +3,7 @@
 
 \section{Extended Discussion on Cleaning up Data Structures on Ethereum}
 
-As discussed in Section~\ref{sec:gasrefund}, whether to clean up storage variables or not remains a vital challenge for developers when developing DApps on the Ethereum blockchain--- this is even more crucial for implementation of \cm, as we needed  to choose the best middle ground design model which gives us a satisfactory performance and cost results. For this reason, we believe it it is helpful (both for researchers and developers) to extend our discussion on this topic. First, we discuss the Ethereum's gas model--- (i) what are different gas parameters one needs to take into account when sending a transaction on the Ethereum blockchain, (ii) what is the gas refund, and (iii) and how it is calculated.  Next, we discuss one major challenge, \textit{clearing mappings}, that we faced when implementing \cm on the Ethereum.
+As discussed in Section~\ref{sec:gasrefund}, whether to clean up storage variables or not remains a vital challenge for developers when developing DApps on the Ethereum blockchain--- this is even more crucial for implementation of \cm, as we need to choose the best middle ground design model which gives us optimized performance and cost results. For this reason, we believe it it is helpful (both for researchers and developers) to extend our discussion on this topic. First, we discuss the Ethereum's gas model--- (i) what are different gas parameters one needs to take into account when sending a transaction on the Ethereum blockchain, (ii) what is the gas refund, and (iii) and how it is calculated.  Next, we discuss one major challenge, \textit{clearing mappings}, that we faced when implementing \cm on the Ethereum.
 
 
 \subsection{Ethereum's Gas Model} 
@@ -22,7 +22,7 @@ Note that in order to urge miners to process smart contracts with refunds, the a
 
 \subsection{Clearing Mappings}
 
-To maintain the ETH and ERC20 tokens balances of each trader in \cm, we use one-to-one mappings, \texttt{totalBalance} and \texttt{unavailableBalance}, that map Ethereum addresses to unsigned integers. Note that we need to clear up the entire  \texttt{unavailableBalance} mapping during the orders settlement and clearing phase. However in Solidity, it is not possible to delete the entire mapping without knowing the keys~\footnote{In a Solidity mapping, only individual keys and what they map to can be deleted: https://solidity.readthedocs.io/en/v0.5.12/security-considerations.html}. Here we propose and discuss the landscape of various solutions together with how each method affects the total amounts of gas costs for clearing orders in \cm.
+To maintain the ETH and token balances of each trader in \cm, we use one-to-one mappings, \texttt{totalBalance} and \texttt{unavailableBalance}, that map Ethereum addresses to unsigned integers. Note that we need to clear up the entire  \texttt{unavailableBalance} mapping during the orders settlement and clearing phase. However in Solidity, it is not possible to delete the entire mapping without knowing the keys~\footnote{In a Solidity mapping, only individual keys and what they map to can be deleted: https://solidity.readthedocs.io/en/v0.5.12/security-considerations.html}. Here we propose and discuss the landscape of various solutions together with how each method affects the total amounts of gas costs for clearing orders in \cm.
 
 \begin{enumerate}
 
@@ -36,7 +36,7 @@ significantly increases the total cost of matching the orders as Solidity loops 
 
 
 %---------+++++++++++++++++++-----------------
-\item \textbf{Generating custom mapping keys.} We can also define a global counter variable and use it as a custom key for the mappings. This counter is incremented \textit{only once} at the end of the matching process. So we only use a new portion of the mapping (and leave the used portion on the Ethereum blockchain) every time the market opens. This solution removes the burden of the gas cost from the \texttt{matchOrders()} function (as discussed in Section~\ref{sec:gasrefund}, leaving the data on chain is cheaper then cleaning it up), however DApp developers are advised to be good citizens of Ethereum and cleanup on-chain data they no longer need. 
+\item \textbf{Generating custom mapping keys.} We can also define a global counter variable and use it as a custom key for the mappings. This counter is incremented \textit{only once} at the end of the matching process. So we only use a new portion of the mapping (and leave the used portion on the Ethereum blockchain) every time the market opens. This solution removes the burden of the gas cost from the \texttt{matchOrders()} function (as discussed in Section~\ref{sec:gasrefund}, leaving the data on chain is cheaper than cleaning it up), however DApp developers are advised to be good citizens of Ethereum and cleanup on-chain data they no longer need. 
 
 %---------+++++++++++++++++++-----------------
 \item \textbf{Creating a new mapping every time the market opens.} Similar to the previous proposal, we can skip deleting mappings and instead create a new mapping every time the market opens. Again, although this method does not increase the cost of matching the orders in \cm, it leaves unused data on the Ethereum blockchain. 

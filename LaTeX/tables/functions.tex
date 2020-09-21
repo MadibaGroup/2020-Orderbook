@@ -7,27 +7,27 @@
 \multicolumn{1}{|c|}{\textbf{Operation}} & \multicolumn{1}{c|}{\textbf{Description}}                            			\\ \hline
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
-	DepositToken()                           & Deposits ERC20 standard compliant tokens in the call market contract \\ \hline
+	depositToken()                           & Deposits ERC20 standard compliant tokens in \cm smart contract \\ \hline
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
-	DepositEther()                           	& Deposits ETH in the call market contract                         			 \\ \hline
+	depositEther()                           	& Deposits ETH in \cm smart contract                        			 \\ \hline
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
-	OpenMarket()                             & Opens the market                                                    					 \\ \hline
+	openMarket()                             & Opens the market                                                    					 \\ \hline
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
-	CloseMarket()                            & Closes the market                                                    					\\ \hline
+	closeMarket()                            & Closes the market                                                    					\\ \hline
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
-	SubmitBid()                              & Inserts the upcoming bid order messages inside the priority queue    \\ \hline
+	submitBid()                              & Inserts the upcoming bid order messages inside the priority queue    \\ \hline
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
-	SubmitAsk()                              & Inserts the upcoming ask order messages inside the priority queue    \\ \hline
+	submitAsk()                              & Inserts the upcoming ask order messages inside the priority queue    \\ \hline
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
-	MatchOrders()                           & Matches the orders against each other                                			\\ \hline
+	matchOrders()                           & Matches the orders against each other                                			\\ \hline
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
-	ClaimTokens()                           & Transfers collateralized tokens back to the trader                       			\\ \hline
+	claimTokens()                           & Transfers collateralized tokens back to the trader                       			\\ \hline
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
-	ClaimEther()                             & Transfers collateralized ETH back to the trader                       			\\ \hline
+	claimEther()                             & Transfers collateralized ETH back to the trader                       			\\ \hline
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
 \end{tabular}
-\caption{\footnotesize{Primary operations of the call market smart contract.}
-\label{tab:callmarket_functions}}
+\caption{\footnotesize{Primary operations of \cm smart contract.}
+\label{tab:cm_functions}}
 \end{table}
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
