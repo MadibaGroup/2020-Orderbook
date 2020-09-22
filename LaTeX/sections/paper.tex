@@ -225,9 +225,33 @@ We think it is useful to explore the landscape of possible designs for closing t
 Someone does it off-chain and (a) Ethereum checks that it was done right with a proof (SNARK)~\cite{}, (b) Ethereum checks that it was done right with an attestation from a trusted execution environment (\eg Intel SGX or Intel TXT) (SGX is broken but TXT is still fine)~\cite{cheng2019ekiden}, and (c) we assume it was done right but Ethereum will resolve a dispute about where specifically the computation went wrong.~\cite{kalodner2018arbitrum}. Why not use SGX for everything? 
 
 %Arbitrum numbers: 
-% Heap w/ dynamic array: matching 38 pairs, cost: 38,863
+% Heap w/ dynamic array: matching 38 pairs, cost: 38,863 (this is the cost of posting transactions as calldata on the L1 chain, as well as the overhead associated with each batch of transactions, and the L1 cost of settling transactions in the Arbitrum protocol)
 % Heap w/ dynamic array: matching 1000 pairs, cost: 38,851
 % Heap w/ dynamic array: 2000 average submission: cost (averaged): 39,169 (we have the plot too, if needed)
+
+
+Costs in arbitrum include:
+
+--- Level 1 (Ethereum here) gas costs: This is the cost of posting transactions as calldata on the L1 chain, as well as the overhead associated with each batch of transactions, and the L1 cost of settling transactions in the Arbitrum protocol.
+
+---Validator’s staking costs: In normal operation, one validator will need to be staked. (putting their money behind the claim that this state is correct), if that state eventually gets confirmed they get their stake back, if not they'll lose it (half of it burns half of it goes back to the honest validator)
+
+---Validator computation and storage: Every validator must do computation to track the chain’s processing of transactions, and must maintain storage to keep track of the contracts’ EVM storage.
+
+
+
+
+More about Arbitrum:
+
+>> performance: Arbitrum software currently supports 453 transactions-per-second for basic transactions . more optimization on the way
+
+>> low cost: The cost of running Arbitrum Rollup is quite low compared to level 1 Ethereum and other scaling solutions such as those based on zero-knowledge proofs. Layer 2 (arbitrum roll up chain) fees are low, fixed, and predictable and should not be overly burdensome. Nobody needs to use special equipment or high-end machines. Arbitrum requires validators, which is a permissionless role that can be run on any reasonable on-line machine. Although anybody can act as a validator, in order to protect against a “tragedy of the commons” and make sure reputable validators are participating, we support a notion of “invited validators” that are compensated for their costs. 
+
+>> Fast finality: txs complete with the same finality time as Ethereum L1
+
+>> Censorship Resistant: validators are not in a position to censor or front-run txs, when a tx arrives to the roll up chain, it is ordered and timestamped based on the Ethereum block number it is included in. So validators cannot reorder (MORE: a user would directly send txs to her contract on the Ethereum chain and then the call will be sent to the Arbitrum inbox contract which is responsible for incoming txs. All the incoming calls to this contract are ordered and time-stamped using the Ethereum block number. So front-running may/or may not still happen on the Ethereum chain, but validators are not in position to front-run, they will execute the txs in the order that they were put in the inbox contract. The team emphasizes on the fact that the main reason for having a separate contract on the Arbitrum chain to receive the incoming calls is to prevent censorship and front-running.)
+
+
 
 
 
