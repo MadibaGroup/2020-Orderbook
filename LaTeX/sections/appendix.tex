@@ -1,7 +1,7 @@
 % !TEX root = ../main.tex
 
 
-\section{Extended discussion on cleaning up data structures}
+\section{Clearing storage (extended discussion)}
 
 For space considerations, we kept the discussion in Section~\ref{sec:gasrefund} brief but the subject could use more explanation. First, we discuss the Ethereum's gas model--- (i) what are different gas parameters one needs to take into account when sending a transaction on the Ethereum blockchain, (ii) what is the gas refund, and (iii) and how it is calculated.  Next, we discuss one challenge in \cm, \textit{clearing mappings}, that turns out to be more difficult than we initially expected.
 
@@ -45,5 +45,31 @@ In Solidity, it is not possible to delete an entire mapping without individually
 \end{enumerate}
 
 Clearing storage is important for reducing EVM bloat. The Ethereum refund model should be considered further by Ethereum developers to better incentivize developers to be less wasteful in using storage. 
+
+\section{Collateralization options}
+
+In \cm, both the tokens and ETH that a trader want to potentially use in the order book are pre-loaded into the contract. Consider Alice who holds a token and decides she wants to trade it for ETH. In this model, she must first transfer the tokens to the contract and then submit an ask order. If she does this within the same block, there is a chance that a miner will execute the ask before the transfer and the ask will revert. If she waits for confirmation, this introduces a delay. This delay seems reasonable but we point out a few ways it could be addressed: 
+
+\begin{enumerate}
+
+\item \textbf{Use \texttt{msg.value}.} For the ETH side of a trade (\ie for bids), ETH could be sent with the function call to \texttt{submitBid()} to remove the need for \texttt{depositEther()}. 
+
+\item \textbf{asdf} \cm could
+
+\item \textbf{asdf} \cm could
+
+\item \textbf{asdf} \cm could
+
+\item \textbf{asdf} \cm could
+
+\end{enumerate}
+
+%% = = = = = = = = = = = =Transferring the Collateral back to the traders = = = = = = = = = = = = =  %
+%\subsection{Collateralization}
+%
+%Options for non-collateralized markets
+%ERC20 to ERC20 -> extra transaction
+%
+
 
 

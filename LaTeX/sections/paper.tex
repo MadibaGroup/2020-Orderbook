@@ -202,16 +202,6 @@ In our \cm variant with rollups, the token issuer is does all the computation (b
 
 Our \cm variant is not the first rollup-based order book. Loopring 3.0\footnote{\url{https://loopring.org}} offers a continuous time order book. The primary difference is that orders in Loopring 3.0 are submitted off-chain to the operator directly, whereas our variant requires on-chain submission. While on-chain submission is hampered by Ethereum's block limits, the threat model of reordering transactions is well-understood and our call market design mitigates most front-running attacks. In Loopring 3.0, the rollup proof does not ensure that the exchange did not reorder transactions, which is particularly problematic in a continuous time order book. In short, we provide better protection against a malicious exchange while Loopring 3.0 provides even better performance.
 
-
-%% = = = = = = = = = = = =Transferring the Collateral back to the traders = = = = = = = = = = = = =  %
-%\subsection{Collateralization}
-%
-%Options for non-collateralized markets
-%ERC20 to ERC20 -> extra transaction
-%
-
-
-
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
 \section{Concluding Remarks} 
