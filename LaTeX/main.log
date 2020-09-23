@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2020.4.8)  16 SEP 2020 15:46
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2020.4.8)  22 SEP 2020 22:07
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1173,11 +1173,11 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 {/usr/local/texlive/2019/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2] [3]
  [4] (./tables/pq.tex)
 [5]
-<fig/random_insertion.png, id=121, 419.5675pt x 319.1925pt>
-File: fig/random_insertion.png Graphic file (type png)
-<use fig/random_insertion.png>
-Package pdftex.def Info: fig/random_insertion.png  used on input line 83.
-(pdftex.def)             Requested size: 277.69987pt x 211.26189pt.
+<fig/random_insertion2.png, id=121, 445.665pt x 349.305pt>
+File: fig/random_insertion2.png Graphic file (type png)
+<use fig/random_insertion2.png>
+Package pdftex.def Info: fig/random_insertion2.png  used on input line 84.
+(pdftex.def)             Requested size: 277.69987pt x 217.6595pt.
  (./tables/dequeue.tex
 LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 9
 .
@@ -1185,17 +1185,11 @@ LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 9
 (/usr/local/texlive/2019/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2019/12/16 v2.5j Standard LaTeX font definitions
 )) [6]
-(./tables/cleaning.tex) [7 <./fig/random_insertion.png>] [8]
-(./tables/functions.tex
-Overfull \hbox (10.40005pt too wide) in paragraph at lines 5--30
-[][] 
- []
+(./tables/cleaning.tex)
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-) [9] (./tables/performance.tex) [10] [11] [12]
-
-LaTeX Warning: Reference `fig:meta_tx' on page 13 undefined on input line 211.
-
-[13]) [14] (./main.bbl
+ [7 <./fig/random_insertion2.png>] [8] (./tables/functions.tex) [9]
+(./tables/performance.tex) [10] [11] [12] [13] [14]) [15] (./main.bbl
 Underfull \hbox (badness 3078) in paragraph at lines 4--8
 []\T1/cmr/m/n/9 Ethereum de-vel-op-ment tu-to-rial \TS1/cmr/m/n/9 · \T1/cmr/m/n
 /9 ethereum/wiki wiki.  []$\T1/cmtt/m/n/9 https : / / github .
@@ -1207,59 +1201,53 @@ Underfull \hbox (badness 6758) in paragraph at lines 4--8
 rial$[]\T1/cmr/m/n/9 .  (Ac-cessed on
  []
 
-[15
+[16
 
-]) [16] (./sections/appendix.tex [17
+]) [17] (./sections/appendix.tex [18
 
-]) [18]
+] [19]) [20]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 53.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 53.
  (./main.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 53.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 53.
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 2966AE4224EA7139E0F9BBFE6E3E1993;78.
-
-
-LaTeX Warning: There were undefined references.
-
+(rerunfilecheck)             Checksum: A06A4A7A11BB7C744D1564BD1A5E930D;79.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 53.
  ) 
 Here is how much of TeX's memory you used:
- 24762 strings out of 480994
- 463885 string characters out of 5912143
+ 24782 strings out of 480994
+ 464030 string characters out of 5912143
  752864 words of memory out of 5000000
- 39594 multiletter control sequences out of 15000+600000
+ 39599 multiletter control sequences out of 15000+600000
  550808 words of font info for 68 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 63i,12n,81p,1862b,466s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 63i,12n,81p,1865b,466s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2019/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}
 {/usr/local/texlive/2019/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}<
 /usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></
-usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></us
-r/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/
-local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/l
-ocal/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/loc
-al/texlive/2019/texmf-dist/fonts/type1/public/cm-super/sfbx0900.pfb></usr/local
-/texlive/2019/texmf-dist/fonts/type1/public/cm-super/sfbx1000.pfb></usr/local/t
-exlive/2019/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/local/tex
-live/2019/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></usr/local/texli
-ve/2019/texmf-dist/fonts/type1/public/cm-super/sfit1000.pfb></usr/local/texlive
-/2019/texmf-dist/fonts/type1/public/cm-super/sfrm0600.pfb></usr/local/texlive/2
-019/texmf-dist/fonts/type1/public/cm-super/sfrm0700.pfb></usr/local/texlive/201
-9/texmf-dist/fonts/type1/public/cm-super/sfrm0900.pfb></usr/local/texlive/2019/
-texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/local/texlive/2019/te
-xmf-dist/fonts/type1/public/cm-super/sfss0900.pfb></usr/local/texlive/2019/texm
-f-dist/fonts/type1/public/cm-super/sfss1000.pfb></usr/local/texlive/2019/texmf-
-dist/fonts/type1/public/cm-super/sfsx1440.pfb></usr/local/texlive/2019/texmf-di
-st/fonts/type1/public/cm-super/sfti0900.pfb></usr/local/texlive/2019/texmf-dist
-/fonts/type1/public/cm-super/sfti1000.pfb></usr/local/texlive/2019/texmf-dist/f
-onts/type1/public/cm-super/sftt0900.pfb></usr/local/texlive/2019/texmf-dist/fon
-ts/type1/public/cm-super/sftt1000.pfb>
-Output written on main.pdf (18 pages, 489954 bytes).
+usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></us
+r/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/
+local/texlive/2019/texmf-dist/fonts/type1/public/cm-super/sfbx0900.pfb></usr/lo
+cal/texlive/2019/texmf-dist/fonts/type1/public/cm-super/sfbx1000.pfb></usr/loca
+l/texlive/2019/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/local/
+texlive/2019/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></usr/local/te
+xlive/2019/texmf-dist/fonts/type1/public/cm-super/sfit1000.pfb></usr/local/texl
+ive/2019/texmf-dist/fonts/type1/public/cm-super/sfrm0600.pfb></usr/local/texliv
+e/2019/texmf-dist/fonts/type1/public/cm-super/sfrm0700.pfb></usr/local/texlive/
+2019/texmf-dist/fonts/type1/public/cm-super/sfrm0900.pfb></usr/local/texlive/20
+19/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/local/texlive/2019
+/texmf-dist/fonts/type1/public/cm-super/sfss0900.pfb></usr/local/texlive/2019/t
+exmf-dist/fonts/type1/public/cm-super/sfss1000.pfb></usr/local/texlive/2019/tex
+mf-dist/fonts/type1/public/cm-super/sfsx1440.pfb></usr/local/texlive/2019/texmf
+-dist/fonts/type1/public/cm-super/sfti0900.pfb></usr/local/texlive/2019/texmf-d
+ist/fonts/type1/public/cm-super/sfti1000.pfb></usr/local/texlive/2019/texmf-dis
+t/fonts/type1/public/cm-super/sftt0900.pfb></usr/local/texlive/2019/texmf-dist/
+fonts/type1/public/cm-super/sftt1000.pfb>
+Output written on main.pdf (20 pages, 487203 bytes).
 PDF statistics:
- 391 PDF objects out of 1000 (max. 8388607)
- 312 compressed objects within 4 object streams
- 109 named destinations out of 1000 (max. 500000)
+ 438 PDF objects out of 1000 (max. 8388607)
+ 349 compressed objects within 4 object streams
+ 124 named destinations out of 1000 (max. 500000)
  26 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -6,45 +6,45 @@ Database file #1: bib/DEX.bib
 Warning--to sort, need author or key in Ethereum41:online
 Warning--empty booktitle in bentov2017tesseract
 Warning--empty booktitle in buenz2017proofs
-You've used 24 entries,
+You've used 32 entries,
             2118 wiz_defined-function locations,
-            623 strings with 7835 characters,
-and the built_in function-call counts, 8534 in all, are:
-= -- 795
-> -- 476
-< -- 7
-+ -- 190
-- -- 164
-* -- 524
-:= -- 1384
-add.period$ -- 80
-call.type$ -- 24
-change.case$ -- 152
+            661 strings with 9394 characters,
+and the built_in function-call counts, 12354 in all, are:
+= -- 1113
+> -- 795
+< -- 9
++ -- 316
+- -- 282
+* -- 834
+:= -- 2036
+add.period$ -- 106
+call.type$ -- 32
+change.case$ -- 235
 chr.to.int$ -- 0
-cite$ -- 27
-duplicate$ -- 342
-empty$ -- 688
-format.name$ -- 164
-if$ -- 1835
+cite$ -- 35
+duplicate$ -- 468
+empty$ -- 929
+format.name$ -- 282
+if$ -- 2606
 int.to.chr$ -- 0
-int.to.str$ -- 24
-missing$ -- 18
-newline$ -- 125
-num.names$ -- 46
-pop$ -- 238
+int.to.str$ -- 32
+missing$ -- 26
+newline$ -- 165
+num.names$ -- 62
+pop$ -- 349
 preamble$ -- 1
-purify$ -- 129
+purify$ -- 204
 quote$ -- 0
-skip$ -- 235
+skip$ -- 307
 stack$ -- 0
-substring$ -- 322
-swap$ -- 93
-text.length$ -- 7
+substring$ -- 409
+swap$ -- 121
+text.length$ -- 9
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 94
+type$ -- 126
 warning$ -- 3
-while$ -- 64
-width$ -- 26
-write$ -- 257
+while$ -- 85
+width$ -- 34
+write$ -- 343
 (There were 3 warnings)

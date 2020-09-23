@@ -30,7 +30,7 @@ In this paper, we focus on benchmarking an order book for a public blockchain (\
 
 \paragraph{On-chain Dealers.} Another on-chain advantage is that other smart contracts, not just human users, can initiate trades, enabling broader decentralized finance (DeFi) applications. This has fuelled a resurgence in on-chain exchange but through a quote-driven design rather than an order-driven one. Automated market makers  (\eg Uniswap) have all the trust advantages of an on-chain order book, plus they are very efficient relative to an on-chain order book. The trade-off is that they operate as a dealer---the DApp exchanges assets from its own inventory. This inventory is loaded into the DApp by an investor who will not make money on the trades themselves, but hope for long term profit through trading fees. By contrast, an order book requires no upfront inventory and does not have to charge trading fees (but can). Finally, there is a complicated difference in their price dynamics (\eg market impact of a trade, slippage between the best bid/ask and actual average execution price, \etc)---deserving of an entire research paper to precisely define. We leave it as an assertion that with equal liquidity, order books have more favourable price dynamics for traders.
 
-\paragraph{Hybrid Designs.} Before on-chain dealers became prominent in the late 2010s, the most popular design was hybrid order-driven exchanges with some trusted off-chain components and some on-chain functionality. Some (\eg EtherDelta) were envisioned as operating fully on-chain, but performance limitations drove developers to move key components, such as the order matching system, off-chain to a centralized database. A landscape of DEX designs exist: many avoiding taking custodianship of assets off-chain, and virtually all (for order-driven markets) operate the order book itself off-chain. A non-custodial DEX solves the big issue of a CEX---the operator stealing the funds---however trade execution is still not provably fair. A mitigation is to issue a proof of correct execution to the DApp (\eg Loopring) but these proofs have blindspots (discussed in section~\ref{sec:rollups}). \cm offers key advantages in this model. 
+\paragraph{Hybrid Designs.} Before on-chain dealers became prominent in the late 2010s, the most popular design was hybrid order-driven exchanges with some trusted off-chain components and some on-chain functionality. Some (\eg EtherDelta) were envisioned as operating fully on-chain, but performance limitations drove developers to move key components, such as the order matching system, off-chain to a centralized database. A landscape of DEX designs exist: many avoiding taking custodianship of assets off-chain, and virtually all (for order-driven markets) operate the order book itself off-chain. A non-custodial DEX solves the big issue of a CEX---the operator stealing the funds---however trade execution is still not provably fair. A mitigation is to issue a proof of correct execution to the DApp (\eg Loopring) but these proofs have blindspots (discussed in section~\ref{sec:rollups}). \cm offers key advantages in this model as well. 
 
 \subsection{Related Works}
 
@@ -126,12 +126,12 @@ The lesson here is that gas refunds incentivize developers to clean up storage v
 
 \cm is intended as a module that developers can modify as they choose---thus we tried to simplify the design at every step to make it highly extensible but still functional without any extensions. A call market will open for a specified period of time during which it will accept orders. Orders are added to a PQ. Our vision (discussed below) is the market would be open for a very short period of time, close, and then reopen immediately (\eg every other block). We keep the design simple by not allowing cancellations. Because markets are relatively short-lived, cancelations require a second transaction, and front-running attacks apply to cancellation orders~\cite{eskandari2019sok}, orders simply expire when the market call period ends. 
 
-Another simplifying assumption was to implement a \textit{collateralized} call market. We assume all trades are between ETH and an ERC20 token, all orders are pre-funded in the contract with ETH (for bids) and tokens (for asks), and once ETH or tokens are committed to an order, they cannot be withdrawn until the market closes. \textblue{We revisit alternatives to this design below}. This ensures all executed orders clear and settle (\ie no defaults on payment or delivery).
+Another simplifying assumption was to implement a \textit{collateralized} call market. We assume all trades are between ETH and an ERC20 token, all orders are pre-funded in the contract with ETH (for bids) and tokens (for asks), and once ETH or tokens are committed to an order, they cannot be withdrawn until the market closes. This ensures all executed orders clear and settle (\ie no defaults on payment or delivery).
 
 % Volume of 1
 % Ties?
 
-\cm is written in 324 lines (SLOC) of Solidity~\footnote{Github: linked removed for anonymity}, a high level programming language that is syntactically similar to Java~\cite{Ethereum41:online}. We tested it with the Mocha testing framework (tests included in the codebase), as deployed using Truffle on Ganache-CLI to obtain our performance metrics. Table~\ref{tab:cm_functions} represents \cm's primary operations.
+\cm is written in 324 lines (SLOC) of Solidity,~\footnote{Github: linked removed for anonymity} a high level programming language that is syntactically similar to Java~\cite{Ethereum41:online}. We tested it with the Mocha testing framework (tests included in the codebase), as deployed using Truffle on Ganache-CLI to obtain our performance metrics. Table~\ref{tab:cm_functions} represents \cm's primary operations.
 
 %============= Performance =================== %
 
@@ -147,12 +147,11 @@ As expected, the numbers closely track the performance of the PQ itself suggesti
 
 \paragraph{Code Security.} We used two security audit tools, \textit{Slither}\footnote{https://github.com/crytic/slither} and \textit{SmartCheck},\footnote{https://tool.smartdec.net} on \cm to find vulnerabilities and bad practices across 67 tests. \cm passes all test except some `informational' warnings (\eg a costly loop) that are intentional design choices.
 
-\paragraph{Front-running.} The primary motivation for using a call market, as opposed to a continuous time order book, is to mitigate front-running attacks~\cite{clark2014decentralizing,eskandari2019sok,daian2019flash}. Consider a sequence of 100 orders submitted within a window of time to market A, and the same sequence randomly shuffled and submitted to market B. If A and B are continuous, the orders that are executed in A could be quite different from B. In a call market, the outcome of A and B will be exactly equivalent. For this reason, there is no threat from miners reordering transactions or users offering higher gas rates to have their orders executed before other orders already broadcasted. 
+\paragraph{Front-running.} The primary motivation for using a call market, as opposed to a continuous time order book, is to mitigate front-running attacks~\cite{clark2014decentralizing,eskandari2019sok,daian2019flash}. Consider a sequence of 100 orders submitted within a window of time to market A, and the same sequence is randomly shuffled and submitted to market B. If A and B are continuous, the orders that are executed in A could be quite different from B. In a call market, the outcome of A and B will be exactly equivalent. There is no threat from miners reordering transactions or traders offering higher gas rates to have their orders executed before other orders already broadcasted. 
 
 Potential for front-running still exists around ties on price and cancelations (see below). Finally, \textit{displacement attacks}~\cite{eskandari2019sok} are possible where competitive orders are delayed long enough for the market to close without them. In a traditional call market, a market clearing price is chosen and all trades are executed at this price. All bids made at a higher price will receive the assets for the lower clearing price (and conversely for lower ask prices): this is called a price improvement. A miner about to mine on a set of transactions, including its own orders, could drop other traders' orders to maximize its own price improvement. For this reason, in \cm, all price improvements are given to the miner (using \texttt{block.coinbase.transfer()}). This does not actively hurt traders---they always receive the same price from their order---and it removes any incentive to front-run these profits. For all these reasons, we say \cm reduces front-running attacks but stop short of saying it is completely solved by \cm. 
 
-% = = = = = = = = = = = =Clearing Mappings = = = = = = = = = = = = =  %
-
+% = = = = = = = = = = = = = = = = = = = = = = = = =  %
 
 \section{Design alternatives and extensions}
 
@@ -160,107 +159,56 @@ As a module, we try to keep \cm as simple as possible, and allow customization a
 
 \subsection{Token Divisibility and Volumes} 
 
-We implement a very simple market where orders all have the same volume: 1 token. Traders submit multiple orders to increase volume. To extend orders with a volume field, it must first be determined if the token are non-divisible or divisible (and to what precision). In this case, \texttt{closeMarket()} needs to look at multiple bids to fulfill a single ask (and vice-versa) and declare its trading rules on partial fills. We also simplify the market rules around ties on price: we execute them FIFO (breaking front-running resistance for ties on prices). A common trading rule (that does resist front-running) is to fill ties in proportion to their volume (\ie \textit{pro rata} allocation)\footnote{If Alice and Bob bid the same price for 100 tokens and 20 tokens respectively, and there are only 60 tokens left in marketable asks, Alice receives 50 and Bob 10.} however this approach is also contingent on the divisibility of tokens. Consider the following corner-case: 3 equally priced bids of 1 non-divisible token and 1 ask at the same price. There is not good option: (1) the bids could all be dropped (fair but not market efficient), (2) bids could be prioritized based on time as in \cm (front-running is viable, but in this corner case only), or (3) the bid could be randomly chosen (\cf~\cite{mavroudis2019libra}; blockchain `randomness' is generally deterministic and manipulatable by miners~\cite{bonneau2015random,buenz2017proofs} and counter-measures could take a few blocks to select~\cite{boneh2018verifiable}).
+We implement a very simple market where orders all have the same volume: 1 token. Traders submit multiple orders to increase volume. To extend orders with a volume field, it must first be determined if the token are non-divisible or divisible (and to what precision). In this case, \texttt{closeMarket()} needs to look at multiple bids to fulfill a single ask (and vice-versa) and declare its trading rules on partial fills. We also simplify the market rules around ties on price: we execute them FIFO (breaking front-running resistance for ties on prices). A common trading rule (that does resist front-running) is to fill ties in proportion to their volume (\ie \textit{pro rata} allocation)\footnote{If Alice and Bob bid the same price for 100 tokens and 20 tokens respectively, and there are only 60 tokens left in marketable asks, Alice receives 50 and Bob 10.} however this approach is also contingent on the divisibility of tokens. Consider the following corner-case: 3 equally priced bids of 1 non-divisible token and 1 ask at the same price. There is not good option: (1) the bids could all be dropped (fair but not market efficient), (2) bids could be prioritized based on time as in \cm (front-running is viable, but in this corner case only), or (3) the bid could be randomly chosen (\cf Libra~\cite{mavroudis2019libra}); blockchain `randomness' is generally deterministic and manipulatable by miners~\cite{bonneau2015random,buenz2017proofs} and counter-measures could take a few blocks to select~\cite{boneh2018verifiable}).
 
 \subsection{Cancelations}
 
-We don't cancel
-Front-running is a problem
-Market is so short-lived
-Find an order to cancel in the data structure -> stronger than a PQ like binary search or a binary search tree. (Also have the trader find their own order and tell us where it is), or use a list. 
+\cm does not support trade cancelations. We intend to open and close markets quickly (on the order of blocks), so orders are relatively short-lived. Support for cancelation also opens the market to new front-running issues where other traders (or miners) can displace cancelations until after the market closes (however one benefit of a call market is that beating a cancelation with a new order has no effect, assuming the cancelation is run any time before the market closes). Finally, cancelations have a performance impact. Canceled orders can be removed from the underlying data structure   or accumulated in a list that is cross-checked when closing the market. Removing orders requires a more verbose structure than a priority queue (\eg a binary search tree instead of a heap; or methods to traverse a linked list rather than only pulling from the head). While client software could help point out where the trade is in the data structure, the orderbook can change between submitting the cancelation request and running the method. A linked list with mapping that returns the key for each submitted order seems to be the most tenable data structure. 
 
 \subsection{Market clearing price}
 
-Uniswap - 
-MCP -> no really reliable, could in theory be used as an oracle but probably shouldn't be 
-At best, part of a distributed oracle
+Call markets are heralded for fair price discovery. This is why many exchanges use a call market at the end of the day to determine the closing price of an asset, which is an important price both optically (it is well-published) and operationally (many derivates settle based on the closing price). We purposely do not compute a `market clearing price' with \cm because miners can easily manipulate the price (\ie include a single wash trade at the price they want fixed), although they forgo profit for doing so. This is not merely hypothetical---Uniswap (the prominant quote-drive, on-chain exchange) prices have been manipulated to exploit other DeFi applications relying on them. Countermeasures to protect Uniswap price integrity could also apply to \cm: (1) taking a rolling mediant of prices over time, and (2) using it alongside other sources for the same price and forming a consensus. While \cm does not emit a market clearing price, it can be computed by a webapp examining the orderbook at market close. 
 
-% = = = = = = = = = = = =Closing and Reopening the Market = = = = = = = = = = = = =  %
+\subsection{Scheduling events}
 
-\subsection{Closing and Reopening the Market}
+As a simple module, \cm is a one-shot market. However it can be extended to re-open with a clean orderbook after \texttt{closeMarket()} is run. Modifiers can enforce when the market operates openly (collecting orders) and when close can be run. In the Princeton paper~\cite{clark2014decentralizing}, the call market is envisioned to run as an alt-coin, where orders accumulate within a block and a miner closes the market as part of the logic of producing a new block (\ie within the same portion of code as computing their coinbase transaction in Bitcoin or Gas Used in Ethereum). 
 
-We use one-shot market for the sake of our performance tests on different data structures. and once we have all the numbers we can think about iterated market.
+If the call market runs as a DApp on Ethereum, it seems difficult to open and close the market every block. Someone needs to call \texttt{closeMarket()} for every block (we return to who this is next) but the market will only work as intended if miners execute this function after every \texttt{submitBid()} and \texttt{submitAsk()} invocation. Since price improvements are paid to the miners, the miner is incentivized to run \texttt{closeMarket()} last to make the most profit. Perhaps in a world where these markets became immensely popular, miners would actually do this, but as it stands, miners do not generally search for the transaction ordering that nets them the most profit.
 
+A close alternative is to allow markets to open and close on different blocks. Specifically, the \texttt{closeMarket()} function calls \texttt{openMarket()} as a subroutine and sets two modifiers: orders are only accepted in the block immediately after the current block (\ie the block that executes \texttt{closeMarket()}) and \texttt{closeMarket()} cannot be run again until two blocks after the current block. 
 
- We want the market to run on a periodic schedule => it is difficult for market participants to call the \texttt{closeMarket()} function periodically.
-
- PM paper -> close every block, close run a beginning of block. 
- Every other block (modifiers only open for block) -> schedule running close (which could reopen when it is done) -> it won't run itself -> Ethereum Alarm Clock, traders will want to trade so could trigger it. Why won't they ? Costs a lot. 
- 
- %At the end of the trading period, the market needs to be closed and reopened. However, there is no automatic process to called an Ethereum function and contracts can only run when a function is called. 
-
+The final issue is who invokes \texttt{closeMarket()} every other block? There are actually two issues here: the issue of scheduling the function call and the issue of paying for it. For scheduling the function call, we can do one of the following: rely on market participants who are eager to trade to reopen the market, offer a bounty to reopen the market, or use an external service like Ethereum Alarm Clock.\footnote{\url{https://ethereum-alarm-clock-service.readthedocs.io/}} Next we consider the second issue of who pays to close the market. 
 
 % = = = = = = = = = = = =Who Pays the Cost for Closing and Reopening the Market?= = = = = = = = = = = = =  %
 
-\subsection{Who Pays the Cost for Closing and Reopening the Market?}
+\subsection{Who pays to close/reopen the market?}
 
-We think it is useful to explore the landscape of possible designs for closing the market. 
+It is unlikely that a mining software will become aware of specific DApps, but miners are paid all price improvements in the market and so it is possible that running \texttt{closeMarket()} would pay for itself. However we consider two other (more realistic) scenarios. One solution requires a modified closing function, \texttt{closeMarket(n)}, that only processes $n$ orders at a time (until the order book is empty). Once the time window for submitting orders is past, a new market is created (without settling the previous market). Every orders to the new market is also requires to run, say, \texttt{closeMarket(10)} on the older market, thus progressively closing the previous market while accepting orders to the new market. This solution pattern has two issues: first, amortizing the cost of closing the market amongst the early traders of the new market is an added incentive to not submit orders early to the market; the second related issue is if not enough traders submit orders in the new market, the old market never closes (resulting in a backlog of old markets waiting to close).
 
-%= = = = = = Miners Close the Market = = = = = = =%
-\paragraph{Miners.} The difference between the best bid and ask prices is called the \textit{bid-ask spread}. In our design, when the trade occurs between the the highest bid (the highest amount a buyer is willing to pay for an asset) and lowest ask (the lowest amount a seller is willing to accept for an asset) orders, the bid-ask spread is paid to the miner. There are possibilities that (i) no trade occurs or (ii) the bid-ask spread is zero (\ie the best bid and best ask prices are identical). So there is enough economic incentive for the the miner to execute the \texttt{closeMarket()} function and get refunded as the refund amount could be potentially higher than the bid-ask spread. 
-% Miners will compete for it
-
-% = = = = = = = = = =Processing Orders in Groups= = = = = = = = = = = = = = = %
-
-\paragraph{Next Traders.} Another solution pattern is to process certain number of bid and ask orders upon every execution of the \texttt{closeMarket()} function rather than treating them as one substantial transaction. A market participant $P_i$ would process $n$ orders from the previous market (\texttt{closeMarket(n)}) when sending new orders to the current market. This process continues until all the orders in the previous markets are processed. % incentive? => contribution to the community!?
-% Chop it smaller, pushes it around -> could have orders in next market pay to close previous market -> not enough orders come in -> fall back to traditional close -> progressive close 
-
-%= = = = = =  = =  =  Users close and get refunded with the contract funds (collected as fees during order submissions) =  = = = = = = = = =%
-
-\paragraph{Contract Pays.} An alternative solution is to design the market such that the last person to submit an order calls the \texttt{closeMarket()}function, but in contrast to a normal transaction (where the person initiating the transaction must pay the fee), here the CallMarket contract pays the cost for closing the market and matching the orders respectively. To enforce this design we can use Solidity function modifiers; every time a new order is submitted, a function modifier checks whether (i) the auction period has to end and/or (ii) the maximum number of total orders has reached. If any of these two conditions are met, \texttt{closeMarket()} will be called. Again, market participants are charged with certain amounts of fees every time they submit an order, these fees are accumulated in the CallMarket. Once the  \texttt{closeMarket()} is successfully executed and orders are matched, the contract transfers its funds to that person. Note that here the person must still have enough gas to cover the execution of the transaction as the funds will be only transferred after the transaction is fully executed. However, market participants are incentivized to do so as they may receive more ethers than they have spent.
-
-%= = = = = =  = =  =  Meta txs =  = = = = = = = = =%
-
-\paragraph{A Relayer.} Meta transactions enable users to execute Ethereum functions without paying the gas. Rather than spending gas, users sign their intended action using their private keys and broadcast it to the network with no cost. A third party process (\textit{a relayer}) then crafts the actual transaction on user's behalf, sends the transaction to the Ethereum blockchain, and charges the base contract with the associated fees. The required gas to pay for the \texttt{matchOrders()} function could be collected as fees. So market participants are charged with certain amounts of fees every time they submit an order, these fees are accumulated in the CallMarket contract and will be used to pay for executing the \texttt{closeMarket()}function.
-
-
-
+The second solution is to levy a carefully computed fee against the traders for every new order they submit. The fees are accumulated by the DApp to use as a bounty. When the time window for the open market elapses, the user who calls \texttt{closeMarket()} receives the bounty. This is a better solution, although not perfect: \texttt{closeMarket()} cost does not follow a tight linear increase with the number of orders, and gas prices vary over time which could render the bounty insufficient for offsetting the \texttt{closeMarket()} cost. However an interest third party (such as the token issuer for a given market) might bailout the market when it halts on \texttt{closeMarket()} to facilitate further trading. If the contract can pay for its own functions, an interested party can also arrange for a commercial service (\eg any.sender\footnote{\url{https://github.com/PISAresearch/docs.any.sender}}) to relay the \texttt{closeMarket()} function call on Ethereum (an approach called \textit{meta-transactions}). 
 
 %= = = = = =  = =  =  Rollups=  = = = = = = = = =%
 
-\subsection{Off-Chain Closing}
+\subsection{Off-chain closing}
 \label{sec:rollups}
 
+We have two main motivations for designing an \textit{on-chain} order book: (1) the trust model is superior to partially/fully centralized solutions, and (2) \cm can be deployed without any delay or other arrangements. We have relaxed (2) already by considering services like Ethereum Alarm Clock and any.sender to facilitate easy market closings. In this section, we present a variant that only provides (1) (however one that can be deployed without any other market stakeholders). 
 
-Someone does it off-chain and (a) Ethereum checks that it was done right with a proof (SNARK)~\cite{}, (b) Ethereum checks that it was done right with an attestation from a trusted execution environment (\eg Intel SGX or Intel TXT) (SGX is broken but TXT is still fine)~\cite{cheng2019ekiden}, and (c) we assume it was done right but Ethereum will resolve a dispute about where specifically the computation went wrong.~\cite{kalodner2018arbitrum}. Why not use SGX for everything? 
+A function can be computed off-chain and the new state of the DApp, called a \textit{rollup}, is written back to the blockchain, accompanied by either (1) a proof that the function was executed correctly, or (2) a dispute resolution process that can resolve, on-chain, functions that are not executed correctly (\eg Arbitrum~\cite{kalodner2018arbitrum}). In the case of (1), validating the proof must be cheaper than running the function itself. There are two main approaches to (1): the first is to use cryptographic proof techniques (\eg SNARKS~\cite{BCGTV13,GGPR13} and variants~\cite{BBHR19}), and the second is to execute the function in a trusted execution environment (TEE; \eg Intel SGX) and validate the TEE's quote on-chain (\eg Ekiden~\cite{cheng2019ekiden}).\footnote{The TEE-based approach is mired by recent attacks on SGX~\cite{SGX1,SGX2,SGX3,SGX4}, however these attacks do not necessarily apply to the specifics of how SGX is used here, and safer TEE technologies like Intel TXT (\cf~\cite{ZBC+19}) can be substituted.}
 
-%Arbitrum numbers: 
-% Heap w/ dynamic array: matching 38 pairs, cost: 38,863 (this is the cost of posting transactions as calldata on the L1 chain, as well as the overhead associated with each batch of transactions, and the L1 cost of settling transactions in the Arbitrum protocol)
-% Heap w/ dynamic array: matching 1000 pairs, cost: 38,851
-% Heap w/ dynamic array: 2000 average submission: cost (averaged): 39,169 (we have the plot too, if needed)
+We implement a variant of \cm using rollups on Arbitrum.\footnote{\url{https://offchainlabs.com} for more current details than the 2018 \textit{USENIX Security} paper~\cite{kalodner2018arbitrum}.} In this model, the token issuer (or other interested party) will run a dedicated server to watch Ethereum for function invocations submitted and sequenced on-chain, perform the function call off-chain, and write the resultant state on-chain. Anyone capable of running EVM code can verify the result. If it is incorrect, a dispute can be filed (with the correct state) and an on-chain correction will be made. With or without disputes, participants that validate the function calls for themselves can proceed knowing that the correct state will eventually be finalized. 
 
+In our \cm variant with rollups, the token issuer is does all the computation (both enqueuing and dequeuing). Thus we switch the priority queue to use a heap with dynamic array, which balances the expense of both operations (instead of optimizing for dequeuing in \texttt{closeMarket()}). Recall that on-chain, such a priory queue can only match 38 pairs at a cost of 5,372,679 gas. With roll-ups, 38 pairs cost 38,863 gas. As the pairs increase, the cost is essentially constant (\eg 1000 pairs cost 38,851 as opposed to 457,326,935 on-chain). Submitting an order costs 39,169 gas on average as opposed to 207,932 on-chain.
 
-Costs in arbitrum include:
-
---- Level 1 (Ethereum here) gas costs: This is the cost of posting transactions as calldata on the L1 chain, as well as the overhead associated with each batch of transactions, and the L1 cost of settling transactions in the Arbitrum protocol.
-
----Validator’s staking costs: In normal operation, one validator will need to be staked. (putting their money behind the claim that this state is correct), if that state eventually gets confirmed they get their stake back, if not they'll lose it (half of it burns half of it goes back to the honest validator)
-
----Validator computation and storage: Every validator must do computation to track the chain’s processing of transactions, and must maintain storage to keep track of the contracts’ EVM storage.
+Our \cm variant is not the first rollup-based order book. Loopring 3.0\footnote{\url{https://loopring.org}} offers a continuous time order book. The primary difference is that orders in Loopring 3.0 are submitted off-chain to the operator directly, whereas our variant requires on-chain submission. While on-chain submission is hampered by Ethereum's block limits, the threat model of reordering transactions is well-understood and our call market design mitigates most front-running attacks. In Loopring 3.0, the rollup proof does not ensure that the exchange did not reorder transactions, which is particularly problematic in a continuous time order book. In short, we provide better protection against a malicious exchange while Loopring 3.0 provides even better performance.
 
 
-
-
-More about Arbitrum:
-
->> performance: Arbitrum software currently supports 453 transactions-per-second for basic transactions . more optimization on the way
-
->> low cost: The cost of running Arbitrum Rollup is quite low compared to level 1 Ethereum and other scaling solutions such as those based on zero-knowledge proofs. Layer 2 (arbitrum roll up chain) fees are low, fixed, and predictable and should not be overly burdensome. Nobody needs to use special equipment or high-end machines. Arbitrum requires validators, which is a permissionless role that can be run on any reasonable on-line machine. Although anybody can act as a validator, in order to protect against a “tragedy of the commons” and make sure reputable validators are participating, we support a notion of “invited validators” that are compensated for their costs. 
-
->> Fast finality: txs complete with the same finality time as Ethereum L1
-
->> Censorship Resistant: validators are not in a position to censor or front-run txs, when a tx arrives to the roll up chain, it is ordered and timestamped based on the Ethereum block number it is included in. So validators cannot reorder (MORE: a user would directly send txs to her contract on the Ethereum chain and then the call will be sent to the Arbitrum inbox contract which is responsible for incoming txs. All the incoming calls to this contract are ordered and time-stamped using the Ethereum block number. So front-running may/or may not still happen on the Ethereum chain, but validators are not in position to front-run, they will execute the txs in the order that they were put in the inbox contract. The team emphasizes on the fact that the main reason for having a separate contract on the Arbitrum chain to receive the incoming calls is to prevent censorship and front-running.)
-
-
-
-
-
-% = = = = = = = = = = = =Transferring the Collateral back to the traders = = = = = = = = = = = = =  %
-\subsection{Collateralization}
-
-Options for non-collateralized markets
-ERC20 to ERC20 -> extra transaction
-
+%% = = = = = = = = = = = =Transferring the Collateral back to the traders = = = = = = = = = = = = =  %
+%\subsection{Collateralization}
+%
+%Options for non-collateralized markets
+%ERC20 to ERC20 -> extra transaction
+%
 
 
 
@@ -268,7 +216,7 @@ ERC20 to ERC20 -> extra transaction
 
 \section{Concluding Remarks} 
 
-Imagine you have just launched an ERC20 token on Ethereum. Now want your holders to be able to trade it. While the barrier to entry for exchange services is low, it still exists. For a centralized or decentralized exchange, you have to convince the operators to list your token and you will be delayed while they process your request. For an automated market maker, you will have to lock up a large amount of ETH into the DApp, along with your tokens. For rollups, you will have to list your token, host your own servers, and/or enlist arbitrators. By contrast to all of these, with \cm you just deploy the code alongside your token and trading is immediately supported. Even if \cm is a fallback solution today, we believe it is helpful for every token to be accompanied by on-chain trade execution. And with future improvements to blockchain scalability, it could become the defacto trading method.
+Imagine you have just launched an ERC20 token on Ethereum. Now want your holders to be able to trade it. While the barrier to entry for exchange services is low, it still exists. For a centralized or decentralized exchange, you have to convince the operators to list your token and you will be delayed while they process your request. For an automated market maker, you will have to lock up a large amount of ETH into the DApp, along with your tokens. For rollups, you will have to host your own servers or list it with an exchange. By contrast to all of these, with \cm you just deploy the code alongside your token and trading is immediately supported. Even if \cm is a fallback solution today, we believe it is helpful for every token to be accompanied by on-chain trade execution. With future improvements to blockchain scalability, it could become the defacto trading method.
  
 %\subsubsection*{Acknowledgements.} J. Clark thanks ...
 

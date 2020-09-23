@@ -6,6 +6,17 @@ Ethereum development tutorial · ethereum/wiki wiki.
   \url{https://github.com/ethereum/wiki/wiki/Ethereum-Development-Tutorial}.
 \newblock (Accessed on 24/08/2020).
 
+\bibitem{BBHR19}
+E.~Ben-Sasson, I.~Bentov, Y.~Horesh, and M.~Riabzev.
+\newblock Scalable zero knowledge with no trusted setup.
+\newblock In {\em CRYPTO}, 2019.
+
+\bibitem{BCGTV13}
+E.~Ben-Sasson, A.~Chiesa, D.~Genkin, E.~Tromer, and M.~Virza.
+\newblock Snarks for c: Verifying program executions succinctly and in zero
+  knowledge.
+\newblock In {\em CRYPTO}, 2013.
+
 \bibitem{bentov2017tesseract}
 I.~Bentov, Y.~Ji, F.~Zhang, Y.~Li, X.~Zhao, L.~Breidenbach, P.~Daian, and
   A.~Juels.
@@ -33,6 +44,14 @@ J.~Bonneau, J.~Clark, and S.~Goldfeder.
 R.~Brandom.
 \newblock This princeton professor is building a bitcoin-inspired prediction
   market, Nov 2013.
+
+\bibitem{SGX3}
+J.~V. Bulck, M.~Minkin, O.~Weisse, D.~Genkin, B.~Kasikci, F.~Piessens,
+  M.~Silberstein, T.~F. Wenisch, Y.~Yarom, and R.~Strackx.
+\newblock Foreshadow: Extracting the keys to the intel {SGX} kingdom with
+  transient out-of-order execution.
+\newblock In {\em USENIX Security Symposium}, Baltimore, MD, Aug. 2018.
+  {USENIX} Association.
 
 \bibitem{buenz2017proofs}
 B.~B{\"u}nz, S.~Goldfeder, and J.~Bonneau.
@@ -71,6 +90,11 @@ S.~Eskandari, S.~Moosavi, and J.~Clark.
 \newblock Sok: Transparent dishonesty: front-running attacks on blockchain.
 \newblock In {\em WTSC}. FC, 2019.
 
+\bibitem{GGPR13}
+R.~Gennaro, C.~Gentry, B.~Parno, and M.~Raykova.
+\newblock Quadratic span programs and succinct nizks without pcps.
+\newblock In {\em EUROCRYPT}, 2013.
+
 \bibitem{Har03}
 L.~Harris.
 \newblock {\em Trading and exchanges: market microstructure for practitioners}.
@@ -85,8 +109,21 @@ E.~Heilman, S.~Lipmann, and S.~Goldberg.
 \bibitem{kalodner2018arbitrum}
 H.~Kalodner, S.~Goldfeder, X.~Chen, S.~M. Weinberg, and E.~W. Felten.
 \newblock Arbitrum: Scalable, private smart contracts.
-\newblock In {\em 27th $\{$USENIX$\}$ Security Symposium ($\{$USENIX$\}$
-  Security 18)}, pages 1353--1370, 2018.
+\newblock In {\em USENIX Security Symposium}, pages 1353--1370, 2018.
+
+\bibitem{SGX1}
+P.~{Kocher}, J.~{Horn}, A.~{Fogh}, D.~{Genkin}, D.~{Gruss}, W.~{Haas},
+  M.~{Hamburg}, M.~{Lipp}, S.~{Mangard}, T.~{Prescher}, M.~{Schwarz}, and
+  Y.~{Yarom}.
+\newblock Spectre attacks: Exploiting speculative execution.
+\newblock In {\em IEEE Symposium on Security and Privacy}, pages 1--19, 2019.
+
+\bibitem{SGX2}
+M.~Lipp, M.~Schwarz, D.~Gruss, T.~Prescher, W.~Haas, A.~Fogh, J.~Horn,
+  S.~Mangard, P.~Kocher, D.~Genkin, Y.~Yarom, and M.~Hamburg.
+\newblock Meltdown: Reading kernel memory from user space.
+\newblock In {\em USENIX Security Symposium}, pages 973--990, Baltimore, MD,
+  Aug. 2018. {USENIX} Association.
 
 \bibitem{massacci2018futuresmex}
 F.~Massacci, C.~N. Ngo, J.~Nie, D.~Venturi, and J.~Williams.
@@ -104,6 +141,11 @@ A.~Norry.
 \newblock The history of the mt gox hack: Bitcoin's biggest heist.
 \newblock \url{https://blockonomi.com/mt-gox-hack/}, June 2019.
 \newblock (Accessed on 12/31/2019).
+
+\bibitem{SGX4}
+H.~Ragab, A.~Milburn, K.~Razavi, H.~Bos, and C.~Giuffrida.
+\newblock Crosstalk: Speculative data leaks across cores are real.
+\newblock In {\em IEEE Symposium on Security and Privacy}, 2021.
 
 \bibitem{SEBIOrde83:online}
 Securities and E.~B. of~India.
@@ -137,5 +179,11 @@ G.~Wood et~al.
 W.~Yuen, P.~Syverson, Z.~Liu, and C.~Thorpe.
 \newblock Intention-disguised algorithmic trading.
 \newblock In {\em Financial Cryptography}, 2010.
+
+\bibitem{ZBC+19}
+L.~Zhao, J.~I. Choi, D.~Demirag, K.~R.~B. Butler, M.~Mannan, E.~Ayday, and
+  J.~Clark.
+\newblock One-time programs made practical.
+\newblock In {\em Financial Cryptography}, 2019.
 
 \end{thebibliography}
