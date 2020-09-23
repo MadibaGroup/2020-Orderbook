@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2020.4.8)  23 SEP 2020 12:25
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2020.4.8)  23 SEP 2020 12:27
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1218,9 +1218,9 @@ rial$[]\T1/cmr/m/n/9 .  (Ac-cessed on
 
 ] [19]
 LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <10> not available
-(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 55.
+(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 54.
 
-Overfull \hbox (26.706pt too wide) in paragraph at lines 55--56
+Overfull \hbox (26.706pt too wide) in paragraph at lines 54--55
 \T1/cmr/m/n/10 sent with the func-tion call to \T1/cmtt/m/n/10 submitBid() \T1/
 cmr/m/n/10 to re-move the need for \T1/cmtt/m/n/10 depositEther()\T1/cmr/m/n/10
  .
@@ -1265,7 +1265,7 @@ f-dist/fonts/type1/public/cm-super/sfti0900.pfb></usr/local/texlive/2019/texmf-
 dist/fonts/type1/public/cm-super/sfti1000.pfb></usr/local/texlive/2019/texmf-di
 st/fonts/type1/public/cm-super/sftt0900.pfb></usr/local/texlive/2019/texmf-dist
 /fonts/type1/public/cm-super/sftt1000.pfb>
-Output written on main.pdf (21 pages, 490044 bytes).
+Output written on main.pdf (21 pages, 490020 bytes).
 PDF statistics:
  438 PDF objects out of 1000 (max. 8388607)
  349 compressed objects within 4 object streams
