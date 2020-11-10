@@ -1,11 +1,11 @@
 var CallMarket = artifacts.require("./CallMarket.sol"); 
-var PQ1 = artifacts.require("./HeapDynamicArray.sol"); 
-var PQ2 = artifacts.require("./HeapStaticArray.sol"); 
-var PQ3 = artifacts.require("./HeapMapping.sol");
-var PQ4 = artifacts.require("./LinkedList.sol");
-var PQ5 = artifacts.require("./LinkedListMapping.sol");
-var MP = artifacts.require("./Mapping.sol");
-var PQaddress;
+// var PQ1 = artifacts.require("./HeapDynamicArray.sol"); 
+// var PQ2 = artifacts.require("./HeapStaticArray.sol"); 
+// var PQ3 = artifacts.require("./HeapMapping.sol");
+// var PQ4 = artifacts.require("./LinkedList.sol");
+// var PQ5 = artifacts.require("./LinkedListMapping.sol");
+// var MP = artifacts.require("./Mapping.sol");
+// var PQaddress;
 
 //const BN = require('bn.js');
 
@@ -52,8 +52,9 @@ var PQaddress;
 
 module.exports =  function (deployer) {
     
-    deployer.deploy(CallMarket)
-    console.log("I was deployed!");
+    //deployer.deploy(CallMarket,{overwrite: false});
+    deployer.deploy(CallMarket);
+    console.log("CallMarket was deployed!");
 
 
 };

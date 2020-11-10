@@ -14,8 +14,7 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x0c55699c"
+      "type": "function"
     },
     {
       "constant": false,
@@ -24,12 +23,12 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x1db7b6e1"
+      "type": "function"
     }
   ],
-  "bytecode": "0x6080604052348015600f57600080fd5b5060988061001e6000396000f3fe6080604052348015600f57600080fd5b506004361060325760003560e01c80630c55699c1460375780631db7b6e1146053575b600080fd5b603d605b565b6040518082815260200191505060405180910390f35b60596061565b005b60005481565b56fea265627a7a72315820e0aeca3d674ec9a0e1d0d63fb0363246239bb569f61d3e23cfe6b1eedbdb620564736f6c634300050c0032",
-  "deployedBytecode": "0x6080604052348015600f57600080fd5b506004361060325760003560e01c80630c55699c1460375780631db7b6e1146053575b600080fd5b603d605b565b6040518082815260200191505060405180910390f35b60596061565b005b60005481565b56fea265627a7a72315820e0aeca3d674ec9a0e1d0d63fb0363246239bb569f61d3e23cfe6b1eedbdb620564736f6c634300050c0032",
+  "metadata": "{\"compiler\":{\"version\":\"0.5.16+commit.9c3226ce\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":false,\"inputs\":[],\"name\":\"ChangeVariable\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"x\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/home/mahsa/ProjectRepo/2020-Orderbook/Code/New-Truffle/contracts/test1.sol\":\"test1\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/home/mahsa/ProjectRepo/2020-Orderbook/Code/New-Truffle/contracts/test1.sol\":{\"keccak256\":\"0xc992537bb9cde27c143cbc01d52d9a88c0278fef405aeb893af19eb8aeebac86\",\"urls\":[\"bzz-raw://d306ab5457987a690c5a8359fbbfad062cce62269e99cfddb7df8feafb46b1ce\",\"dweb:/ipfs/QmTTtzkMTo9iRJ8Cx16itmqzeyHSwgnoCdysQFiwwVArfr\"]}},\"version\":1}",
+  "bytecode": "0x6080604052348015600f57600080fd5b5060988061001e6000396000f3fe6080604052348015600f57600080fd5b506004361060325760003560e01c80630c55699c1460375780631db7b6e1146053575b600080fd5b603d605b565b6040518082815260200191505060405180910390f35b60596061565b005b60005481565b56fea265627a7a723158204be8b1fc6cd6045d8a8e6f4e01d10eb346e5b5d2344b68604eb42af7b1a6636364736f6c63430005100032",
+  "deployedBytecode": "0x6080604052348015600f57600080fd5b506004361060325760003560e01c80630c55699c1460375780631db7b6e1146053575b600080fd5b603d605b565b6040518082815260200191505060405180910390f35b60596061565b005b60005481565b56fea265627a7a723158204be8b1fc6cd6045d8a8e6f4e01d10eb346e5b5d2344b68604eb42af7b1a6636364736f6c63430005100032",
   "sourceMap": "28:358:14:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;28:358:14;;;;;;;",
   "deployedSourceMap": "28:358:14:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;28:358:14;;;;;;;;;;;;;;;;;;;;;;;;280:16;;;:::i;:::-;;;;;;;;;;;;;;;;;;;307:76;;;:::i;:::-;;280:16;;;;:::o;307:76::-;:::o",
   "source": "pragma solidity >=0.4.22;\n\n\ncontract test1{\n\n\n    // uint256[] public test1;\n\n    // function SubmitInt (uint256 _number) public {\n\n    //     test1.push(_number);\n        \n    // }\n\n    // function killcontract() public {\n\n    //     selfdestruct(block.coinbase);\n    // }\n\n\n    uint256 public x;\n    \n    function ChangeVariable() public {\n        uint256 y;\n        //x = 6;\n    }\n\n}",
@@ -38,14 +37,14 @@
     "absolutePath": "/home/mahsa/ProjectRepo/2020-Orderbook/Code/New-Truffle/contracts/test1.sol",
     "exportedSymbols": {
       "test1": [
-        6609
+        6459
       ]
     },
-    "id": 6610,
+    "id": 6460,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 6599,
+        "id": 6449,
         "literals": [
           "solidity",
           ">=",
@@ -61,19 +60,19 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 6609,
+        "id": 6459,
         "linearizedBaseContracts": [
-          6609
+          6459
         ],
         "name": "test1",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "constant": false,
-            "id": 6601,
+            "id": 6451,
             "name": "x",
             "nodeType": "VariableDeclaration",
-            "scope": 6609,
+            "scope": 6459,
             "src": "280:16:14",
             "stateVariable": true,
             "storageLocation": "default",
@@ -82,7 +81,7 @@
               "typeString": "uint256"
             },
             "typeName": {
-              "id": 6600,
+              "id": 6450,
               "name": "uint256",
               "nodeType": "ElementaryTypeName",
               "src": "280:7:14",
@@ -96,21 +95,21 @@
           },
           {
             "body": {
-              "id": 6607,
+              "id": 6457,
               "nodeType": "Block",
               "src": "340:43:14",
               "statements": [
                 {
                   "assignments": [
-                    6605
+                    6455
                   ],
                   "declarations": [
                     {
                       "constant": false,
-                      "id": 6605,
+                      "id": 6455,
                       "name": "y",
                       "nodeType": "VariableDeclaration",
-                      "scope": 6607,
+                      "scope": 6457,
                       "src": "350:9:14",
                       "stateVariable": false,
                       "storageLocation": "default",
@@ -119,7 +118,7 @@
                         "typeString": "uint256"
                       },
                       "typeName": {
-                        "id": 6604,
+                        "id": 6454,
                         "name": "uint256",
                         "nodeType": "ElementaryTypeName",
                         "src": "350:7:14",
@@ -132,7 +131,7 @@
                       "visibility": "internal"
                     }
                   ],
-                  "id": 6606,
+                  "id": 6456,
                   "initialValue": null,
                   "nodeType": "VariableDeclarationStatement",
                   "src": "350:9:14"
@@ -140,32 +139,32 @@
               ]
             },
             "documentation": null,
-            "id": 6608,
+            "id": 6458,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "ChangeVariable",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 6602,
+              "id": 6452,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "330:2:14"
             },
             "returnParameters": {
-              "id": 6603,
+              "id": 6453,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "340:0:14"
             },
-            "scope": 6609,
+            "scope": 6459,
             "src": "307:76:14",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           }
         ],
-        "scope": 6610,
+        "scope": 6460,
         "src": "28:358:14"
       }
     ],
@@ -175,14 +174,14 @@
     "absolutePath": "/home/mahsa/ProjectRepo/2020-Orderbook/Code/New-Truffle/contracts/test1.sol",
     "exportedSymbols": {
       "test1": [
-        6609
+        6459
       ]
     },
-    "id": 6610,
+    "id": 6460,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 6599,
+        "id": 6449,
         "literals": [
           "solidity",
           ">=",
@@ -198,19 +197,19 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 6609,
+        "id": 6459,
         "linearizedBaseContracts": [
-          6609
+          6459
         ],
         "name": "test1",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "constant": false,
-            "id": 6601,
+            "id": 6451,
             "name": "x",
             "nodeType": "VariableDeclaration",
-            "scope": 6609,
+            "scope": 6459,
             "src": "280:16:14",
             "stateVariable": true,
             "storageLocation": "default",
@@ -219,7 +218,7 @@
               "typeString": "uint256"
             },
             "typeName": {
-              "id": 6600,
+              "id": 6450,
               "name": "uint256",
               "nodeType": "ElementaryTypeName",
               "src": "280:7:14",
@@ -233,21 +232,21 @@
           },
           {
             "body": {
-              "id": 6607,
+              "id": 6457,
               "nodeType": "Block",
               "src": "340:43:14",
               "statements": [
                 {
                   "assignments": [
-                    6605
+                    6455
                   ],
                   "declarations": [
                     {
                       "constant": false,
-                      "id": 6605,
+                      "id": 6455,
                       "name": "y",
                       "nodeType": "VariableDeclaration",
-                      "scope": 6607,
+                      "scope": 6457,
                       "src": "350:9:14",
                       "stateVariable": false,
                       "storageLocation": "default",
@@ -256,7 +255,7 @@
                         "typeString": "uint256"
                       },
                       "typeName": {
-                        "id": 6604,
+                        "id": 6454,
                         "name": "uint256",
                         "nodeType": "ElementaryTypeName",
                         "src": "350:7:14",
@@ -269,7 +268,7 @@
                       "visibility": "internal"
                     }
                   ],
-                  "id": 6606,
+                  "id": 6456,
                   "initialValue": null,
                   "nodeType": "VariableDeclarationStatement",
                   "src": "350:9:14"
@@ -277,32 +276,32 @@
               ]
             },
             "documentation": null,
-            "id": 6608,
+            "id": 6458,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "ChangeVariable",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 6602,
+              "id": 6452,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "330:2:14"
             },
             "returnParameters": {
-              "id": 6603,
+              "id": 6453,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "340:0:14"
             },
-            "scope": 6609,
+            "scope": 6459,
             "src": "307:76:14",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           }
         ],
-        "scope": 6610,
+        "scope": 6460,
         "src": "28:358:14"
       }
     ],
@@ -310,24 +309,25 @@
   },
   "compiler": {
     "name": "solc",
-    "version": "0.5.12+commit.7709ece9.Emscripten.clang"
+    "version": "0.5.16+commit.9c3226ce.Emscripten.clang"
   },
   "networks": {
-    "1599743896451": {
+    "123456789": {
       "events": {},
       "links": {},
-      "address": "0x821032469C59fB256574D56999Cd007261d5c040",
-      "transactionHash": "0x1dd21e5447c226babe5adf2f3dbb1d821c1d68f3a9235ce96271297a80b89ac9"
+      "address": "0xD7cE90756f8c0a41577C9A23D04ADeF14Af97B5e",
+      "transactionHash": "0x9d30eb0824270e1b21bbd1434fec3c81b36ee60c9458634c93cd24a23f361c64"
     },
-    "1599745685017": {
+    "1600180608603": {
       "events": {},
       "links": {},
-      "address": "0x3Cf6609DB21cB5393423D8B8c2Ce0ffbFCD2f2B8",
-      "transactionHash": "0xb1ebd0042451abc1e59490fb8e6eb97e986591ed2469403ae2bdc4842331b7f6"
+      "address": "0x26E218D3dE708043420971d6d9404a78A2d180B0",
+      "transactionHash": "0x7df57a62a2d969ade9249b3cf8ac46a131e4459cd06f0e3707ca1a0bb5f62427"
     }
   },
-  "schemaVersion": "3.0.2",
-  "updatedAt": "2020-09-10T13:48:49.953Z",
+  "schemaVersion": "3.2.5",
+  "updatedAt": "2020-09-15T15:37:55.427Z",
+  "networkType": "ethereum",
   "devdoc": {
     "methods": {}
   },

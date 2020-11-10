@@ -95,8 +95,9 @@ describe('CallMarket', function(accounts) {
             receipt = await CallMarketInstance.submitAsk (randomnumber, 1, {from: accounts[0]});
             const gasUsed = receipt.receipt.gasUsed;
             //console.log(`GasUsed for a submitAsk tx is: ${receipt.receipt.gasUsed}`);
-            console.log(`${receipt.receipt.gasUsed}`);
+            //console.log(`${receipt.receipt.gasUsed}`);
             array.push(j);
+            console.log(randomnumber);
         } 
         console.log(array.length,'asks have been succsessfully submitted');
          

@@ -7,6 +7,8 @@
     "test": "test"
   },
   "dependencies": {
+    "@truffle/hdwallet-provider": "^1.0.44",
+    "arb-provider-truffle": "^0.6.5",
     "ganache-cli": "^6.9.1",
     "openzeppelin-solidity": "3.0.2",
     "solidity-util": "github:willitscale/solidity-util",
@@ -14,7 +16,8 @@
     "truffle-assertions": "^0.9.2"
   },
   "devDependencies": {
-    "@openzeppelin/test-helpers": "^0.5.6"
+    "@openzeppelin/test-helpers": "^0.5.6",
+    "arb-ethers-web3-bridge": "^0.7.3"
   },
   "scripts": {
     "test": "mocha"
