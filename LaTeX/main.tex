@@ -1,6 +1,4 @@
 \documentclass[envcountsect]{llncs}
-\sloppy
-%\setcounter{secnumdepth}{4}
 \pagestyle{headings} 
 \bibliographystyle{abbrv}
 
@@ -10,6 +8,9 @@
 \input{setup/macros}
 \input{setup/table}
 
+%Get out of jail free:
+%\usepackage[all=normal,floats=tight,paragraphs=tight]{savetrees}
+
 % = = = = = Title = = = = = %
 
 \begin{document}
@@ -17,8 +18,8 @@
 \frontmatter
 \mainmatter
 
-\title{\Large \bf TradeIn: Revisiting fully on-chain exchanges}
-\author{}
+\title{\Large \bf \cm: Revisiting fully on-chain order books}
+
 
 %\author{Mahsa Moosavi\inst{1} \and Jeremy Clark\inst{1}}
 %\institute{Concordia University}
@@ -39,6 +40,7 @@
 
 % = = = = = Bibliography = = = = = %
 
+\clearpage
 \bibliography{bib/DEX}
 %\nocite{*}
 
@@ -46,6 +48,8 @@
 
 \clearpage
 \appendix
+\input{sections/appendix.tex}
+
 
 \end{document}
 

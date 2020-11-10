@@ -4,46 +4,47 @@ The top-level auxiliary file: main.aux
 The style file: abbrv.bst
 Database file #1: bib/DEX.bib
 Warning--to sort, need author or key in Ethereum41:online
-Warning--empty journal in eskandari2019sok
-You've used 12 entries,
+Warning--empty booktitle in bentov2017tesseract
+Warning--empty booktitle in buenz2017proofs
+You've used 32 entries,
             2118 wiz_defined-function locations,
-            562 strings with 5931 characters,
-and the built_in function-call counts, 3948 in all, are:
-= -- 387
-> -- 195
-< -- 3
-+ -- 80
-- -- 66
-* -- 236
-:= -- 654
-add.period$ -- 40
-call.type$ -- 12
-change.case$ -- 68
+            661 strings with 9394 characters,
+and the built_in function-call counts, 12354 in all, are:
+= -- 1113
+> -- 795
+< -- 9
++ -- 316
+- -- 282
+* -- 834
+:= -- 2036
+add.period$ -- 106
+call.type$ -- 32
+change.case$ -- 235
 chr.to.int$ -- 0
-cite$ -- 14
-duplicate$ -- 153
-empty$ -- 310
-format.name$ -- 66
-if$ -- 842
+cite$ -- 35
+duplicate$ -- 468
+empty$ -- 929
+format.name$ -- 282
+if$ -- 2606
 int.to.chr$ -- 0
-int.to.str$ -- 12
-missing$ -- 7
-newline$ -- 65
-num.names$ -- 22
-pop$ -- 91
+int.to.str$ -- 32
+missing$ -- 26
+newline$ -- 165
+num.names$ -- 62
+pop$ -- 349
 preamble$ -- 1
-purify$ -- 55
+purify$ -- 204
 quote$ -- 0
-skip$ -- 116
+skip$ -- 307
 stack$ -- 0
-substring$ -- 180
-swap$ -- 39
-text.length$ -- 3
+substring$ -- 409
+swap$ -- 121
+text.length$ -- 9
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 48
-warning$ -- 2
-while$ -- 34
-width$ -- 14
-write$ -- 133
-(There were 2 warnings)
+type$ -- 126
+warning$ -- 3
+while$ -- 85
+width$ -- 34
+write$ -- 343
+(There were 3 warnings)
