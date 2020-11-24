@@ -81,7 +81,7 @@ contract HeapDynamicArray{
         then the heap is reordered using the heapifyDown method
     */
 
-    function buyListMaxDelete() external returns (uint256, address) 
+    function buyListMaxDelete() external returns (uint256, address, uint256) 
     {
         require (buyList.length != 0,'buyList is empty!');
         
@@ -89,18 +89,20 @@ contract HeapDynamicArray{
         if (buyList.length == 1) {                                                          
             uint256 _price =  buyList[0].Price;
             address _sender =  buyList[0].Sender;
+            uint256 _volume = buyList[0].Volume;
             buyList.pop();                                                  
-            return (_price ,_sender);     
+            return (_price ,_sender, _volume);     
        
         }
 
         uint256 _price =  buyList[0].Price;
         address _sender =  buyList[0].Sender;
+        uint256 _volume = buyList[0].Volume;
         //The last elementof the buyList is removed and written into the first position
         buyList[0] = buyList[buyList.length -1]; 
         buyList.pop();
         maxheapHeapifyDown();
-        return (_price, _sender);  
+        return (_price, _sender, _volume);  
     }
 
 
@@ -225,7 +227,7 @@ contract HeapDynamicArray{
         Only if the sellList is not empty
         then the heap is reordered using the heapifyDown method
     */
-    function sellListMaxDelete() external returns (uint256, address)
+    function sellListMaxDelete() external returns (uint256, address, uint256)
     
     {
         require(sellList.length != 0, 'sellList is empty!');             
@@ -233,17 +235,19 @@ contract HeapDynamicArray{
         if (sellList.length == 1) {                               
             uint256 _price =  sellList[0].Price;
             address _sender =  sellList[0].Sender;
+            uint256 _volume = sellList[0].Volume;
             sellList.pop();                                    
-            return (_price, _sender);
+            return (_price, _sender, _volume);
         }
 
         uint256 _price =  sellList[0].Price;
         address _sender =  sellList[0].Sender;
+        uint256 _volume = sellList[0].Volume;
         //the last elementof the heap is removed and written into the first position
         sellList[0] = sellList[sellList.length -1];                      
         sellList.pop(); 
         minheapHeapifyDown();                           
-        return (_price, _sender);       
+        return (_price, _sender, _volume);       
     }
 
 //***********************************************************************//

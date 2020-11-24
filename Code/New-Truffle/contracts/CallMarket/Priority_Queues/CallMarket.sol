@@ -118,6 +118,8 @@ contract CallMarket{
     mapping(address => uint256) public totalEtherBalance;
     mapping(address => uint256) public unavailableEtherBalance;
     address[] public unavailableEtherArray;
+    
+
 
 //**********************************************//
 //***************Function Modifiers*************//
@@ -258,16 +260,18 @@ contract CallMarket{
 
     */
 
-    function matchOrders() external auctionAtStage(States.Closed) returns (bool){
+    /* function matchOrders() external auctionAtStage(States.Closed) returns (bool){
 
         state = States.Settled;
         (uint256 BBPrice, address BBSender) = priorityQueue.buyListMaxDelete();
         (uint256 BAPrice, address BASender) = priorityQueue.sellListMaxDelete();
-        //uint tradeCounter = 0;
+    
         while (BBPrice >= BAPrice)
         
         {  
-            //tradeCounter ++;
+            
+
+            //Alice bids 110$, Bob asks for 90$ -> Alice pays 110$ but Bob only gets what he's asked for (90$). 20$ price improvements go to the miner
             totalTokenBalance[BBSender] += 1;
             totalEtherBalance[BBSender] -= BBPrice;
 
@@ -303,7 +307,104 @@ contract CallMarket{
         return true;
 
         
-    }    
+    } */    
+    uint256 public countervariable;
+
+    function matchOrders() external auctionAtStage(States.Closed) returns (bool){
+
+        state = States.Settled;
+        
+        //OrderStruct memory neworder = OrderStruct(msg.sender, price, volume, true, auxprice);
+
+        (uint256 BBPrice, address BBSender, uint256 BBVolume) = priorityQueue.buyListMaxDelete();
+        (uint256 BAPrice, address BASender, uint256 BAVolume) = priorityQueue.sellListMaxDelete();
+    
+        
+        
+        
+        while (BBPrice >= BAPrice)
+        {  
+            
+            uint256 tmp = BBVolume - BAVolume; //best bid volume is higher than best ask volume
+            if (tmp > 0) 
+            {
+                countervariable++;
+                totalTokenBalance[BBSender] += BAVolume ;
+                totalEtherBalance[BBSender] -= BBPrice;
+
+                totalEtherBalance[BASender] += BAPrice;
+                totalTokenBalance[BASender] -= BAVolume;
+                
+                BBVolume = BBVolume - BAVolume;
+                
+                if (priorityQueue.buyListisEmpty() || priorityQueue.sellListisEmpty()) 
+                {
+                    break;
+                }
+                (BAPrice,BASender,BAVolume) = priorityQueue.sellListMaxDelete();
+            }
+            
+            if (tmp < 0)
+            {   countervariable++;
+                totalTokenBalance[BBSender] += BBVolume ;
+                totalEtherBalance[BBSender] -= BBPrice;
+
+                totalEtherBalance[BASender] += BAPrice;
+                totalTokenBalance[BASender] -= BBVolume;
+
+                BAVolume = BAVolume - BBVolume;
+
+                if (priorityQueue.buyListisEmpty() || priorityQueue.sellListisEmpty()) 
+                {
+                    break;
+                }
+                (BBPrice,BBSender,BBVolume) = priorityQueue.buyListMaxDelete();
+
+
+            }
+            
+            if (tmp == 0)
+            {
+                countervariable++;
+                totalTokenBalance[BBSender] += BBVolume ;
+                totalEtherBalance[BBSender] -= BBPrice;
+
+                totalEtherBalance[BASender] += BAPrice;
+                totalTokenBalance[BASender] -= BBVolume;
+                if (priorityQueue.buyListisEmpty() || priorityQueue.sellListisEmpty()) 
+                {
+                    break;
+                }
+                (BBPrice,BBSender,BBVolume) = priorityQueue.buyListMaxDelete();
+                (BAPrice,BASender,BAVolume) = priorityQueue.sellListMaxDelete();
+
+            }
+    
+            
+
+          
+        }
+        
+        ////uint refund = refunds[block.coinbase]; 
+        ////refunds[block.coinbase] = 0; 
+        ////block.coinbase.transfer(refund);
+        
+        //for (uint i = 0 ; i< unavailableTokenArray.length; i++) 
+        //{   
+           // delete unavailableTokenBalance[unavailableTokenArray[i]];
+        //}
+        
+        //for (uint j= 0 ; j< unavailableEtherArray.length; j++) 
+        //{   
+           // delete unavailableEtherBalance[unavailableEtherArray[j]];
+        //}
+             
+        
+        
+        return true;
+
+        
+    }
 //***********************************************************************//
     /**
     *   @dev Allows the tarders to claim their available tokens back

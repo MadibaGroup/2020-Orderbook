@@ -117,8 +117,8 @@ describe('CallMarket', function(accounts) {
         var array = [];
     
         accounts = await web3.eth.getAccounts();
-        for(let j = 2; j >= 2  ; j--){
-            await CallMarketInstance.submitAsk (j, 1, {from: accounts[0]});
+        for(let j = 4; j >= 2  ; j--){
+            await CallMarketInstance.submitAsk (j, j, {from: accounts[0]});
             array.push(j);
         } 
         console.log(array.length,'asks have been succsessfully submitted');
@@ -133,8 +133,8 @@ describe('CallMarket', function(accounts) {
         var array = [];
         
         accounts = await web3.eth.getAccounts();
-        for(let j = 3; j <= 3  ; j++){
-            await CallMarketInstance.submitBid (j, 1, {from: accounts[1]});
+        for(let j = 5; j <= 7  ; j++){
+            await CallMarketInstance.submitBid (j, j, {from: accounts[1]});
             array.push(j);
 
         } 
@@ -171,7 +171,7 @@ describe('CallMarket', function(accounts) {
     
  
     //*******************Test 10*************************
-    /* it('should print how many matches happened', async() => {
+    it('should print how many matches happened', async() => {
         const CallMarketInstance = await CallMarket.deployed(); 
         
         const counter = await CallMarketInstance.countervariable();
@@ -179,37 +179,37 @@ describe('CallMarket', function(accounts) {
         console.log('Number of matches occured:',counter.toNumber());
         console.log('********************************************');    
 
-    }); */
+    });
     
-    //*******************Test 11*************************
-    it('should call the claim functions', async() => {
+    // //*******************Test 11*************************
+    // it('should call the claim functions', async() => {
         
-        const CallMarketInstance = await CallMarket.deployed(); 
-        accounts = await web3.eth.getAccounts();
+    //     const CallMarketInstance = await CallMarket.deployed(); 
+    //     accounts = await web3.eth.getAccounts();
 
-        await CallMarketInstance.claimEther (2, {from: accounts[0]});
-        await CallMarketInstance.claimTokens (tokenaddress, 1, {from: accounts[1]}); 
+    //     await CallMarketInstance.claimEther (2, {from: accounts[0]});
+    //     await CallMarketInstance.claimTokens (tokenaddress, 1, {from: accounts[1]}); 
         
-        await CallMarketInstance.claimTokens (tokenaddress, 14999, {from: accounts[0]});
-        await CallMarketInstance.claimEther (9999999997, {from: accounts[1]});
-    });
-    //*******************Test 12*************************
-     it('should show the Ether balances of traders after the trade', async() => {
-        //const CallMarketInstance = await CallMarket.deployed(); 
-        accounts = await web3.eth.getAccounts();
+    //     await CallMarketInstance.claimTokens (tokenaddress, 14999, {from: accounts[0]});
+    //     await CallMarketInstance.claimEther (9999999997, {from: accounts[1]});
+    // });
+    // //*******************Test 12*************************
+    //  it('should show the Ether balances of traders after the trade', async() => {
+    //     //const CallMarketInstance = await CallMarket.deployed(); 
+    //     accounts = await web3.eth.getAccounts();
         
-        const AliceEtherBalance = await web3.eth.getBalance(accounts[1]);
-        const BobEtherBalance = await web3.eth.getBalance(accounts[0]);
+    //     const AliceEtherBalance = await web3.eth.getBalance(accounts[1]);
+    //     const BobEtherBalance = await web3.eth.getBalance(accounts[0]);
 
-        console.log('The Ether balance of account[1] (Alice) after the trade is:', AliceEtherBalance); 
-        console.log('The Ether balance of account[0] (Bob) after the trade  is:', BobEtherBalance); 
-        console.log('********************************************');
-    });
+    //     console.log('The Ether balance of account[1] (Alice) after the trade is:', AliceEtherBalance); 
+    //     console.log('The Ether balance of account[0] (Bob) after the trade  is:', BobEtherBalance); 
+    //     console.log('********************************************');
+    // });
 
         
 });
 //*******************New test Block for the already deployed DappToken contract *************************
-describe('DappToken', function(accounts) {
+/* describe('DappToken', function(accounts) {
     
     it('should show the token balances after the trade', async() => {
         const DappTokenInstance = await DappToken.deployed();
@@ -225,4 +225,4 @@ describe('DappToken', function(accounts) {
     });
    
 
-});
+}); */
