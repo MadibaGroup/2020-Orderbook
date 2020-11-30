@@ -163,14 +163,24 @@ contract LinkedListMapping{
         return (buyList[buyHead].Sender);
         
     }
+//****************   buyListMax()  *********************//
+    //buyListMax function returns the sender of the highest priority element (The highest bid)
+    function buyListMax() external  returns (uint256, address, uint256){
+        
+        require (buyHead != 0, 'buyList is empty!'); //throws exception if the maxheap (buyList) is empty
+        return (buyList[buyHead].Price, buyList[buyHead].Sender, buyList[buyHead].Volume);
+        
+    }
+
 //******************** buyListMaxDelete() function ********************//    
     //the highest priority item will be removed from the list and is returned by the function
-    function buyListMaxDelete() external returns (uint256, address)
+    function buyListMaxDelete() external returns (uint256, address, uint256)
     {
         
         OrderStruct memory removeObject = buyList[buyHead];
         uint256 _price =  removeObject.Price;
         address _sender = removeObject.Sender;
+        uint256 _volume = removeObject.Volume;
 
         if (buyTail == buyHead)
         {
@@ -186,7 +196,7 @@ contract LinkedListMapping{
         }
         
         delete buyList[removeObject.id];
-        return (_price,_sender); 
+        return (_price,_sender,_volume); 
         
         
 
@@ -342,9 +352,16 @@ contract LinkedListMapping{
         require(sellHead != 0,'sellList is empty!'); //throws exception if the minheap (sellList) is empty
         return (sellList[sellHead].Sender);
     }
+//****************   sellListMax()  *********************//
+    //sellListMax function returns the sender of the highest priority element (The Lowest ask)
+    function sellListMax() external  returns (uint256, address, uint256){
+
+        require(sellHead != 0,'sellList is empty!'); //throws exception if the minheap (sellList) is empty
+        return (sellList[sellHead].Price,sellList[sellHead].Sender, sellList[sellHead].Volume);
+    }
 //*******************  sellListMaxDelete () ***************************//
     //the highest priority item (the smallest ask) will be removed from the list and is returned by the function
-    function sellListMaxDelete() external returns (uint256, address)
+    function sellListMaxDelete() external returns (uint256, address, uint256)
     {
         
 
@@ -352,6 +369,7 @@ contract LinkedListMapping{
         OrderStruct memory removeObject = sellList[sellHead];
         uint256 _price =  removeObject.Price;
         address _sender = removeObject.Sender;
+        uint256 _volume = removeObject.Volume;
 
         if (sellTail == sellHead)
         {
@@ -367,7 +385,7 @@ contract LinkedListMapping{
         }
         
         delete sellList[removeObject.id];
-        return (_price,_sender); 
+        return (_price,_sender, _volume); 
     
 
         /* OrderStruct memory removeObject = sellList[sellHead];

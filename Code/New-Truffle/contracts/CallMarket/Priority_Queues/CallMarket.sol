@@ -12,12 +12,12 @@ import "./LinkedListMapping.sol";
 
 contract CallMarket{
 
-    HeapDynamicArray public priorityQueue = new HeapDynamicArray();
+    //HeapDynamicArray public priorityQueue = new HeapDynamicArray();
     //HeapStaticArray public priorityQueue = new HeapStaticArray(84);
     //HeapMapping public priorityQueue = new HeapMapping();
     //we pass the address of the callmarket to the LinkedList so that the selfdestruct could send Ethers back to the callmarket
     //LinkedList public priorityQueue = new LinkedList(address(this));
-    //LinkedListMapping public priorityQueue = new LinkedListMapping();
+    LinkedListMapping public priorityQueue = new LinkedListMapping();
     //Mapping public MP = new Mapping(address(this));
     address payable public callmarket = address(uint160(address(this)));
     
@@ -199,7 +199,7 @@ contract CallMarket{
   
     function submitBid (uint256 price, uint256 volume) external auctionAtStage (States.Open) returns (bool)
     {
-        require ((totalEtherBalance[msg.sender] - unavailableEtherBalance[msg.sender]) >= volume * price );
+        require ((totalEtherBalance[msg.sender] - unavailableEtherBalance[msg.sender]) >= volume * price, 'Ether balance is not enough!' );
         
         uint256 _finalpriceUint;
         string memory _finalpriceString;
@@ -228,7 +228,7 @@ contract CallMarket{
 
     function submitAsk (uint256 price, uint256 volume) external auctionAtStage (States.Open) returns (bool)
     {
-        require((totalTokenBalance[msg.sender] - unavailableTokenBalance[msg.sender]) >= volume);
+        require((totalTokenBalance[msg.sender] - unavailableTokenBalance[msg.sender]) >= volume, 'Token balance is not enough!');
         uint256 _finalpriceUint;
         string memory _finalpriceString;
         _finalpriceString = contcat ( uintTostr(price), uintTostr (sellistCounter));
@@ -259,18 +259,20 @@ contract CallMarket{
         Processes the orders only if the market is at the closed state
 
     */
+    /* uint256 public countervariable;
+    function matchOrders() external auctionAtStage(States.Closed) returns (bool){
 
-    /* function matchOrders() external auctionAtStage(States.Closed) returns (bool){
-
+        
         state = States.Settled;
-        (uint256 BBPrice, address BBSender) = priorityQueue.buyListMaxDelete();
-        (uint256 BAPrice, address BASender) = priorityQueue.sellListMaxDelete();
+
+        (uint256 BBPrice, address BBSender, uint256 BBVolume) = priorityQueue.buyListMaxDelete();
+        (uint256 BAPrice, address BASender, uint256 BAVolume) = priorityQueue.sellListMaxDelete();
     
         while (BBPrice >= BAPrice)
         
         {  
             
-
+            countervariable++;
             //Alice bids 110$, Bob asks for 90$ -> Alice pays 110$ but Bob only gets what he's asked for (90$). 20$ price improvements go to the miner
             totalTokenBalance[BBSender] += 1;
             totalEtherBalance[BBSender] -= BBPrice;
@@ -284,30 +286,33 @@ contract CallMarket{
                 break;
             }
 
-            (BBPrice,BBSender) = priorityQueue.buyListMaxDelete();
-            (BAPrice,BASender) = priorityQueue.sellListMaxDelete();
+            (BBPrice,BBSender,BBVolume) = priorityQueue.buyListMaxDelete();
+            (BAPrice,BASender,BAVolume) = priorityQueue.sellListMaxDelete();
         }
         
         //uint refund = refunds[block.coinbase]; 
         //refunds[block.coinbase] = 0; 
         //block.coinbase.transfer(refund);
         
-        for (uint i = 0 ; i< unavailableTokenArray.length; i++) 
-        {   
-            delete unavailableTokenBalance[unavailableTokenArray[i]];
-        }
+        // for (uint i = 0 ; i< unavailableTokenArray.length; i++) 
+        // {   
+        //     delete unavailableTokenBalance[unavailableTokenArray[i]];
+        // }
         
-        for (uint j= 0 ; j< unavailableEtherArray.length; j++) 
-        {   
-            delete unavailableEtherBalance[unavailableEtherArray[j]];
-        }
+        // for (uint j= 0 ; j< unavailableEtherArray.length; j++) 
+        // {   
+        //     delete unavailableEtherBalance[unavailableEtherArray[j]];
+        // }
              
         
         
         return true;
 
         
-    } */    
+    } */
+
+
+    //New Match Function Block for Partial Filling   
     uint256 public countervariable;
 
     function matchOrders() external auctionAtStage(States.Closed) returns (bool){
@@ -316,17 +321,18 @@ contract CallMarket{
         
         //OrderStruct memory neworder = OrderStruct(msg.sender, price, volume, true, auxprice);
 
-        (uint256 BBPrice, address BBSender, uint256 BBVolume) = priorityQueue.buyListMaxDelete();
-        (uint256 BAPrice, address BASender, uint256 BAVolume) = priorityQueue.sellListMaxDelete();
+        (uint256 BBPrice, address BBSender, uint256 BBVolume) = priorityQueue.buyListMax();
+        (uint256 BAPrice, address BASender, uint256 BAVolume) = priorityQueue.sellListMax();
     
         
         
         
-        while (BBPrice >= BAPrice)
+         while (BBPrice >= BAPrice)
         {  
             
-            uint256 tmp = BBVolume - BAVolume; //best bid volume is higher than best ask volume
-            if (tmp > 0) 
+            //uint256 tmp = BBVolume - BAVolume; //best bid volume is higher than best ask volume
+            //if (tmp > 0) 
+            if (BBVolume > BAVolume ) 
             {
                 countervariable++;
                 totalTokenBalance[BBSender] += BAVolume ;
@@ -336,15 +342,18 @@ contract CallMarket{
                 totalTokenBalance[BASender] -= BAVolume;
                 
                 BBVolume = BBVolume - BAVolume;
+                priorityQueue.sellListMaxDelete();
                 
+
                 if (priorityQueue.buyListisEmpty() || priorityQueue.sellListisEmpty()) 
                 {
                     break;
                 }
-                (BAPrice,BASender,BAVolume) = priorityQueue.sellListMaxDelete();
+                (BAPrice, BASender, BAVolume) = priorityQueue.sellListMax();
             }
             
-            if (tmp < 0)
+            //if (tmp < 0)
+            if (BBVolume < BAVolume) 
             {   countervariable++;
                 totalTokenBalance[BBSender] += BBVolume ;
                 totalEtherBalance[BBSender] -= BBPrice;
@@ -353,17 +362,21 @@ contract CallMarket{
                 totalTokenBalance[BASender] -= BBVolume;
 
                 BAVolume = BAVolume - BBVolume;
+                priorityQueue.buyListMaxDelete();
+                
 
                 if (priorityQueue.buyListisEmpty() || priorityQueue.sellListisEmpty()) 
                 {
                     break;
                 }
-                (BBPrice,BBSender,BBVolume) = priorityQueue.buyListMaxDelete();
+                (BBPrice,BBSender,BBVolume) = priorityQueue.buyListMax();
+                
 
 
             }
             
-            if (tmp == 0)
+            //if (tmp == 0)
+            if (BBVolume == BAVolume) 
             {
                 countervariable++;
                 totalTokenBalance[BBSender] += BBVolume ;
@@ -371,19 +384,24 @@ contract CallMarket{
 
                 totalEtherBalance[BASender] += BAPrice;
                 totalTokenBalance[BASender] -= BBVolume;
+
+                priorityQueue.buyListMaxDelete();
+                priorityQueue.sellListMaxDelete();
+                
+
                 if (priorityQueue.buyListisEmpty() || priorityQueue.sellListisEmpty()) 
                 {
                     break;
                 }
-                (BBPrice,BBSender,BBVolume) = priorityQueue.buyListMaxDelete();
-                (BAPrice,BASender,BAVolume) = priorityQueue.sellListMaxDelete();
+                (BBPrice,BBSender,BBVolume) = priorityQueue.buyListMax();
+                (BAPrice,BASender,BAVolume) = priorityQueue.sellListMax();
 
             }
     
             
 
           
-        }
+        
         
         ////uint refund = refunds[block.coinbase]; 
         ////refunds[block.coinbase] = 0; 
@@ -401,8 +419,9 @@ contract CallMarket{
              
         
         
+        
+        } 
         return true;
-
         
     }
 //***********************************************************************//

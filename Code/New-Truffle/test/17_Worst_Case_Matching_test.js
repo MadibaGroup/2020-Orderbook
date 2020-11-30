@@ -3,6 +3,8 @@ const DappToken = artifacts.require('DappToken');
 var CallMarketaddress;
 var tokenaddress;
 var accounts;
+var maximum = 100;
+var minimum = 1;
 
 
 
@@ -32,7 +34,7 @@ contract('DappToken', function(accounts) {
         //accounts = await web3.eth.getAccounts();
         //console.log(accounts[0].address);
         const balance = await DappTokenInstance.balanceOf(accounts[0]);
-        const receipt = await DappTokenInstance.approve (CallMarketaddress, 15000, {from: accounts[0]});
+        const receipt = await DappTokenInstance.approve (CallMarketaddress, 2000000, {from: accounts[0]});
         //const result = await DappTokenInstance.allowance(accounts[0],CallMarketaddress);
         //console.log('Account[0] allowes the CallMarket contract to spend:',result.toNumber());
         console.log('********************************************');
@@ -69,7 +71,7 @@ describe('CallMarket', function(accounts) {
         
         accounts = await web3.eth.getAccounts();
        
-        const receipt = await CallMarketInstance.depositToken (tokenaddress, 15000, {from: accounts[0]});
+        const receipt = await CallMarketInstance.depositToken (tokenaddress, 2000000, {from: accounts[0]});
 
         const totalTokenbalance = await CallMarketInstance.totalTokenBalance(accounts[0]);
         const totalEtherbalance = await CallMarketInstance.totalEtherBalance(accounts[0]);
@@ -117,9 +119,11 @@ describe('CallMarket', function(accounts) {
         var array = [];
     
         accounts = await web3.eth.getAccounts();
-        for(let j = 4; j >= 2  ; j--){
-            await CallMarketInstance.submitAsk (j, j, {from: accounts[0]});
+        for(let j = 4; j >= 1  ; j--){
+            var randomnumber = Math.floor(Math.random() * (maximum - minimum + 1)) + minimum;
+            await CallMarketInstance.submitAsk (j, randomnumber , {from: accounts[0]});
             array.push(j);
+            console.log('Ask',j,' volume is equal to:', randomnumber);
         } 
         console.log(array.length,'asks have been succsessfully submitted');
         console.log('********************************************');
@@ -133,9 +137,11 @@ describe('CallMarket', function(accounts) {
         var array = [];
         
         accounts = await web3.eth.getAccounts();
-        for(let j = 5; j <= 7  ; j++){
-            await CallMarketInstance.submitBid (j, j, {from: accounts[1]});
+        for(let j = 5; j <= 8  ; j++){
+            var randomnumber = Math.floor(Math.random() * (maximum - minimum + 1)) + minimum;
+            await CallMarketInstance.submitBid (j, randomnumber, {from: accounts[1]});
             array.push(j);
+            console.log('Bid',j,' volume is equal to:', randomnumber);
 
         } 
         console.log(array.length,'bids have been succsessfully submitted');
