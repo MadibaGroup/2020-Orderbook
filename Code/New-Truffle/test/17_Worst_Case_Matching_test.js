@@ -3,7 +3,7 @@ const DappToken = artifacts.require('DappToken');
 var CallMarketaddress;
 var tokenaddress;
 var accounts;
-var maximum = 100;
+var maximum = 10;
 var minimum = 1;
 
 
@@ -119,7 +119,7 @@ describe('CallMarket', function(accounts) {
         var array = [];
     
         accounts = await web3.eth.getAccounts();
-        for(let j = 4; j >= 1  ; j--){
+        for(let j = 70; j >= 1  ; j--){
             var randomnumber = Math.floor(Math.random() * (maximum - minimum + 1)) + minimum;
             await CallMarketInstance.submitAsk (j, randomnumber , {from: accounts[0]});
             array.push(j);
@@ -137,7 +137,7 @@ describe('CallMarket', function(accounts) {
         var array = [];
         
         accounts = await web3.eth.getAccounts();
-        for(let j = 5; j <= 8  ; j++){
+        for(let j = 71; j <= 140  ; j++){
             var randomnumber = Math.floor(Math.random() * (maximum - minimum + 1)) + minimum;
             await CallMarketInstance.submitBid (j, randomnumber, {from: accounts[1]});
             array.push(j);

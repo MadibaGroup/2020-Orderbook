@@ -8,19 +8,36 @@ pragma solidity >=0.4.22;
 
 contract HeapMapping{
 
-    //Every order has some attributes:
+/**
+*   @dev 
+    Order structs with its elements:
+        Sender: The address of the trader submitting the order
+        Price: The price of the order
+        Volume: The volume of the order
+        Exists: Is set to true when the incoming order is stored in the mapping
+        AuxPrice: The contcantenation of the order's price and the counter which helps to sort the heap when there are ties
+    
+    buyList: Mapping that contains the buy orders and has keys for them. This mapping is not sorted, we store the keys into the heap and sort them there
+    sellList: same as above but for sell orders
+    buyListKey: The buyList mapping key
+    sellListKey: The sellList mapping key
+
+    buyListHeap: The heap that contains buyListKeys (decrementally sorted)
+    sellListHeap: The heap that contains sellListKeys (incrementally sorted)
+*/    
+
     struct OrderStruct 
     {
         address Sender;
         uint256 Price;  
-        uint256 Volume;     //The volume is 1 for now
+        uint256 Volume;     
         bool Exists;
-        uint256 AuxPrice; //This is not the real price of the order, it's the contcantenation of the real price and the counter which helps to sort the heap wehen there are ties
+        uint256 AuxPrice; 
     }
 
 
-    mapping(uint256 => OrderStruct) public buyList;   //mapping that contains the buy orders and have keys for them. This mapping is not sorted, we store the keys into the heap and sort them there
-    mapping(uint256 => OrderStruct) public sellList;  //same as above but for sell orders
+    mapping(uint256 => OrderStruct) public buyList;   
+    mapping(uint256 => OrderStruct) public sellList;  
     uint256 public buyListKey;
     uint256 public sellListKey;
 
@@ -28,25 +45,31 @@ contract HeapMapping{
     uint256[] internal sellListHeap;
 
 //*****************************************************************//
-//*******************  maxheap Functions (buyList) ****************//
-//*****************************************************************//    
+//**********************  buyList Functions  *********************//
+//*****************************************************************//   
 
-//*******************  insertBid() ***************************//
-    //the new item will be added to the end of the array list (a buy order is submitted)
-    //then heapified up with a call to heapifyUp method
+//***********************************************************************//
+
+    /**
+    *   @dev Adds the incoming bid order to the buyList mapping and inserts its key to the buyListHeap  
+        which will be then heapified 
+    */
+
     function insertBid (address sender, uint256 price, uint256 volume, uint256 auxprice) external 
     {
-        OrderStruct memory neworder = OrderStruct(msg.sender, price, volume, true, auxprice);
+        OrderStruct memory neworder = OrderStruct(sender, price, volume, true, auxprice);
         buyList[buyListKey] = neworder;
         buyListHeap.push(buyListKey);
         buyListKey++;
         maxheapHeapifyUp ();
         
     }
+//***********************************************************************//
 
-//*******************  maxheapHeapifyUp () ***************************//
-    //this function is called everytime we insert a new element to the end of the array (aka a new Buy order is submitted) and
-    //now the heap has to be sorted again
+    /**
+    *   @dev Sorts the heap
+    */
+
     function maxheapHeapifyUp () internal returns (bool) {
     
         uint256 k = buyListHeap.length - 1;                   //k is set to be the last entry of the array (also heap) which is the element that's just added and has to be moved up
@@ -63,22 +86,29 @@ contract HeapMapping{
         }
         return true;
     }
-//******************** buyListMaxDelete() function ********************//    
-    //the highest priority item will be removed from the list and is returned by the function
-    //then the heap is reordered uising the heapifyDown method
-    function buyListMaxDelete() external returns (uint256, address)
+//***********************************************************************//
+
+    /**
+    *   @dev Removes and returns the highest priority element of the buyList
+        Only if the buyList is not empty
+        then the heap is reordered using the heapifyDown method
+    */
+
+    function buyListMaxDelete() external returns (uint256, address, uint256)
     {
-        require (buyListHeap.length != 0, 'buyList is empty!');                            //the delete function throws exception if the heap is empty
+        require (buyListHeap.length != 0, 'buyList is empty!');           //throws exception if the heap is empty
         
         
-        if (buyListHeap.length == 1) {                                      //if the heap has only one items
+        if (buyListHeap.length == 1) {                                  //if the heap has only one items
 
             uint256 _price =  buyList[buyListHeap[0]].Price;
             address _sender =  buyList[buyListHeap[0]].Sender;
+            uint256 _volume =  buyList[buyListHeap[0]].Volume;
+
             delete buyList[buyListHeap[0]];
             buyListHeap.pop();                                                 //the only element of the heap is removed and returned 
             buyListKey--;
-            return (_price, _sender);     
+            return (_price, _sender, _volume);     
        
         }
 
@@ -86,16 +116,32 @@ contract HeapMapping{
         
         uint256 _price =  buyList[buyListHeap[0]].Price;
         address _sender =  buyList[buyListHeap[0]].Sender;
+        uint256 _volume =  buyList[buyListHeap[0]].Volume;
+
         delete buyList[buyListHeap[0]];
         buyListHeap[0] = buyListHeap[buyListHeap.length -1]; //the last elementof the heap is removed and written into the first position
         buyListHeap.pop();
-        maxheapHeapifyDown(); //now the siftdown is called
+        maxheapHeapifyDown(); //the heap will be re-sorted using the heapifydown method
         buyListKey--;
-        return (_price, _sender);  
+        return (_price, _sender, _volume);  
     }
-//*******************  maxheapHeapifyDown () ***************************//
-    //when we want to remove an element from the heap we remove the root of the heap and add the last item
-    //to the root and reorder the heap again
+//***********************************************************************//
+    /**
+    *   @dev Returns the sender, price, and volume of the highest priority element (The highest bid)
+    */ 
+    function buyListMax() external view returns (uint256, address, uint256){
+        
+        require (buyListHeap.length != 0,'buyList is empty!');  //throws exception if the buylist is empty
+        return (buyList[buyListHeap[0]].Price, buyList[buyListHeap[0]].Sender, buyList[buyListHeap[0]].Volume);
+        
+    }
+//***********************************************************************//
+
+    /**
+    *   @dev Heapifydown the buyListHeap when a bid order is removed 
+        (we remove the root of the heap and add the last item to the root and reorder the heap again)
+    */ 
+
     function maxheapHeapifyDown () internal returns (bool)
     {
         uint256 k =0;
@@ -127,25 +173,12 @@ contract HeapMapping{
         }
         return true;
     }
-//****************   buyListMaxPrice()  *********************//
-    //BuyListpeak function returns the price of the highest priority element (The highest bid)
-    function buyListMaxPrice() external  returns (uint256){
-        
-        require (buyListHeap.length != 0, 'buyList is empty!'); //throws exception if the maxheap (buyList) is empty
-        return (buyList[buyListHeap[0]].Price);
-        
-    }
-//****************   buyListMaxSender()  *********************//
-    //BuyListpeak function returns the sender of the highest priority element (The highest bid)
-    function buyListMaxSender() external  returns (address){
-        
-        require (buyListHeap.length != 0, 'buyList is empty!'); //throws exception if the maxheap (buyList) is empty
-        return (buyList[buyListHeap[0]].Sender);
-        
-    }
-//****************   buyListisEmpty()  *********************//
-    //checks if the buyList is empty
-    function buyListisEmpty() external returns (bool){
+//***********************************************************************//
+    /**
+    *   @dev Checks if the buyList is empty or not
+    */
+   
+    function buyListisEmpty() external view returns (bool){
         
         if (buyListHeap.length == 0)
         {
@@ -159,24 +192,32 @@ contract HeapMapping{
         
     }
 //*****************************************************************//
-//*******************  minheap Functions (sellList) ****************//
+//**********************  SellList Functions  *********************//
 //*****************************************************************//
 
-//*******************  insertAsk() ***************************//
-    //the new item will be added to the end of the array list (a sell order is submitted)
-    //then heapified up with a call to heapifyUp method
+
+//***********************************************************************//
+
+    /**
+    *   @dev Adds the incoming ask order to the sellList mapping and inserts its key to the sellListHeap  
+        which will be then heapified 
+    */
+
     function insertAsk (address sender, uint256 price, uint256 volume, uint256 auxprice) external  
     {
-        OrderStruct memory neworder = OrderStruct(msg.sender, price, volume, true, auxprice);
+        OrderStruct memory neworder = OrderStruct(sender, price, volume, true, auxprice);
         sellList[sellListKey] = neworder;
         sellListHeap.push(sellListKey);
         sellListKey++;
         minheapHeapifyUp();
        
     }    
-//*******************  minheapHeapifyUp () ***************************//
-    //this function is called everytime we insert a new element to the end of the array (aka a new sell order is submitted) and
-    //now the heap has to be sorted again
+//***********************************************************************//
+
+    /**
+    *   @dev Sorts the heap
+    */
+
     function minheapHeapifyUp () internal returns (bool) {
 
         uint256 k = sellListHeap.length - 1; //k is set to be the last entry of the array(also heap) which is the element that's just added and has to be moved up
@@ -196,38 +237,61 @@ contract HeapMapping{
         
         return true;
     }
-//*******************  sellListMaxDelete () ***************************//
-    //the highest priority item (the smallest ask) will be removed from the list and is returned by the function
-    //then the heap is reordered uising the heapifyDown method
-    function sellListMaxDelete() external returns (uint256, address)
+//***********************************************************************//
+
+    /**
+    *   @dev Removes and returns the highest priority element of the sellList
+        Only if the buyList is not empty
+        then the heap is reordered using the heapifyDown method
+    */
+
+    function sellListMaxDelete() external returns (uint256, address, uint256)
     {
-        require (sellListHeap.length != 0, 'buyList is empty!');                      //the delete function throws exception if the heap is empty
+        require (sellListHeap.length != 0, 'sellList is empty!');                      //the delete function throws exception if the heap is empty
         
         
         if (sellListHeap.length == 1) {                               // if the heap has only one item
             
             uint256 _price =  sellList[sellListHeap[0]].Price;
             address _sender =  sellList[sellListHeap[0]].Sender;
+            uint256 _volume =  sellList[sellListHeap[0]].Volume;
+
             delete sellList[sellListHeap[0]];
             sellListHeap.pop();                                   //the only element of the heap is removed and returned  
             sellListKey --;
-            return (_price, _sender);
+            return (_price, _sender, _volume);
         }
 
         //if neither of these conditions are true, then there are at least 2 items in the heap and deletion proceeds
       
         uint256 _price =  sellList[sellListHeap[0]].Price;
         address _sender =  sellList[sellListHeap[0]].Sender;
+        uint256 _volume =  sellList[sellListHeap[0]].Volume;
+
         delete sellList[sellListHeap[0]];
         sellListHeap[0] = sellListHeap[sellListHeap.length -1];                      //the last elementof the heap is removed and written into the first position
         sellListHeap.pop(); 
         minheapHeapifyDown();                           //now the heapifyDown is called to restore the ordering of the heap 
         sellListKey --;
-        return (_price, _sender);    
+        return (_price, _sender, _volume);    
     }
-//*******************  minheapHeapifyDown () ***************************//
-    //when we want to remove an element from the heap we remove the root of the heap and add the last item
-    //to the root and reorder the heap again
+//***********************************************************************//
+    /**
+    *   @dev Returns the sender, price, and volume of the highest priority element (The lowest ask)
+    */ 
+    function sellListMax() external view returns (uint256, address, uint256){
+        
+        require (sellListHeap.length != 0,'sellList is empty!');  //throws exception if the sellList is empty
+        return (sellList[sellListHeap[0]].Price, sellList[sellListHeap[0]].Sender, sellList[sellListHeap[0]].Volume);
+        
+    }
+//***********************************************************************//
+
+    /**
+    *   @dev Heapifydown the sellListHeap when an ask order is removed 
+        (we remove the root of the heap and add the last item to the root and reorder the heap again)
+    */ 
+
     function minheapHeapifyDown () internal  returns (bool) {
         uint256 k =0;
         uint256 leftchild = 2*k + 1;
@@ -258,23 +322,12 @@ contract HeapMapping{
         }
         return true;
     }
-//****************   sellListMaxPrice()  *********************//
-    //SellListpeak function returns the price of the highest priority element (The Lowest ask)
-    function sellListMaxPrice() external  returns (uint256){
-        
-        require (sellListHeap.length != 0, 'sellList is empty!'); //throws exception if the minheap (sellList) is empty
-        return (sellList[sellListHeap[0]].Price);
-    }
-//****************   sellListMaxSender()  *********************//
-    //SellListpeak function returns the sender of the highest priority element (The Lowest ask)
-    function sellListMaxSender() external  returns (address){
-        
-        require (sellListHeap.length != 0, 'sellList is empty!'); //throws exception if the minheap (sellList) is empty
-        return (sellList[sellListHeap[0]].Sender);
-    }
-//****************   sellListisEmpty()  *********************//
-    //checks if the sellList is empty
-    function sellListisEmpty() external returns (bool){
+
+//***********************************************************************//
+    /**
+    *   @dev Checks if the sellList is empty or not
+    */
+    function sellListisEmpty() external view returns (bool){
         
         if (sellListHeap.length == 0)
         {

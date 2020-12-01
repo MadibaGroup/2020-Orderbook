@@ -6,13 +6,14 @@ contract HeapDynamicArray{
 
 /**
 *   @dev 
-    Order structs with its element:
+    Order structs with its elements:
         Sender: The address of the trader submitting the order
         Price: The price of the order
-        Volume: The volume of the order, it is considered 1 by now
+        Volume: The volume of the order
         AuxPrice: The contcantenation of the order's price and the counter which helps to sort the heap when there are ties
-    buyList: The array that contains bid OrderStructs, it is a maxheap (decrementally ordered)
-    sellList: The array that contains ask OrderStructs, it is a minheap (incrementally ordered)
+    
+    buyList: The array that contains bid OrderStructs, it is a maxheap (decrementally sorted)
+    sellList: The array that contains ask OrderStructs, it is a minheap (incrementally sorted)
 */
     struct OrderStruct 
     {
@@ -27,7 +28,7 @@ contract HeapDynamicArray{
     OrderStruct[] internal sellList; 
 
 //*****************************************************************//
-//*******************  maxheap Functions (buyList) ****************//
+//**********************  buyList Functions  *********************//
 //*****************************************************************//
 
 //***********************************************************************//
@@ -104,12 +105,21 @@ contract HeapDynamicArray{
         maxheapHeapifyDown();
         return (_price, _sender, _volume);  
     }
-
+//***********************************************************************//
+    /**
+    *   @dev Returns the sender, price, and volume of the highest priority element (The highest bid)
+    */ 
+    function buyListMax() external view returns (uint256, address, uint256){
+        
+        require (buyList.length != 0,'buyList is empty!');  //throws exception if the buylist is empty
+        return (buyList[0].Price, buyList[0].Sender, buyList[0].Volume);
+        
+    }
 
 //***********************************************************************//
 
     /**
-    *   @dev Heapifydown the buyList when an order is removed 
+    *   @dev Heapifydown the buyList when a bid order is removed 
     */ 
 
     function maxheapHeapifyDown () internal returns (bool)
@@ -153,15 +163,12 @@ contract HeapDynamicArray{
         }
         return true;
     }
-    
-
 
 //***********************************************************************//
-
     /**
     *   @dev Checks if the buyList is empty or not
     */ 
-    function buyListisEmpty() external returns (bool){
+    function buyListisEmpty() external view returns (bool){
         
         if (buyList.length == 0) 
         {
@@ -175,7 +182,7 @@ contract HeapDynamicArray{
         
     }
 //*****************************************************************//
-//*******************  minheap Functions (sellList) ****************//
+//**********************  SellList Functions  *********************//
 //*****************************************************************//
 
 //***********************************************************************//
@@ -249,6 +256,16 @@ contract HeapDynamicArray{
         minheapHeapifyDown();                           
         return (_price, _sender, _volume);       
     }
+//***********************************************************************//
+    /**
+    *   @dev Returns the sender, price, and volume of the highest priority element (The lowest ask)
+    */ 
+    function sellListMax() external view returns (uint256, address, uint256){
+        
+        require(sellList.length != 0, 'sellList is empty!');  //throws exception if the sellist is empty
+        return (sellList[0].Price, sellList[0].Sender, sellList[0].Volume);
+        
+    }
 
 //***********************************************************************//
 
@@ -302,7 +319,7 @@ contract HeapDynamicArray{
     *   @dev Checks if the sellList is empty or not
     */
 
-    function sellListisEmpty() external returns (bool){
+    function sellListisEmpty() external view returns (bool){
         
         if (sellList.length == 0) 
         {
@@ -316,10 +333,6 @@ contract HeapDynamicArray{
         
     }
         
-
-
-
-
 
 
 

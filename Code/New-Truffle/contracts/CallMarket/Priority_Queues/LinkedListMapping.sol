@@ -23,7 +23,7 @@ contract LinkedListMapping{
     {
         address Sender;
         uint256 Price;
-        uint256 Volume;     //The volume is 1 for now
+        uint256 Volume;    
         bool Exists;
         uint256 AuxPrice;   //This is not the real price of the order, it's the contcantenation of the real price and the counter which helps to sort the heap wehen there are ties
         uint256 id;
@@ -147,27 +147,12 @@ contract LinkedListMapping{
         buyList[prevId].next = nextId;
         buyList[nextId].prev = prevId;   
     }
-//****************   buyListMaxPrice()  *********************//
-    //buyListMaxPrice function returns the price of the highest priority element (The highest bid)
-    function buyListMaxPrice() external  returns (uint256){
-        
-        require (buyHead != 0, 'buyList is empty!'); //throws exception if the maxheap (buyList) is empty
-        return (buyList[buyHead].Price);
-        
-    }
-//****************   buyListMaxSender()  *********************//
-    //buyListMaxSender function returns the sender of the highest priority element (The highest bid)
-    function buyListMaxSender() external  returns (address){
-        
-        require (buyHead != 0, 'buyList is empty!'); //throws exception if the maxheap (buyList) is empty
-        return (buyList[buyHead].Sender);
-        
-    }
+
 //****************   buyListMax()  *********************//
-    //buyListMax function returns the sender of the highest priority element (The highest bid)
-    function buyListMax() external  returns (uint256, address, uint256){
+    //buyListMax function returns the sender, price, and volume of the highest priority element (The highest bid)
+    function buyListMax() external view returns (uint256, address, uint256){
         
-        require (buyHead != 0, 'buyList is empty!'); //throws exception if the maxheap (buyList) is empty
+        require (buyHead != 0, 'buyList is empty!'); //throws exception if the buylist is empty
         return (buyList[buyHead].Price, buyList[buyHead].Sender, buyList[buyHead].Volume);
         
     }
@@ -225,7 +210,7 @@ contract LinkedListMapping{
 
 //****************   buyListisEmpty()  *********************//
     //checks if the buyList is empty
-    function buyListisEmpty() external returns (bool){
+    function buyListisEmpty() external view returns (bool){
         
         if (buyHead == 0)
         {
@@ -338,25 +323,25 @@ contract LinkedListMapping{
         sellList[nextId].prev = prevId;
         return true;    
     }
-//****************   sellListMaxPrice()  *********************//
-    //sellListMaxPrice function returns the price of the highest priority element (The Lowest ask)
-    function sellListMaxPrice() external  returns (uint256){
+// //****************   sellListMaxPrice()  *********************//
+//     //sellListMaxPrice function returns the price of the highest priority element (The Lowest ask)
+//     function sellListMaxPrice() external  returns (uint256){
 
-        require(sellHead != 0,'sellList is empty!'); //throws exception if the minheap (sellList) is empty
-        return (sellList[sellHead].Price);
-    }
-//****************   sellListMaxSender()  *********************//
-    //sellListMaxSender function returns the sender of the highest priority element (The Lowest ask)
-    function sellListMaxSender() external  returns (address){
+//         require(sellHead != 0,'sellList is empty!'); //throws exception if the sellList is empty
+//         return (sellList[sellHead].Price);
+//     }
+// //****************   sellListMaxSender()  *********************//
+//     //sellListMaxSender function returns the sender of the highest priority element (The Lowest ask)
+//     function sellListMaxSender() external  returns (address){
 
-        require(sellHead != 0,'sellList is empty!'); //throws exception if the minheap (sellList) is empty
-        return (sellList[sellHead].Sender);
-    }
+//         require(sellHead != 0,'sellList is empty!'); //throws exception if the sellList is empty
+//         return (sellList[sellHead].Sender);
+//     }
 //****************   sellListMax()  *********************//
-    //sellListMax function returns the sender of the highest priority element (The Lowest ask)
-    function sellListMax() external  returns (uint256, address, uint256){
+    //sellListMax function returns the sender, price and volume of the highest priority element (The Lowest ask)
+    function sellListMax() external view returns (uint256, address, uint256){
 
-        require(sellHead != 0,'sellList is empty!'); //throws exception if the minheap (sellList) is empty
+        require(sellHead != 0,'sellList is empty!'); //throws exception if the sellList is empty
         return (sellList[sellHead].Price,sellList[sellHead].Sender, sellList[sellHead].Volume);
     }
 //*******************  sellListMaxDelete () ***************************//
@@ -409,7 +394,7 @@ contract LinkedListMapping{
     
 //****************   sellListisEmpty()  *********************//
     //checks if the sellList is empty
-    function sellListisEmpty() external returns (bool){
+    function sellListisEmpty() external view returns (bool){
         
         if (sellHead == 0)
         {
