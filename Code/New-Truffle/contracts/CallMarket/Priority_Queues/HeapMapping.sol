@@ -4,17 +4,14 @@ pragma solidity >=0.4.22;
 
 //Mapping and Heap with dynamic array wrapped in a priority queue
 //The code stores orderstructs in the mapping and have keys for them. and stores the keys in the sorted heap that is implemented by dynamic array
-
-
 contract HeapMapping{
 
 /**
 *   @dev 
-    Order structs with its elements:
+    Orderstruct with its elements:
         Sender: The address of the trader submitting the order
         Price: The price of the order
         Volume: The volume of the order
-        Exists: Is set to true when the incoming order is stored in the mapping
         AuxPrice: The contcantenation of the order's price and the counter which helps to sort the heap when there are ties
     
     buyList: Mapping that contains the buy orders and has keys for them. This mapping is not sorted, we store the keys into the heap and sort them there
@@ -31,7 +28,6 @@ contract HeapMapping{
         address Sender;
         uint256 Price;  
         uint256 Volume;     
-        bool Exists;
         uint256 AuxPrice; 
     }
 
@@ -45,7 +41,7 @@ contract HeapMapping{
     uint256[] internal sellListHeap;
 
 //*****************************************************************//
-//**********************  buyList Functions  *********************//
+//**********************  buyList Functions  **********************//
 //*****************************************************************//   
 
 //***********************************************************************//
@@ -57,7 +53,7 @@ contract HeapMapping{
 
     function insertBid (address sender, uint256 price, uint256 volume, uint256 auxprice) external 
     {
-        OrderStruct memory neworder = OrderStruct(sender, price, volume, true, auxprice);
+        OrderStruct memory neworder = OrderStruct(sender, price, volume, auxprice);
         buyList[buyListKey] = neworder;
         buyListHeap.push(buyListKey);
         buyListKey++;
@@ -205,7 +201,7 @@ contract HeapMapping{
 
     function insertAsk (address sender, uint256 price, uint256 volume, uint256 auxprice) external  
     {
-        OrderStruct memory neworder = OrderStruct(sender, price, volume, true, auxprice);
+        OrderStruct memory neworder = OrderStruct(sender, price, volume, auxprice);
         sellList[sellListKey] = neworder;
         sellListHeap.push(sellListKey);
         sellListKey++;

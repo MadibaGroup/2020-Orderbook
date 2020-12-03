@@ -17,6 +17,29 @@ contract LinkedListMapping{
         
 
     }
+
+/**
+*   @dev 
+    Orderstruct with its elements:
+        Sender: The address of the trader submitting the order
+        Price: The price of the order
+        Volume: The volume of the order
+        AuxPrice: The contcantenation of the order's price and the counter which helps to sort the heap when there are ties
+        id: The id of the order 
+        next: The id of the nex order in the list
+        prev The id of the previous order in the list
+    
+    sellHead: The head (first) node of the sellList
+    sellTail: The tail (last) node of the sellList
+    sellistCounter: The counter of ask orders (later used to create order ids)
+
+    buyHead: The head (first) node of the buyList
+    buyTail: The tail (last) node of the buyList
+    buyListCounter: The counter of bid orders (later used to create order ids)
+
+    sellList: Mappping that maps order ids to OrderStruct for asks
+    buyList: Mappping that maps order ids to OrderStruct for bids
+*/ 
     
 
     struct OrderStruct
@@ -24,8 +47,7 @@ contract LinkedListMapping{
         address Sender;
         uint256 Price;
         uint256 Volume;    
-        bool Exists;
-        uint256 AuxPrice;   //This is not the real price of the order, it's the contcantenation of the real price and the counter which helps to sort the heap wehen there are ties
+        uint256 AuxPrice;  
         uint256 id;
         uint256 next;
         uint256 prev;
@@ -43,9 +65,15 @@ contract LinkedListMapping{
     mapping (uint256 => OrderStruct) public buyList;
     
     
+//*****************************************************************//
+//**********************  buyList Functions  **********************//
+//*****************************************************************//
 
-//******************** insertBid() function ********************//
-    //A new buy order will be added in its right position in the list
+//***********************************************************************//
+
+    /**
+    *   @dev Adds the incoming bid orders to its right position in the list
+    */
     function insertBid(address sender, uint256 price, uint256 volume, uint256 auxprice) external 
     {
        OrderStruct memory current = buyList[buyHead];
@@ -58,16 +86,17 @@ contract LinkedListMapping{
         {
             buyListAddHead(sender, price, volume, auxprice);
         }
-        else //the node next to the privious is no longer the current but it's our new node
+        else //the node next to the previous is no longer the current but it's our new node
         {
             buyListInsertAfter(current.prev, sender, price, volume, auxprice );           
         }
         
-       
-    
     }    
+//***********************************************************************//
 
-//******************** buyListInsertAfter() function ********************//
+    /**
+    *   @dev Adds the bid orders after the prevId node
+    */
     function buyListInsertAfter(uint256 prevId, address sender, uint256 price, uint256 volume, uint256 auxprice) internal returns (bool)
     {
         
@@ -83,7 +112,11 @@ contract LinkedListMapping{
         }
         return true;
     }
-//******************** buyListInsertBefore() function ********************//
+//***********************************************************************//
+
+    /**
+    *   @dev Adds the bid orders before the nextId node
+    */
     function buyListInsertBefore(uint256 nextId, address sender, uint256 price, uint256 volume, uint256 auxprice) internal returns (bool)
     {
         if (nextId == buyHead) {
@@ -95,7 +128,8 @@ contract LinkedListMapping{
         return true;
     }
     
-//******************** buyListAddTail() function ********************//
+//***********************************************************************//
+
     function buyListAddTail(address sender, uint256 price, uint256 volume, uint256 auxprice) internal returns (bool)
     {
         
@@ -110,13 +144,13 @@ contract LinkedListMapping{
         
         return true;
     }
-//******************** buyListSetTail() function ********************//
+//***********************************************************************//
     function buyListSetTail(uint256 id) internal returns(bool)
     {
         buyTail = id;
         return true;
     }
-//******************** buyListAddHead() function ********************//
+//***********************************************************************//
     function buyListAddHead(address sender, uint256 price, uint256 volume, uint256 auxprice) internal returns (uint256)
     {
         uint256 ordertId = buyListCreateObject(sender, price, volume, auxprice);
@@ -125,40 +159,35 @@ contract LinkedListMapping{
         if (buyTail == 0) buyListSetTail(ordertId);
         return ordertId;
     }
-//******************** buyListSetHead() function ********************//
+//***********************************************************************//
     function buyListSetHead(uint256 id) internal returns(bool)
     {
         buyHead = id;
         return true;
     }      
     
-//******************** buyListCreateObject() function ********************//
+//***********************************************************************//
     function buyListCreateObject(address sender,uint256 price, uint256 volume, uint256 auxprice) internal returns (uint256)
     {
         uint256 newId = buyListCounter;
         buyListCounter ++;
-        OrderStruct memory order = OrderStruct(sender, price, volume, true, auxprice, newId, 0, 0);
+        OrderStruct memory order = OrderStruct(sender, price, volume, auxprice, newId, 0, 0);
         buyList[order.id] = order;
         return order.id;
     }
-//******************** buyListCreateObject() function ********************//
+//***********************************************************************//
     function buyListLink(uint256 prevId, uint256 nextId) internal
     {
         buyList[prevId].next = nextId;
         buyList[nextId].prev = prevId;   
     }
 
-//****************   buyListMax()  *********************//
-    //buyListMax function returns the sender, price, and volume of the highest priority element (The highest bid)
-    function buyListMax() external view returns (uint256, address, uint256){
-        
-        require (buyHead != 0, 'buyList is empty!'); //throws exception if the buylist is empty
-        return (buyList[buyHead].Price, buyList[buyHead].Sender, buyList[buyHead].Volume);
-        
-    }
+//***********************************************************************//
 
-//******************** buyListMaxDelete() function ********************//    
-    //the highest priority item will be removed from the list and is returned by the function
+    /**
+    *   @dev Removes and returns the highest priority element of the buyList
+        Only if the buyList is not empty
+    */
     function buyListMaxDelete() external returns (uint256, address, uint256)
     {
         
@@ -207,9 +236,20 @@ contract LinkedListMapping{
         return (_price,_sender); */
     
     }
-
-//****************   buyListisEmpty()  *********************//
-    //checks if the buyList is empty
+//***********************************************************************//
+    /**
+    *   @dev Returns the sender, price, and volume of the highest priority element (The highest bid)
+    */ 
+    function buyListMax() external view returns (uint256, address, uint256){
+        
+        require (buyHead != 0, 'buyList is empty!'); //throws exception if the buylist is empty
+        return (buyList[buyHead].Price, buyList[buyHead].Sender, buyList[buyHead].Volume);
+        
+    }
+//***********************************************************************//
+    /**
+    *   @dev Checks if the buyList is empty or not
+    */ 
     function buyListisEmpty() external view returns (bool){
         
         if (buyHead == 0)
@@ -223,9 +263,18 @@ contract LinkedListMapping{
         }
         
     }
+    
+//*****************************************************************//
+//**********************  SellList Functions  *********************//
+//*****************************************************************//
 
-//*******************  insertAsk () ***************************//
-    //A new buy order will be added in its right position in the list
+//***********************************************************************//
+
+//***********************************************************************//
+
+    /**
+    *   @dev Adds the incoming ask orders to its right position in the list
+    */
     function insertAsk (address sender, uint256 price, uint256 volume, uint256 auxprice) external 
     {
         OrderStruct memory current = sellList[sellHead];
@@ -238,13 +287,17 @@ contract LinkedListMapping{
         {
             sellListAddHead(sender, price, volume, auxprice);
         }
-        else //the node next to the privious is no longer the current but it's our new node
+        else //the node next to the previous is no longer the current but it's our new node
         {
         sellListInsertAfter(current.prev, sender, price, volume, auxprice);           
         }    
          
     }
-//******************** sellListInsertAfter() function ********************//
+//***********************************************************************//
+
+    /**
+    *   @dev Adds the ask orders after the prevId node
+    */
     function sellListInsertAfter(uint256 prevId, address sender, uint256 price, uint256 volume, uint256 auxprice) internal returns (bool)
     {
         if (prevId == sellTail) 
@@ -261,7 +314,11 @@ contract LinkedListMapping{
         }
         return true;
     }
-//******************** sellListInsertBefore() function ********************//
+//***********************************************************************//
+
+    /**
+    *   @dev Adds the ask orders before the nextId node
+    */
     function sellListInsertBefore(uint256 nextId, address sender, uint256 price, uint256 volume, uint256 auxprice) internal returns (bool)
     {
         if (nextId == sellHead) {
@@ -272,7 +329,7 @@ contract LinkedListMapping{
         }
         return true;
     }
-//******************** sellListAddTail() function ********************//
+//***********************************************************************//
     function sellListAddTail(address sender, uint256 price, uint256 volume, uint256 auxprice) internal returns (bool)
     {
         if (sellHead == 0) {
@@ -286,13 +343,13 @@ contract LinkedListMapping{
         
         return true;
     }
-//******************** sellListSetTail() function ********************//
+//***********************************************************************//
     function sellListSetTail(uint256 id) internal returns(bool)
     {
         sellTail = id;
         return true;
     }
-//******************** sellListAddHead() function ********************//
+//***********************************************************************//
     function sellListAddHead(address sender,uint256 price, uint256 volume, uint256 auxprice) internal returns (uint256)
     {
         uint256 ordertId = sellListCreateObject(sender, price, volume, auxprice);
@@ -301,55 +358,36 @@ contract LinkedListMapping{
         if (sellTail == 0) sellListSetTail(ordertId);
         return ordertId;
     }
-//******************** sellListSetHead() function ********************//
+//***********************************************************************//
     function sellListSetHead(uint256 id) internal returns (bool)
     {
         sellHead = id;
         return true;
     }      
-//******************** sellListCreateObject() function ********************//
+//***********************************************************************//
     function sellListCreateObject(address sender, uint256 price, uint256 volume, uint256 auxprice) internal returns (uint256)
     {
         uint256 newId = sellistCounter;
         sellistCounter ++;
-        OrderStruct memory order =  OrderStruct( sender , price, volume, true, auxprice, newId, 0, 0);
+        OrderStruct memory order =  OrderStruct( sender , price, volume, auxprice, newId, 0, 0);
         sellList[order.id] = order;
         return order.id;
     }
-//******************** sellListCreateObject() function ********************//
+//***********************************************************************//
     function sellListLink(uint256 prevId, uint256 nextId) internal returns (bool)
     {
         sellList[prevId].next = nextId;
         sellList[nextId].prev = prevId;
         return true;    
     }
-// //****************   sellListMaxPrice()  *********************//
-//     //sellListMaxPrice function returns the price of the highest priority element (The Lowest ask)
-//     function sellListMaxPrice() external  returns (uint256){
+//***********************************************************************//
 
-//         require(sellHead != 0,'sellList is empty!'); //throws exception if the sellList is empty
-//         return (sellList[sellHead].Price);
-//     }
-// //****************   sellListMaxSender()  *********************//
-//     //sellListMaxSender function returns the sender of the highest priority element (The Lowest ask)
-//     function sellListMaxSender() external  returns (address){
-
-//         require(sellHead != 0,'sellList is empty!'); //throws exception if the sellList is empty
-//         return (sellList[sellHead].Sender);
-//     }
-//****************   sellListMax()  *********************//
-    //sellListMax function returns the sender, price and volume of the highest priority element (The Lowest ask)
-    function sellListMax() external view returns (uint256, address, uint256){
-
-        require(sellHead != 0,'sellList is empty!'); //throws exception if the sellList is empty
-        return (sellList[sellHead].Price,sellList[sellHead].Sender, sellList[sellHead].Volume);
-    }
-//*******************  sellListMaxDelete () ***************************//
-    //the highest priority item (the smallest ask) will be removed from the list and is returned by the function
+    /**
+    *   @dev Removes and returns the highest priority element of the sellList (the lowest ask order)
+        Only if the sellList is not empty
+    */
     function sellListMaxDelete() external returns (uint256, address, uint256)
     {
-        
-
         
         OrderStruct memory removeObject = sellList[sellHead];
         uint256 _price =  removeObject.Price;
@@ -390,10 +428,20 @@ contract LinkedListMapping{
         return (_price,_sender); */
     }
 
-        
+//***********************************************************************//
+    /**
+    *   @dev Returns the sender, price, and volume of the highest priority element (The lowest ask)
+    */ 
+    function sellListMax() external view returns (uint256, address, uint256){
+
+        require(sellHead != 0,'sellList is empty!'); //throws exception if the sellList is empty
+        return (sellList[sellHead].Price,sellList[sellHead].Sender, sellList[sellHead].Volume);
+    }
     
-//****************   sellListisEmpty()  *********************//
-    //checks if the sellList is empty
+//***********************************************************************//
+    /**
+    *   @dev Checks if the sellList is empty or not
+    */ 
     function sellListisEmpty() external view returns (bool){
         
         if (sellHead == 0)
@@ -408,7 +456,9 @@ contract LinkedListMapping{
         
     }
 
-//****************   deletePQ()  *********************//
+//***********************************************************************//
+    /**
+    *   @dev deletes the entire priority queue and sends its funds (if any) back to the CallMarket
     /* function deletePQ (address payable callmarket) external {
         selfdestruct(callmarket);
     } */

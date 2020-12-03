@@ -4,6 +4,13 @@ pragma solidity >=0.4.22;
 //Linkedlist wrapped in a priority queue
 
 contract LinkedList{
+
+
+/**
+*   @dev 
+    sellFirst: The head node of the SellList (each node is a contract itself, so it's a contract from the type "SellList")
+    buyFirst: The head node of the BuyList (each node is a contract itself, so it's a contract from the type "BuyList")
+*/
     
     SellList public sellFirst;
     BuyList public buyFirst;
@@ -14,16 +21,24 @@ contract LinkedList{
     
 
     constructor (address _callmarket) public {
-        callmarket = address(uint160(_callmarket));
+        callmarket = address(uint160(_callmarket)); 
         sellFirst = SellList(0);
         buyFirst = BuyList(0);
         owner = address(this);
     }
-//******************** insertBid() function ********************//
-    //A new buy order will be added in its right position in the list
+//*****************************************************************//
+//**********************  buyList Functions  **********************//
+//*****************************************************************//
+
+
+//***********************************************************************//
+
+    /**
+    *   @dev Adds the incoming bid orders to its right position in the list
+    */
     function insertBid(address sender, uint256 price, uint256 volume, uint256 auxprice) external 
     {
-        BuyList newitem = new BuyList (sender, price , volume, true, auxprice);
+        BuyList newitem = new BuyList (sender, price , volume, auxprice);
         BuyList current = buyFirst; 
         BuyList previous = BuyList(0);
         
@@ -49,37 +64,39 @@ contract LinkedList{
         newitem.addNew(current);
         
     }
-//******************** buyListMaxDelete() function ********************//    
-    //the highest priority item will be removed from the list and is returned by the function
-    function buyListMaxDelete() external returns(uint256, address) 
+
+//***********************************************************************//
+
+    /**
+    *   @dev Removes and returns the highest bid of the list
+        Only if the list is not empty
+    */
+    function buyListMaxDelete() external returns(uint256, address, uint256) 
     {
-        require (buyFirst != BuyList(0), 'BuyList is empty!'); //throws exception if the maxheap (BuyList) is empty
+        require (buyFirst != BuyList(0), 'buyList is empty!'); //throws exception if the buyList is empty
         buytemp = buyFirst;
         buyFirst = buytemp.next();
         buytemp.deletenode(callmarket, owner);
         //buyFirst.deletenode(callmarket);
         //buyFirst = buytemp.next();
-        return (buytemp.price(), buytemp.sender());
+        return (buytemp.price(), buytemp.sender(), buytemp.volume());
     }
-//****************   buyListMaxPrice()  *********************//
-    //buyListMaxPrice function returns the price of the highest priority element (The highest bid)
-    function buyListMaxPrice() external  returns (uint256){
+//***********************************************************************//
+    /**
+    *   @dev Returns the sender, price, and volume of the highest priority element (The highest bid)
+    */ 
+    function buyListMax() external view returns (uint256, address, uint256){
         
-        require (buyFirst != BuyList(0), 'BuyList is empty!'); //throws exception if the maxheap (BuyList) is empty
-        return (buyFirst.price());
-        
-    }
-//****************   buyListMaxSender()  *********************//
-    //buyListMaxSender function returns the sender of the highest priority element (The highest bid)
-    function buyListMaxSender() external  returns (address){
-        
-        require (buyFirst != BuyList(0), 'BuyList is empty!'); //throws exception if the maxheap (BuyList) is empty
-        return (buyFirst.sender());
+        require (buyFirst != BuyList(0), 'buyList is empty!'); //throws exception if the buyList is empty
+        return (buyFirst.price(), buyFirst.sender(), buyFirst.volume());
         
     }
-//****************   buyListisEmpty()  *********************//
-    //checks if the BuyList is empty 
-    function buyListisEmpty() external returns (bool){
+//***********************************************************************//
+    /**
+    *   @dev Checks if the buyList is empty or not
+    */ 
+
+    function buyListisEmpty() external view returns (bool){
         
         if (buyFirst == BuyList(0))
         {
@@ -92,12 +109,18 @@ contract LinkedList{
         }
         
     }
+//*****************************************************************//
+//**********************  SellList Functions  *********************//
+//*****************************************************************//
 
-//*******************  insertAsk() ***************************//
-    //A new sell order will be added in its right position in the list
+//***********************************************************************//
+
+    /**
+    *   @dev Adds the incoming ask orders to its right position in the list
+    */
     function insertAsk (address sender, uint256 price, uint256 volume, uint256 auxprice) external 
     {
-        SellList newitem = new SellList (sender, price , volume, true, auxprice);
+        SellList newitem = new SellList (sender, price , volume, auxprice);
         SellList current = sellFirst; 
         SellList previous = SellList(0);
         
@@ -122,35 +145,38 @@ contract LinkedList{
         
         newitem.addNew(current);
     }  
-//*******************  sellListMaxDelete () ***************************//
-    //the highest priority item (the smallest ask) will be removed from the list and is returned by the function
-    function sellListMaxDelete() external returns (uint256, address)
+//***********************************************************************//
+
+    /**
+    *   @dev Removes and returns the lowest ask of the list (highest priority element)
+        Only if the list is not empty
+    */
+    function sellListMaxDelete() external returns (uint256, address, uint256)
     {
-        require(sellFirst != SellList(0),'SellList is empty!'); //throws exception if the minheap (SellList) is empty
+        require(sellFirst != SellList(0),'sellList is empty!'); //throws exception if the sellList is empty
         selltemp = sellFirst;
         sellFirst = selltemp.next();
         selltemp.deletenode(callmarket, owner);
         //sellFirst.deletenode(callmarket);
         //sellFirst = selltemp.next();
-        return (selltemp.price(), selltemp.sender());
+        return (selltemp.price(), selltemp.sender(), selltemp.volume());
     }  
-//****************   sellListMaxPrice()  *********************//
-    //sellListMaxPrice function returns the price of the highest priority element (The Lowest ask)
-    function sellListMaxPrice() external  returns (uint256){
-
-        require(sellFirst != SellList(0),'SellList is empty!'); //throws exception if the minheap (SellList) is empty
-        return (sellFirst.price());
+//***********************************************************************//
+    /**
+    *   @dev Returns the sender, price, and volume of the highest priority element (The lowest ask)
+    */ 
+    function sellListMax() external view returns (uint256, address, uint256){
+        
+        require(sellFirst != SellList(0),'sellList is empty!'); //throws exception if the sellList is empty
+        return (sellFirst.price(), sellFirst.sender(), sellFirst.volume());
+        
     }
-//****************   sellListMaxSender()  *********************//
-    //sellListMaxSender function returns the sender of the highest priority element (The Lowest ask)
-    function sellListMaxSender() external  returns (address){
 
-        require(sellFirst != SellList(0),'SellList is empty!'); //throws exception if the minheap (SellList) is empty
-        return (sellFirst.sender());
-    }
-//****************   sellListisEmpty()  *********************//
-    //checks if the SellList is empty
-    function sellListisEmpty() external returns (bool){
+//***********************************************************************//
+    /**
+    *   @dev Checks if the sellList is empty or not
+    */ 
+    function sellListisEmpty() external view returns (bool){
         
         if (sellFirst == SellList(0))
         {
@@ -168,20 +194,28 @@ contract LinkedList{
 //*****************************************************************//
 //*******************  SellList Contract  ************************//
 //*****************************************************************//
+
 contract SellList {
+    /**
+*   @dev 
+    each node of the sellList is a contract from type "SellList" that has the following attributes:
+    next: The address of the next node (contract) in the sellList
+    sender: The sender of the ask order
+    price: The price of the ask order
+    volume: The volume of the ask order
+    auxPrice: The contcantenation of the order's price and the counter which helps to sort the heap when there are ties
+*/
     SellList public next;
     address public sender;
     uint256 public price;
     uint256 public volume;
-    bool public exists;
     uint256 public auxPrice;
     
-    constructor(address orderSender, uint256 orderPrice, uint256 orderVolume, bool ifExists, uint256 auxprice)  public {
+    constructor(address orderSender, uint256 orderPrice, uint256 orderVolume, uint256 auxprice)  public {
         
         sender = sender;
         price = price;
         volume = volume;
-        exists = exists;
         auxPrice = auxprice;
         next = SellList(0);
     }
@@ -193,7 +227,7 @@ contract SellList {
     }
    
     function deletenode (address payable callmarket,address ownerContract) external {
-        require (msg.sender == ownerContract,"Should be the Owner"  );
+        require (msg.sender == ownerContract,"Should be the Owner");
         selfdestruct(callmarket);
         
     }
@@ -206,19 +240,27 @@ contract SellList {
 //*****************************************************************//    
     
 contract BuyList {
+    /**
+*   @dev 
+    each node of the BuyList is a contract from type "BuyList" that has the following attributes:
+    next: The address of the next node (contract) in the buyList
+    sender: The sender of the bid order
+    price: The price of the bid order
+    volume: The volume of the bid order
+    auxPrice: The contcantenation of the order's price and the counter which helps to sort the heap when there are ties
+*/
     BuyList public next;
     address public sender;
     uint256 public price;
     uint256 public volume;
-    bool public exists;
+    
     uint256 public auxPrice;
     
-    constructor(address orderSender, uint256 orderPrice, uint256 orderVolume, bool ifExists, uint256 auxprice) public {
+    constructor(address orderSender, uint256 orderPrice, uint256 orderVolume, uint256 auxprice) public {
         
         sender = orderSender;
         price = orderPrice;
         volume = orderVolume;
-        exists = ifExists;
         auxPrice = auxprice;
         next = BuyList(0);
     }
@@ -230,7 +272,7 @@ contract BuyList {
     }
 
     function deletenode (address payable callmarket, address ownerContract) external {
-        require (msg.sender == ownerContract,"Should be the Owner" );
+        require (msg.sender == ownerContract,"Should be the Owner");
         selfdestruct(callmarket);
     }
 } 

@@ -1,12 +1,13 @@
 //pragma solidity 0.5.12;
 pragma solidity >=0.4.22;
-//Heap with dynamic array wrapped in a priority queue
 
+
+//Heap with dynamic array wrapped in a priority queue
 contract HeapDynamicArray{
 
 /**
 *   @dev 
-    Order structs with its elements:
+    Orderstruct with its elements:
         Sender: The address of the trader submitting the order
         Price: The price of the order
         Volume: The volume of the order
@@ -28,7 +29,7 @@ contract HeapDynamicArray{
     OrderStruct[] internal sellList; 
 
 //*****************************************************************//
-//**********************  buyList Functions  *********************//
+//**********************  buyList Functions  **********************//
 //*****************************************************************//
 
 //***********************************************************************//
