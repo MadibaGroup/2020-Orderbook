@@ -1,49 +1,64 @@
 % !TEX root = ../main.tex
 
-\begin{table}[t]
+
+
+
+\begin{table*}[t]
 \centering
 \begin{tabular}{|l|c|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|}
 
 
 \multicolumn{1}{c}{\textbf{Exchange Platform}} & 
 \multicolumn{1}{c}{\textbf{Examples}} & 
-\headrow{Less Censorable} & 
-\headrow{Minimum/ No  Trust} & 
-\headrow{Fast Updates (No Latency)} & 
-\headrow{High Performance} &
-\headrow{Low Cost} &
-\headrow{All ERC20 Compatible} &
-\headrow{No Custody of Order Book} &
-\headrow{No Custody of Funds} &
+\headrow{Resilient to Server Downtime} & 
+\headrow{Resilient to Ethereum Network Congestion} & 
+\headrow{No Trusted Third Party} & 
+\headrow{No Impermanent Loss} &
+\headrow{Non-Custodial} &
+\headrow{Resilient to Front-running} &
+\headrow{Automatic Matching} &
+\headrow{Instant Transaction Finality} &
 \headrow{Accurate Price Discovery} &
-\headrow{High Transparency} &
+\headrow{High Performance} &
 \headrow{Automatic Matching} \\
 
 
 \hline
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-\multirow{2}{*}{DEX w/ On-chain Order Book }      	& Bitshares		&\multirow{2}{*}{\full }		&\multirow{2}{*}{\full }		&\multirow{2}{*}{\prt }		&\multirow{2}{*}{half }		&\multirow{2}{*}{half }		&\multirow{2}{*}{half } 		&\multirow{2}{*}{\full }		&\multirow{2}{*}{\full }		&\multirow{2}{*}{\full }		&\multirow{2}{*}{\full }		&\multirow{2}{*}{\full } 		\\ 													
+\multirow{2}{*}{DEX w/ On-chain Order Book}      	& Bitshares		&\multirow{2}{*}{\full }		&\multirow{2}{*}{\full }		&\multirow{2}{*}{\full }		&\multirow{2}{*}{\full }		&\multirow{2}{*}{\full }		&\multirow{2}{*}{\full } 		&\multirow{2}{*}{\full }		&\multirow{2}{*}{\full }		&\multirow{2}{*}{\full }		&\multirow{2}{*}{\full }		&\multirow{2}{*}{\full } 		\\ 													
 											&Stellar			& 						&						&						&						&						&						&						&						&						& 						&						\\  \hline						
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-\multirow{3}{*}{DEX w/ Off-chain Order Book}        &0x				&\multirow{3}{*}{half}		&\multirow{3}{*}{half }		&\multirow{3}{*}{\full }		&\multirow{3}{*}{\full }		&\multirow{3}{*}{\full }		&\multirow{3}{*}{\full } 		&\multirow{3}{*}{\prt }		&\multirow{3}{*}{\full }		&\multirow{3}{*}{\full }		&\multirow{3}{*}{\prt }		&\multirow{3}{*}{half } 		\\ 
+\multirow{3}{*}{DEX w/ Off-chain Order Book}        &0x				&\multirow{3}{*}{\full}		&\multirow{3}{*}{\full}		&\multirow{3}{*}{\full}		&\multirow{3}{*}{\full}		&\multirow{3}{*}{\full}		&\multirow{3}{*}{\full } 		&\multirow{3}{*}{\full}		&\multirow{3}{*}{\full }		&\multirow{3}{*}{\full }		&\multirow{3}{*}{\full}		&\multirow{3}{*}{\full} 		\\ 
 							                      	&EtherDelta		& 						&						&						&						&						&						&						&						&						& 						&						\\
 										       &IDEX     		& 						&						&						&						&						&						&						&						&						& 						&						\\ \hline
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-\multirow{3}{*}{Automated Market Making DEX}    &UniSwap		&\multirow{3}{*}{\full}		&\multirow{3}{*}{half }		&\multirow{3}{*}{ DN}		&\multirow{3}{*}{half}		&\multirow{3}{*}{ half}		&\multirow{3}{*}{half} 		&\multirow{3}{*}{ \full}		&\multirow{3}{*}{ \prt}		&\multirow{3}{*}{\full }		&\multirow{3}{*}{ \full}		&\multirow{3}{*}{ DN} 		\\ 
+\multirow{3}{*}{On-chain Automated Market Making}    &UniSwap		&\multirow{3}{*}{\full}		&\multirow{3}{*}{\full }		&\multirow{3}{*}{ \full}		&\multirow{3}{*}{\full}		&\multirow{3}{*}{ \full}		&\multirow{3}{*}{\full} 		&\multirow{3}{*}{ \full}		&\multirow{3}{*}{ \full}		&\multirow{3}{*}{\full }		&\multirow{3}{*}{ \full}		&\multirow{3}{*}{ \full} 		\\ 
 							                      	&Bancor			& 						&						&						&						&						&						&						&						&						& 						&						\\
 										       &Curve     		& 						&						&						&						&						&						&						&						&						& 						&						\\ \hline			
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-\multirow{3}{*}{CEX}    							&Binance		&\multirow{3}{*}{\prt}		&\multirow{3}{*}{\prt}		&\multirow{3}{*}{\full}		&\multirow{3}{*}{\full}		&\multirow{3}{*}{\full}		&\multirow{3}{*}{\full} 		&\multirow{3}{*}{\full}		&\multirow{3}{*}{\prt}		&\multirow{3}{*}{\prt}		&\multirow{3}{*}{\prt }		&\multirow{3}{*}{\full } 		\\ 
+\multirow{3}{*}{Centralized Exchange}    							&Binance		&\multirow{3}{*}{\full}		&\multirow{3}{*}{\full}		&\multirow{3}{*}{\full}		&\multirow{3}{*}{\full}		&\multirow{3}{*}{\full}		&\multirow{3}{*}{\full} 		&\multirow{3}{*}{\full}		&\multirow{3}{*}{\full}		&\multirow{3}{*}{\full}		&\multirow{3}{*}{\full }		&\multirow{3}{*}{\full } 		\\ 
 							                      	&Coinbase		& 						&						&						&						&						&						&						&						&						& 						&						\\
 										       &Bitfinex     		& 						&						&						&						&						&						&						&						&						& 						&						\\ \hline	
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-\multicolumn{2}{|c|}{Auction Based Model (us)}       & 						&						&						&						&						&						&						&						&						& 						&						\\ \hline
+\multirow{3}{*}{On-chain Continuous Market}    	&Example1		&\multirow{3}{*}{\full}		&\multirow{3}{*}{\full}		&\multirow{3}{*}{\full}		&\multirow{3}{*}{\full}		&\multirow{3}{*}{\full}		&\multirow{3}{*}{\full} 		&\multirow{3}{*}{\full}		&\multirow{3}{*}{\full}		&\multirow{3}{*}{\full}		&\multirow{3}{*}{\full }		&\multirow{3}{*}{\full } 		\\ 
+							                      	&Example2		& 						&						&						&						&						&						&						&						&						& 						&						\\
+										       &Example3     		& 						&						&						&						&						&						&						&						&						& 						&						\\ \hline	
+
+
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+
+\multirow{3}{*}{On-chain Call Market}    							&Example1		&\multirow{3}{*}{\full}		&\multirow{3}{*}{\full}		&\multirow{3}{*}{\full}		&\multirow{3}{*}{\full}		&\multirow{3}{*}{\full}		&\multirow{3}{*}{\full} 		&\multirow{3}{*}{\full}		&\multirow{3}{*}{\full}		&\multirow{3}{*}{\full}		&\multirow{3}{*}{\full }		&\multirow{3}{*}{\full } 		\\ 
+							                      	&Example2		& 						&						&						&						&						&						&						&						&						& 						&						\\
+										       &Example3     		& 						&						&						&						&						&						&						&						&						& 						&						\\ \hline	
+
+
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+
 
 \end{tabular}
 \caption{\footnotesize{Comparative evaluation of different types of exchange platforms: {\full} indicates the properties (columns) are fulfilled by the corresponding mechanism (rows) within reason, {\prt} means the property is not fulfilled, \textblue{say sth about half dot when you figure out how to generate it}}
 \label{tab:eval}}
-\end{table}
+\end{table*}
 
 	

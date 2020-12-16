@@ -2,12 +2,13 @@
 
 % = = = = = = = = = = = = = = = = = = = = =Call market operations Table = = = = = = = = = = = =  = = = = = =  %
 \begin{table}[t]
-\begin{tabular}{|l|l|}
+\setlength{\tabcolsep}{0.7\tabcolsep}% Shrink \tabcolsep
+\begin{tabular}{|c|c|}
 \hline
 \multicolumn{1}{|c|}{\textbf{Operation}} & \multicolumn{1}{c|}{\textbf{Description}}                            			\\ \hline
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
-	depositToken()                           & Deposits ERC20 standard compliant tokens in \cm smart contract \\ \hline
+	depositToken()                           & \shortstack{Deposits ERC20 standard compliant \\ tokens in \cm smart contract} \\ \hline
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
 	depositEther()                           	& Deposits ETH in \cm smart contract                        			 \\ \hline
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
@@ -15,9 +16,9 @@
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
 	closeMarket()                            & Closes the market and processes the orders       \\ \hline
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
-	submitBid()                              & Inserts the upcoming bid order messages inside the priority queue    \\ \hline
+	submitBid()                              & \shortstack{Inserts the upcoming bid order \\ messages inside the priority queue}    \\ \hline
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
-	submitAsk()                              & Inserts the upcoming ask order messages inside the priority queue    \\ \hline
+	submitAsk()                              & \shortstack{ Inserts the upcoming ask order \\ messages inside the priority queue}    \\ \hline
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
 	claimTokens()                           & Transfers tokens to the traders                       			\\ \hline
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %

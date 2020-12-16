@@ -1,4 +1,6 @@
 % !TEX root = ../main.tex
+
+
 \section{Introductory Remarks}
 
 For better or worse, blockchain technologies like Ethereum have dramatically lowered the barrier to entry for developing and deploying financial technology. New tokens have been launched with a few clicks of a user interface, and large investment infrastructures have been developed and deployed with little regulatory oversight. Blockchain exchange services allow order-based trading of digital currencies, tokens, and other digital assets. Such exchanges are a key component to blockchain-based economic activity. 
@@ -16,6 +18,12 @@ While Solidity and EVM are like many common programming languages, they also hav
 \section{Preliminaries}
 
 \subsection{Market Structure}
+
+
+
+\input{tables/eval.tex}
+
+
 
 \paragraph{Execution Systems.} There are three main approaches to arranging a trade~\cite{Har03}. In a \emph{quote-driven} market, a dealer uses its own inventory to offer a price for buying or selling an asset. In a \emph{brokered exchange}, a broker finds a buyer and seller. In an \emph{order-driven} market, offers to buy (\emph{bids}) and sell (\emph{offers}/\emph{asks}) from many traders are placed as orders in an order book. Order-driven markets can be \emph{continuous}, with buyers/sellers at any time adding orders to the order book (\emph{makers}) or executing against an existing order (\emph{takers}); or they can be \emph{called}, where all traders submit orders within a window of time and orders are matched in a batch like an auction. 
 
@@ -128,7 +136,7 @@ Another simplifying assumption was to implement a \textit{collateralized} call m
 % Volume of 1
 % Ties?
 
-\cm is written in 324 lines (SLOC) of Solidity,~\footnote{Github: linked removed for anonymity} a high level programming language that is syntactically similar to Java~\cite{Ethereum41:online}. We tested it with the Mocha testing framework (tests included in the codebase), as deployed using Truffle on Ganache-CLI to obtain our performance metrics. Table~\ref{tab:cm_functions} represents \cm's primary operations.
+\cm is written in 324 lines (SLOC) of Solidity,~\footnote{Github: linked removed for anonymity} a high level programming language that is syntactically similar to Java~\cite{Ethereum41:online}. We tested it with the Mocha testing framework (tests included in the codebase), as deployed using Truffle on Ganache-CLI to obtain our performance metrics. Table~\ref{tab:cm_functions} represents \cm's primary operations. \textblue{Mahsa: \cm's size of bytecode in bytes: 17212,  \cm's size of deployed in bytes: 10812, initialization and constructor code in bytes: 6400}
 
 %============= Performance =================== %
 
@@ -155,6 +163,9 @@ Potential for front-running still exists around ties on price and order cancella
 As a module, we tried to keep \cm as simple as possible, and allow customizations and extensions as appropriate. We discuss potential modifications here.  
 
 \subsection{Token Divisibility and Volumes} 
+
+\textblue{Mahsa: Partial Filling: we ran the worst case matching test with random volumes between 1 and 10 on linked list with mapping (which handles maximum pairs of 80 orders with single volumes).  With partial filling, it can clear the book that contains 70 pairs at max (which on average ends up being ~118 trades). SO it is moderately more expensive}
+
 
 We implemented a very simple market where orders all have the same volume: 1 token. Traders submit multiple orders to increase volume. To extend orders with a volume field, it must first be determined if the token is non-divisible or divisible (and to what precision). In this case, \texttt{closeMarket()} needs to look at multiple bids to fulfill a single ask (and vice-versa) and declare its trading rules on partial fills. We also simplify the market rules around ties on price: we execute them in a FIFO manner (breaking front-running resistance for ties on prices). A common trading rule (that does resist front-running) is to fill ties in proportion to their volume (\ie \textit{pro rata} allocation)\footnote{If Alice and Bob bid the same price for 100 tokens and 20 tokens respectively, and there are only 60 tokens left in marketable asks, Alice receives 50 and Bob 10.} however this approach is also contingent on the divisibility of tokens. Consider the following corner-case: 3 equally priced bids of 1 non-divisible token and 1 ask at the same price. There is no good option: (1) the bids could all be dropped (fair but not market efficient), (2) bids could be prioritized based on time as in \cm (front-running is viable, but in this corner case only), or (3) the bid could be randomly chosen (\cf Libra~\cite{mavroudis2019libra}); blockchain `randomness' is generally deterministic and manipulatable by miners~\cite{bonneau2015random,buenz2017proofs} and counter-measures could take a few blocks to select~\cite{boneh2018verifiable}).
 
