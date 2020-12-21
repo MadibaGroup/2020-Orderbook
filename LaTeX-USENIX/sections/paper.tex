@@ -88,12 +88,6 @@ There are numerous ways of implementing a PQ. A PQ has an underlying list---comm
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=0.5\textwidth]{fig/random_insertion2.png}
-\caption{\footnotesize{Gas costs for enqueuing 50 random integers into five priority queue variants. For the x-axis, a value of 9 indicates it is the 9th integer entered in the priority queue. The y-axis is the cost of enqueuing in gas.}  \label{fig:random_insertion}}
-\end{figure}
-
-\begin{figure}[t]
-\centering
 \includegraphics[width=0.5\textwidth]{fig/random_insertion3.png}
 \caption{\footnotesize{Gas costs for enqueuing 50 random integers into five priority queue variants. For the x-axis, a value of 9 indicates it is the 9th integer entered in the priority queue. The y-axis is the cost of enqueuing in gas.}  \label{fig:random_insertion}}
 \end{figure}
@@ -130,6 +124,9 @@ The lesson here is that gas refunds incentivize developers to clean up storage v
 
 \section{Call Market Design}
 
+\textblue{Reviewer's comment: DDOS against submitbid and submitask functions. Our answer: we put a cap on the number of orders submitted to the market so that we can always close. Also talk about bulk displacement attack (see reviewers comments)}
+
+
 %GitHub repo:  \footnote{\CallMarketRepo}
 
 \input{tables/functions.tex}
@@ -149,6 +146,7 @@ Another simplifying assumption was to implement a \textit{collateralized} call m
  
  \input{tables/performance.tex}
  
+ 
 The main research question is how many orders can be processed in a single Ethereum transaction when closing the call market, using Ethereum today. As our previous experiments indicated, the choice of priority queue (PQ) implementation is the main influence on performance (see Table~\ref{tab:worst_case_matching}). We implemented a generic call market that interfaces with a generic PQ (at its own contract address) and ran experiments for each PQ implementation. We looked at the \textit{worst-case} for performance which is when every submitted bid and ask is marketable (\ie will require fulfillment). In the first two columns, we determine the highest number of orders that can be processed in a single call to the \texttt{closeMarket()} and not exceed the the current Ethereum block gas limit of 11,741,495. Since Ethereum will become more efficient over time, we also were interested in how much gas it would cost to execute 1000 pairs of orders which is given in the third column. The fourth column indicates the cost of submitting a bid or ask --- since this costs will vary depending on how many orders are already submitted (recall Figure~\ref{fig:random_insertion}), we average the cost of 200 order submissions. 
 
 As expected, the numbers closely track the performance of the PQ itself suggesting the PQ is indeed the main influence on performance. In Ethereum today, call markets appear to be limited to processing about a hundred orders per transaction. If markets open on every other block and the call market could monopolize an entire block to close, a few hundred orders per minute (worst-case) can be processed. The main takeaway is that the transparency, front-running resistance, and low barrier to entry of Ethereum come with an enormous cost (\ie an institutional exchange like NASDAQ can process 100K trades per second). That said, many exchanges trade the same assets under different trading rules (\ie market fragmentation) because traders have different preferences. \cm can work today in some circumstances like very low liquidity tokens, or markets with high volumes and a small number of traders (\eg liquidation auctions). 
@@ -157,13 +155,15 @@ As expected, the numbers closely track the performance of the PQ itself suggesti
 
 \paragraph{Code Security.} We used two security audit tools, \textit{Slither}\footnote{https://github.com/crytic/slither} and \textit{SmartCheck},\footnote{https://tool.smartdec.net} on \cm to find vulnerabilities and bad practices across 67 tests. \cm passes all tests except some `informational' warnings (\eg a costly loop) that are intentional design choices.
 
-\paragraph{Front-running.} The primary motivation for using a call market, as opposed to a continuous-time order book, is to mitigate front-running attacks~\cite{clark2014decentralizing,eskandari2019sok,daian2019flash}. Consider a sequence of 100 orders submitted within a window of time to market A, and the same sequence is randomly shuffled and submitted to market B. If A and B are continuous, the orders that are executed in A could be quite different from B. In a call market, the outcome of A and B will be exactly equivalent. There is no threat from miners reordering transactions or traders offering higher gas rates to have their orders executed before other orders already broadcasted. 
+\paragraph{Front-running.} \textblue{we have to revisit this section: talk about our front-running paper: there are various ways to prevent frontrunning, one is through confidentiality..., then cite this paper: 'TEX – A Securely Scalable Trustless Exchange'~\cite{khalil2019tex} }The primary motivation for using a call market, as opposed to a continuous-time order book, is to mitigate front-running attacks~\cite{clark2014decentralizing,eskandari2019sok,daian2019flash}. Consider a sequence of 100 orders submitted within a window of time to market A, and the same sequence is randomly shuffled and submitted to market B. If A and B are continuous, the orders that are executed in A could be quite different from B. In a call market, the outcome of A and B will be exactly equivalent. There is no threat from miners reordering transactions or traders offering higher gas rates to have their orders executed before other orders already broadcasted. 
 
 Potential for front-running still exists around ties on price and order cancellations (see below). Finally, \textit{displacement attacks}~\cite{eskandari2019sok} are possible where competitive orders are delayed long enough for the market to close without them. In a traditional call market, a market clearing price is chosen and all trades are executed at this price. All bids made at a higher price will receive the assets for the lower clearing price (and conversely for lower ask prices): this is called a price improvement. A miner about to mine on a set of transactions, including its own orders, could drop other traders' orders to maximize its own price improvement. For this reason, in \cm, all price improvements are given to the miner (using \texttt{block.coinbase.transfer()}). This does not actively hurt traders---they always receive the same price from their orders---and it removes any incentive to front-run these profits. For all these reasons, we say \cm reduces front-running attacks but stop short of saying this issue is completely solved by \cm. 
 
 % = = = = = = = = = = = = = = = = = = = = = = = = =  %
 
 \section{Design Alternatives and Extensions}
+
+ \textblue{ We need to find a home for this: another solution to reopen the market immediately after the closing call is to have many similar contracts for the market and  a factory contract to guide users to the correct address (from the reviewer's comment)}
 
 As a module, we tried to keep \cm as simple as possible, and allow customizations and extensions as appropriate. We discuss potential modifications here.  
 
