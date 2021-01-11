@@ -1,4 +1,4 @@
-This is BibTeX, Version 0.99d (TeX Live 2020)
+This is BibTeX, Version 0.99d (TeX Live 2019)
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: main.aux
 The style file: abbrv.bst
@@ -6,45 +6,45 @@ Database file #1: bib/DEX.bib
 Warning--to sort, need author or key in Ethereum41:online
 Warning--empty booktitle in bentov2017tesseract
 Warning--empty booktitle in buenz2017proofs
-You've used 33 entries,
+You've used 34 entries,
             2118 wiz_defined-function locations,
-            666 strings with 9584 characters,
-and the built_in function-call counts, 12836 in all, are:
-= -- 1162
-> -- 813
+            671 strings with 9723 characters,
+and the built_in function-call counts, 13146 in all, are:
+= -- 1191
+> -- 831
 < -- 10
-+ -- 323
-- -- 288
-* -- 863
-:= -- 2103
-add.period$ -- 109
-call.type$ -- 33
-change.case$ -- 241
++ -- 330
+- -- 294
+* -- 886
+:= -- 2159
+add.period$ -- 112
+call.type$ -- 34
+change.case$ -- 247
 chr.to.int$ -- 0
-cite$ -- 36
-duplicate$ -- 491
-empty$ -- 970
-format.name$ -- 288
-if$ -- 2717
+cite$ -- 37
+duplicate$ -- 502
+empty$ -- 992
+format.name$ -- 294
+if$ -- 2779
 int.to.chr$ -- 0
-int.to.str$ -- 33
-missing$ -- 27
-newline$ -- 170
-num.names$ -- 64
-pop$ -- 358
+int.to.str$ -- 34
+missing$ -- 28
+newline$ -- 175
+num.names$ -- 66
+pop$ -- 362
 preamble$ -- 1
-purify$ -- 209
+purify$ -- 214
 quote$ -- 0
-skip$ -- 327
+skip$ -- 334
 stack$ -- 0
-substring$ -- 446
-swap$ -- 132
+substring$ -- 460
+swap$ -- 133
 text.length$ -- 10
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 130
+type$ -- 134
 warning$ -- 3
-while$ -- 90
-width$ -- 35
-write$ -- 354
+while$ -- 93
+width$ -- 36
+write$ -- 365
 (There were 3 warnings)

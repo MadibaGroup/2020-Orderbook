@@ -45,21 +45,7 @@ In Solidity, it is not possible to delete an entire mapping without individually
 
 Clearing storage is important for reducing EVM bloat. The Ethereum refund model should be considered further by Ethereum developers to better incentivize developers to be less wasteful in using storage. 
 
-\section{Collateralization Options}
 
-In \cm, both the tokens and ETH that a trader want to potentially use in the order book are pre-loaded into the contract. Consider Alice who holds a token and decides she wants to trade it for ETH. In this model, she must first transfer the tokens to the contract and then submit an ask order. If she does this within the same block, there is a chance that a miner will execute the ask before the transfer and the ask will revert. If she waits for confirmation, this introduces a delay. This delay seems reasonable but we point out a few ways it could be addressed: 
-
-\begin{enumerate}
-
-\item \textbf{Use \texttt{msg.value}.} For the ETH side of a trade (\ie for bids), ETH could be sent with the function call to \texttt{submitBid()} to remove the need for    \texttt{depositEther()}. This works for markets that trade ERC-20 tokens for ETH, but would not work for ERC-20 to ERC-20 exchanges. 
-
-\item \textbf{Merge Deposits with Bids/Asks.} \cm could have an additional function that atomically runs the functionality of \texttt{depositToken()} followed by the functionality of \texttt{submitAsk()}. This removes the chance that the deposit and order submission are ordered incorrectly.
-
-\item \textbf{Use ERC-20 Approval.} Instead of \cm taking custody of the tokens, the token holder could simply approve \cm to transfer tokens on her behalf. If \cm is coded securely, it is unconcerning to allow the approval to stand long-term and the trader never has to lock up their tokens in the DApp. The issue is that there is no guarantee that the tokens are actually available when the market closes (\ie Alice can approve a DApp to spend 100 tokens even if she only has 5 tokens, or no tokens). In this case, \cm would optimistically try to transfer the tokens and if it fails, move onto the next order. This also gives Alice an indirect way to cancel an order, by removing the tokens backing the order---this could be a feature or it could be considered an abuse.
-
-\item \textbf{Use a Fidelity Bond.} Traders could post some amount of tokens as a fidelity bond, and be allowed to submit orders up to 100x this value using approve. If a trade fails because the pledged tokens are not available, the fidelity bond is slashed as punishment. This lets traders side-step time-consuming transfers to and from \cm while still incentivizing them to ensure that submitted orders can actually be executed. The trade-off  is that \cm needs to update balances with external calls to the ERC-20 contract instead of simply updating its internal ledger. 
-
-\end{enumerate}
 
 %% = = = = = = = = = = = =Transferring the Collateral back to the traders = = = = = = = = = = = = =  %
 %\subsection{Collateralization}

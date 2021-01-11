@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2020.4.8)  17 DEC 2020 16:19
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2020.4.8)  11 JAN 2021 14:03
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -483,6 +483,12 @@ Package: array 2019/08/31 v2.4l Tabular extension package (FMi)
 \extratabsurround=\skip59
 \backup@length=\skip60
 \ar@cellbox=\box48
+)
+(/usr/local/texlive/2019/texmf-dist/tex/latex/wasysym/wasysym.sty
+Package: wasysym 2020/01/19 v2.4 Wasy-2 symbol support package
+\symwasy=\mathgroup7
+LaTeX Font Info:    Overwriting symbol font `wasy' in version `bold'
+(Font)                  U/wasy/m/n --> U/wasy/b/n on input line 93.
 )
 (/usr/local/texlive/2019/texmf-dist/tex/latex/adjustbox/adjustbox.sty
 Package: adjustbox 2019/01/04 v1.2 Adjusting TeX boxes (trim, clip, ...)
@@ -1006,8 +1012,8 @@ Package: fontenc 2020/02/11 v2.0o Standard LaTeX package
 )
 (/usr/local/texlive/2019/texmf-dist/tex/latex/amsfonts/amsfonts.sty
 Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
-\symAMSa=\mathgroup7
-\symAMSb=\mathgroup8
+\symAMSa=\mathgroup8
+\symAMSb=\mathgroup9
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
 )
@@ -1095,11 +1101,7 @@ File: l3backend-pdfmode.def 2020-02-23 L3 backend support: PDF mode
 \l__kernel_color_stack_int=\count347
 \l__pdf_internal_box=\box95
 )
-(./main.aux
-
-LaTeX Warning: Label `fig:random_insertion' multiply defined.
-
-)
+(./main.aux)
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 20.
@@ -1209,12 +1211,6 @@ put line 20.
 
 ABD: EveryShipout initializing macros
 \c@lstlisting=\count355
-LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 12.9599pt on input line 32.
-Package microtype Info: Loading generic protrusion settings for font family
-(microtype)             `phv' (encoding: T1).
-(microtype)             For optimal results, create family-specific settings.
-(microtype)             See the microtype manual for details.
 LaTeX Font Info:    Trying to load font information for OT1+ptmcm on input line
  32.
 
@@ -1247,6 +1243,12 @@ LaTeX Font Info:    Trying to load font information for U+stmry on input line 3
 2.
 
 (/usr/local/texlive/2019/texmf-dist/tex/latex/stmaryrd/Ustmry.fd)
+LaTeX Font Info:    Trying to load font information for U+wasy on input line 32
+.
+
+(/usr/local/texlive/2019/texmf-dist/tex/latex/wasysym/uwasy.fd
+File: uwasy.fd 2020/01/19 v2.4 Wasy-2 symbol font definitions
+)
 (/usr/local/texlive/2019/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
@@ -1258,8 +1260,16 @@ LaTeX Warning: No \author given.
 
 (./sections/abstract.tex
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 8.99994pt on input line 4.
-) (./sections/paper.tex (./tables/eval.tex
+(Font)              scaled to size 8.99994pt on input line 7.
+Package microtype Info: Loading generic protrusion settings for font family
+(microtype)             `phv' (encoding: T1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
+) (./sections/paper.tex [1{/usr/local/texlive/2019/texmf-var/fonts/map/pdftex/u
+pdmap/pdftex.map}
+
+
+] (./tables/eval.tex
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 8.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7.4> not available
@@ -1273,38 +1283,25 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <5> not available
 )
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [1{/usr/local/texlive/2019/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
-
-]
-Underfull \hbox (badness 10000) in paragraph at lines 34--35
+Underfull \hbox (badness 10000) in paragraph at lines 35--36
  []\T1/ptm/b/n/10 On-chain Or-der Books.[] \T1/ptm/m/n/10 (+20) For trades be-t
 ween two
  []
 
-[2] (./tables/pq.tex
+[2] [3] (./tables/pq.tex
 Overfull \hbox (1.76683pt too wide) in paragraph at lines 5--18
  [][] 
  []
 
-[3])
-<fig/random_insertion2.png, id=186, 445.665pt x 349.305pt>
-File: fig/random_insertion2.png Graphic file (type png)
-<use fig/random_insertion2.png>
-Package pdftex.def Info: fig/random_insertion2.png  used on input line 91.
-(pdftex.def)             Requested size: 252.94499pt x 198.25311pt.
-
-Overfull \hbox (11.9246pt too wide) in paragraph at lines 91--92
- [][] 
- []
-
-<fig/random_insertion3.png, id=188, 241.8636pt x 184.40895pt>
+) [4]
+<fig/random_insertion3.png, id=199, 241.8636pt x 184.40895pt>
 File: fig/random_insertion3.png Graphic file (type png)
 <use fig/random_insertion3.png>
-Package pdftex.def Info: fig/random_insertion3.png  used on input line 97.
+Package pdftex.def Info: fig/random_insertion3.png  used on input line 92.
 (pdftex.def)             Requested size: 252.94499pt x 192.85846pt.
 
-Overfull \hbox (11.9246pt too wide) in paragraph at lines 97--98
+Overfull \hbox (11.9246pt too wide) in paragraph at lines 92--93
  [][] 
  []
 
@@ -1314,31 +1311,53 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 )
-Underfull \hbox (badness 2573) in paragraph at lines 108--109
+Underfull \hbox (badness 2573) in paragraph at lines 103--104
 \T1/ptm/m/n/10 (+20) For each PQ vari-ant stor-ing 50 ran-dom in-te-gers, the
  []
 
-[4] (./tables/cleaning.tex) [5 <./fig/random_insertion2.png> <./fig/random_inse
-rtion3.png
+
+Underfull \vbox (badness 1107) has occurred while \output is active []
+
+
+(./tables/cleaning.tex [5 <./fig/random_insertion3.png
 
 pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./fig/random_insertion3.png)
 : large interlaced PNG might cause out of memory (use non-interlaced PNG to fix
  this)
->] (./tables/functions.tex
+>]) (./tables/functions.tex
 Overfull \hbox (8.70703pt too wide) in paragraph at lines 6--29
 [][] 
  []
 
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
 (Font)              scaled to size 7.19995pt on input line 29.
-) (./tables/performance.tex
+)
+Underfull \hbox (badness 10000) in paragraph at lines 143--144
+[][]\T1/phv/m/n/10 (+20) Lissy \T1/ptm/m/n/10 (+20) is de-ployed on the Rinkeby
+--- Ethereum
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 143--144
+\T1/ptm/m/n/10 (+20) test-net (or test net-work). The con-tract ad-dress is
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 143--144
+\T1/ptm/m/n/10 (+20) '0x40F3089C4C404dA9E9655AD230aDD2E493BE8e5c',
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 143--144
+\T1/ptm/m/n/10 (+20) more de-tails can be found on
+ []
+
+[6] (./tables/performance.tex
 Overfull \hbox (11.23901pt too wide) in paragraph at lines 6--28
  [][] 
  []
 
-) [6] [7] [8]) [9] [10
-
-] (./main.bbl
+) [7] [8] [9]) [10] (./main.bbl
 LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 4
 .
 
@@ -1356,12 +1375,12 @@ Underfull \hbox (badness 2790) in paragraph at lines 49--55
  []
 
 
-Underfull \hbox (badness 1803) in paragraph at lines 135--139
+Underfull \hbox (badness 1803) in paragraph at lines 140--144
 []\T1/ptm/m/n/10 (+20) F. Mas-sacci, C. N. Ngo, J. Nie, D. Ven-turi, and
  []
 
 
-Underfull \hbox (badness 1365) in paragraph at lines 146--150
+Underfull \hbox (badness 1365) in paragraph at lines 151--155
 \T1/ptm/m/n/10 (+20) coin's biggest heist.  [][]$\T1/pcr/m/n/10 https : / / blo
 ckonomi . com /
  []
@@ -1369,23 +1388,23 @@ ckonomi . com /
 [11
 
 ]
-Underfull \hbox (badness 1436) in paragraph at lines 157--163
+Underfull \hbox (badness 1436) in paragraph at lines 162--168
 []\T1/ptm/m/n/10 (+20) Securities and E. B. of In-dia.  Sebi | or-der in
  []
 
 
-Underfull \hbox (badness 6758) in paragraph at lines 157--163
+Underfull \hbox (badness 6758) in paragraph at lines 162--168
 \T1/ptm/m/n/10 (+20) the mat-ter of nse colo-ca-tion.  [][]$\T1/pcr/m/n/10 http
 s : / / www .
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 157--163
+Underfull \hbox (badness 10000) in paragraph at lines 162--168
 \T1/pcr/m/n/10 sebi . gov . in / enforcement / orders / apr-[]2019 /
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 157--163
+Underfull \hbox (badness 10000) in paragraph at lines 162--168
 \T1/pcr/m/n/10 order-[]in-[]the-[]matter-[]of-[]nse-[]colocation _
  []
 
@@ -1393,42 +1412,41 @@ Underfull \hbox (badness 10000) in paragraph at lines 157--163
 
 ] (./sections/appendix.tex [13
 
-]) [14]
+]) [14
+
+]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 58.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 58.
  (./main.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 58.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 58.
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: F62CFC28B9420405BF0EDAAE532CAF56;1849.
-
-
-LaTeX Warning: There were multiply-defined labels.
-
+(rerunfilecheck)             Checksum: 8EF21904C6CFD80889F96E3405EC7879;1848.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 58.
  ) 
 Here is how much of TeX's memory you used:
- 26810 strings out of 480994
- 501035 string characters out of 5912143
- 826856 words of memory out of 5000000
- 41260 multiletter control sequences out of 15000+600000
- 617905 words of font info for 339 fonts, out of 8000000 for 9000
+ 27036 strings out of 480994
+ 503306 string characters out of 5912143
+ 832746 words of memory out of 5000000
+ 41469 multiletter control sequences out of 15000+600000
+ 615851 words of font info for 347 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 63i,14n,98p,1769b,483s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 63i,15n,98p,1769b,483s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2019/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
 exlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/tex
 live/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texl
 ive/2019/texmf-dist/fonts/type1/urw/courier/ucrb8a.pfb></usr/local/texlive/2019
 /texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2019/texmf-d
-ist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2019/texmf-dist/fon
-ts/type1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type
-1/urw/times/utmb8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/urw/time
-s/utmr8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/urw/times/utmri8a.
-pfb>
-Output written on main.pdf (14 pages, 412760 bytes).
+ist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/2019/texmf-dist/fon
+ts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/u
+rw/times/utmr8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/urw/times/u
+tmri8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/wasy-type1/wa
+sy10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/wasy-type1/wasy
+8.pfb>
+Output written on main.pdf (14 pages, 339692 bytes).
 PDF statistics:
- 410 PDF objects out of 1000 (max. 8388607)
- 377 compressed objects within 4 object streams
+ 416 PDF objects out of 1000 (max. 8388607)
+ 384 compressed objects within 4 object streams
  120 named destinations out of 1000 (max. 500000)
- 52975 words of extra memory for PDF output out of 61914 (max. 10000000)
+ 52458 words of extra memory for PDF output out of 61914 (max. 10000000)
 
