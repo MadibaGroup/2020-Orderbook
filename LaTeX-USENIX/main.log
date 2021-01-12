@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2020.4.8)  12 JAN 2021 11:27
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2020.4.8)  12 JAN 2021 11:30
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1326,14 +1326,14 @@ Overfull \hbox (11.23901pt too wide) in paragraph at lines 6--28
  [][] 
  []
 
-) [7] [8]
-Underfull \vbox (badness 1715) has occurred while \output is active []
+) [7]
+Underfull \vbox (badness 4582) has occurred while \output is active []
 
- [9]
+ [8]
+[9]
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
 (Font)              scaled to size 10.79993pt on input line 268.
-
-[10]) (./sections/appendix.tex) [11] (./main.bbl
+ [10]) (./sections/appendix.tex) [11] (./main.bbl
 LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 4
 .
 
@@ -1415,7 +1415,7 @@ ts/type1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type
 s/utmr8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/urw/times/utmri8a.
 pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/wasy-type1/wasy10.pf
 b>
-Output written on main.pdf (13 pages, 340900 bytes).
+Output written on main.pdf (13 pages, 340896 bytes).
 PDF statistics:
  399 PDF objects out of 1000 (max. 8388607)
  368 compressed objects within 4 object streams

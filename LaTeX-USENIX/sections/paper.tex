@@ -171,7 +171,7 @@ Another simplifying assumption is to implement a \textit{collateralized} call ma
 %============= Performance =================== %
 
  \subsection{Measurements}
- 
+  
  \input{tables/performance.tex}
  
  
@@ -189,7 +189,7 @@ Potential for front-running still exists around ties on price and order cancella
 
 \subsection{Cleaning Up Revisted}
 
-Beyond the cleaning up issues with priority queues in Section~\ref{sec:gasrefund}, \cm also uses mappings with each market. Traders preload their account with ERC-20 tokens and/or ETH. \cm tracks what they are owed using a mapping called \texttt{totalBalance} and allows traders to withdraw their tokens at any time. However if a trader submits an order (\ie ask for their tokens), the tokens are committed and not available for withdrawal until the market closes (after which, the tokens are either transferred to the buyer or, if the trade is not executed, returned to the trader). Committed tokens are also tracked in a mapping called \texttt{unavailableBalance}. Sellers can request a token withdrawal up to their total balance subtracted by their unavailable balance.
+Beyond the cleaning up issues with priority queues in Section~\ref{sec:gasrefund}, \cm also uses mappings with each market. Traders preload their account with tokens to be traded (which comply with a common token standard called ERC20) and/or ETH. \cm tracks what they are owed using a mapping called \texttt{totalBalance} and allows traders to withdraw their tokens at any time. However if a trader submits an order (\ie ask for their tokens), the tokens are committed and not available for withdrawal until the market closes (after which, the tokens are either transferred to the buyer or, if the trade is not executed, returned to the trader). Committed tokens are also tracked in a mapping called \texttt{unavailableBalance}. Sellers can request a token withdrawal up to their total balance subtracted by their unavailable balance.
 
 As the DApp runs \texttt{closeMarket()}, it starts matching the best bids to the best asks. As orders execute, \texttt{totalBalance} and \texttt{unavailableBalance} are updated. At a certain point, the bids and asks will stop matching in price. At this point, every order left in the order book cannot execute (because the priority queue sorts orders by price, and so orders deeper in the queue have worst prices than the order at the head of the queue). Therefore all remaining entries in \texttt{unavailableBalance} can be cleared.
 
