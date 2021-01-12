@@ -1,0 +1,22 @@
+\BOOKMARK [1][-]{section.1}{Introductory Remarks}{}% 1
+\BOOKMARK [1][-]{section.2}{Preliminaries}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{Ethereum and Blockchain Technology}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.2}{Trade Execution Systems}{section.2}% 4
+\BOOKMARK [2][-]{subsection.2.3}{Trading Blockchain-based Assets}{section.2}% 5
+\BOOKMARK [2][-]{subsection.2.4}{Related Works}{section.2}% 6
+\BOOKMARK [1][-]{section.3}{Priority Queues}{}% 7
+\BOOKMARK [2][-]{subsection.3.1}{Priority Queue Evaluation}{section.3}% 8
+\BOOKMARK [2][-]{subsection.3.2}{Cost/Benefit of Cleaning up After Yourself}{section.3}% 9
+\BOOKMARK [1][-]{section.4}{Call Market Design}{}% 10
+\BOOKMARK [2][-]{subsection.4.1}{Measurements}{section.4}% 11
+\BOOKMARK [2][-]{subsection.4.2}{Front-running}{section.4}% 12
+\BOOKMARK [2][-]{subsection.4.3}{Cleaning Up Revisted}{section.4}% 13
+\BOOKMARK [1][-]{section.5}{Design Alternatives and Extensions}{}% 14
+\BOOKMARK [2][-]{subsection.5.1}{Token Divisibility and Volumes}{section.5}% 15
+\BOOKMARK [2][-]{subsection.5.2}{Order Cancellations}{section.5}% 16
+\BOOKMARK [2][-]{subsection.5.3}{Market Clearing Price}{section.5}% 17
+\BOOKMARK [2][-]{subsection.5.4}{Scheduling Events}{section.5}% 18
+\BOOKMARK [2][-]{subsection.5.5}{Who Pays to Close/Reopen the Market?}{section.5}% 19
+\BOOKMARK [2][-]{subsection.5.6}{Off-chain Closing}{section.5}% 20
+\BOOKMARK [2][-]{subsection.5.7}{Collateralization Options}{section.5}% 21
+\BOOKMARK [1][-]{section.6}{Concluding Remarks}{}% 22

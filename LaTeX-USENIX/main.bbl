@@ -117,6 +117,11 @@ H.~Kalodner, S.~Goldfeder, X.~Chen, S.~M. Weinberg, and E.~W. Felten.
 \newblock Arbitrum: Scalable, private smart contracts.
 \newblock In {\em USENIX Security Symposium}, pages 1353--1370, 2018.
 
+\bibitem{khalil2019tex}
+R.~Khalil, A.~Gervais, and G.~Felley.
+\newblock Tex-a securely scalable trustless exchange.
+\newblock {\em IACR Cryptol. ePrint Arch.}, 2019:265, 2019.
+
 \bibitem{SGX1}
 P.~{Kocher}, J.~{Horn}, A.~{Fogh}, D.~{Genkin}, D.~{Gruss}, W.~{Haas},
   M.~{Hamburg}, M.~{Lipp}, S.~{Mangard}, T.~{Prescher}, M.~{Schwarz}, and
