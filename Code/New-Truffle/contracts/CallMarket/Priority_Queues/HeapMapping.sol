@@ -1,5 +1,5 @@
 pragma solidity >=0.4.22;
-//pragma solidity 0.5.12;
+
 
 
 //Mapping and Heap with dynamic array wrapped in a priority queue

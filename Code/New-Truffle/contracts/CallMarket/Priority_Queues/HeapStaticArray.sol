@@ -1,4 +1,3 @@
-//pragma solidity 0.5.12;
 pragma solidity >=0.4.22;
 
 //Heap with static array wrapped in a priority queue
