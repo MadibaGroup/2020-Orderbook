@@ -134,17 +134,12 @@ describe('CallMarket', function(accounts) {
         console.log(array.length,'bids has been succsessfully submitted');
  
     });
-    //*******************Test 6*************************
-    it('should close the market on the Dapp Token', async() => {
-        const CallMarketInstance = await CallMarket.deployed(); 
-        await CallMarketInstance.closeMarket();
-        
-    });
 
-    //*******************Test 7*************************
-    it('should match the orders', async() => {
+
+    //*******************Test 6*************************
+    it('should close the market and match the orders', async() => {
         const CallMarketInstance = await CallMarket.deployed(); 
-        const receipt = await CallMarketInstance.matchOrders();
+        const receipt = await CallMarketInstance.closeMarket();
         console.log('********************************************');
         const gasUsed = receipt.receipt.gasUsed;
         console.log(`GasUsed for worst case matching is: ${receipt.receipt.gasUsed}`);

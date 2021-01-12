@@ -147,14 +147,9 @@ describe('CallMarket', function(accounts) {
         console.log(array.length,'bids have been succsessfully submitted');
         console.log('********************************************');
     });
-    //*******************Test 7*************************
-    it('should close the market on the Dapp Token', async() => {
-        const CallMarketInstance = await CallMarket.deployed(); 
-        await CallMarketInstance.closeMarket();
-        
-    });
+
     
-    //*******************Test 8*************************
+    //*******************Test 7*************************
     // it('should return the Gasestimate for the match() function', async() => {
         
     //     const CallMarketInstance = await CallMarket.deployed();
@@ -163,12 +158,12 @@ describe('CallMarket', function(accounts) {
     //     console.log('********************************************');
     // });  
 
-    //*******************Test 9*************************
-    it('should match the orders', async() => {
+    //*******************Test 8*************************
+    it('should close the market and match the orders', async() => {
         
         const CallMarketInstance = await CallMarket.deployed();
 
-        const receipt = await  CallMarketInstance.matchOrders();
+        const receipt = await  CallMarketInstance.closeMarket();
         const gasUsed = receipt.receipt.gasUsed;
         console.log(`GasUsed for Matching the orders: ${receipt.receipt.gasUsed}`); 
         //console.log('the tx receipt is:', receipt);
@@ -176,7 +171,7 @@ describe('CallMarket', function(accounts) {
     });//.timeout(9000000000000000000);     
     
  
-    //*******************Test 10*************************
+    //*******************Test 9*************************
     it('should print how many matches happened', async() => {
         const CallMarketInstance = await CallMarket.deployed(); 
         
@@ -187,7 +182,7 @@ describe('CallMarket', function(accounts) {
 
     });
     
-    // //*******************Test 11*************************
+    // //*******************Test 10*************************
     // it('should call the claim functions', async() => {
         
     //     const CallMarketInstance = await CallMarket.deployed(); 
@@ -199,7 +194,7 @@ describe('CallMarket', function(accounts) {
     //     await CallMarketInstance.claimTokens (tokenaddress, 14999, {from: accounts[0]});
     //     await CallMarketInstance.claimEther (9999999997, {from: accounts[1]});
     // });
-    // //*******************Test 12*************************
+    // //*******************Test 11*************************
     //  it('should show the Ether balances of traders after the trade', async() => {
     //     //const CallMarketInstance = await CallMarket.deployed(); 
     //     accounts = await web3.eth.getAccounts();
