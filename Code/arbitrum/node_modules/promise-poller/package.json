@@ -1,0 +1,59 @@
+{
+  "name": "promise-poller",
+  "version": "1.9.1",
+  "description": "A basic poller built on top of promises",
+  "main": "dist/lib/promise-poller.js",
+  "scripts": {
+    "prepublishOnly": "npm run build",
+    "build": "babel -d dist src",
+    "clean": "rm -rf dist",
+    "lint": "eslint src",
+    "test": "npm run build && jasmine JASMINE_CONFIG_PATH=jasmine.json",
+    "prettify": "prettier --write src/**/*js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/joeattardi/promise-poller.git"
+  },
+  "keywords": [
+    "promise",
+    "promises",
+    "poller",
+    "polling",
+    "poll",
+    "timeout",
+    "ajax"
+  ],
+  "author": "Joe Attardi <jattardi@gmail.com> (https://joeattardi.codes/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/joeattardi/promise-poller/issues"
+  },
+  "homepage": "https://github.com/joeattardi/promise-poller",
+  "devDependencies": {
+    "@babel/cli": "^7.1.5",
+    "@babel/core": "^7.1.6",
+    "@babel/preset-env": "^7.1.6",
+    "@babel/register": "^7.0.0",
+    "eslint": "^5.9.0",
+    "eslint-plugin-prettier": "^3.0.0",
+    "husky": "^1.1.4",
+    "jasmine": "^3.3.0",
+    "lint-staged": "^8.0.5",
+    "prettier": "^1.15.2"
+  },
+  "dependencies": {
+    "debug": "^4.1.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.js": [
+      "prettier --write",
+      "git add"
+    ]
+  }
+}
