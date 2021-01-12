@@ -492,12 +492,12 @@ INPUT tables/performance.tex
 INPUT tables/performance.tex
 INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/adobe/courier/pcrb8t.tfm
 INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/adobe/helvetic/phvb8t.tfm
-INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/adobe/times/ptmri8t.tfm
 INPUT /usr/local/texlive/2020/texmf-dist/fonts/vf/adobe/times/zptmcmrm.vf
 INPUT /usr/local/texlive/2020/texmf-dist/fonts/vf/adobe/courier/pcrb8t.vf
 INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/adobe/courier/pcrb8r.tfm
 INPUT /usr/local/texlive/2020/texmf-dist/fonts/vf/adobe/helvetic/phvb8t.vf
 INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/adobe/helvetic/phvb8r.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/adobe/times/ptmri8t.tfm
 INPUT sections/appendix.tex
 INPUT sections/appendix.tex
 INPUT /usr/local/texlive/2020/texmf-dist/fonts/vf/adobe/times/ptmri8t.vf

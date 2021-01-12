@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  12 JAN 2021 12:25
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  12 JAN 2021 18:06
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1319,23 +1319,14 @@ Overfull \hbox (4.60155pt too wide) in paragraph at lines 7--32
 [][] 
  []
 
-) (./tables/performance.tex
-Overfull \hbox (11.23901pt too wide) in paragraph at lines 6--28
- [][] 
- []
-
-) [7] [8]
-Underfull \vbox (badness 1715) has occurred while \output is active []
-
- [9]
+) (./tables/performance.tex) [7] [8] [9]
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
 (Font)              scaled to size 10.79993pt on input line 268.
-
-[10]) (./sections/appendix.tex) [11] (./main.bbl
+ [10]) (./sections/appendix.tex)
+[11] (./main.bbl
 LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 4
 .
-
-(/usr/local/texlive/2020/texmf-dist/tex/latex/psnfss/ts1ptm.fd
+ (/usr/local/texlive/2020/texmf-dist/tex/latex/psnfss/ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 )
 Underfull \hbox (badness 10000) in paragraph at lines 4--8
@@ -1401,7 +1392,7 @@ Here is how much of TeX's memory you used:
  41837 multiletter control sequences out of 15000+600000
  615346 words of font info for 337 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 63i,16n,98p,1549b,447s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 63i,16n,98p,1549b,457s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2020/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
 exlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/tex
 live/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texl
@@ -1413,7 +1404,7 @@ ts/type1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/2020/texmf-dist/fonts/type
 s/utmr8a.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/urw/times/utmri8a.
 pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/wasy-type1/wasy10.pf
 b>
-Output written on main.pdf (13 pages, 340939 bytes).
+Output written on main.pdf (13 pages, 341006 bytes).
 PDF statistics:
  399 PDF objects out of 1000 (max. 8388607)
  368 compressed objects within 4 object streams
