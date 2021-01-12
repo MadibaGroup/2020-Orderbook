@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2020.4.8)  11 JAN 2021 19:21
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2020.4.8)  12 JAN 2021 09:39
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1292,13 +1292,13 @@ Overfull \hbox (5.52696pt too wide) in paragraph at lines 7--20
  []
 
 ) [4]
-<fig/random_insertion3.png, id=178, 241.8636pt x 184.40895pt>
+<fig/random_insertion3.png, id=181, 241.8636pt x 184.40895pt>
 File: fig/random_insertion3.png Graphic file (type png)
 <use fig/random_insertion3.png>
-Package pdftex.def Info: fig/random_insertion3.png  used on input line 102.
+Package pdftex.def Info: fig/random_insertion3.png  used on input line 105.
 (pdftex.def)             Requested size: 252.94499pt x 192.85846pt.
 
-Overfull \hbox (11.9246pt too wide) in paragraph at lines 102--103
+Overfull \hbox (11.9246pt too wide) in paragraph at lines 105--106
  [][] 
  []
 
@@ -1307,17 +1307,22 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `pcr' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
-) (./tables/cleaning.tex) [5 <./fig/random_insertion3.png
+) (./tables/cleaning.tex [5 <./fig/random_insertion3.png
 
 pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./fig/random_insertion3.png)
 : large interlaced PNG might cause out of memory (use non-interlaced PNG to fix
  this)
->] (./tables/functions.tex
-Overfull \hbox (8.70703pt too wide) in paragraph at lines 6--29
+>]) [6] (./tables/functions.tex
+Overfull \hbox (2.07196pt too wide) in paragraph at lines 14--14
+ []|\T1/ptm/m/n/10 (-20) depositToken()| 
+ []
+
+
+Overfull \hbox (4.60155pt too wide) in paragraph at lines 7--32
 [][] 
  []
 
-) [6] (./tables/performance.tex
+) (./tables/performance.tex
 Overfull \hbox (11.23901pt too wide) in paragraph at lines 6--28
  [][] 
  []
@@ -1340,36 +1345,36 @@ Underfull \hbox (badness 2790) in paragraph at lines 49--55
  []
 
 
-Underfull \hbox (badness 1803) in paragraph at lines 140--144
+Underfull \hbox (badness 1803) in paragraph at lines 152--156
 []\T1/ptm/m/n/10 (+20) F. Mas-sacci, C. N. Ngo, J. Nie, D. Ven-turi, and
- []
-
-
-Underfull \hbox (badness 1365) in paragraph at lines 151--155
-\T1/ptm/m/n/10 (+20) coin's biggest heist.  [][]$\T1/pcr/m/n/10 https : / / blo
-ckonomi . com /
  []
 
 [12
 
 ]
-Underfull \hbox (badness 1436) in paragraph at lines 162--168
+Underfull \hbox (badness 1365) in paragraph at lines 163--167
+\T1/ptm/m/n/10 (+20) coin's biggest heist.  [][]$\T1/pcr/m/n/10 https : / / blo
+ckonomi . com /
+ []
+
+
+Underfull \hbox (badness 1436) in paragraph at lines 174--180
 []\T1/ptm/m/n/10 (+20) Securities and E. B. of In-dia.  Sebi | or-der in
  []
 
 
-Underfull \hbox (badness 6758) in paragraph at lines 162--168
+Underfull \hbox (badness 6758) in paragraph at lines 174--180
 \T1/ptm/m/n/10 (+20) the mat-ter of nse colo-ca-tion.  [][]$\T1/pcr/m/n/10 http
 s : / / www .
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 162--168
+Underfull \hbox (badness 10000) in paragraph at lines 174--180
 \T1/pcr/m/n/10 sebi . gov . in / enforcement / orders / apr-[]2019 /
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 162--168
+Underfull \hbox (badness 10000) in paragraph at lines 174--180
 \T1/pcr/m/n/10 order-[]in-[]the-[]matter-[]of-[]nse-[]colocation _
  []
 
@@ -1382,17 +1387,17 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 59.
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 59.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 59.
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 1F214AF3E9506F033197BA9625E8150F;1503.
+(rerunfilecheck)             Checksum: 32EE72807CE4A19073A669FB0033DAC6;1500.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 59.
  ) 
 Here is how much of TeX's memory you used:
- 26993 strings out of 480994
- 502805 string characters out of 5912143
- 808407 words of memory out of 5000000
- 41460 multiletter control sequences out of 15000+600000
- 612066 words of font info for 331 fonts, out of 8000000 for 9000
+ 26999 strings out of 480994
+ 502844 string characters out of 5912143
+ 809426 words of memory out of 5000000
+ 41461 multiletter control sequences out of 15000+600000
+ 612291 words of font info for 333 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 63i,13n,98p,1769b,447s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 63i,16n,98p,1549b,447s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2019/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
 exlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/tex
 live/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texl
@@ -1403,10 +1408,10 @@ ts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/u
 rw/times/utmr8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/urw/times/u
 tmri8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/wasy-type1/wa
 sy10.pfb>
-Output written on main.pdf (13 pages, 332698 bytes).
+Output written on main.pdf (13 pages, 334897 bytes).
 PDF statistics:
- 385 PDF objects out of 1000 (max. 8388607)
- 355 compressed objects within 4 object streams
- 113 named destinations out of 1000 (max. 500000)
+ 394 PDF objects out of 1000 (max. 8388607)
+ 364 compressed objects within 4 object streams
+ 115 named destinations out of 1000 (max. 500000)
  48322 words of extra memory for PDF output out of 51595 (max. 10000000)
 
