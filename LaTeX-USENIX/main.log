@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2020.4.8)  12 JAN 2021 10:47
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2020.4.8)  12 JAN 2021 11:27
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1275,7 +1275,6 @@ Underfull \hbox (badness 10000) in paragraph at lines 43--44
 ween two
  []
 
-[3]
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 57.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7.4> not available
@@ -1286,13 +1285,13 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 57.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <5> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 57.
- (./tables/pq.tex
+[3] (./tables/pq.tex
 Overfull \hbox (5.52696pt too wide) in paragraph at lines 7--20
  [][] 
  []
 
 ) [4]
-<fig/random_insertion3.png, id=181, 241.8636pt x 184.40895pt>
+<fig/random_insertion3.png, id=182, 241.8636pt x 184.40895pt>
 File: fig/random_insertion3.png Graphic file (type png)
 <use fig/random_insertion3.png>
 Package pdftex.def Info: fig/random_insertion3.png  used on input line 105.
@@ -1307,12 +1306,12 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `pcr' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
-) (./tables/cleaning.tex [5 <./fig/random_insertion3.png
+) (./tables/cleaning.tex) [5 <./fig/random_insertion3.png
 
 pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./fig/random_insertion3.png)
 : large interlaced PNG might cause out of memory (use non-interlaced PNG to fix
  this)
->]) [6] (./tables/functions.tex
+>] [6] (./tables/functions.tex
 Overfull \hbox (2.07196pt too wide) in paragraph at lines 14--14
  []|\T1/ptm/m/n/10 (-20) depositToken()| 
  []
@@ -1327,10 +1326,14 @@ Overfull \hbox (11.23901pt too wide) in paragraph at lines 6--28
  [][] 
  []
 
-) [7] [8] [9]
+) [7] [8]
+Underfull \vbox (badness 1715) has occurred while \output is active []
+
+ [9]
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
 (Font)              scaled to size 10.79993pt on input line 268.
- [10]) (./sections/appendix.tex) [11] (./main.bbl
+
+[10]) (./sections/appendix.tex) [11] (./main.bbl
 LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 4
 .
 
@@ -1395,10 +1398,10 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 59.
  ) 
 Here is how much of TeX's memory you used:
  27003 strings out of 480994
- 502881 string characters out of 5912143
- 809433 words of memory out of 5000000
+ 502887 string characters out of 5912143
+ 810433 words of memory out of 5000000
  41463 multiletter control sequences out of 15000+600000
- 615021 words of font info for 335 fonts, out of 8000000 for 9000
+ 615121 words of font info for 335 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  63i,16n,98p,1549b,447s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2019/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
@@ -1412,10 +1415,10 @@ ts/type1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type
 s/utmr8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/urw/times/utmri8a.
 pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/wasy-type1/wasy10.pf
 b>
-Output written on main.pdf (13 pages, 340485 bytes).
+Output written on main.pdf (13 pages, 340900 bytes).
 PDF statistics:
- 398 PDF objects out of 1000 (max. 8388607)
- 367 compressed objects within 4 object streams
+ 399 PDF objects out of 1000 (max. 8388607)
+ 368 compressed objects within 4 object streams
  115 named destinations out of 1000 (max. 500000)
  48834 words of extra memory for PDF output out of 51595 (max. 10000000)
 
