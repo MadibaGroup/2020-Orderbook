@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  8 DEC 2020 09:31
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  15 JAN 2021 11:22
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -6,32 +6,28 @@ entering extended mode
 **main.tex
 (./main.tex
 LaTeX2e <2020-02-02> patch level 5
-L3 programming layer <2020-03-06>
-
-! LaTeX Error: File `llncs.cls' not found.
-
-Type X to quit or <RETURN> to proceed,
-or enter new name. (Default extension: cls)
-
-Enter file name: 
-./main.tex:5: Emergency stop.
-<read *> 
-         
-l.5 \pagestyle
-              {headings}^^M
-End of file on the terminal!
-
- 
-Here is how much of TeX's memory you used:
- 22 strings out of 480608
- 428 string characters out of 5903631
- 239610 words of memory out of 5000000
- 16013 multiletter control sequences out of 15000+600000
- 532338 words of font info for 24 fonts, out of 8000000 for 9000
- 1141 hyphenation exceptions out of 8191
- 14i,0n,17p,46b,10s stack positions out of 5000i,500n,10000p,200000b,80000s
-./main.tex:5:  ==> Fatal error occurred, no output PDF file produced!
-1.8y multicolumn formatting (FMi)
+L3 programming layer <2020-03-06> (./llncs.cls
+Document Class: llncs 2010/07/12 v2.17 
+ LaTeX document class for Lecture Notes in Computer Science
+(/usr/local/texlive/2020/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2019/12/20 v1.4l Standard LaTeX document class
+(/usr/local/texlive/2020/texmf-dist/tex/latex/base/size10.clo
+File: size10.clo 2019/12/20 v1.4l Standard LaTeX file (size option)
+)
+\c@part=\count167
+\c@section=\count168
+\c@subsection=\count169
+\c@subsubsection=\count170
+\c@paragraph=\count171
+\c@subparagraph=\count172
+\c@figure=\count173
+\c@table=\count174
+\abovecaptionskip=\skip47
+\belowcaptionskip=\skip48
+\bibindent=\dimen134
+)
+(/usr/local/texlive/2020/texmf-dist/tex/latex/tools/multicol.sty
+Package: multicol 2019/12/09 v1.8y multicolumn formatting (FMi)
 \c@tracingmulticols=\count175
 \mult@box=\box45
 \multicol@leftmargin=\dimen135
@@ -1187,7 +1183,7 @@ Overfull \hbox (3.7351pt too wide) in paragraph at lines 60--61
  []
 
 [4] (./tables/pq.tex) [5]
-<fig/random_insertion2.png, id=124, 445.665pt x 349.305pt>
+<fig/random_insertion2.png, id=125, 445.665pt x 349.305pt>
 File: fig/random_insertion2.png Graphic file (type png)
 <use fig/random_insertion2.png>
 Package pdftex.def Info: fig/random_insertion2.png  used on input line 105.
@@ -1251,27 +1247,28 @@ Here is how much of TeX's memory you used:
 }{/usr/local/texlive/2020/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}<
 /usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></
 usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></us
-r/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr
-/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/l
-ocal/texlive/2020/texmf-dist/fonts/type1/public/cm-super/sfbx0900.pfb></usr/loc
-al/texlive/2020/texmf-dist/fonts/type1/public/cm-super/sfbx1000.pfb></usr/local
-/texlive/2020/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/local/t
-exlive/2020/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></usr/local/tex
-live/2020/texmf-dist/fonts/type1/public/cm-super/sfrm0600.pfb></usr/local/texli
-ve/2020/texmf-dist/fonts/type1/public/cm-super/sfrm0700.pfb></usr/local/texlive
-/2020/texmf-dist/fonts/type1/public/cm-super/sfrm0900.pfb></usr/local/texlive/2
-020/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/local/texlive/202
-0/texmf-dist/fonts/type1/public/cm-super/sfss0900.pfb></usr/local/texlive/2020/
-texmf-dist/fonts/type1/public/cm-super/sfss1000.pfb></usr/local/texlive/2020/te
-xmf-dist/fonts/type1/public/cm-super/sfsx1440.pfb></usr/local/texlive/2020/texm
-f-dist/fonts/type1/public/cm-super/sfti0900.pfb></usr/local/texlive/2020/texmf-
-dist/fonts/type1/public/cm-super/sfti1000.pfb></usr/local/texlive/2020/texmf-di
-st/fonts/type1/public/cm-super/sftt0900.pfb></usr/local/texlive/2020/texmf-dist
-/fonts/type1/public/cm-super/sftt1000.pfb>
-Output written on main.pdf (21 pages, 490962 bytes).
+r/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/l
+ocal/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/lo
+cal/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/loca
+l/texlive/2020/texmf-dist/fonts/type1/public/cm-super/sfbx0900.pfb></usr/local/
+texlive/2020/texmf-dist/fonts/type1/public/cm-super/sfbx1000.pfb></usr/local/te
+xlive/2020/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/local/texl
+ive/2020/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></usr/local/texliv
+e/2020/texmf-dist/fonts/type1/public/cm-super/sfrm0600.pfb></usr/local/texlive/
+2020/texmf-dist/fonts/type1/public/cm-super/sfrm0700.pfb></usr/local/texlive/20
+20/texmf-dist/fonts/type1/public/cm-super/sfrm0900.pfb></usr/local/texlive/2020
+/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/local/texlive/2020/t
+exmf-dist/fonts/type1/public/cm-super/sfss0900.pfb></usr/local/texlive/2020/tex
+mf-dist/fonts/type1/public/cm-super/sfss1000.pfb></usr/local/texlive/2020/texmf
+-dist/fonts/type1/public/cm-super/sfsx1440.pfb></usr/local/texlive/2020/texmf-d
+ist/fonts/type1/public/cm-super/sfti0900.pfb></usr/local/texlive/2020/texmf-dis
+t/fonts/type1/public/cm-super/sfti1000.pfb></usr/local/texlive/2020/texmf-dist/
+fonts/type1/public/cm-super/sftt0900.pfb></usr/local/texlive/2020/texmf-dist/fo
+nts/type1/public/cm-super/sftt1000.pfb>
+Output written on main.pdf (21 pages, 498100 bytes).
 PDF statistics:
- 441 PDF objects out of 1000 (max. 8388607)
- 351 compressed objects within 4 object streams
+ 445 PDF objects out of 1000 (max. 8388607)
+ 354 compressed objects within 4 object streams
  126 named destinations out of 1000 (max. 500000)
  26 words of extra memory for PDF output out of 10000 (max. 10000000)
 

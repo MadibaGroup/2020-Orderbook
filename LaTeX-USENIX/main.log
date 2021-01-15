@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  12 JAN 2021 18:06
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  15 JAN 2021 11:29
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -356,7 +356,15 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 \Hy@SectionHShift=\skip50
 )
 Package hyperref Info: Option `colorlinks' set `true' on input line 50.
-) (/usr/local/texlive/2020/texmf-dist/tex/latex/graphics/graphicx.sty
+) (/usr/local/texlive/2020/texmf-dist/tex/latex/preprint/authblk.sty
+Package: authblk 2001/02/27 1.3 (PWD)
+\affilsep=\skip51
+\@affilsep=\skip52
+\c@Maxaffil=\count188
+\c@authors=\count189
+\c@affil=\count190
+)
+(/usr/local/texlive/2020/texmf-dist/tex/latex/graphics/graphicx.sty
 Package: graphicx 2019/11/30 v1.2a Enhanced LaTeX Graphics (DPC,SPQR)
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/graphics/graphics.sty
@@ -388,23 +396,23 @@ Package caption3 Info: TeX engine: e-TeX on input line 61.
 \caption@hangindent=\dimen148
 Package caption Info: Standard document class detected.
 )
-\c@KVtest=\count188
-\sf@farskip=\skip51
+\c@KVtest=\count191
+\sf@farskip=\skip53
 \sf@captopadj=\dimen149
-\sf@capskip=\skip52
-\sf@nearskip=\skip53
-\c@subfigure=\count189
-\c@subfigure@save=\count190
-\c@lofdepth=\count191
-\c@subtable=\count192
-\c@subtable@save=\count193
-\c@lotdepth=\count194
-\sf@top=\skip54
-\sf@bottom=\skip55
+\sf@capskip=\skip54
+\sf@nearskip=\skip55
+\c@subfigure=\count192
+\c@subfigure@save=\count193
+\c@lofdepth=\count194
+\c@subtable=\count195
+\c@subtable@save=\count196
+\c@lotdepth=\count197
+\sf@top=\skip56
+\sf@bottom=\skip57
 )
 (/usr/local/texlive/2020/texmf-dist/tex/latex/amsmath/amsmath.sty
 Package: amsmath 2020/01/20 v2.17e AMS math features
-\@mathmargin=\skip56
+\@mathmargin=\skip58
 
 For additional information on amsmath, use the `?' option.
 (/usr/local/texlive/2020/texmf-dist/tex/latex/amsmath/amstext.sty
@@ -422,13 +430,13 @@ Package: amsbsy 1999/11/29 v1.2d Bold Symbols
 (/usr/local/texlive/2020/texmf-dist/tex/latex/amsmath/amsopn.sty
 Package: amsopn 2016/03/08 v2.02 operator names
 )
-\inf@bad=\count195
+\inf@bad=\count198
 LaTeX Info: Redefining \frac on input line 227.
-\uproot@=\count196
-\leftroot@=\count197
+\uproot@=\count199
+\leftroot@=\count266
 LaTeX Info: Redefining \overline on input line 389.
-\classnum@=\count198
-\DOTSCASE@=\count199
+\classnum@=\count267
+\DOTSCASE@=\count268
 LaTeX Info: Redefining \ldots on input line 486.
 LaTeX Info: Redefining \dots on input line 489.
 LaTeX Info: Redefining \cdots on input line 610.
@@ -437,15 +445,15 @@ LaTeX Info: Redefining \cdots on input line 610.
 \big@size=\dimen152
 LaTeX Font Info:    Redeclaring font encoding OML on input line 733.
 LaTeX Font Info:    Redeclaring font encoding OMS on input line 734.
-\macc@depth=\count266
-\c@MaxMatrixCols=\count267
+\macc@depth=\count269
+\c@MaxMatrixCols=\count270
 \dotsspace@=\muskip17
-\c@parentequation=\count268
-\dspbrk@lvl=\count269
+\c@parentequation=\count271
+\dspbrk@lvl=\count272
 \tag@help=\toks22
-\row@=\count270
-\column@=\count271
-\maxfields@=\count272
+\row@=\count273
+\column@=\count274
+\maxfields@=\count275
 \andhelp@=\toks23
 \eqnshift@=\dimen153
 \alignsep@=\dimen154
@@ -454,8 +462,8 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 734.
 \totwidth@=\dimen157
 \lineht@=\dimen158
 \@envbody=\toks24
-\multlinegap=\skip57
-\multlinetaggap=\skip58
+\multlinegap=\skip59
+\multlinetaggap=\skip60
 \mathdisplay@stack=\toks25
 LaTeX Info: Redefining \[ on input line 2859.
 LaTeX Info: Redefining \] on input line 2860.
@@ -479,8 +487,8 @@ Package: array 2019/08/31 v2.4l Tabular extension package (FMi)
 \ar@mcellbox=\box47
 \extrarowheight=\dimen160
 \NC@list=\toks26
-\extratabsurround=\skip59
-\backup@length=\skip60
+\extratabsurround=\skip61
+\backup@length=\skip62
 \ar@cellbox=\box48
 )
 (/usr/local/texlive/2020/texmf-dist/tex/latex/wasysym/wasysym.sty
@@ -523,12 +531,12 @@ File: tc-pdftex.def 2019/01/04 v2.2 Clipping driver for pdftex
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/ifoddpage/ifoddpage.sty
 Package: ifoddpage 2016/04/23 v1.1 Conditionals for odd/even page detection
-\c@checkoddpage=\count273
+\c@checkoddpage=\count276
 )
 (/usr/local/texlive/2020/texmf-dist/tex/latex/varwidth/varwidth.sty
 Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
 \@vwid@box=\box50
-\sift@deathcycles=\count274
+\sift@deathcycles=\count277
 \@vwid@loff=\dimen173
 \@vwid@roff=\dimen174
 ))
@@ -544,19 +552,19 @@ Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
 \cmidrulesep=\dimen182
 \cmidrulekern=\dimen183
 \defaultaddspace=\dimen184
-\@cmidla=\count275
-\@cmidlb=\count276
+\@cmidla=\count278
+\@cmidlb=\count279
 \@aboverulesep=\dimen185
 \@belowrulesep=\dimen186
-\@thisruleclass=\count277
-\@lastruleclass=\count278
+\@thisruleclass=\count280
+\@lastruleclass=\count281
 \@thisrulewidth=\dimen187
 )
 (/usr/local/texlive/2020/texmf-dist/tex/latex/multirow/multirow.sty
 Package: multirow 2019/05/31 v2.5 Span multiple rows of a table
-\multirow@colwidth=\skip61
-\multirow@cntb=\count279
-\multirow@dima=\skip62
+\multirow@colwidth=\skip63
+\multirow@cntb=\count282
+\multirow@dima=\skip64
 \bigstrutjot=\dimen188
 )
 (/usr/local/texlive/2020/texmf-dist/tex/latex/graphics/rotating.sty
@@ -565,16 +573,16 @@ Package: rotating 2016/08/11 v2.16d rotated objects in LaTeX
 (/usr/local/texlive/2020/texmf-dist/tex/latex/base/ifthen.sty
 Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
 )
-\c@r@tfl@t=\count280
-\rotFPtop=\skip63
-\rotFPbot=\skip64
+\c@r@tfl@t=\count283
+\rotFPtop=\skip65
+\rotFPbot=\skip66
 \rot@float@box=\box51
 \rot@mess@toks=\toks27
 )
 (/usr/local/texlive/2020/texmf-dist/tex/latex/makecell/makecell.sty
 Package: makecell 2009/08/03 V0.1e Managing of Tab Column Heads and Cells
 \rotheadsize=\dimen189
-\c@nlinenum=\count281
+\c@nlinenum=\count284
 \TeXr@lab=\toks28
 )
 (/usr/local/texlive/2020/texmf-dist/tex/latex/tools/hhline.sty
@@ -585,12 +593,12 @@ Package: lscape 2000/10/22 v3.01 Landscape Pages (DPC)
 )
 (/usr/local/texlive/2020/texmf-dist/tex/latex/tabu/tabu.sty
 Package: tabu 2019/01/11 v2.9 - flexible LaTeX tabulars (FC+tabu-fixed)
-\c@taburow=\count282
-\tabu@nbcols=\count283
-\tabu@cnt=\count284
-\tabu@Xcol=\count285
-\tabu@alloc=\count286
-\tabu@nested=\count287
+\c@taburow=\count285
+\tabu@nbcols=\count286
+\tabu@cnt=\count287
+\tabu@Xcol=\count288
+\tabu@alloc=\count289
+\tabu@nested=\count290
 \tabu@target=\dimen190
 \tabu@spreadtarget=\dimen191
 \tabu@naturalX=\dimen192
@@ -606,7 +614,7 @@ Package: tabu 2019/01/11 v2.9 - flexible LaTeX tabulars (FC+tabu-fixed)
 \tabu@arstrutbox=\box53
 \tabu@hleads=\box54
 \tabu@vleads=\box55
-\tabu@cellskip=\skip65
+\tabu@cellskip=\skip67
 )
 (/usr/local/texlive/2020/texmf-dist/tex/latex/pgf/frontendlayer/tikz.sty
 (/usr/local/texlive/2020/texmf-dist/tex/latex/pgf/basiclayer/pgf.sty
@@ -654,14 +662,14 @@ ode.tex
 \pgf@yd=\dimen266
 \w@pgf@writea=\write3
 \r@pgf@reada=\read2
-\c@pgf@counta=\count288
-\c@pgf@countb=\count289
-\c@pgf@countc=\count290
-\c@pgf@countd=\count291
+\c@pgf@counta=\count291
+\c@pgf@countb=\count292
+\c@pgf@countc=\count293
+\c@pgf@countd=\count294
 \t@pgf@toka=\toks35
 \t@pgf@tokb=\toks36
 \t@pgf@tokc=\toks37
-\pgf@sys@id@count=\count292
+\pgf@sys@id@count=\count295
 
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/systemlayer/pgf.cfg
 File: pgf.cfg 2020/01/08 v3.1.5b (3.1.5b)
@@ -679,8 +687,8 @@ File: pgfsys-common-pdf.def 2020/01/08 v3.1.5b (3.1.5b)
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/systemlayer/pgfsyssoftpath.
 code.tex
 File: pgfsyssoftpath.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-\pgfsyssoftpath@smallbuffer@items=\count293
-\pgfsyssoftpath@bigbuffer@items=\count294
+\pgfsyssoftpath@smallbuffer@items=\count296
+\pgfsyssoftpath@bigbuffer@items=\count297
 )
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/systemlayer/pgfsysprotocol.
 code.tex
@@ -693,7 +701,7 @@ Package: pgfcore 2020/01/08 v3.1.5b (3.1.5b)
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/math/pgfmathutil.code.tex)
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/math/pgfmathparser.code.tex
 \pgfmath@dimen=\dimen267
-\pgfmath@count=\count295
+\pgfmath@count=\count298
 \pgfmath@box=\box57
 \pgfmath@toks=\toks38
 \pgfmath@stack@operand=\toks39
@@ -718,7 +726,7 @@ code.tex)
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.integ
 erarithmetics.code.tex)))
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/math/pgfmathfloat.code.tex
-\c@pgfmathroundto@lastzeros=\count296
+\c@pgfmathroundto@lastzeros=\count299
 )) (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/math/pgfint.code.tex)
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepoints.co
 de.tex
@@ -756,7 +764,7 @@ File: pgfcorescopes.code.tex 2020/01/08 v3.1.5b (3.1.5b)
 \pgfpic=\box58
 \pgf@hbox=\box59
 \pgf@layerbox@main=\box60
-\pgf@picture@serial@count=\count297
+\pgf@picture@serial@count=\count300
 )
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/basiclayer/pgfcoregraphicst
 ate.code.tex
@@ -791,8 +799,8 @@ File: pgfcorearrows.code.tex 2020/01/08 v3.1.5b (3.1.5b)
 e.tex
 File: pgfcoreshade.code.tex 2020/01/08 v3.1.5b (3.1.5b)
 \pgf@max=\dimen291
-\pgf@sys@shading@range@num=\count298
-\pgf@shadingcount=\count299
+\pgf@sys@shading@range@num=\count301
+\pgf@shadingcount=\count302
 )
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreimage.cod
 e.tex
@@ -859,7 +867,7 @@ Package: tikz 2020/01/08 v3.1.5b (3.1.5b)
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/libraries/pgflibraryplothan
 dlers.code.tex
 File: pgflibraryplothandlers.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-\pgf@plot@mark@count=\count300
+\pgf@plot@mark@count=\count303
 \pgfplotmarksize=\dimen296
 )
 \tikz@lastx=\dimen297
@@ -874,19 +882,19 @@ File: pgflibraryplothandlers.code.tex 2020/01/08 v3.1.5b (3.1.5b)
 \tikz@figbox@bg=\box64
 \tikz@tempbox=\box65
 \tikz@tempbox@bg=\box66
-\tikztreelevel=\count301
-\tikznumberofchildren=\count302
-\tikznumberofcurrentchild=\count303
-\tikz@fig@count=\count304
+\tikztreelevel=\count304
+\tikznumberofchildren=\count305
+\tikznumberofcurrentchild=\count306
+\tikz@fig@count=\count307
 
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/modules/pgfmodulematrix.cod
 e.tex
 File: pgfmodulematrix.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-\pgfmatrixcurrentrow=\count305
-\pgfmatrixcurrentcolumn=\count306
-\pgf@matrix@numberofcolumns=\count307
+\pgfmatrixcurrentrow=\count308
+\pgfmatrixcurrentcolumn=\count309
+\pgf@matrix@numberofcolumns=\count310
 )
-\tikz@expandcount=\count308
+\tikz@expandcount=\count311
 
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
 s/tikzlibrarytopaths.code.tex
@@ -971,15 +979,15 @@ File: tikzlibrarybackgrounds.code.tex 2020/01/08 v3.1.5b (3.1.5b)
 )
 (/usr/local/texlive/2020/texmf-dist/tex/latex/caption/caption.sty
 Package: caption 2020/01/03 v3.4h Customizing captions (AR)
-\c@caption@flags=\count309
-\c@continuedfloat=\count310
+\c@caption@flags=\count312
+\c@continuedfloat=\count313
 Package caption Info: hyperref package is loaded.
 Package caption Info: rotating package is loaded.
 )
 (/usr/local/texlive/2020/texmf-dist/tex/latex/colortbl/colortbl.sty
 Package: colortbl 2020/01/04 v1.0e Color table columns (DPC)
 \everycr=\toks43
-\minrowclearance=\skip66
+\minrowclearance=\skip68
 )
 (/usr/local/texlive/2020/texmf-dist/tex/latex/blindtext/blindtext.sty
 Package: blindtext 2012/01/06 V2.0 blindtext-Package
@@ -987,24 +995,24 @@ Package: blindtext 2012/01/06 V2.0 blindtext-Package
 (/usr/local/texlive/2020/texmf-dist/tex/latex/tools/xspace.sty
 Package: xspace 2014/10/28 v1.13 Space after command names (DPC,MH)
 )
-\c@blindtext=\count311
-\c@Blindtext=\count312
-\c@blind@countparstart=\count313
-\blind@countxx=\count314
-\blindtext@numBlindtext=\count315
-\blind@countyy=\count316
-\c@blindlist=\count317
-\c@blindlistlevel=\count318
-\c@blindlist@level=\count319
-\blind@listitem=\count320
-\c@blind@listcount=\count321
-\c@blind@levelcount=\count322
-\blind@mathformula=\count323
-\blind@Mathformula=\count324
-\c@blind@randomcount=\count325
-\c@blind@randommax=\count326
-\c@blind@pangramcount=\count327
-\c@blind@pangrammax=\count328
+\c@blindtext=\count314
+\c@Blindtext=\count315
+\c@blind@countparstart=\count316
+\blind@countxx=\count317
+\blindtext@numBlindtext=\count318
+\blind@countyy=\count319
+\c@blindlist=\count320
+\c@blindlistlevel=\count321
+\c@blindlist@level=\count322
+\blind@listitem=\count323
+\c@blind@listcount=\count324
+\c@blind@levelcount=\count325
+\blind@mathformula=\count326
+\blind@Mathformula=\count327
+\c@blind@randomcount=\count328
+\c@blind@randommax=\count329
+\c@blind@pangramcount=\count330
+\c@blind@pangrammax=\count331
 )
 (/usr/local/texlive/2020/texmf-dist/tex/latex/base/fontenc.sty
 Package: fontenc 2020/02/11 v2.0o Standard LaTeX package
@@ -1027,7 +1035,7 @@ Package: tabularx 2020/01/15 v2.11c `tabularx' package (DPC)
 \TX@old@col=\dimen307
 \TX@target=\dimen308
 \TX@delta=\dimen309
-\TX@cols=\count329
+\TX@cols=\count332
 \TX@ftn=\toks44
 )
 (/usr/local/texlive/2020/texmf-dist/tex/latex/cellspace/cellspace.sty
@@ -1035,16 +1043,16 @@ Package: cellspace 2019/03/11 v1.8.1 Spacing table cells (JN)
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/tools/calc.sty
 Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
-\calc@Acount=\count330
-\calc@Bcount=\count331
+\calc@Acount=\count333
+\calc@Bcount=\count334
 \calc@Adimen=\dimen310
 \calc@Bdimen=\dimen311
-\calc@Askip=\skip67
-\calc@Bskip=\skip68
+\calc@Askip=\skip69
+\calc@Bskip=\skip70
 LaTeX Info: Redefining \setlength on input line 80.
 LaTeX Info: Redefining \addtolength on input line 81.
-\calc@Ccount=\count332
-\calc@Cskip=\skip69
+\calc@Ccount=\count335
+\calc@Cskip=\skip71
 )
 \cellspacetoplimit=\dimen312
 \cellspacebottomlimit=\dimen313
@@ -1053,40 +1061,40 @@ LaTeX Info: Redefining \addtolength on input line 81.
 )
 (/usr/local/texlive/2020/texmf-dist/tex/latex/tools/longtable.sty
 Package: longtable 2020/01/07 v4.13 Multi-page Table package (DPC)
-\LTleft=\skip70
-\LTright=\skip71
-\LTpre=\skip72
-\LTpost=\skip73
-\LTchunksize=\count333
+\LTleft=\skip72
+\LTright=\skip73
+\LTpre=\skip74
+\LTpost=\skip75
+\LTchunksize=\count336
 \LTcapwidth=\dimen316
 \LT@head=\box89
 \LT@firsthead=\box90
 \LT@foot=\box91
 \LT@lastfoot=\box92
-\LT@cols=\count334
-\LT@rows=\count335
-\c@LT@tables=\count336
-\c@LT@chunks=\count337
+\LT@cols=\count337
+\LT@rows=\count338
+\c@LT@tables=\count339
+\c@LT@chunks=\count340
 \LT@p@ftn=\toks45
 )
 (/usr/local/texlive/2020/texmf-dist/tex/latex/listings/listings.sty
-\lst@mode=\count338
+\lst@mode=\count341
 \lst@gtempboxa=\box93
 \lst@token=\toks46
-\lst@length=\count339
+\lst@length=\count342
 \lst@currlwidth=\dimen317
-\lst@column=\count340
-\lst@pos=\count341
+\lst@column=\count343
+\lst@pos=\count344
 \lst@lostspace=\dimen318
 \lst@width=\dimen319
-\lst@newlines=\count342
-\lst@lineno=\count343
+\lst@newlines=\count345
+\lst@lineno=\count346
 \lst@maxwidth=\dimen320
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/listings/lstmisc.sty
 File: lstmisc.sty 2020/03/24 1.8d (Carsten Heinz)
-\c@lstnumber=\count344
-\lst@skipnumbers=\count345
+\c@lstnumber=\count347
+\lst@skipnumbers=\count348
 \lst@framebox=\box94
 )
 (/usr/local/texlive/2020/texmf-dist/tex/latex/listings/listings.cfg
@@ -1097,7 +1105,7 @@ Package: listings 2020/03/24 1.8d (Carsten Heinz)
 (./setup/macros.tex) (./setup/table.tex)
 (/usr/local/texlive/2020/texmf-dist/tex/latex/l3backend/l3backend-pdfmode.def
 File: l3backend-pdfmode.def 2020-03-12 L3 backend support: PDF mode
-\l__kernel_color_stack_int=\count346
+\l__kernel_color_stack_int=\count349
 \l__pdf_internal_box=\box95
 )
 (./main.aux)
@@ -1149,16 +1157,16 @@ Package microtype Warning: \nonfrenchspacing is active. Adjustment of
 
 (/usr/local/texlive/2020/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count347
+\scratchcounter=\count350
 \scratchdimen=\dimen321
 \scratchbox=\box96
-\nofMPsegments=\count348
-\nofMParguments=\count349
+\nofMPsegments=\count351
+\nofMParguments=\count352
 \everyMPshowfont=\toks47
-\MPscratchCnt=\count350
+\MPscratchCnt=\count353
 \MPscratchDim=\dimen322
-\MPnumerator=\count351
-\makeMPintoPDFobject=\count352
+\MPnumerator=\count354
+\makeMPintoPDFobject=\count355
 \everyMPtoPDFconversion=\toks48
 ) (/usr/local/texlive/2020/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
@@ -1182,7 +1190,7 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 ty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count353
+\c@section@level=\count356
 )
 LaTeX Info: Redefining \ref on input line 20.
 LaTeX Info: Redefining \pageref on input line 20.
@@ -1209,10 +1217,27 @@ Package tabu Warning: Package cellspace has some limitations
 put line 20.
 
 ABD: EveryShipout initializing macros
-\c@lstlisting=\count354
-LaTeX Font Info:    Trying to load font information for OT1+ptmcm on input line
- 32.
+\c@lstlisting=\count357
+ (./sections/abstract.tex
+LaTeX Font Info:    Font shape `T1/phv/m/n' will be
+(Font)              scaled to size 8.99994pt on input line 7.
+Package microtype Info: Loading generic protrusion settings for font family
+(microtype)             `phv' (encoding: T1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
+)
+(./sections/paper.tex [1{/usr/local/texlive/2020/texmf-var/fonts/map/pdftex/upd
+map/pdftex.map}
 
+
+] [2]
+Underfull \hbox (badness 10000) in paragraph at lines 43--44
+ []\T1/ptm/b/n/10 On-chain Or-der Books.[] \T1/ptm/m/n/10 (+20) For trades be-t
+ween two
+ []
+
+LaTeX Font Info:    Trying to load font information for OT1+ptmcm on input line
+ 57.
 (/usr/local/texlive/2020/texmf-dist/tex/latex/psnfss/ot1ptmcm.fd
 File: ot1ptmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OT1/ptmcm.
 )
@@ -1221,28 +1246,28 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 LaTeX Font Info:    Trying to load font information for OML+ptmcm on input line
- 32.
+ 57.
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/psnfss/omlptmcm.fd
 File: omlptmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OML/ptmcm.
 )
 LaTeX Font Info:    Trying to load font information for OMX+psycm on input line
- 32.
+ 57.
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/psnfss/omxpsycm.fd
 File: omxpsycm.fd 2000/01/03 Fontinst v1.801 font definitions for OMX/psycm.
 )
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 32.
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 32.
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 32.
-LaTeX Font Info:    Trying to load font information for U+stmry on input line 3
-2.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 57.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7.4> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 57.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 57.
+LaTeX Font Info:    Trying to load font information for U+stmry on input line 5
+7.
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/stmaryrd/Ustmry.fd)
-LaTeX Font Info:    Trying to load font information for U+wasy on input line 32
+LaTeX Font Info:    Trying to load font information for U+wasy on input line 57
 .
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/wasysym/uwasy.fd
@@ -1254,37 +1279,12 @@ File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 (/usr/local/texlive/2020/texmf-dist/tex/latex/microtype/mt-msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
-
-LaTeX Warning: No \author given.
-
-(./sections/abstract.tex
-LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 8.99994pt on input line 7.
-Package microtype Info: Loading generic protrusion settings for font family
-(microtype)             `phv' (encoding: T1).
-(microtype)             For optimal results, create family-specific settings.
-(microtype)             See the microtype manual for details.
-) (./sections/paper.tex [1{/usr/local/texlive/2020/texmf-var/fonts/map/pdftex/u
-pdmap/pdftex.map}
-
-
-] [2]
-Underfull \hbox (badness 10000) in paragraph at lines 43--44
- []\T1/ptm/b/n/10 On-chain Or-der Books.[] \T1/ptm/m/n/10 (+20) For trades be-t
-ween two
- []
-
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 57.
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7.4> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 57.
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 57.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 57.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <5> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 57.
-[3] (./tables/pq.tex
+ [3]
+(./tables/pq.tex
 Overfull \hbox (5.52696pt too wide) in paragraph at lines 7--20
  [][] 
  []
@@ -1307,8 +1307,9 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             See the microtype manual for details.
 ) (./tables/cleaning.tex) [5 <./fig/random_insertion3.png
 
-pdfTeX warning: pdflatex (file ./fig/random_insertion3.png): large interlaced P
-NG might cause out of memory (use non-interlaced PNG to fix this)
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./fig/random_insertion3.png)
+: large interlaced PNG might cause out of memory (use non-interlaced PNG to fix
+ this)
 >] [6] (./tables/functions.tex
 Overfull \hbox (2.07196pt too wide) in paragraph at lines 14--14
  []|\T1/ptm/m/n/10 (-20) depositToken()| 
@@ -1322,11 +1323,23 @@ Overfull \hbox (4.60155pt too wide) in paragraph at lines 7--32
 ) (./tables/performance.tex) [7] [8] [9]
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
 (Font)              scaled to size 10.79993pt on input line 268.
- [10]) (./sections/appendix.tex)
-[11] (./main.bbl
+ [10]
+Underfull \hbox (badness 1137) in paragraph at lines 294--295
+\T1/ptm/m/n/10 (+20) from the AMF (Au-torité des Marchés Fi-nanciers), the
+ []
+
+
+Underfull \hbox (badness 4467) in paragraph at lines 294--295
+\T1/ptm/m/n/10 (+20) Na-tional Sci-ences and En-gi-neer-ing Re-search Coun-cil
+ []
+
+[11]) (./sections/appendix.tex) [12
+
+] (./main.bbl
 LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 4
 .
- (/usr/local/texlive/2020/texmf-dist/tex/latex/psnfss/ts1ptm.fd
+
+(/usr/local/texlive/2020/texmf-dist/tex/latex/psnfss/ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 )
 Underfull \hbox (badness 10000) in paragraph at lines 4--8
@@ -1344,7 +1357,7 @@ Underfull \hbox (badness 1803) in paragraph at lines 152--156
 []\T1/ptm/m/n/10 (+20) F. Mas-sacci, C. N. Ngo, J. Nie, D. Ven-turi, and
  []
 
-[12
+[13
 
 ]
 Underfull \hbox (badness 1365) in paragraph at lines 163--167
@@ -1373,24 +1386,24 @@ Underfull \hbox (badness 10000) in paragraph at lines 174--180
 \T1/pcr/m/n/10 order-[]in-[]the-[]matter-[]of-[]nse-[]colocation _
  []
 
-) [13
+) [14
 
 ]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 59.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 59.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 60.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 60.
  (./main.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 59.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 59.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 60.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 60.
 Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 23AC879C95175339C4899BBB6254F491;1505.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 59.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 60.
  ) 
 Here is how much of TeX's memory you used:
- 27000 strings out of 480608
- 502952 string characters out of 5903631
- 811966 words of memory out of 5000000
- 41837 multiletter control sequences out of 15000+600000
- 615346 words of font info for 337 fonts, out of 8000000 for 9000
+ 27016 strings out of 480608
+ 502701 string characters out of 5903631
+ 812795 words of memory out of 5000000
+ 41846 multiletter control sequences out of 15000+600000
+ 607492 words of font info for 311 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  63i,16n,98p,1549b,457s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2020/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
@@ -1404,10 +1417,10 @@ ts/type1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/2020/texmf-dist/fonts/type
 s/utmr8a.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/urw/times/utmri8a.
 pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/wasy-type1/wasy10.pf
 b>
-Output written on main.pdf (13 pages, 341006 bytes).
+Output written on main.pdf (14 pages, 342014 bytes).
 PDF statistics:
- 399 PDF objects out of 1000 (max. 8388607)
- 368 compressed objects within 4 object streams
- 115 named destinations out of 1000 (max. 500000)
- 48834 words of extra memory for PDF output out of 51595 (max. 10000000)
+ 406 PDF objects out of 1000 (max. 8388607)
+ 374 compressed objects within 4 object streams
+ 118 named destinations out of 1000 (max. 500000)
+ 45250 words of extra memory for PDF output out of 51595 (max. 10000000)
 
