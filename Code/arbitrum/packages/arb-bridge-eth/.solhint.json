@@ -1,8 +1,0 @@
-{
-  "extends": "solhint:recommended",
-  "plugins": ["prettier"],
-  "rules": {
-    "mark-callable-contracts": "none",
-    "prettier/prettier": "error"
-  }
-}

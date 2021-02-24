@@ -2,27 +2,27 @@ pragma solidity >=0.4.22;
 pragma experimental ABIEncoderV2;
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
-import "./HeapDynamicArray.sol";
-//import "./LinkedList.sol";
+//import "./HeapDynamicArray.sol";
 //import "./HeapStaticArray.sol";
-//import "./HeapMapping.sol";
+import "./HeapMapping.sol";
 //import "./LinkedList.sol";
 //import "./LinkedListMapping.sol";
 
 contract CallMarket{
 
-    HeapDynamicArray priorityQueue;
+    //HeapDynamicArray priorityQueue;
     //HeapStaticArray priorityQueue;
-    //HeapMapping priorityQueue;
+    HeapMapping priorityQueue;
     //LinkedList priorityQueue;
     //LinkedListMapping priorityQueue;
+    //LinkedList public priorityQueue = new LinkedList(address(this));
 
     address payable public callmarket = address(uint160(address(this)));
     constructor(address _PQ) public
     {
-        priorityQueue = HeapDynamicArray(_PQ);
-        //priorityQueue = HeapStaticArray(_PQ,84);
-        //priorityQueue = HeapMapping(_PQ);
+        //priorityQueue = HeapDynamicArray(_PQ);
+        //priorityQueue = HeapStaticArray(_PQ);
+        priorityQueue = HeapMapping(_PQ);
         //we pass the address of the callmarket to the LinkedList so that the selfdestruct could send Ethers back to the callmarket
         //priorityQueue = LinkedList(_PQ,address(this));
         //priorityQueue = LinkedListMapping(_PQ);
@@ -188,7 +188,7 @@ contract CallMarket{
     function openMarket() external returns (bool) {
 
         creationTime = block.timestamp; 
-        biddingPeriod = 180 minutes;
+        biddingPeriod = 14 days;
         state = States.Open;
         numOrders = 0;
         sellistCounter = 100;

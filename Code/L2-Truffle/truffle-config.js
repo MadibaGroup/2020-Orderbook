@@ -4,7 +4,12 @@ const mnemonic =
   'surge ability together fruit retire harvest release turkey social coffee owner uphold panel group car'
 
 module.exports = {
-
+mocha: {
+    enableTimeouts: false,
+    //before_timeout: 120000 // Here is 2min but can be whatever timeout is suitable for you.
+    before_timeout: 3000000000 // Here is 5min but can be whatever timeout is suitable for you.
+    
+    },
 networks: {
     development: {
       host: '127.0.0.1',
@@ -21,6 +26,7 @@ networks: {
       },
       network_id: '*', // Match any network id
       gasPrice: 0,
+      
     },
   },
   compilers: {
