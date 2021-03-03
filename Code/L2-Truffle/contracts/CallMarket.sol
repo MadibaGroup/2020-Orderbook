@@ -2,31 +2,33 @@ pragma solidity >=0.4.22;
 pragma experimental ABIEncoderV2;
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
+
 //import "./HeapDynamicArray.sol";
 //import "./HeapStaticArray.sol";
-import "./HeapMapping.sol";
+//import "./HeapMapping.sol";
 //import "./LinkedList.sol";
-//import "./LinkedListMapping.sol";
+import "./LinkedListMapping.sol";
 
 contract CallMarket{
 
     //HeapDynamicArray priorityQueue;
     //HeapStaticArray priorityQueue;
-    HeapMapping priorityQueue;
+    //HeapMapping priorityQueue;
     //LinkedList priorityQueue;
-    //LinkedListMapping priorityQueue;
+    LinkedListMapping priorityQueue;
     //LinkedList public priorityQueue = new LinkedList(address(this));
 
-    address payable public callmarket = address(uint160(address(this)));
+    //address payable public callmarket = address(uint160(address(this)));
     constructor(address _PQ) public
     {
         //priorityQueue = HeapDynamicArray(_PQ);
         //priorityQueue = HeapStaticArray(_PQ);
-        priorityQueue = HeapMapping(_PQ);
+        //priorityQueue = HeapMapping(_PQ);
         //we pass the address of the callmarket to the LinkedList so that the selfdestruct could send Ethers back to the callmarket
-        //priorityQueue = LinkedList(_PQ,address(this));
-        //priorityQueue = LinkedListMapping(_PQ);
+        //priorityQueue = LinkedList(_PQ);
+        priorityQueue = LinkedListMapping(_PQ);
     }
+    //LinkedList public priorityQueue = new LinkedList(address(this));
 
     
 //***********************************************************************//
@@ -137,7 +139,7 @@ contract CallMarket{
     */
     
     modifier CheckAuctionStage () {
-        if (block.timestamp >= creationTime + biddingPeriod || numOrders == 100) 
+        if (block.timestamp >= creationTime + biddingPeriod || numOrders == 400) 
         {
             closeMarket();
         }
@@ -453,4 +455,4 @@ contract CallMarket{
         return address(this).balance;
     } 
                                                                                                                                                                                    
-}                                                                                                                                                                                                                                                                                                                                                                                                       
+}  

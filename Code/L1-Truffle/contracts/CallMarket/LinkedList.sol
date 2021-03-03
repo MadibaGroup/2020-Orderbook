@@ -213,9 +213,9 @@ contract SellList {
     
     constructor(address orderSender, uint256 orderPrice, uint256 orderVolume, uint256 auxprice)  public {
         
-        sender = sender;
-        price = price;
-        volume = volume;
+        sender = orderSender;
+        price = orderPrice;
+        volume = orderVolume;
         auxPrice = auxprice;
         next = SellList(0);
     }

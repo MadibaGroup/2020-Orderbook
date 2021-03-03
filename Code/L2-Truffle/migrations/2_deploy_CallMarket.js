@@ -1,9 +1,9 @@
 var CallMarket = artifacts.require("./CallMarket.sol"); 
 //var PQ1 = artifacts.require("./HeapDynamicArray.sol"); 
 //var PQ2 = artifacts.require("./HeapStaticArray.sol"); 
-var PQ3 = artifacts.require("./HeapMapping.sol");
-// var PQ4 = artifacts.require("./LinkedList.sol");
-// var PQ5 = artifacts.require("./LinkedListMapping.sol");
+//var PQ3 = artifacts.require("./HeapMapping.sol");
+//var PQ4 = artifacts.require("./LinkedList.sol");
+var PQ5 = artifacts.require("./LinkedListMapping.sol");
 
 
 
@@ -21,9 +21,9 @@ module.exports =  function (deployer) {
         //});
     //***********************************************************/
     //For PQ3:
-    deployer.deploy(PQ3).then (function(){
-        return deployer.deploy(CallMarket, PQ3.address)
-        });
+    //deployer.deploy(PQ3).then (function(){
+        //return deployer.deploy(CallMarket, PQ3.address)
+        //});
     //***********************************************************/
     //For PQ4:
     //deployer.deploy(PQ4).then (function(){
@@ -32,8 +32,8 @@ module.exports =  function (deployer) {
     //deployer.deploy(CallMarket);
     //***********************************************************/
     //For PQ5:
-    //deployer.deploy(PQ5).then (function(){
-        //return deployer.deploy(CallMarket, PQ5.address)
-        //});
+    deployer.deploy(PQ5).then (function(){
+        return deployer.deploy(CallMarket, PQ5.address)
+        });
 };
 
