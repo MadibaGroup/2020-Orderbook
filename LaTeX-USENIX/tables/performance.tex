@@ -1,89 +1,41 @@
 % !TEX root = ../main.tex
 
-\begin{table*}[t]
-%\%setlength{\tabcolsep}{0.1\tabcolsep}% Shrink \tabcolsep
-\centering
-\begin{tabular} {|l|r|r|r|r|r|r|r|}
 
+
+
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
+Previous Table (before adding Arbitrum data):
+
+ %= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
+\begin{table}[t]
+\setlength{\tabcolsep}{0.1\tabcolsep}% Shrink \tabcolsep
+\centering
+\begin{tabular} {|>{\centering}m{2.5cm} |>{\centering}m{0.5cm} |>{\centering}m{1.5cm} |>{\centering}m{1.8cm} |>{\centering\arraybackslash}m{1.5cm}|}
+%{|c|c|c|c|c|}%{|l|r|r|r|r|}
 
 \multicolumn{1}{c}{} & 
 
+\headrow{\footnotesize Max trades (w.c.)} & 
+\headrow{\footnotesize Gas for max trades} & 
+\headrow{\footnotesize Gas for 1000 trades} & 
+\headrow{\footnotesize \shortstack{ Gas for order \\ (avg)}} \\ \hline
 
-
-\headrow{\footnotesize \shortstack{Max trades \\ (w.c.)}} & 
-\headrow{\footnotesize \shortstack{L1 Gas for \\ max trades}} & 
-\headrow{\footnotesize \shortstack{Gas for \\1000 trades}} & 
-\headrow{\footnotesize Gas for order (avg)} &
-
-\headrow{\footnotesize \shortstack{L1 Gas for \\ max trades}} &
-\headrow{\footnotesize \shortstack{L2 ArbGas \\for \\max trades}} &
-\headrow{\footnotesize Size}  \\ \hline
-
-% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-\multicolumn{1}{|c|}{} &                                                            \multicolumn{4}{c|}{\textbf{Ethereum}}&                                                                                                            \multicolumn{3}{c|}{\textbf{Arbitrum}} 														\\ \hline
-% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  = = = %
-Heap with Dynamic Array      				& 38            		& 5,372,679                   	& 457,326,935      	& 207,932     						& 1,544					& 46,705,693					& 103								\\ \hline
-% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-Heap with Static Array       					& 42            		& 5,247,636                  	& 333,656,805        	 & 197,710        					& 1,402					& 46,311,418					& 103									 \\ \hline
-% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-Heap with Mapping 						& 46           	 	& 5,285,275                     	& 226,499,722    		& 215,040           					& 1,339					& 50,395,993					& 103									\\ \hline
-% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-Linked List                     					& 152            		& 5,495,265                     	& 35,823,601         	& 735,243             				& 1,325					& 99,514,286					& 103									\\ \hline
-% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-Linked List with Mapping     				& 86             		& 5,433,259                     	& 62,774,170        	&  547,466              				& 1,319					& 58,035,156					& 103									\\ \hline
-% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+\shortstack{Heap with \\ Dynamic Array}       & 38            & 5,372,679                   	& 457,326,935      & 207,932     \\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+\shortstack{Heap with \\ Static Array}         	& 42            & 5,247,636                  	& 333,656,805         & 197,710         \\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+\shortstack{Heap with \\ Mapping} 		& 46           	 & 5,285,275                     & 226,499,722    & 215,040           \\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+Linked List                     	& 152            & 5,495,265                     & 35,823,601         & 735,243             \\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+\shortstack{Linked List \\ with Mapping}     	& 86             & 5,433,259                     & 62,774,170        &  547,466              \\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
 
 \end{tabular}
-\caption{Performance of \cm for each PQ variant. Each consumes just under the block gas limit ($\sim$11M gas) with a full refund of half of its gas \textblue{update the caption now that we have the Arbitrum data}.\label{tab:worst_case_matching}}
+\caption{Performance of \cm for each PQ variant. Each consumes just under the block gas limit ($\sim$11M gas) with a full refund of half of its gas.\label{tab:worst_case_matching}}
 
-\end{table*}
-% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
-
-%txs from Arbitrum explorer:
-
-%1- Heap with Dynamic Array : https://explorer.arbitrum.io/#/tx/0x36587f3126d6bb3a514810125be1c4adbdae94a297498406d855c0dc7ef19b05
-%2- Heap with Static Array : https://explorer.arbitrum.io/#/tx/0x6be08b5b3961f0872465f9f037a20f256e23d2a78ba9f2a5537843d30ea64dd3
-%3- Heap with Mapping : https://explorer.arbitrum.io/#/tx/0x54bbda54c8f720fecc5c9573e02729d8834540ab6f8fb1102a499abab71d31b0
-%4- Linked List  : https://explorer.arbitrum.io/#/tx/0xb6625f4f3a2f5084b637ea79448943e24056a9693a4409de05bb3c48be42839d
-%5- Linked List with Mapping : https://explorer.arbitrum.io/#/tx/0x2b3d9ff73cb992a911a047f3ade89ba05ae4eade2a5869bf610b6fd0dc091054
-
-
-
-
-
-% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
-%Previous Table (before adding Arbitrum data):
-
-% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
-%\begin{table}[t]
-%\setlength{\tabcolsep}{0.1\tabcolsep}% Shrink \tabcolsep
-%\centering
-%\begin{tabular} {|>{\centering}m{2.5cm} |>{\centering}m{0.5cm} |>{\centering}m{1.5cm} |>{\centering}m{1.8cm} |>{\centering\arraybackslash}m{1.5cm}|}
-%%{|c|c|c|c|c|}%{|l|r|r|r|r|}
-%
-%\multicolumn{1}{c}{} & 
-%
-%\headrow{\footnotesize Max trades (w.c.)} & 
-%\headrow{\footnotesize Gas for max trades} & 
-%\headrow{\footnotesize Gas for 1000 trades} & 
-%\headrow{\footnotesize \shortstack{ Gas for order \\ (avg)}} \\ \hline
-%
-%% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-%\shortstack{Heap with \\ Dynamic Array}       & 38            & 5,372,679                   	& 457,326,935      & 207,932     \\ \hline
-%% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-%\shortstack{Heap with \\ Static Array}         	& 42            & 5,247,636                  	& 333,656,805         & 197,710         \\ \hline
-%% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-%\shortstack{Heap with \\ Mapping} 		& 46           	 & 5,285,275                     & 226,499,722    & 215,040           \\ \hline
-%% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-%Linked List                     	& 152            & 5,495,265                     & 35,823,601         & 735,243             \\ \hline
-%% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-%\shortstack{Linked List \\ with Mapping}     	& 86             & 5,433,259                     & 62,774,170        &  547,466              \\ \hline
-%% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-%
-%\end{tabular}
-%\caption{Performance of \cm for each PQ variant. Each consumes just under the block gas limit ($\sim$11M gas) with a full refund of half of its gas.\label{tab:worst_case_matching}}
-%
-%\end{table}
+\end{table}
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
 
 
