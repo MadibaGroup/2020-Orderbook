@@ -1,0 +1,59 @@
+% !TEX root = ../main.tex
+
+
+% = = = = = = = = = = = =Gas costs and refunds for Dequeueing 50 integers from each PQ  = = = = = = = = = = = = =  %
+
+\begin{table}[t]
+\setlength{\tabcolsep}{0.1\tabcolsep}% Shrink \tabcolsep
+\centering
+\begin{tabular}{|>{\centering}m{4.35cm} |>{\centering}m{1.5cm} |>{\centering}m{1.5cm} |>{\centering\arraybackslash}m{0.5cm}|}%{|c|c|c|c|}
+
+
+
+\multicolumn{1}{c}{} & \headrow{\footnotesize Gas Costs (\texttt{gasUsed})} & \headrow{\footnotesize Refund (Manual)} & \headrow{\footnotesize Full Refund?} \\ \hline
+
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+\shortstack{Linked List \\ w/o \texttt{SELFDESTRUCT}}        		& 721,370          & 0     &\prt  \\ \hline
+\shortstack{Linked List \\ with \texttt{SELFDESTRUCT}}			& 557,085          & 1,200,000     &\full  \\ \hline
+\shortstack{Linked List \\ with Mapping and w/o \texttt{DELETE}}    & 334,689          & 765,000     &\full  \\ \hline
+\shortstack{Linked List \\ with Mapping and \texttt{DELETE}}		& 731,514          & 3,765,000     &\full  \\ \hline
+
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+
+\end{tabular}
+\caption{The gas metrics associated with dequeuing 50 integers from four linked list variants. For the refund, (\full) indicates the  refund was capped at the maximum amount and (\prt) means a greater refund would be possible.\label{tab:cleaning}}
+\end{table}
+
+
+%  = = = = = = Table 3 (cleaning.tex) Conversions = = = = = = %
+
+%As of July 2020,  $1 gas = 56\times10^{-9} ether$\footnote{https://ethstats.net/} and 1 ether = \$238.33\footnote{https://coinmarketcap.com/}.
+%
+%$Transaction cost (eth) = GasUsed (unit) \times Gas Price (eth)$ 
+%
+%%  = = = = = = Transaction Costs in eth = = = = = = %
+%
+%Linked List w/o \texttt{SELFDESTRUCT}:     				$721,370 \times 56\times10^{-9} =  40,396,720\times 10^{-9}$ 
+
+%Linked List with \texttt{SELFDESTRUCT}:     				$557,085 \times 56\times10^{-9} =  31,196,760\times 10^{-9}$  
+
+%Linked List with Mapping and w/o \texttt{DELETE}: 		$334,689 \times 56\times10^{-9} =  18,742,584\times 10^{-9}$ 
+
+%Linked List with Mapping and \texttt{DELETE}:    			$731,514 \times 56\times10^{-9} =  40,964,784\times 10^{-9}$ 
+
+%
+%%  = = = = = = Transaction Costs in USD = = = = = = %
+%
+%Linked List w/o \texttt{SELFDESTRUCT}:     				$40,396,720\times 10^{-9} \times 238.33 = \$9.62$
+
+%Linked List with \texttt{SELFDESTRUCT}:     				$31,196,760\times 10^{-9}  \times 238.33 = \$7.43$
+
+%Linked List with Mapping and w/o \texttt{DELETE}: 		$18,742,584\times 10^{-9} \times 238.33 = \$4.46$
+
+%Linked List with Mapping and \texttt{DELETE}:    			$40,964,784\times 10^{-9}  \times 238.33 = \$9.76$
+
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
+

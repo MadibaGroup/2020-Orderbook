@@ -1,0 +1,88 @@
+
+\documentclass[sigconf,anonymous=true]{acmart}
+
+\sloppy
+
+
+% Copyright
+\setcopyright{acmcopyright}
+
+% DOI
+\acmDOI{blah} %insert your DOI here
+
+% ISBN
+\acmISBN{blah} %insert conference ISBN
+
+
+%Conference
+%Conference
+\acmYear{2021}
+\copyrightyear{2021}
+\acmPrice{15.00}
+\acmConference[AFT'21]{The 3rd ACM conference on Advances in Financial Technologies }{September 2021}{Arlington County, Virginia}
+
+
+% = = = = = Packages = = = = = %
+
+\input{setup/packages}
+\input{setup/macros}
+\input{setup/table}
+
+% = = = = = Title = = = = = %
+
+\begin{document}
+
+%\frontmatter
+%\mainmatter
+
+\title{Trading on-Chain: How Feasible Is Regulators' Worst-Case Scenario?}
+
+
+\author{Mahsa Moosavi, Jeremy Clark}
+\affiliation{%
+  \institution{Concordia University}
+  \city{Montreal}
+   \country{Canada}
+}
+
+
+% = = = = = Abstract = = = = = %
+
+\input{sections/abstract}
+
+\keywords{blah,blah,blah}
+
+
+\maketitle
+
+
+
+
+
+
+% = = = = = Main Body = = = = = %
+
+\input{sections/paper}
+
+%\appendix
+%\input{sections/appendix.tex}
+
+% = = = = = Bibliography = = = = = %
+%\balance 
+
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{bib/DEX.bib}
+
+% = = = = = End Notes = = = = = %
+
+
+
+
+\end{document}
+
+
+
+
+
+
+
