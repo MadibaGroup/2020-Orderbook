@@ -1,0 +1,48 @@
+% !TEX root = ../main.tex
+
+
+
+
+\begin{table*}[t]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+
+
+\multicolumn{1}{c}{\textbf{Attack Example}} & 
+\multicolumn{3}{c}{\textbf{Classification}} & 
+
+
+\headrow{Centralized Exchange} &
+\headrow{DEX w/ Off-chain Order Book} & 
+\headrow{DEX w/ Roll-up} & 
+\headrow{On-chain Continuous Market} &
+\headrow{On-chain Automated Market Making} & 
+\headrow{On-chain Call Market (\cm)} & 
+\headrow{On-chain Call Market w/ Roll-up (\cm variant)}  \\ \hline
+
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %								 											
+	\multicolumn{1}{|c|}{}                      								&\multicolumn{1}{c|}{Insertion}         &\multicolumn{1}{c|}{Suppression}		&\multicolumn{1}{c|}{Displacement}  													&\multicolumn{7}{c|}{}       										 \\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+Mallory squeezes her order before Alice's order      								&\checkmark 		&					&														&\empt			&\empt			&\empt			&\empt			&\empt			&\full		&\full					\\ \hline						 											
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+\shortstack{Eve re-orders txs in a block and \\squeezes her order before Alice's order }			&\checkmark 		&					&\checkmark 											&n/a			&\empt			&\empt			&\empt			&\empt			&\full		&\full				\\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+Mallory delays the closing of the market      										&					&\checkmark 		&														&n/a			&n/a			&n/a			&n/a			&n/a			&\full			&\full					\\ 	\hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+Eve delays the closing of the market   											&					&					&\checkmark  											&n/a			&n/a			&n/a			&n/a			&n/a			&\full			&\full						\\ 	\hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+\shortstack{Alice is trying to cancel an offer \\ and Mallory fulfills it first}							&					&					& \checkmark  											&\empt			&\empt			&\empt			&\empt			&\empt			&\full			&\full			\\ 	\hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+Sandwich Attacks															&\checkmark 		&					&   														&n/a		&n/a			&n/a		&n/a			&\empt			&n/a			&n/a		\\ 	\hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+Mallory copies Alice's order													&		 			&					& \checkmark   													&n/a		&n/a			&n/a		&n/a			&\empt			&n/a			&n/a		\\ 	\hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+
+
+
+\end{tabular}
+\caption{\footnotesize{Eve: Malicious Miner, Mallory: Malicious Trader, Alice: Victim Trader}
+\label{tab:front}}
+\end{table*}
+
+	
