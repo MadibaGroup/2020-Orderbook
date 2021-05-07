@@ -9,8 +9,7 @@
 
 
 \multicolumn{1}{c}{\textbf{Attack Example}} & 
-\multicolumn{3}{c}{\textbf{Classification}} & 
-
+\headrow{Classification} &
 
 \headrow{Centralized Exchange} &
 \headrow{DEX w/ Off-chain Order Book} & 
@@ -18,26 +17,31 @@
 \headrow{On-chain Continuous Market} &
 \headrow{On-chain Automated Market Making} & 
 \headrow{On-chain Call Market (\cm)} & 
-\headrow{On-chain Call Market w/ Roll-up (\cm variant)}  \\ \hline
+\headrow{On-chain Call Market w/ Roll-up (\cm variant)} &
+\headrow{Dark On-chain Call Market} &
+\headrow{Dark On-chain Order Book}
+
+\\ \hline
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %								 											
-	\multicolumn{1}{|c|}{}                      								&\multicolumn{1}{c|}{Insertion}         &\multicolumn{1}{c|}{Suppression}		&\multicolumn{1}{c|}{Displacement}  													&\multicolumn{7}{c|}{}       										 \\ \hline
+	\multicolumn{1}{|c}{}                      																											&\multicolumn{1}{c|}{}								&\multicolumn{1}{c|}{LOB}		&\multicolumn{1}{c|}{LOB}		&\multicolumn{1}{c|}{LOB}		&\multicolumn{1}{c|}{LOB}		&\multicolumn{1}{c|}{AMM}		&\multicolumn{1}{c|}{CM}		&\multicolumn{1}{c|}{CM}		&\multicolumn{1}{c|}{CM}								  										&\multicolumn{1}{c|}{LOB}	 \\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %								 											
+Who is Mallory?	&	&&&&&&&	&&		 \\ \hline
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-Mallory squeezes her order before Alice's order      								&\checkmark 		&					&														&\empt			&\empt			&\empt			&\empt			&\empt			&\full		&\full					\\ \hline						 											
+\shortstack{Mallory (\textit{taker 1}) squeezes her transaction \\before Bob's (\textit{taker 2}) \\ to fulfill Alice's limit order  (\textit{maker})}     								&D								&&&&&&&&&														\\ \hline						 											
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-\shortstack{Eve re-orders txs in a block and \\squeezes her order before Alice's order }			&\checkmark 		&					&\checkmark 											&n/a			&\empt			&\empt			&\empt			&\empt			&\full		&\full				\\ \hline
+\shortstack{Mallory (\textit{taker 1}) squeezes her transaction\\ before Bob's (\textit{taker 2}) \\ to fulfill Alice's market order  (\textit{maker})}  								&I								&&&&&&&&&									\\ \hline						 					
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-Mallory delays the closing of the market      										&					&\checkmark 		&														&n/a			&n/a			&n/a			&n/a			&n/a			&\full			&\full					\\ 	\hline
+Sandwich Attacks																																		&D \textit{\&} I							&&&&&&&&&												\\ 	\hline
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-Eve delays the closing of the market   											&					&					&\checkmark  											&n/a			&n/a			&n/a			&n/a			&n/a			&\full			&\full						\\ 	\hline
+Mallory delays the 're'-opening of the market																													&S    			&&&&&&&&&	\\ 	\hline
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-\shortstack{Alice is trying to cancel an offer \\ and Mallory fulfills it first}							&					&					& \checkmark  											&\empt			&\empt			&\empt			&\empt			&\empt			&\full			&\full			\\ 	\hline
+Mallory freezes the market																																	&D 			&&&&&&&&&\\ 	\hline
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-Sandwich Attacks															&\checkmark 		&					&   														&n/a		&n/a			&n/a		&n/a			&\empt			&n/a			&n/a		\\ 	\hline
+\shortstack{Alice puts a large order which \\she later cancels it immediately (\textit{spoofing}) \\ and Mallory fulfills the cancellation transaction first} 						&S 						&&&&&&&&&	\\ 	\hline
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-Mallory copies Alice's order													&		 			&					& \checkmark   													&n/a		&n/a			&n/a		&n/a			&\empt			&n/a			&n/a		\\ 	\hline
+\shortstack{Mallory (\textit{taker 1} suppresses a better \\ incoming order from Alice (\textit{taker 2}))}																		&S 							&&&&&&&&&	\\ 	\hline
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-
 
 
 \end{tabular}
