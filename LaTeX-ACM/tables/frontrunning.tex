@@ -18,8 +18,8 @@
 \headrow{On-chain Continuous Market} &
 \headrow{On-chain Dark Continuous Market}&
 \headrow{On-chain Automated Market Maker} & 
-\headrow{On-chain Call Market (\cm)} & 
 \headrow{On-chain Call Market w/ Price Improvement}&
+\headrow{On-chain Call Market (\cm)} & 
 \headrow{On-chain Call Market w/ Roll-up (\cm variant)} &
 \headrow{On-chain Dark Call Market} 
 \\
@@ -39,13 +39,13 @@
 &\multicolumn{2}{p{59mm}?{1mm}}{\makecell{Who is Mallory? \\ T: \underline{T}rader, M: \underline{M}iner, S: \underline{S}equencer	}}   	&T&T,M&T,M,S&T,M&T,M&T,M&T,M&T,M&T,M,S	&T,M	 \\ \cmidrule[1mm]{1-13}
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %								 											
-\multirow{17}{*}{\rotatebox[origin=c]{90}{\textbf{Attack Example}}}		&\multicolumn{1}{p{50mm}|}{\makecell{Mallory (\textit{taker 1}) squeezes \\her transaction to \\fulfill Alice's market order  (\textit{maker})}}  						&\multicolumn{1}{m{6mm}?{1mm}}{Ins.}		&\empt	&\empt &\empt &\empt &\full &\empt &\full &\full  &\full &\full		\\ \hhline{~------------}					 					
+\multirow{17}{*}{\rotatebox[origin=c]{90}{\textbf{Attack Example}}}		&\multicolumn{1}{p{50mm}|}{\makecell{Mallory (\textit{taker 1}) squeezes \\her transaction to \\fulfill Alice's market order  (\textit{maker})}}  						&\multicolumn{1}{m{5mm}?{1mm}}{Ins.}		&\empt	&\empt &\empt &\empt &\full &\empt &\full &\full  &\full &\full		\\ \hhline{~------------}					 					
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %								 											
 								 											
-&\multicolumn{1}{p{50mm}|}{\makecell{Mallory (\textit{taker 1}) squeezes \\her transaction before Bob's (\textit{taker 2}) \\ to fulfill Alice's limit order  (\textit{maker})}   }	  								&\multicolumn{1}{m{6mm}?{1mm}}{  Disp.}				&\empt &\empt &\empt &\empt &\full &\empt &\full &\full &\full	&\full		\\ \hhline{~------------}					 											
+&\multicolumn{1}{p{50mm}|}{\makecell{Mallory (\textit{taker}) squeezes \\her transaction before Bob's (\textit{taker 2}) \\ to fulfill Alice's limit order  (\textit{maker})}   }	  								&\multicolumn{1}{m{6mm}?{1mm}}{  Disp.}				&\empt &\empt &\empt &\empt &\full &\empt &\full &\full &\full	&\full		\\ \hhline{~------------}					 											
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
 
-&\multicolumn{1}{p{50mm}|}{\makecell{Sandwich Attacks}}																		&\multicolumn{1}{m{6mm}?{1mm}}{I\&D}																		&\empt &\empt &\empt &\empt &\full &\empt &\full &\empt &\full	&\full												\\ 	\hhline{~------------}
+&\multicolumn{1}{p{50mm}|}{\makecell{Sandwich Attacks}}																		&\multicolumn{1}{m{6mm}?{1mm}}{I\&D}																		&\empt &\empt &\empt &\empt &\full &\empt &\empt &\full &\full	&\full												\\ 	\hhline{~------------}
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
 
 &\multicolumn{1}{p{50mm}|}{\makecell{Mallory (\textit{maker 1}) suppresses a better \\ incoming order from Alice (\textit{maker 2})}}																&\multicolumn{1}{m{6mm}?{1mm}}{Supp.} 				&\empt &\empt &\empt &\full &\full &\full &\full &\full &\full &\full	\\ 	\hhline{~------------}
