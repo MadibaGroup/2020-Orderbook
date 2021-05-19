@@ -1,0 +1,26 @@
+{
+  "name": "L2-HardHat",
+  "version": "1.0.0",
+  "description": "Lissy (call market) on Arbitrum",
+  "main": "index.js",
+  "license": "MIT",
+  "engines": {
+    "node": ">= 8.0.0 < 13.0.0",
+    "npm": "^6.0.0",
+    "yarn": "^1.0.0"
+  },
+  "scripts": {
+    "build": "hardhat compile",
+    "exec": "hardhat run scripts/exec.js"
+  },
+  "devDependencies": {
+    "@nomiclabs/hardhat-ethers": "^2.0.2",
+    "@openzeppelin/contracts": "^4.1.0",
+    "arb-ts": "0.0.9",
+    "ethers": "^5.1.2",
+    "hardhat": "^2.2.0"
+  },
+  "dependencies": {
+    "dotenv": "^8.2.0"
+  }
+}

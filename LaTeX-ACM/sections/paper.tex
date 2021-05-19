@@ -304,14 +304,20 @@ Arbitrum is an Ethereum Layer 2 scaling solution that operates as an optimistic 
 % = = = = = = = = = = = = = = = = = = = = = = = = =  %
 \subsection{\cm on Arbitrum}
 
-\textit{Testing Platforms.} Arbitrum currently operates a test network with a bridge contract on the Ethereum Kovan testnet. To experiment with Arbitrum, we implemented a variant of \cm and run the same experiments that we previously performed on Layer 1 (Ethereum). To call functions on \cm, traders can (i) send transactions directly to the inbox contract called the \href{https://kovan.etherscan.io/address/0xe681857defe8b454244e701ba63efaa078d7ea85}{Arbitrum EthBridge}, or (ii) use a relay server (called an \textit{Aggregator}) provided by the Arbitrum. These aggregators will group and send all pending transactions together as a single Kovan transaction to the EthBridge contract (and pay the gas).
+\textit{Testing Platforms.} Arbitrum currently operates a test network with a bridge contract on the Ethereum Kovan testnet. To experiment with Arbitrum, we implemented a variant of \cm and run the same experiments that we previously performed on Layer 1 (Ethereum). To call functions on \cm, traders can (i) send transactions directly to the inbox contract \href{https://kovan.etherscan.io/address/0x76bF1345224fE606E2aB38B8E52B83512328A9DF}, or (ii) use a relay server (called an \textit{Aggregator}) provided by the Arbitrum. These aggregators will group and send all pending transactions together as a single Kovan transaction to the EthBridge contract (and pay the gas).
 
 %\input{tables/performance_Arbitrum.tex}
 
 %Table~\ref{tab:arbitrum_performance} compares the cost of executing the maximum number of trades on Ethereum (Kovan testnet) and executing the same number of trades when running \cm on Layer 2 with Arbitrum. The fourth column of the Table represents the Ethereum gas cost for relaying the transaction to the Arbitrum EthBridge contract and is paid in ETH. Note that here we report the cost of sending the transaction directly to the Arbitrum EthBridge contract and not through the aggregator~\footnote{The Layer 1 cost reported on the Kovan block explorer represents the gas cost related to the entire batch of transactions.}. 
 
   
-In our \cm variant on Arbitrum, the token issuer does all the computation (both enqueuing and dequeuing). Thus we switch the priority queue to use a heap with dynamic array, which balances the expense of both operations (instead of optimizing for dequeuing in \texttt{closeMarket()}). \textblue{On Arbitrum, heaps are XX\% more efficient than non-Heaps for submitting orders and YY\% less efficient for closing.} Recall that without a roll-up, such a priority queue can only match 38 pairs at a cost of 5,372,679 gas. With Arbitrum roll-ups, 38 pairs costs only 1,544 in L1 gas (a 99.9\% savings). This is effectively the cost of recording the \texttt{closeMarket()} function call in the inbox, which is 103 bytes of calldata. As the number of pairs increases, L1 gas cost is constant. For traders submitting an order, the cost is reduced from  207,932 to 2,005. 
+In our \cm variant on Arbitrum, the token issuer does all the computation (both enqueuing and dequeuing). Thus we switch the priority queue to use a heap with dynamic array, which balances the expense of both operations (instead of optimizing for dequeuing in \texttt{closeMarket()}). \textblue{On Arbitrum, heaps are XX\% more efficient than non-Heaps for submitting orders and YY\% less efficient for closing (find the \% from the data provided below )} Recall that without a roll-up, such a priority queue can only match 38 pairs at a cost of 5,372,679 gas. With Arbitrum roll-ups, 38 pairs costs only 1,544 in L1 gas (a 99.9\% savings). This is effectively the cost of recording the \texttt{closeMarket()} function call in the inbox, which is 103 bytes of calldata. As the number of pairs increases, L1 gas cost is constant. For traders submitting an order, the cost is reduced from  207,932 to 2,005. 
+ 
+ % Arbitrum V5 test results:
+
+ % Heap Dynamic Array: worst case matching, 48 pairs of orders: tx hash: 0x2c0f5b5ba3539eb72018c08856c156c8098edcfd35db80f929a13c0aa6f9cc01, L1 gas: 1632, L2 arbgas: 1,039,351
+ % (https://explorer5.arbitrum.io/#/tx/0x2c0f5b5ba3539eb72018c08856c156c8098edcfd35db80f929a13c0aa6f9cc01)
+ 
  
 While the runtime of a transaction is no longer an issue for Ethereum, it is still an issue for the validators. Like Ethereum miners, validators do measure the amount of gas (called ArbGas in Arbitrum) a transaction takes although Arbitrum emulates EVM code with its own different OpCodes. Thus, ArbGas with a roll-up and L1 gas without a roll-up are not directly comparable but both increase and decrease proportionately with the complexity of running the function. Closing a market with 38 pairs costs 46,705,693 ArbGas. Until Arbitrum deploys on mainnet, the price of ArbGas in Gwei (or USD) is unknown but it is thought to be relatively very cheap.
 
@@ -328,6 +334,9 @@ Our \cm variant is not the first roll-up-based order book. Loopring 3.0\footnote
 Recall for running functions on \cm on Arbitrum, traders must first instantiate the truncation by sending it to the Arbitrum EthBridge contract. As as soon as this transaction is included in the Layer 1 (Ethereum) block, it will get time-stamped and ordered. Thus, potential for front-running on Arbitrum is same as those explained in~\ref{sec:front}.'
 
 \textblue{Say something about \texttt{block.coinbase()} and Arbitrum.}
+
+
+\textblue{Say something about sequencer.}
 
 
 %= = = = = =  = =  =  Rollups=  = = = = = = = = =%
@@ -360,7 +369,7 @@ Imagine you have just launched a token on Ethereum. Now want to be able to trade
 It may seem paradoxical or unethical to build for regulators exactly what they worry about. However we agreed that it was too difficult to answer our research questions without actual implementation and experimentation. \cm is proof of concept code that implements only enough to understand the feasibility of on-chain trading and we release the code for reproducibility. However it is not production code, it is unpolished, it has no UI, and we have no intention of promoting it for adoption. Finally, by understanding the `pain points' in the design, we found we were constantly tugged toward centralized components (Ethereum alarm clock, meta-transactions, roll-up servers, \etc) which could serve as regulatory hooks even if the service is mainly on-chain.
  
  \subsubsection*{Availability} 
-The Solidity source code for \cm, Truffle test files, and Arbitrum dependencies are available in a GitHub repository (non-anonymous link omitted). We have also deployed \cm on Ethereum's testnet Rinkeby with flattened (single file) source code of just the \cm base class and priority queue implementations. It is visible and can be interacted with here: \href{https://rinkeby.etherscan.io/address/0x0d91de29c531d074853a5cef7cf9dfeb9c6ec4e0}{[etherscan.io]}; while the Arbitrum variant is here: \href{https://explorer.arbitrum.io/#/tx/0x1828d7eb6a7a9b9ec479f07e8149c6172bb89a101571963b5cf690132bdf009b}{[explorer.offchainlabs.com]}.
+The Solidity source code for \cm, Truffle test files, and Arbitrum dependencies are available in a GitHub repository (non-anonymous link omitted). We have also deployed \cm on Ethereum's testnet Rinkeby with flattened (single file) source code of just the \cm base class and priority queue implementations. It is visible and can be interacted with here: \href{https://rinkeby.etherscan.io/address/0x0d91de29c531d074853a5cef7cf9dfeb9c6ec4e0}{[etherscan.io]}; while the Arbitrum variant is here: \href{https://explorer5.arbitrum.io/#/address/0xce17be19aa80396ae1a1c9f8dd386c48c1533f52}{[explorer5.offchainlabs.com]}.
  
 \begin{acks} 
 The authors thanks the AMF (Autorité des Marchés Financiers) for supporting this research project. J. Clark also acknowledges partial funding from the National Sciences and Engineering Research Council (NSERC)/Raymond Chabot Grant Thornton/Catallaxy Industrial Research Chair in Blockchain Technologies, as well as NSERC through a Discovery Grant. M. Moosavi acknowledges support from Fonds de Recherche du Québec - Nature et Technologies (FRQNT).

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  14 MAY 2021 09:06
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  19 MAY 2021 15:55
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1980,8 +1980,8 @@ Package natbib Warning: Citation `kalodner2018arbitrum' on page 10 undefined on
 
 [10.10]
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/it' will be
-(Font)              scaled to size 9.0pt on input line 363.
- Excluding 'acks' comment.)
+(Font)              scaled to size 9.0pt on input line 372.
+ [11.11] Excluding 'acks' comment.)
 No file main.bbl.
 
 Package natbib Warning: There were undefined citations.
@@ -1991,17 +1991,6 @@ Class acmart Warning: Some images may lack descriptions.
 
 
 Class acmart Warning: CCS concepts are mandatory for papers over two pages.
-
-
-Package balance Warning: You have called \balance in second column
-(balance)                Columns might not be balanced.
-
-[11.11]
-Overfull \vbox (11.0pt too high) has occurred while \output is active []
-
-
-Overfull \vbox (13.124pt too high) has occurred while \output is active []
-
 
 [12.12]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 81.
@@ -2044,7 +2033,7 @@ e1/public/libertine/LinLibertineTI.pfb></usr/local/texlive/2020/texmf-dist/font
 s/type1/public/newtx/txmiaX.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1
 /public/newtx/txsys.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/
 wasy-type1/wasy9.pfb>
-Output written on main.pdf (12 pages, 683183 bytes).
+Output written on main.pdf (12 pages, 683234 bytes).
 PDF statistics:
  354 PDF objects out of 1000 (max. 8388607)
  305 compressed objects within 4 object streams
