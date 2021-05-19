@@ -10,7 +10,6 @@
 
 \multicolumn{1}{c}{} &
 \multicolumn{1}{c}{} &
-
 \multicolumn{1}{c}{} &
 \headrow{Centralized Continuous Market} &
 \headrow{Off-chain Continuous Market} & 
@@ -31,33 +30,32 @@
 	     
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %								 											
 	     
-	     
-	     & \multicolumn{2}{c?{1mm}}{Classification}             																											&\multicolumn{1}{c|}{LOB}		&\multicolumn{1}{c|}{LOB}		&\multicolumn{1}{c|}{LOB}		&\multicolumn{1}{c|}{LOB}		&\multicolumn{1}{c|}{LOB}		&\multicolumn{1}{c|}{AMM}		&\multicolumn{1}{c|}{CM}		&\multicolumn{1}{c|}{CM}	&\multicolumn{1}{c|}{CM}								  										&\multicolumn{1}{c|}{CM}	 \\ \hhline{~------------}                 
+%	     
+%	     & \multicolumn{2}{c?{1mm}}{Classification}             																											&\multicolumn{1}{c|}{LOB}		&\multicolumn{1}{c|}{LOB}		&\multicolumn{1}{c|}{LOB}		&\multicolumn{1}{c|}{LOB}		&\multicolumn{1}{c|}{LOB}		&\multicolumn{1}{c|}{AMM}		&\multicolumn{1}{c|}{CM}		&\multicolumn{1}{c|}{CM}	&\multicolumn{1}{c|}{CM}								  										&\multicolumn{1}{c|}{CM}	 \\ \hhline{~------------}                 
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %								 											
 
-&\multicolumn{2}{p{59mm}?{1mm}}{\makecell{Who is Mallory? \\ T: \underline{T}rader, M: \underline{M}iner, S: \underline{S}equencer	}}   	&T&T,M&T,M,S&T,M&T,M&T,M&T,M&T,M&T,M,S	&T,M	 \\ \cmidrule[1mm]{1-13}
+\multicolumn{3}{|p{60mm}?{1mm}}{\makecell{Who is Mallory? \\ \underline{A}uthority,  \underline{T}rader, \underline{M}iner, \underline{S}equencer	}}   	&A,T&A,T,M&A,T,M,S&T,M&T,M&T,M&T,M&T,M&T,M,S	&T,M	 \\ \cmidrule[1mm]{1-13}
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %								 											
-\multirow{17}{*}{\rotatebox[origin=c]{90}{\textbf{Attack Example}}}		&\multicolumn{1}{p{50mm}|}{\makecell{Mallory (\textit{taker 1}) squeezes \\her transaction to \\fulfill Alice's market order  (\textit{maker})}}  						&\multicolumn{1}{m{5mm}?{1mm}}{Ins.}		&\empt	&\empt &\empt &\empt &\full &\empt &\full &\full  &\full &\full		\\ \hhline{~------------}					 					
+\multirow{17}{*}{\rotatebox[origin=c]{90}{\textbf{Attack Example}}}		&\multicolumn{1}{p{50mm}|}{\makecell{Mallory (\textit{maker}) squeezes in a\\ transaction before Alice's  (\textit{taker})  order}}  						&\multicolumn{1}{m{5mm}?{1mm}}{Ins.}		&\empt	&\empt &\empt &\empt &\full &\empt &\full &\full  &\full &\full		\\ \hhline{~------------}					 					
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %								 											
 								 											
-&\multicolumn{1}{p{50mm}|}{\makecell{Mallory (\textit{taker}) squeezes \\her transaction before Bob's (\textit{taker 2}) \\ to fulfill Alice's limit order  (\textit{maker})}   }	  								&\multicolumn{1}{m{6mm}?{1mm}}{  Disp.}				&\empt &\empt &\empt &\empt &\full &\empt &\full &\full &\full	&\full		\\ \hhline{~------------}					 											
+&\multicolumn{1}{p{50mm}|}{\makecell{Mallory (\textit{taker}) squeezes in a \\transaction before Bob's (\textit{taker 2}).}   }	  								&\multicolumn{1}{m{6mm}?{1mm}}{  Disp.}				&\empt &\empt &\empt &\empt &\full &\empt &\full &\full &\full	&\full		\\ \hhline{~------------}	
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
 
-&\multicolumn{1}{p{50mm}|}{\makecell{Sandwich Attacks}}																		&\multicolumn{1}{m{6mm}?{1mm}}{I\&D}																		&\empt &\empt &\empt &\empt &\full &\empt &\empt &\full &\full	&\full												\\ 	\hhline{~------------}
+&\multicolumn{1}{p{50mm}|}{\makecell{Mallory (\textit{maker 1}) suppresses a better \\ incoming order from Alice (\textit{maker 2}) \\ until Mallory's order is executed.}}																&\multicolumn{1}{m{6mm}?{1mm}}{Supp.} 				&\empt &\empt &\empt &\full &\full &\full &\prt &\prt &\prt &\prt	\\ 	\hhline{~------------}				 											
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
 
-&\multicolumn{1}{p{50mm}|}{\makecell{Mallory (\textit{maker 1}) suppresses a better \\ incoming order from Alice (\textit{maker 2})}}																&\multicolumn{1}{m{6mm}?{1mm}}{Supp.} 				&\empt &\empt &\empt &\full &\full &\full &\full &\full &\full &\full	\\ 	\hhline{~------------}
+&\multicolumn{1}{p{50mm}|}{\makecell{Sandwich Attack: a hybrid attack \\ based on the above.}}																		&\multicolumn{1}{m{6mm}?{1mm}}{any}																		&\empt &\empt &\empt &\empt &\full &\empt &\empt &\full &\full	&\full												\\ 	\hhline{~------------}
+
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-&\multicolumn{1}{p{50mm}|}{\makecell{Mallory executes her order(s) and \\freezes the market until close}}								&\multicolumn{1}{m{6mm}?{1mm}}{D\&S} 																	&n/a &n/a &n/a &n/a &n/a &n/a &\prt &\prt &\prt &\prt \\ 	\hhline{~------------}
+&\multicolumn{1}{p{50mm}|}{\makecell{Mallory suspends the market \\for a period of time.}}																										&\multicolumn{1}{m{6mm}?{1mm}}{Supp.}    				&\empt  &\empt  &\empt  &\prt  &\prt  &\prt  &\prt  & \prt &\prt &\prt 	\\ 	\hhline{~------------}
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-&\multicolumn{1}{p{50mm}|}{\makecell{Mallory puts an attractive order as bait \\ and squeezes her cancelation \\ before Alice can execute it}}													&\multicolumn{1}{m{6mm}?{1mm}}{D\&S} 				&\empt &\empt &\empt &\empt &\full &\prt &\full &\full &\full &\full \\ 	\hhline{~------------}
+&\multicolumn{1}{p{50mm}|}{\makecell{Spoofing: Mallory (\textit{maker}) puts an \\ order as bait, sees Alice (\textit{taker}) \\ try to execute it, and cancels it first}}													&\multicolumn{1}{m{6mm}?{1mm}}{S\&D} 				&\empt &\empt &\empt &\empt &\full &\prt &\full &\full &\full &\full \\ 	\hhline{~------------}
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-&\multicolumn{1}{p{50mm}|}{\makecell{Mallory delays the (re-)opening \\of the market}}																										&\multicolumn{1}{m{6mm}?{1mm}}{Supp.}    				&n/a  &n/a  &n/a  &n/a  &n/a  &n/a  &\prt  & \prt &\prt &\prt 	\\ 	\hhline{~------------}
-% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-&\multicolumn{1}{p{50mm}|}{\makecell{Alice cancels an order \\ and Mallory fulfills the order to be \\cancelled first (cancellation grief)}}													&\multicolumn{1}{m{6mm}?{1mm}}{Disp.} 							&\empt &\empt &\empt &\empt &\full &\prt &\full & \full &\full	&\full \\ 	\hline
+&\multicolumn{1}{p{50mm}|}{\makecell{Cancellation Griefing: Alice (\textit{maker}) \\ cancels an order and Mallory \\ (\textit{taker}) fulfills it first}}													&\multicolumn{1}{m{6mm}?{1mm}}{Disp.} 							&\empt &\empt &\empt &\empt &\full &\prt &\full & \full &\full	&\full \\ 	\hline
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
 
 
