@@ -359,9 +359,11 @@ In our \cm variant on Arbitrum, the token issuer does all the computation (both 
  
  % Arbitrum V5 test results:
 
- % Heap Dynamic Array: worst case matching, 48 pairs of orders: tx hash: 0x2c0f5b5ba3539eb72018c08856c156c8098edcfd35db80f929a13c0aa6f9cc01, L1 gas: 1632, L2 arbgas: 1,039,351
+ % Heap Dynamic Array: worst case matching, 38 pairs of orders: tx hash: 0x2c0f5b5ba3539eb72018c08856c156c8098edcfd35db80f929a13c0aa6f9cc01, L1 gas: 1632, L2 arbgas: 1,039,351
  % (https://explorer5.arbitrum.io/#/tx/0x2c0f5b5ba3539eb72018c08856c156c8098edcfd35db80f929a13c0aa6f9cc01)
  
+ % Linked List w/ Mapping: worst case matching, 38 pairs of orders: tx hash: 0x96aa143aee7bfb529d35456bef86387ef2adac30f222ea6a3216ded313e00973, L1 gas: 1632, L2 arbgas: 800,529
+ % (https://explorer5.arbitrum.io/#/tx/0x96aa143aee7bfb529d35456bef86387ef2adac30f222ea6a3216ded313e00973)
  
 While the runtime of a transaction is no longer an issue for Ethereum, it is still an issue for the validators. Like Ethereum miners, validators do measure the amount of gas (called ArbGas in Arbitrum) a transaction takes although Arbitrum emulates EVM code with its own different OpCodes. Thus, ArbGas with a roll-up and L1 gas without a roll-up are not directly comparable but both increase and decrease proportionately with the complexity of running the function. Closing a market with 38 pairs costs 46,705,693 ArbGas. Until Arbitrum deploys on mainnet, the price of ArbGas in Gwei (or USD) is unknown but it is thought to be relatively very cheap.
 

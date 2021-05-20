@@ -3,7 +3,7 @@
 
 const hre = require("hardhat");
 const ethers = require("ethers");
-const addressDappToken ='0x9D83C3c3e39d12416c395Da096988511B57E712F'; //the address of the ERC20 token; it has the same address as Kovan
+const addressDappToken ='0x40bed42b1162EDb35A0dA7A48C32bDE014Ee0E3A'; //the address of the ERC20 token; it has the same address as Kovan
 var CallMarketaddress;
 
 

@@ -3,8 +3,8 @@
 
 const hre = require("hardhat");
 const ethers = require("ethers");
-const addressDappToken ='0x9D83C3c3e39d12416c395Da096988511B57E712F'; //the address of the ERC20 token; it has the same address as Kovan
-const CallMarketaddress ='0x244B16EB248cD6e8e72220BA17588A04fA418695';
+const addressDappToken ='0x40bed42b1162EDb35A0dA7A48C32bDE014Ee0E3A'; //the address of the ERC20 token; it has the same address as Kovan
+const CallMarketaddress ='0x36e71cB7a6B598e3C04322c222Ae632B3F42c8Cf';
 
 
 require('dotenv').config();
@@ -38,7 +38,7 @@ const main = async () => {
     var receipt = null;
     var array = [];
     
-    for(let j = 1; j <= 200  ; j++){
+    for(let j = 1; j <= 100  ; j++){
 
 
         var randomnumber = Math.floor(Math.random() * (maximum - minimum + 1)) + minimum;

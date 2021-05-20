@@ -7,8 +7,8 @@
 
 const hre = require("hardhat");
 const ethers = require("ethers");
-const addressDappToken ='0x9D83C3c3e39d12416c395Da096988511B57E712F'; //the address of the ERC20 token; it has the same address as Kovan
-const CallMarketaddress ='0xcE17BE19aa80396Ae1A1C9f8dd386C48c1533F52';
+//const addressDappToken ='0x9D83C3c3e39d12416c395Da096988511B57E712F'; //the address of the ERC20 token; it has the same address as Kovan
+const CallMarketaddress ='0x18BF65069Fdaed79f8BDB0B6EDa87d5cc46F6E28';
 
 
 require('dotenv').config();
