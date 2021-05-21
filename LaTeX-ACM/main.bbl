@@ -2,7 +2,7 @@
 %%% Do NOT edit. File created by BibTeX with style
 %%% ACM-Reference-Format-Journals [18-Jan-2012].
 
-\begin{thebibliography}{36}
+\begin{thebibliography}{37}
 
 %%% ====================================================================
 %%% NOTE TO THE USER: you can override these defaults by providing
@@ -243,6 +243,16 @@
   Clark}.} \bibinfo{year}{2019}\natexlab{}.
 \newblock \showarticletitle{SoK: Transparent Dishonesty: front-running attacks
   on Blockchain}. In \bibinfo{booktitle}{\emph{WTSC}}. \bibinfo{publisher}{FC}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Galal and Youssef}{Galal and Youssef}{2021}]%
+        {galalpublicly}
+\bibfield{author}{\bibinfo{person}{Hisham~S Galal} {and} \bibinfo{person}{Amr~M
+  Youssef}.} \bibinfo{year}{2021}\natexlab{}.
+\newblock \showarticletitle{Publicly Verifiable and Secrecy Preserving Periodic
+  Auctions}. In \bibinfo{booktitle}{\emph{International Conference on Financial
+  Cryptography and Data Security}}. Springer.
 \newblock
 
 
