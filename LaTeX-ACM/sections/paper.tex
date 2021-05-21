@@ -1,7 +1,7 @@
 % !TEX root = ../main.tex
 
 \section{Introductory Remarks}
-\textblue{add sth about the " traversing data structures with e.g., 100 elements on-chain is not possible." contribution somewhere in the intro or contribution section}
+
 For better or worse, blockchain technologies like Ethereum have dramatically lowered the barrier to entry for developing and deploying financial technology. New tokens have been launched with a few clicks of a user interface, and large investment infrastructures have been developed and deployed with little regulatory oversight. Blockchain exchange services allow order-based trading of digital currencies, tokens, and other digital assets. Such exchanges are key components to blockchain-based economic activity. 
 
 Financial regulators seek to provide consumer protection during the issuing and trading of financial products and assets. They are concerned by their limited ability to intervene when trading is conducted on decentralized networks that, like Ethereum, run on the open internet. Order-driven trading can happen fully `on-chain' and this was experimented within the early days of Ethereum, but it has been largely abandoned for performance reasons in favor of running on centralized servers. More specifically, the core functionality is performed off-chain (\eg matching orders) while other aspects (\eg loading accounts, order cancellation) might be performed on-chain. In this world, company names, employees, addresses, and publicly addressable servers all provide regulatory hooks.
@@ -14,7 +14,9 @@ Our research group is actively collaborating with our jurisdiction's financial r
 
 Our proof-of-concept, \cm, is an extensible base class suitable for experiments. \cm is designed from a security perspective: users only trust their assets to \cm's auditable code (non-custodial) and not to a third part, all operations are transparent, and we nearly eliminate the ability for adversarial network nodes to profit from front-running orders. In fact, we believe we are the first to design a decentralized application that actually leverages front-running (\ie miner extractable value~\cite{daian2019flash}) for the benefit of the system (see Section~\ref{sec:close}).  
 
-While Solidity and its compiled bytecode is like many common programming languages, it also has quirks that require experimentation to best optimize performance (\eg factoring in the gas costs of operations, gas refunds, limits to Solidity's object-oriented design, clearing mappings, \etc). We test five priority queues---the core data structure of the call market---and various options for cleaning up our data once finished with it. The bottom line is that the current benchmark for a \cm-esque design is in the low hundreds of trade executions per block on Ethereum today. This positions \cm as a feasible design for only a narrow set of markets today (low liquidity, small number of traders) which is good news for regulators. However we caution that the technology is likely to improve vastly in the coming years and we demonstrate one avenue for improvement through `roll-ups'~\cite{kalodner2018arbitrum}. While roll-ups use centralized servers and are not fully on-chain, an architecture where these servers only interface with Ethereum and never interface directly with users is still concerning, as it side-steps the regulatory hook that is present in many other server-augmented trading platforms. \textblue{say sth about implementing and testing the full call market on Arbitrum}
+While Solidity and its compiled bytecode is like many common programming languages, it also has quirks that require experimentation to best optimize performance (\eg factoring in the gas costs of operations, gas refunds, limits to Solidity's object-oriented design, clearing mappings, \etc). We test five priority queues---the core data structure of the call market---and various options for cleaning up our data once finished with it. The bottom line is that the current benchmark for a \cm-esque design is in the low hundreds of trade executions per block on Ethereum today. This positions \cm as a feasible design for only a narrow set of markets today (low liquidity, small number of traders) which is good news for regulators. A broader consequence of our research is that any on-chain application that requires the traversal of hundreds of elements in a data structure in a single transaction is not feasible on Ethereum today. 
+
+We also speculate that Ethereum is likely to improve vastly in the coming years and we demonstrate one avenue for improvement through `roll-ups'~\cite{kalodner2018arbitrum} which reduce gas costs by more than 99.9\% savings. While roll-ups are not fully on-chain and introduce new network participants, the roll-up architecture is still concerning to regulators because the participants (called validators) are not directly reachable by users; they only watch the Ethereum state and interact directly with Ethereum.  
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
@@ -182,7 +184,7 @@ The main research question is how many orders can be processed in a single Ether
 
 As expected, the numbers closely track the performance of the PQ itself suggesting the PQ is indeed the main influence on performance. In Ethereum today, call markets appear to be limited to processing about a hundred orders per transaction. If markets open on every other block and the call market could monopolize an entire block to close, a few hundred orders per minute (worst-case) can be processed. The main takeaway is that the transparency, front-running resistance, and low barrier to entry of Ethereum come with an enormous cost (\ie an institutional exchange like NASDAQ can process 100K trades per second). That said, many exchanges trade the same assets under different trading rules (\ie market fragmentation) because traders have different preferences. \cm can work today in some circumstances like very low liquidity tokens, or markets with high volumes and a small number of traders (\eg liquidation auctions). 
 
-\subsection{Front-running} \label{sec:front}
+\subsection{Front-running Evaluation} \label{sec:front}
 
 %\textblue{Notes on Front-running Table:}
 %\begin{itemize}
@@ -242,7 +244,7 @@ Clearing storage is important for reducing EVM bloat. The Ethereum refund model 
 
 \section{Design Alternatives and Extensions}
 
-\cm is designed as a base class that can be extended and customized. Here, we discuss potential modifications \textblue{and provide evaluation}.  
+\cm is designed as a base class that can be extended and customized. Here, we evaluate potential modifications.
 % = = = = = = = = = = = = = = = = = = = = = = = = =  %
 
 \subsection{Token Divisibility and Ties} 
@@ -339,8 +341,6 @@ A function can be computed off-chain and the new state of the DApp, called a \te
 
 Arbitrum is an Ethereum Layer 2 scaling solution that operates as an optimistic roll-up~\cite{kalodner2018arbitrum}. Arbitrum runs entire DApps inside its environment, which acts like a container and requires special bridge contacts to interact with `normal' (or L1) Ethereum DApps. To deploy a DApp on Arbitrum, or to execute a function on an existing Arbitrum DApp, the transaction is sent to an L1 Arbitrum contract called an inbox. The transaction is not executed, it is only recorded (as calldata) by the inbox contract. Like any other transactions on Ethereum, miners determine the order of the transactions sent to the inbox. A set of validators (open to anyone) are watching the inbox contract for new transactions. Once an inbox transaction is finalized in an Ethereum block, validators will execute the transaction and asserts the result of the execution to other validators on a sidechain called ArbOS. Once the dispute challenge period is over, the new state of ArbOS will be inserted into Ethereum. As the inbox contract maintains all Arbitrum transactions, anyone can recompute the entire current state of the ArbOS and file a dispute if executions are not performed correctly. Disputes are adjudicated by Ethereum itself and require essentially constant gas costs, regardless of the size of the gas costs of the transaction being disputed.  
 
-
-
 % = = = = = = = = = = = = = = = = = = = = = = = = =  %
 \subsection{Token Bridges with Arbitrum}
 
@@ -348,14 +348,16 @@ Arbitrum is an Ethereum Layer 2 scaling solution that operates as an optimistic 
 % = = = = = = = = = = = = = = = = = = = = = = = = =  %
 \subsection{\cm on Arbitrum}
 
-\textit{Testing Platforms.} Arbitrum currently operates a test network with a bridge contract on the Ethereum Kovan testnet. To experiment with Arbitrum, we implemented a variant of \cm and run the same experiments that we previously performed on Layer 1 (Ethereum). To call functions on \cm, traders can (i) send transactions directly to the inbox contract \href{https://kovan.etherscan.io/address/0x76bF1345224fE606E2aB38B8E52B83512328A9DF}, or (ii) use a relay server (called an \textit{Aggregator}) provided by the Arbitrum. These aggregators will group and send all pending transactions together as a single Kovan transaction to the EthBridge contract (and pay the gas).
+\textit{Testing Platforms.} Arbitrum currently operates a test network with a inbox contract on the Ethereum Kovan testnet. To experiment with Arbitrum, we implemented a variant of \cm and run the same experiments that we previously performed on Layer 1 (Ethereum). To call functions on \cm, traders can (i) send transactions directly to the inbox contract \href{https://kovan.etherscan.io/address/0x76bF1345224fE606E2aB38B8E52B83512328A9DF}, or (ii) use a relay server (called an \textit{Sequencer}) provided by the Arbitrum. The sequencer will group, order,  and send all pending transactions together as a single Kovan transaction to the inbox (and pay the gas). 
+
+\cm implements an exchange between ETH and tokens. To use Layer 1 assets on Layer 2, Arbitrum provides two bridge contracts: one for ETH, and one for tokens compliant with ERC-20 or other standard interfaces. Prior to trading, a trader uses the bridge to move their ETH to the same address on Layer 2 and then move the ETH to \cm with a Layer 2 transaction. From the user's perspective, tokens work similarly although the backend details are more complex. Finally, withdrawals work essentially same way in reverse, but are only final on Layer 1 after a dispute challenge period (currently 1 hour).\footnote{Layer 1 users might accept assets before they are finalized if they determine their eventual emergence on Layer 1 is indisputable (\textit{eventual finality}).}  
 
 %\input{tables/performance_Arbitrum.tex}
 
 %Table~\ref{tab:arbitrum_performance} compares the cost of executing the maximum number of trades on Ethereum (Kovan testnet) and executing the same number of trades when running \cm on Layer 2 with Arbitrum. The fourth column of the Table represents the Ethereum gas cost for relaying the transaction to the Arbitrum EthBridge contract and is paid in ETH. Note that here we report the cost of sending the transaction directly to the Arbitrum EthBridge contract and not through the aggregator~\footnote{The Layer 1 cost reported on the Kovan block explorer represents the gas cost related to the entire batch of transactions.}. 
 
   
-In our \cm variant on Arbitrum, the token issuer does all the computation (both enqueuing and dequeuing). Thus we switch the priority queue to use a heap with dynamic array, which balances the expense of both operations (instead of optimizing for dequeuing in \texttt{closeMarket()}). \textblue{On Arbitrum, heaps are 32\% more efficient than non-Heaps for submitting orders and 29\% less efficient for closing}. Recall that without a roll-up, such a priority queue can only match 38 pairs at a cost of 5,372,679 gas. With Arbitrum roll-ups, 38 pairs costs only 1,544 in L1 gas (a 99.9\% savings). This is effectively the cost of recording the \texttt{closeMarket()} function call in the inbox, which is 103 bytes of calldata. As the number of pairs increases, L1 gas cost is constant. For traders submitting an order, the cost is reduced from  207,932 to 2,005. 
+In our \cm variant on Arbitrum, the token issuer does all the computation (both enqueuing and dequeuing). Thus we switch the priority queue to use a heap with dynamic array, which balances the expense of both operations (instead of optimizing for dequeuing in \texttt{closeMarket()}). On Arbitrum, heaps are 32\% more efficient than non-Heaps for submitting orders and 29\% less efficient for closing. Recall that without a roll-up, such a priority queue can only match 38 pairs at a cost of 5,372,679 gas. With Arbitrum roll-ups, 38 pairs costs only 1,632 in L1 gas (a 99.9\% savings). This is effectively the cost of recording the \texttt{closeMarket()} function call in the inbox, which is 103 bytes of calldata. As the number of pairs increases, L1 gas cost is constant. For traders submitting an order, the cost is reduced from  207,932 to 2,005. 
  
  % Arbitrum V5 test results:
  
