@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  21 MAY 2021 11:31
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  21 MAY 2021 11:52
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1345,13 +1345,13 @@ File: l3backend-pdfmode.def 2020-03-12 L3 backend support: PDF mode
 \l__kernel_color_stack_int=\count372
 \l__pdf_internal_box=\box104
 )
-No file main.aux.
+(./main.aux)
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/nxlmi/m/it on input line 21.
 LaTeX Font Info:    Trying to load font information for OML+nxlmi on input line
  21.
-(/usr/local/texlive/2020/texmf-dist/tex/latex/newtx/omlnxlmi.fd
+ (/usr/local/texlive/2020/texmf-dist/tex/latex/newtx/omlnxlmi.fd
 File: omlnxlmi.fd 2013/11/19 Fontinst v1.933 font definitions for OML/nxlmi.
 )
 LaTeX Font Info:    ... okay on input line 21.
@@ -1487,10 +1487,12 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 LaTeX Info: Redefining \ref on input line 21.
 LaTeX Info: Redefining \pageref on input line 21.
 LaTeX Info: Redefining \nameref on input line 21.
+ (./main.out) (./main.out)
 \@outlinefile=\write5
 \openout5 = `main.out'.
 
- (/usr/local/texlive/2020/texmf-dist/tex/generic/stringenc/se-pdfdoc.def
+
+(/usr/local/texlive/2020/texmf-dist/tex/generic/stringenc/se-pdfdoc.def
 File: se-pdfdoc.def 2019/11/29 v1.12 stringenc: PDFDocEncoding
 )
 (/usr/local/texlive/2020/texmf-dist/tex/generic/stringenc/se-utf8.def
@@ -1620,67 +1622,14 @@ LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
 Underfull \vbox (badness 5316) has occurred while \output is active []
 
 
-
-Package natbib Warning: Citation `Ethereum41:online' on page 1 undefined on inp
-ut line 13.
-
-
-Package natbib Warning: Citation `daian2019flash' on page 1 undefined on input 
-line 15.
-
-
-LaTeX Warning: Reference `sec:close' on page 1 undefined on input line 15.
-
-
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [1.1{/usr/local/texlive/2020/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
 ]
-
-Package natbib Warning: Citation `kalodner2018arbitrum' on page 2 undefined on 
-input line 19.
-
-
-Package natbib Warning: Citation `Har03' on page 2 undefined on input line 39.
-
-
-Package natbib Warning: Citation `TheHisto45:online' on page 2 undefined on inp
-ut line 45.
-
-
-Package natbib Warning: Citation `SEBIOrde83:online' on page 2 undefined on inp
-ut line 45.
-
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
 (Font)              scaled to size 7.0pt on input line 52.
-[2.2]
-
-LaTeX Warning: Reference `sec:rollups' on page 3 undefined on input line 53.
-
-
-Package natbib Warning: Citation `clark2014decentralizing' on page 3 undefined 
-on input line 57.
-
-
-Package natbib Warning: Citation `Bra13' on page 3 undefined on input line 57.
-
-
-Package natbib Warning: Citation `eskandari2019sok' on page 3 undefined on inpu
-t line 57.
-
-
-Package natbib Warning: Citation `daian2019flash' on page 3 undefined on input 
-line 57.
-
-
-Package natbib Warning: Citation `clark2014decentralizing' on page 3 undefined 
-on input line 59.
-
-
-LaTeX Warning: Reference `sec:front' on page 3 undefined on input line 59.
-
-
+ [2.2]
 Underfull \vbox (badness 3701) has occurred while \output is active []
 
 LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/m/n' will be
@@ -1701,74 +1650,8 @@ LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
 (Font)              scaled to size 5.5pt on input line 61.
 
-
-Package natbib Warning: Citation `Har03' on page 3 undefined on input line 61.
-
-
-Package natbib Warning: Citation `TP07' on page 3 undefined on input line 63.
-
-
-Package natbib Warning: Citation `YSLT10' on page 3 undefined on input line 63.
-
-
-
-Package natbib Warning: Citation `TW12' on page 3 undefined on input line 63.
-
-
-Package natbib Warning: Citation `cartlidge2019mpc' on page 3 undefined on inpu
-t line 63.
-
-
-Package natbib Warning: Citation `massacci2018futuresmex' on page 3 undefined o
-n input line 63.
-
-
-Package natbib Warning: Citation `eskandari2017feasibility' on page 3 undefined
- on input line 63.
-
-
-Package natbib Warning: Citation `biryukov2017findel' on page 3 undefined on in
-put line 63.
-
-
-Package natbib Warning: Citation `heilman2020arwen' on page 3 undefined on inpu
-t line 63.
-
-
-Package natbib Warning: Citation `bentov2017tesseract' on page 3 undefined on i
-nput line 63.
-
-
-Package natbib Warning: Citation `galalpublicly' on page 3 undefined on input l
-ine 65.
-
-
-Package natbib Warning: Citation `khalil2019tex' on page 3 undefined on input l
-ine 66.
-
-
-LaTeX Warning: Reference `sec:rollups' on page 3 undefined on input line 66.
-
-
-Package natbib Warning: Citation `eskandari2019sok' on page 3 undefined on inpu
-t line 66.
-
-
-Package natbib Warning: Citation `MZGA20' on page 3 undefined on input line 66.
-
-
-
-Package natbib Warning: Citation `Kla20' on page 3 undefined on input line 66.
-
 (./tables/pq.tex) [3.3]
-
-LaTeX Warning: Reference `tab:PQ_API' on page 4 undefined on input line 81.
-
-
-LaTeX Warning: Reference `fig:random_insertion' on page 4 undefined on input li
-ne 103.
-
-<fig/random_insertion3.png, id=49, 241.8636pt x 184.40895pt>
+<fig/random_insertion3.png, id=210, 241.8636pt x 184.40895pt>
 File: fig/random_insertion3.png Graphic file (type png)
 <use fig/random_insertion3.png>
 Package pdftex.def Info: fig/random_insertion3.png  used on input line 110.
@@ -1802,72 +1685,25 @@ LaTeX Font Warning: Font shape `U/wasy/b/n' in size <9> not available
 )
 LaTeX Font Info:    Font shape `T1/zi4/m/n' will be
 (Font)              scaled to size 9.0pt on input line 121.
-
-
-LaTeX Warning: Reference `tab:PQUnitTests' on page 4 undefined on input line 12
-1.
-
-[4.4 <./fig/random_insertion3.png
+ [4.4 <./fig/random_insertion3.png
 
 pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./fig/random_insertion3.png)
 : large interlaced PNG might cause out of memory (use non-interlaced PNG to fix
  this)
->]
-
-LaTeX Warning: Reference `fig:random_insertion' on page 5 undefined on input li
-ne 123.
-
-(./tables/cleaning.tex)
-Overfull \hbox (6.87068pt too wide) in paragraph at lines 132--133
- []\T1/LinuxLibertineT-TLF/m/it/9 (-20) Gas Re-funds.[] \T1/LinuxLibertineT-TLF
-/m/n/9 (-20) In or-der to re-con-struct the cur-rent state of Ethereum's
+>] (./tables/cleaning.tex)
+Underfull \hbox (badness 1509) in paragraph at lines 132--133
+ []\T1/LinuxLibertineT-TLF/m/it/9 (+20) Gas Re-funds.[] \T1/LinuxLibertineT-TLF
+/m/n/9 (+20) In or-der to re-con-struct the cur-rent state of
  []
 
-
-Package natbib Warning: Citation `signer2018gas' on page 5 undefined on input l
-ine 145.
-
-
-LaTeX Warning: Reference `tab:PQUnitTests' on page 5 undefined on input line 14
-5.
-
-
-LaTeX Warning: Reference `tab:cleaning' on page 5 undefined on input line 149.
-
-[5.5]
-
-LaTeX Warning: Reference `tab:cleaning' on page 6 undefined on input line 151.
-
-
-LaTeX Warning: Reference `tab:PQUnitTests' on page 6 undefined on input line 15
-3.
-
-(./tables/functions.tex
+[5.5] (./tables/functions.tex
 Overfull \hbox (1.67445pt too wide) in paragraph at lines 7--32
  [][] 
  []
 
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/b/n' will be
 (Font)              scaled to size 9.0pt on input line 32.
-)
-
-Package natbib Warning: Citation `eskandari2019sok' on page 6 undefined on inpu
-t line 167.
-
-
-LaTeX Warning: Reference `tab:cm_functions' on page 6 undefined on input line 1
-74.
-
-(./tables/performance.tex)
-
-LaTeX Warning: Reference `tab:worst_case_matching' on page 6 undefined on input
- line 184.
-
-
-LaTeX Warning: Reference `fig:random_insertion' on page 6 undefined on input li
-ne 184.
-
-[6.6] (./tables/frontrunning.tex
+) (./tables/performance.tex) [6.6] (./tables/frontrunning.tex
 Overfull \hbox (1.36914pt too wide) in paragraph at lines 44--44
 []|\T1/LinuxLibertineT-TLF/m/n/9 (-20) Disp.| 
  []
@@ -1895,170 +1731,29 @@ Overfull \hbox (1.36914pt too wide) in paragraph at lines 58--58
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/b/n' will be
 (Font)              scaled to size 7.0pt on input line 65.
 )
-
-LaTeX Warning: Reference `tab:front' on page 7 undefined on input line 198.
-
-
-Package natbib Warning: Citation `clark2014decentralizing' on page 7 undefined 
-on input line 198.
-
-
-Package natbib Warning: Citation `eskandari2019sok' on page 7 undefined on inpu
-t line 198.
-
-
-Package natbib Warning: Citation `daian2019flash' on page 7 undefined on input 
-line 198.
-
-
-LaTeX Warning: Reference `tab:front' on page 7 undefined on input line 198.
-
-
-Package natbib Warning: Citation `eskandari2019sok' on page 7 undefined on inpu
-t line 198.
-
-
-LaTeX Warning: Reference `sec:frontarb' on page 7 undefined on input line 207.
-
-
-LaTeX Warning: Reference `tab:front' on page 7 undefined on input line 209.
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-
-
-Package natbib Warning: Citation `eskandari2019sok' on page 7 undefined on inpu
-t line 222.
-
-
-LaTeX Warning: Reference `sec:gasrefund' on page 7 undefined on input line 226.
-
-
-
-Overfull \hbox (48.94493pt too wide) in paragraph at lines 228--229
-\T1/LinuxLibertineT-TLF/m/n/9 (-20) bids to the best asks. As or-ders ex-e-cute
-, \T1/zi4/m/n/9 totalBalance \T1/LinuxLibertineT-TLF/m/n/9 (-20) and \T1/zi4/m/
-n/9 unavailableBalance
- []
-
-[7.7]
-Overfull \hbox (10.761pt too wide) in paragraph at lines 242--243
-[]\T1/LinuxLibertineT-TLF/m/n/9 (-20) Clearing stor-age is im-por-tant for re-d
-uc-ing EVM bloat. The Ethereum
- []
-
-
+ [7.7]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
+Underfull \vbox (badness 1436) has occurred while \output is active []
 
-Package natbib Warning: Citation `mavroudis2019libra' on page 8 undefined on in
-put line 255.
-
-
-Package natbib Warning: Citation `bonneau2015random' on page 8 undefined on inp
-ut line 255.
-
-
-Package natbib Warning: Citation `buenz2017proofs' on page 8 undefined on input
- line 255.
-
-
-Package natbib Warning: Citation `boneh2018verifiable' on page 8 undefined on i
-nput line 255.
-
-
-Overfull \hbox (5.31673pt too wide) in paragraph at lines 255--256
- []\T1/LinuxLibertineT-TLF/m/it/9 (-20) Evaluation.[] \T1/LinuxLibertineT-TLF/m
-/n/9 (-20) A com-mon trad-ing rule (that does re-sist front-running)
- []
-
-[8.8]
-
-Package natbib Warning: Citation `clark2014decentralizing' on page 9 undefined 
-on input line 278.
-
-
-Package natbib Warning: Citation `daian2019flash' on page 9 undefined on input 
-line 280.
-
+ [8.8]
 [9.9]
 LaTeX Font Info:    Font shape `T1/zi4/b/n' will be
 (Font)              scaled to size 9.0pt on input line 310.
-
-Overfull \hbox (11.37706pt too wide) in paragraph at lines 312--313
-\T1/zi4/m/n/9 depositToken() \T1/LinuxLibertineT-TLF/m/n/9 (-20) fol-lowed by t
-he func-tion-al-ity of \T1/zi4/m/n/9 submitAsk()\T1/LinuxLibertineT-TLF/m/n/9 (
--20) .
- []
-
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/b/n' will be
 (Font)              scaled to size 10.95pt on input line 324.
-
-Package natbib Warning: Citation `gudgeon2020sok' on page 10 undefined on input
- line 331.
-
-
-Package natbib Warning: Citation `kalodner2018arbitrum' on page 10 undefined on
- input line 334.
-
-
-Package natbib Warning: Citation `BCGTV13' on page 10 undefined on input line 3
-34.
-
-
-Package natbib Warning: Citation `GGPR13' on page 10 undefined on input line 33
-4.
-
-
-Package natbib Warning: Citation `BBHR19' on page 10 undefined on input line 33
-4.
-
-
-Package natbib Warning: Citation `cheng2019ekiden' on page 10 undefined on inpu
-t line 334.
-
-
-Package natbib Warning: Citation `SGX1' on page 10 undefined on input line 334.
-
-
-
-Package natbib Warning: Citation `SGX2' on page 10 undefined on input line 334.
-
-
-
-Package natbib Warning: Citation `SGX3' on page 10 undefined on input line 334.
-
-
-
-Package natbib Warning: Citation `SGX4' on page 10 undefined on input line 334.
-
-
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
 (Font)              scaled to size 7.0pt on input line 334.
 
-Package natbib Warning: Citation `ZBC+19' on page 10 undefined on input line 33
-4.
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \vbox (badness 1442) has occurred while \output is active []
 
  [10.10]
-
-Package natbib Warning: Citation `kalodner2018arbitrum' on page 11 undefined on
- input line 343.
-
-
-Overfull \hbox (5.80884pt too wide) in paragraph at lines 378--379
-[]\T1/LinuxLibertineT-TLF/m/n/9 (-20) Our \T1/LinuxBiolinumT-TLF/m/n/9 (-20) Li
-ssy \T1/LinuxLibertineT-TLF/m/n/9 (-20) vari-ant is not the first roll-up-based
- or-der book. Loopring
- []
-
-
-LaTeX Warning: Reference `sec:front' on page 11 undefined on input line 388.
-
 [11.11]
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/it' will be
 (Font)              scaled to size 9.0pt on input line 426.
@@ -2079,15 +1774,22 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             See the microtype manual for details.
 LaTeX Info: Redefining \tempurl on input line 136.
 
-Underfull \vbox (badness 3049) has occurred while \output is active []
+Underfull \vbox (badness 2368) has occurred while \output is active []
 
 LaTeX Info: Redefining \tempurl on input line 386.
 )
 
-Package natbib Warning: There were undefined citations.
-
-
 Class acmart Warning: Some images may lack descriptions.
+
+
+Class acmart Warning: ACM keywords are mandatory for papers over two pages.
+
+
+Class acmart Warning: ACM reference format is mandatory for papers over one pag
+e.
+
+
+Class acmart Warning: CCS concepts are mandatory for papers over two pages.
 
 
 Package balance Warning: You have called \balance in second column
@@ -2096,42 +1798,25 @@ Package balance Warning: You have called \balance in second column
 [12.12]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 69.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 69.
- (./main.aux
-
-Package natbib Warning: Citation(s) may have changed.
-(natbib)                Rerun to get citations correct.
-
-)
+ (./main.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 69.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 69.
+Package rerunfilecheck Info: File `main.out' has not changed.
+(rerunfilecheck)             Checksum: D00322D2A30C5120284B8C40122AC928;5283.
 
-
-Package rerunfilecheck Warning: File `main.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `main.out':
-(rerunfilecheck)             Before: <no file>
-(rerunfilecheck)             After:  D00322D2A30C5120284B8C40122AC928;5283.
 
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 0.5pt have occurred.
 
-
-LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
  ) 
 Here is how much of TeX's memory you used:
- 35789 strings out of 480608
- 634983 string characters out of 5903631
- 961283 words of memory out of 5000000
- 50179 multiletter control sequences out of 15000+600000
- 690447 words of font info for 359 fonts, out of 8000000 for 9000
+ 35819 strings out of 480608
+ 635305 string characters out of 5903631
+ 965622 words of memory out of 5000000
+ 50209 multiletter control sequences out of 15000+600000
+ 689607 words of font info for 355 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
- 63i,22n,100p,1668b,516s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 63i,22n,100p,1668b,512s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2020/texmf-dist/fonts/enc/dvips/libertine/lbtn_naooyc.enc
 }{/usr/local/texlive/2020/texmf-dist/fonts/enc/dvips/libertine/lbtn_25tcsq.enc}
 {/usr/local/texlive/2020/texmf-dist/fonts/enc/dvips/inconsolata/i4-t1-4.enc}{/u
@@ -2151,10 +1836,10 @@ e1/public/libertine/LinLibertineTI.pfb></usr/local/texlive/2020/texmf-dist/font
 s/type1/public/newtx/txmiaX.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1
 /public/newtx/txsys.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/
 wasy-type1/wasy9.pfb>
-Output written on main.pdf (12 pages, 683722 bytes).
+Output written on main.pdf (12 pages, 688921 bytes).
 PDF statistics:
- 313 PDF objects out of 1000 (max. 8388607)
- 265 compressed objects within 3 object streams
+ 474 PDF objects out of 1000 (max. 8388607)
+ 424 compressed objects within 5 object streams
  130 named destinations out of 1000 (max. 500000)
- 41506 words of extra memory for PDF output out of 42996 (max. 10000000)
+ 41738 words of extra memory for PDF output out of 42996 (max. 10000000)
 
