@@ -1,11 +1,7 @@
-
-
-
 const hre = require("hardhat");
 const ethers = require("ethers");
-const addressDappToken ='0x40bed42b1162EDb35A0dA7A48C32bDE014Ee0E3A'; //the address of the ERC20 token; it has the same address as Kovan
-var CallMarketaddress;
-
+const utils = require ("ethers");
+const BigNumber = require ("ethers");
 
 require('dotenv').config();
 
@@ -25,35 +21,49 @@ const main = async () => {
     const signer = new ethers.Wallet(walletPrivateKey)
 
     const l1Signer = signer.connect(l1Provider);
-    const l2Signer = signer.connect(l2Provider);
 
-
-
-
-    const L2CallMarket = await (await hre.ethers.getContractFactory('CallMarket')).connect(l2Signer)
+    const ethercBridge = "0x2948ac43e4AfF448f6af0F7a11F18Bb6062dd271";
+    const addressDappToken ;
+    var CallMarketaddress;
     
-    console.log("Deploying CallMarket to L2")
-    
-    const l2CallMarket = await L2CallMarket.deploy()
-    await l2CallMarket.deployed()
-    console.log(`deployed to ${l2CallMarket.address}`)
+    const L1CallMarket = await (await hre.ethers.getContractFactory('CallMarket')).connect(l1Signer)
+    console.log("Deploying CallMarket to L1")
+    const l1CallMarket = await L1CallMarket.deploy()
+    await l1CallMarket.deployed()
+    CallMarketaddress = l1CallMarket.address;
+    console.log(`Call Market deployed to ${CallMarketaddress}`)
 
-    CallMarketaddress = l2CallMarket.address;
+   
+    //deposit tokens from signer to the CallMarket contract
 
-    const l2DappToken = await (await hre.ethers.getContractAt('DappToken',addressDappToken)).connect(l2Signer)
-    
-    
-    await l2DappToken.connect(l2Signer).approve(CallMarketaddress, 1000000000);
-       
-    await l2CallMarket.connect(l2Signer).depositToken(addressDappToken, 1000000000);
+    const L1DappToken = await (await hre.ethers.getContractFactory('DappToken')).connect(l1Signer)
+    console.log("Deploying DappToken to L1")
+    const l1DappToken = await L1DappToken.deploy(100000000000)
+    await l1DappToken.deployed()
+    addressDappToken = l1DappToken.address;
 
-    const totalTokenbalance = await l2CallMarket.totalTokenBalance(l2Signer.address);
-    const totalEtherbalance = await l2CallMarket.totalEtherBalance(l2Signer.address);
+    //const DappTokenInstance = await ethers.getContractAt("DappToken", addressDappToken); //loads the DappToken from its address
 
-    console.log('The token balance of account[0] (Bob) is:', totalTokenbalance.toNumber());
-    console.log('The Ether balance of account[0] (Bob) is:', totalEtherbalance.toNumber());
+
+    const ethrbidge = await ethers.getContractAt("EthERC20Bridge", ethercBridge); 
+
+    await ethrbidge.deposit(addressDappToken, signer.address, BigNumber.from(1000000), BigNumber.from(10000000000000), BigNumber.from(0), utils.parseUnits('10', 'gwei'), '0x');
+    const L2address = await ethrbidge.calculateL2TokenAddress(addressDappToken)
     console.log('********************************************');
+    console.log(L2address);
+       
+    //await l1CallMarket.depositToken(addressDappToken, 500,);
 
+    //const totalTokenbalance = await l1CallMarket.totalTokenBalance(Signer.address);
+    //const totalEtherbalance = await l1CallMarket.totalEtherBalance(Signer.address);
+
+    //console.log('The token balance of the signer is:', totalTokenbalance.toNumber());
+    //console.log('The Ether balance of the signer is:', totalEtherbalance.toNumber());
+    //console.log('********************************************');
+
+
+
+    
 
 
 
@@ -65,3 +75,42 @@ main()
     console.error(error);
     process.exit(1);
   });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
