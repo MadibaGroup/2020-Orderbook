@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  26 MAY 2021 13:06
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  26 MAY 2021 14:27
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1628,10 +1628,10 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 ]
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
-(Font)              scaled to size 7.0pt on input line 55.
+(Font)              scaled to size 7.0pt on input line 53.
  [2.2]
 LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 9.0pt on input line 64.
+(Font)              scaled to size 9.0pt on input line 62.
 Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `LinuxLibertineT-TLF' (encoding: OT1).
 (microtype)             For optimal results, create family-specific settings.
@@ -1644,23 +1644,23 @@ File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 7.3pt on input line 64.
+(Font)              scaled to size 7.3pt on input line 62.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 5.5pt on input line 64.
+(Font)              scaled to size 5.5pt on input line 62.
 
 (./tables/pq.tex) [3.3]
 <fig/random_insertion3.png, id=228, 241.8636pt x 184.40895pt>
 File: fig/random_insertion3.png Graphic file (type png)
 <use fig/random_insertion3.png>
-Package pdftex.def Info: fig/random_insertion3.png  used on input line 113.
+Package pdftex.def Info: fig/random_insertion3.png  used on input line 111.
 (pdftex.def)             Requested size: 253.14749pt x 193.01323pt.
 
-Overfull \hbox (12.0pt too wide) in paragraph at lines 113--114
+Overfull \hbox (12.0pt too wide) in paragraph at lines 111--112
  [][] 
  []
 
 
-Class acmart Warning: A possible image without description on input line 115.
+Class acmart Warning: A possible image without description on input line 113.
 
 (./tables/dequeue.tex
 LaTeX Font Info:    Trying to load font information for T1+zi4 on input line 10
@@ -1682,14 +1682,13 @@ LaTeX Font Warning: Font shape `U/wasy/b/n' in size <9> not available
 
 )
 LaTeX Font Info:    Font shape `T1/zi4/m/n' will be
-(Font)              scaled to size 9.0pt on input line 124.
+(Font)              scaled to size 9.0pt on input line 122.
  [4.4 <./fig/random_insertion3.png
 
-pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./fig/random_insertion3.png)
-: large interlaced PNG might cause out of memory (use non-interlaced PNG to fix
- this)
+pdfTeX warning: pdflatex (file ./fig/random_insertion3.png): large interlaced P
+NG might cause out of memory (use non-interlaced PNG to fix this)
 >] (./tables/cleaning.tex)
-Underfull \hbox (badness 1509) in paragraph at lines 135--136
+Underfull \hbox (badness 1509) in paragraph at lines 133--134
  []\T1/LinuxLibertineT-TLF/m/it/9 (+20) Gas Re-funds.[] \T1/LinuxLibertineT-TLF
 /m/n/9 (+20) In or-der to re-con-struct the cur-rent state of
  []
@@ -1743,11 +1742,11 @@ Underfull \vbox (badness 1436) has occurred while \output is active []
  [8.8]
 [9.9]
 LaTeX Font Info:    Font shape `T1/zi4/b/n' will be
-(Font)              scaled to size 9.0pt on input line 307.
+(Font)              scaled to size 9.0pt on input line 305.
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/b/n' will be
-(Font)              scaled to size 10.95pt on input line 318.
+(Font)              scaled to size 10.95pt on input line 316.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
-(Font)              scaled to size 7.0pt on input line 329.
+(Font)              scaled to size 7.0pt on input line 327.
  [10.10] [11.11] Excluding 'acks' comment.) (./main.bbl
 LaTeX Font Info:    Trying to load font information for TS1+LinuxLibertineT-TLF
  on input line 43.
@@ -1804,7 +1803,7 @@ LaTeX Font Warning: Size substitutions with differences
 Here is how much of TeX's memory you used:
  35855 strings out of 480608
  636023 string characters out of 5903631
- 966167 words of memory out of 5000000
+ 966168 words of memory out of 5000000
  50226 multiletter control sequences out of 15000+600000
  685391 words of font info for 362 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
@@ -1827,7 +1826,7 @@ ublic/libertine/LinLibertineTI.pfb></usr/local/texlive/2020/texmf-dist/fonts/ty
 pe1/public/newtx/txmiaX.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/pub
 lic/newtx/txsys.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/wasy
 -type1/wasy9.pfb>
-Output written on main.pdf (13 pages, 667145 bytes).
+Output written on main.pdf (13 pages, 667144 bytes).
 PDF statistics:
  511 PDF objects out of 1000 (max. 8388607)
  462 compressed objects within 5 object streams

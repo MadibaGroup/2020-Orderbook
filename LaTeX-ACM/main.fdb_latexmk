@@ -1,12 +1,12 @@
 # Fdb version 3
-["bibtex main"] 1622047701 "main.aux" "main.bbl" "main" 1622047706
+["bibtex main"] 1622053631 "main.aux" "main.bbl" "main" 1622053636
   "/usr/local/texlive/2020/texmf-dist/bibtex/bst/acmart/ACM-Reference-Format.bst" 1582593582 84856 cdf46f74ac483d72585084276eb3e09d ""
-  "bib/DEX.bib" 1622039138 20416 89c52f9e40ed65fa82bec3f38f1b2c8a ""
-  "main.aux" 1622047705 16646 5426ee574a0f358074bfd0670e135e49 "pdflatex"
+  "bib/DEX.bib" 1622048283 20416 89c52f9e40ed65fa82bec3f38f1b2c8a ""
+  "main.aux" 1622053635 16631 339f340c3b538e2fc65e09e7b93b816a "pdflatex"
   (generated)
   "main.blg"
   "main.bbl"
-["pdflatex"] 1622047702 "main.tex" "main.pdf" "main" 1622047706
+["pdflatex"] 1622053631 "main.tex" "main.pdf" "main" 1622053636
   "/usr/local/texlive/2020/texmf-dist/fonts/enc/dvips/inconsolata/i4-t1-4.enc" 1558214095 7693 0f2dce6d313c82989ec3a67fc24df2a0 ""
   "/usr/local/texlive/2020/texmf-dist/fonts/enc/dvips/libertine/lbtn_25tcsq.enc" 1490131464 2921 8ca0eb0831f9bc5da080d3697cfe67bf ""
   "/usr/local/texlive/2020/texmf-dist/fonts/enc/dvips/libertine/lbtn_76gpa5.enc" 1490131464 2933 9ad527ce78d7c5fa0a642dead095f172 ""
@@ -313,13 +313,13 @@
   "/usr/local/texlive/2020/texmf.cnf" 1586288231 577 d60164b4589a341208aff7a667fbbdcb ""
   "acmart.cls" 1605483998 100397 33ab3db5699c475d5435e28b7021d6c1 ""
   "fig/random_insertion3.png" 1613753831 297826 63cea026aeef258af69f546960fc542e ""
-  "main.aux" 1622047705 16646 5426ee574a0f358074bfd0670e135e49 "pdflatex"
-  "main.bbl" 1622047702 23150 c94a806c10c018969152cbc1a3d4c1c8 "bibtex main"
-  "main.out" 1622047705 5813 b949ca2e86d95c822e6eb1d9dd43cc71 "pdflatex"
+  "main.aux" 1622053635 16631 339f340c3b538e2fc65e09e7b93b816a "pdflatex"
+  "main.bbl" 1622053631 23150 c94a806c10c018969152cbc1a3d4c1c8 "bibtex main"
+  "main.out" 1622053635 5789 d65796a3f866beda17bf1b3bfe10fb51 "pdflatex"
   "main.tex" 1622047696 1159 7f5862cdeb1eed57fb455812177b8565 ""
   "sections/abstract.tex" 1622035186 1512 88b0ebea97523d85f58f2b0e3b659b8a ""
-  "sections/appendix.tex" 1622045187 7078 78781392d7c7c5568e8412fafa7273a1 ""
-  "sections/paper.tex" 1622047511 76386 2890b14be44562220a8393f31f672f8f ""
+  "sections/appendix.tex" 1622048339 7086 4d34487c5838e11d47ef3edaafe4b0cb ""
+  "sections/paper.tex" 1622053541 76388 12d52f09c389c80b47df38441a41029a ""
   "setup/macros.tex" 1621610931 1914 c3228007e37341b01524857ef402beb8 ""
   "setup/packages.tex" 1620415986 4200 9764b0c630d5e697f6af31356e3df278 ""
   "setup/table.tex" 1613753831 440 f04f1026babaec449381fb0fde6a1336 ""
@@ -327,10 +327,10 @@
   "tables/dequeue.tex" 1621611350 3630 a558f2cd779ae7239a2562f417a4ffd8 ""
   "tables/frontrunning.tex" 1621608076 7888 2cdc41c038597c59bf305d9ce8fe8e9b ""
   "tables/functions.tex" 1613753831 2603 a81f04cd39cb58758f4b88169283bbaa ""
-  "tables/performance.tex" 1621604735 2695 7b03592a6b18197c52cc728e805c38a4 ""
+  "tables/performance.tex" 1622048772 2700 bcff2a89e1b3a61efe4b05c77de5fe57 ""
   "tables/pq.tex" 1613753831 957 dd5a121ab7e3666a5f89cc4faca346f5 ""
   (generated)
+  "main.aux"
   "main.out"
   "main.pdf"
   "main.log"
-  "main.aux"
