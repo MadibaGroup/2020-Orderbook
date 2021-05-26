@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  26 MAY 2021 12:28
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  26 MAY 2021 12:48
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -688,8 +688,8 @@ nuxLibertineT-TLF.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
 (Font)              scaled to size 9.0pt on input line 3009.
 )
-Class acmart Info: Printing folios on input line 8.
-Class acmart Info: Suppressing bibformat on input line 9.
+Class acmart Info: Printing folios on input line 7.
+Class acmart Info: Suppressing bibformat on input line 8.
  (./setup/packages.tex
 (/usr/local/texlive/2020/texmf-dist/tex/latex/preprint/balance.sty
 Package: balance 1999/02/23 4.3 (PWD)
@@ -1334,7 +1334,7 @@ File: listings.cfg 2020/03/24 1.8d listings configuration
 Package: listings 2020/03/24 1.8d (Carsten Heinz)
 )
 (./setup/macros.tex) (./setup/table.tex)
-Package hyperref Info: Option `pdfdisplaydoctitle' set `true' on input line 21.
+Package hyperref Info: Option `pdfdisplaydoctitle' set `true' on input line 20.
 
 \c@theorem=\count371
  Excluding comment 'screenonly'
@@ -1345,58 +1345,58 @@ File: l3backend-pdfmode.def 2020-03-12 L3 backend support: PDF mode
 \l__kernel_color_stack_int=\count372
 \l__pdf_internal_box=\box104
 )
-No file main.aux.
+(./main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/nxlmi/m/it on input line 21.
+LaTeX Font Info:    Checking defaults for OML/nxlmi/m/it on input line 20.
 LaTeX Font Info:    Trying to load font information for OML+nxlmi on input line
- 21.
-(/usr/local/texlive/2020/texmf-dist/tex/latex/newtx/omlnxlmi.fd
+ 20.
+ (/usr/local/texlive/2020/texmf-dist/tex/latex/newtx/omlnxlmi.fd
 File: omlnxlmi.fd 2013/11/19 Fontinst v1.933 font definitions for OML/nxlmi.
 )
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 21.
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 21.
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 21.
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 21.
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 21.
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for U/ntxexa/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for U/ntxexa/m/n on input line 20.
 LaTeX Font Info:    Trying to load font information for U+ntxexa on input line 
-21.
+20.
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/newtx/untxexa.fd
 File: untxexa.fd 2012/04/16 Fontinst v1.933 font definitions for U/ntxexa.
 )
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 21.
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 21.
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for LMS/ntxsy/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for LMS/ntxsy/m/n on input line 20.
 LaTeX Font Info:    Trying to load font information for LMS+ntxsy on input line
- 21.
+ 20.
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/newtx/lmsntxsy.fd
 File: lmsntxsy.fd 2016/07/02 Fontinst v1.933 font definitions for LMS/ntxsy.
 )
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for LMX/ntxexx/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for LMX/ntxexx/m/n on input line 20.
 LaTeX Font Info:    Trying to load font information for LMX+ntxexx on input lin
-e 21.
+e 20.
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/newtx/lmxntxexx.fd
 File: lmxntxexx.fd 2016/07/03 Fontinst v1.933 font definitions for LMX/ntxexx.
 )
-LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    ... okay on input line 20.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 7.0pt on input line 21.
+(Font)              scaled to size 7.0pt on input line 20.
 LaTeX Font Info:    Trying to load font information for OT1+LinuxLibertineT-TLF
- on input line 21.
+ on input line 20.
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/libertine/OT1LinuxLibertineT-TLF.
 fd
@@ -1404,66 +1404,66 @@ File: OT1LinuxLibertineT-TLF.fd 2017/03/20 (autoinst) Font definitions for OT1/
 LinuxLibertineT-TLF.
 )
 LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 7.3pt on input line 21.
+(Font)              scaled to size 7.3pt on input line 20.
 <<ot1.cmap>>
 LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 5.5pt on input line 21.
+(Font)              scaled to size 5.5pt on input line 20.
 <<oml.cmap>>
-LaTeX Font Info:    Trying to load font information for U+msa on input line 21.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 20.
 
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 21.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 20.
 
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Trying to load font information for U+ntxmia on input line 
-21.
+20.
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/newtx/untxmia.fd
 File: untxmia.fd 2018/04/14 Fontinst v1.933 font definitions for U/ntxmia.
 )
 LaTeX Font Info:    Trying to load font information for U+ntxsym on input line 
-21.
+20.
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/newtx/untxsym.fd
 File: untxsym.fd 2015/03/20 Fontinst v1.933 font definitions for U/ntxsym.
 )
 LaTeX Font Info:    Trying to load font information for U+ntxsyc on input line 
-21.
+20.
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/newtx/untxsyc.fd
 File: untxsyc.fd 2012/04/12 Fontinst v1.933 font definitions for U/ntxsyc.
 )
 LaTeX Font Info:    Trying to load font information for U+stmry on input line 2
-1.
+0.
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/stmaryrd/Ustmry.fd)
 
 LaTeX Font Warning: Font shape `U/stmry/m/n' in size <5.5> not available
-(Font)              size <5> substituted on input line 21.
+(Font)              size <5> substituted on input line 20.
 
-LaTeX Font Info:    Trying to load font information for U+wasy on input line 21
+LaTeX Font Info:    Trying to load font information for U+wasy on input line 20
 .
 (/usr/local/texlive/2020/texmf-dist/tex/latex/wasysym/uwasy.fd
 File: uwasy.fd 2020/01/19 v2.4 Wasy-2 symbol font definitions
 )
 
 LaTeX Font Warning: Font shape `U/wasy/m/n' in size <5.5> not available
-(Font)              size <5> substituted on input line 21.
+(Font)              size <5> substituted on input line 20.
 
-LaTeX Info: Redefining \microtypecontext on input line 21.
+LaTeX Info: Redefining \microtypecontext on input line 20.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
 Package microtype Info: Automatic font expansion enabled (level 2),
 (microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
 Package microtype Info: Using default expansion set `basictext'.
-LaTeX Info: Redefining \showhyphens on input line 21.
+LaTeX Info: Redefining \showhyphens on input line 20.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
 Package microtype Info: No adjustment of character kerning.
@@ -1473,7 +1473,7 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             See the microtype manual for details.
 ABD: EveryShipout initializing macros
 \AtBeginShipoutBox=\box105
-Package hyperref Info: Link coloring OFF on input line 21.
+Package hyperref Info: Link coloring OFF on input line 20.
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
@@ -1484,13 +1484,15 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count373
 )
-LaTeX Info: Redefining \ref on input line 21.
-LaTeX Info: Redefining \pageref on input line 21.
-LaTeX Info: Redefining \nameref on input line 21.
+LaTeX Info: Redefining \ref on input line 20.
+LaTeX Info: Redefining \pageref on input line 20.
+LaTeX Info: Redefining \nameref on input line 20.
+ (./main.out) (./main.out)
 \@outlinefile=\write5
 \openout5 = `main.out'.
 
- (/usr/local/texlive/2020/texmf-dist/tex/generic/stringenc/se-pdfdoc.def
+
+(/usr/local/texlive/2020/texmf-dist/tex/generic/stringenc/se-pdfdoc.def
 File: se-pdfdoc.def 2019/11/29 v1.12 stringenc: PDFDocEncoding
 )
 (/usr/local/texlive/2020/texmf-dist/tex/generic/stringenc/se-utf8.def
@@ -1498,7 +1500,7 @@ File: se-utf8.def 2019/11/29 v1.12 stringenc: UTF-8
 )
 
 Package hyperxmp Warning: Missing pdftitle (required for PDF standards
-(hyperxmp)                compliance) on input line 21.
+(hyperxmp)                compliance) on input line 20.
 
 (/usr/local/texlive/2020/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -1579,57 +1581,45 @@ Package tabu Warning: Package cellspace has some limitations
 (tabu)                And redefines some macros of array.sty. 
 (tabu)                Please use \tabulinesep to control 
 (tabu)                vertical spacing of lines inside tabu environnement on in
-put line 21.
+put line 20.
 
 \c@lstlisting=\count382
 
 Class acmart Warning: Do not put several authors in the same \author macro! on 
-input line 29.
+input line 28.
 
 (./sections/abstract.tex)
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 17.28pt on input line 44.
+(Font)              scaled to size 17.28pt on input line 43.
 LaTeX Font Info:    Trying to load font information for T1+LinuxBiolinumT-TLF o
-n input line 44.
+n input line 43.
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/libertine/T1LinuxBiolinumT-TLF.fd
 File: T1LinuxBiolinumT-TLF.fd 2017/03/20 (autoinst) Font definitions for T1/Lin
 uxBiolinumT-TLF.
 )
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
-(Font)              scaled to size 17.28pt on input line 44.
+(Font)              scaled to size 17.28pt on input line 43.
 Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `LinuxBiolinumT-TLF' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/b/n' will be
-(Font)              scaled to size 17.28pt on input line 44.
+(Font)              scaled to size 17.28pt on input line 43.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 12.0pt on input line 44.
+(Font)              scaled to size 12.0pt on input line 43.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 10.0pt on input line 44.
+(Font)              scaled to size 10.0pt on input line 43.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/b/n' will be
-(Font)              scaled to size 9.0pt on input line 44.
+(Font)              scaled to size 9.0pt on input line 43.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/b/n' will be
-(Font)              scaled to size 10.95pt on input line 44.
+(Font)              scaled to size 10.95pt on input line 43.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
-(Font)              scaled to size 9.0pt on input line 44.
+(Font)              scaled to size 9.0pt on input line 43.
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
-(Font)              scaled to size 9.0pt on input line 44.
+(Font)              scaled to size 9.0pt on input line 43.
  (./sections/paper.tex
 Underfull \vbox (badness 5316) has occurred while \output is active []
-
-
-
-Package natbib Warning: Citation `Ethereum41:online' on page 1 undefined on inp
-ut line 14.
-
-
-Package natbib Warning: Citation `daian2019flash' on page 1 undefined on input 
-line 16.
-
-
-LaTeX Warning: Reference `sec:close' on page 1 undefined on input line 16.
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -1637,55 +1627,16 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
  [1.1{/usr/local/texlive/2020/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
 ]
-
-Package natbib Warning: Citation `kalodner2018arbitrum' on page 2 undefined on 
-input line 20.
-
-
-Package natbib Warning: Citation `Har03' on page 2 undefined on input line 42.
-
-
-Package natbib Warning: Citation `TheHisto45:online' on page 2 undefined on inp
-ut line 48.
-
-
-Package natbib Warning: Citation `SEBIOrde83:online' on page 2 undefined on inp
-ut line 48.
-
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
 (Font)              scaled to size 7.0pt on input line 55.
-[2.2]
-
-LaTeX Warning: Reference `sec:rollups' on page 3 undefined on input line 56.
-
-
-Package natbib Warning: Citation `clark2014decentralizing' on page 3 undefined 
-on input line 60.
-
-
-Package natbib Warning: Citation `Bra13' on page 3 undefined on input line 60.
-
-
-Package natbib Warning: Citation `eskandari2019sok' on page 3 undefined on inpu
-t line 60.
-
-
-Package natbib Warning: Citation `daian2019flash' on page 3 undefined on input 
-line 60.
-
-
-Package natbib Warning: Citation `clark2014decentralizing' on page 3 undefined 
-on input line 62.
-
-
-LaTeX Warning: Reference `sec:front' on page 3 undefined on input line 62.
-
+ [2.2]
 LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/m/n' will be
 (Font)              scaled to size 9.0pt on input line 64.
 Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `LinuxLibertineT-TLF' (encoding: OT1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
+
 (/usr/local/texlive/2020/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
@@ -1697,90 +1648,8 @@ LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
 (Font)              scaled to size 5.5pt on input line 64.
 
-
-Package natbib Warning: Citation `Har03' on page 3 undefined on input line 64.
-
-
-Package natbib Warning: Citation `budish2015high' on page 3 undefined on input 
-line 64.
-
-
-Package natbib Warning: Citation `aquilina2020quantifying' on page 3 undefined 
-on input line 64.
-
-
-Package natbib Warning: Citation `TP07' on page 3 undefined on input line 66.
-
-
-Package natbib Warning: Citation `YSLT10' on page 3 undefined on input line 66.
-
-
-
-Package natbib Warning: Citation `TW12' on page 3 undefined on input line 66.
-
-
-Package natbib Warning: Citation `cartlidge2019mpc' on page 3 undefined on inpu
-t line 66.
-
-
-Package natbib Warning: Citation `massacci2018futuresmex' on page 3 undefined o
-n input line 66.
-
-
-Package natbib Warning: Citation `eskandari2017feasibility' on page 3 undefined
- on input line 66.
-
-
-Package natbib Warning: Citation `biryukov2017findel' on page 3 undefined on in
-put line 66.
-
-
-Package natbib Warning: Citation `heilman2020arwen' on page 3 undefined on inpu
-t line 66.
-
-
-Package natbib Warning: Citation `bentov2017tesseract' on page 3 undefined on i
-nput line 66.
-
-
-Package natbib Warning: Citation `galalpublicly' on page 3 undefined on input l
-ine 68.
-
-
-Package natbib Warning: Citation `khalil2019tex' on page 3 undefined on input l
-ine 69.
-
-
-LaTeX Warning: Reference `sec:rollups' on page 3 undefined on input line 69.
-
-
-Package natbib Warning: Citation `eskandari2019sok' on page 3 undefined on inpu
-t line 69.
-
-
-Package natbib Warning: Citation `MZGA20' on page 3 undefined on input line 69.
-
-
-
-Package natbib Warning: Citation `Kla20' on page 3 undefined on input line 69.
-
 (./tables/pq.tex) [3.3]
-
-LaTeX Warning: Reference `tab:PQ_API' on page 4 undefined on input line 84.
-
-
-Package natbib Warning: Citation `TruffleO71:online' on page 4 undefined on inp
-ut line 106.
-
-
-Package natbib Warning: Citation `GanacheT25:online' on page 4 undefined on inp
-ut line 106.
-
-
-LaTeX Warning: Reference `fig:random_insertion' on page 4 undefined on input li
-ne 106.
-
-<fig/random_insertion3.png, id=49, 241.8636pt x 184.40895pt>
+<fig/random_insertion3.png, id=228, 241.8636pt x 184.40895pt>
 File: fig/random_insertion3.png Graphic file (type png)
 <use fig/random_insertion3.png>
 Package pdftex.def Info: fig/random_insertion3.png  used on input line 113.
@@ -1814,75 +1683,24 @@ LaTeX Font Warning: Font shape `U/wasy/b/n' in size <9> not available
 )
 LaTeX Font Info:    Font shape `T1/zi4/m/n' will be
 (Font)              scaled to size 9.0pt on input line 124.
+ [4.4 <./fig/random_insertion3.png
 
-
-LaTeX Warning: Reference `tab:PQUnitTests' on page 4 undefined on input line 12
-4.
-
-[4.4 <./fig/random_insertion3.png
-
-pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./fig/random_insertion3.png)
-: large interlaced PNG might cause out of memory (use non-interlaced PNG to fix
- this)
->]
-
-LaTeX Warning: Reference `fig:random_insertion' on page 5 undefined on input li
-ne 126.
-
-(./tables/cleaning.tex)
+pdfTeX warning: pdflatex (file ./fig/random_insertion3.png): large interlaced P
+NG might cause out of memory (use non-interlaced PNG to fix this)
+>] (./tables/cleaning.tex)
 Underfull \hbox (badness 1509) in paragraph at lines 135--136
  []\T1/LinuxLibertineT-TLF/m/it/9 (+20) Gas Re-funds.[] \T1/LinuxLibertineT-TLF
 /m/n/9 (+20) In or-der to re-con-struct the cur-rent state of
  []
 
-
-Package natbib Warning: Citation `signer2018gas' on page 5 undefined on input l
-ine 148.
-
-
-LaTeX Warning: Reference `tab:PQUnitTests' on page 5 undefined on input line 14
-8.
-
-
-LaTeX Warning: Reference `tab:cleaning' on page 5 undefined on input line 152.
-
-[5.5]
-
-LaTeX Warning: Reference `tab:cleaning' on page 6 undefined on input line 154.
-
-
-LaTeX Warning: Reference `tab:PQUnitTests' on page 6 undefined on input line 15
-6.
-
-(./tables/functions.tex
+[5.5] (./tables/functions.tex
 Overfull \hbox (1.67445pt too wide) in paragraph at lines 7--32
  [][] 
  []
 
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/b/n' will be
 (Font)              scaled to size 9.0pt on input line 32.
-)
-
-LaTeX Warning: Reference `sec:close' on page 6 undefined on input line 167.
-
-
-Package natbib Warning: Citation `eskandari2019sok' on page 6 undefined on inpu
-t line 167.
-
-
-LaTeX Warning: Reference `tab:cm_functions' on page 6 undefined on input line 1
-74.
-
-(./tables/performance.tex)
-
-LaTeX Warning: Reference `tab:worst_case_matching' on page 6 undefined on input
- line 184.
-
-
-LaTeX Warning: Reference `fig:random_insertion' on page 6 undefined on input li
-ne 184.
-
-[6.6] (./tables/frontrunning.tex
+) (./tables/performance.tex) [6.6] (./tables/frontrunning.tex
 Overfull \hbox (1.36914pt too wide) in paragraph at lines 44--44
 []|\T1/LinuxLibertineT-TLF/m/n/9 (-20) Disp.| 
  []
@@ -1910,45 +1728,7 @@ Overfull \hbox (1.36914pt too wide) in paragraph at lines 58--58
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/b/n' will be
 (Font)              scaled to size 7.0pt on input line 65.
 )
-
-LaTeX Warning: Reference `tab:front' on page 7 undefined on input line 198.
-
-
-Package natbib Warning: Citation `clark2014decentralizing' on page 7 undefined 
-on input line 198.
-
-
-Package natbib Warning: Citation `eskandari2019sok' on page 7 undefined on inpu
-t line 198.
-
-
-Package natbib Warning: Citation `daian2019flash' on page 7 undefined on input 
-line 198.
-
-
-LaTeX Warning: Reference `tab:front' on page 7 undefined on input line 198.
-
-
-Package natbib Warning: Citation `eskandari2019sok' on page 7 undefined on inpu
-t line 198.
-
-
-LaTeX Warning: Reference `sec:frontarb' on page 7 undefined on input line 211.
-
-
-LaTeX Warning: Reference `tab:front' on page 7 undefined on input line 213.
-
-
 Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-
-Package natbib Warning: Citation `eskandari2019sok' on page 7 undefined on inpu
-t line 226.
-
-
-LaTeX Warning: Reference `sec:gasrefund' on page 7 undefined on input line 230.
-
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -1957,95 +1737,17 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
-
-Package natbib Warning: Citation `mavroudis2019libra' on page 8 undefined on in
-put line 257.
-
-
 Underfull \vbox (badness 1436) has occurred while \output is active []
 
  [8.8]
-
-Package natbib Warning: Citation `bonneau2015random' on page 9 undefined on inp
-ut line 259.
-
-
-Package natbib Warning: Citation `buenz2017proofs' on page 9 undefined on input
- line 259.
-
-
-Package natbib Warning: Citation `boneh2018verifiable' on page 9 undefined on i
-nput line 259.
-
-
-Package natbib Warning: Citation `clark2014decentralizing' on page 9 undefined 
-on input line 279.
-
-
-Package natbib Warning: Citation `daian2019flash' on page 9 undefined on input 
-line 281.
-
 [9.9]
 LaTeX Font Info:    Font shape `T1/zi4/b/n' will be
 (Font)              scaled to size 9.0pt on input line 307.
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/b/n' will be
 (Font)              scaled to size 10.95pt on input line 318.
-
-
-Package natbib Warning: Citation `gudgeon2020sok' on page 10 undefined on input
- line 327.
-
-
-Package natbib Warning: Citation `kalodner2018arbitrum' on page 10 undefined on
- input line 329.
-
-
-Package natbib Warning: Citation `BCGTV13' on page 10 undefined on input line 3
-29.
-
-
-Package natbib Warning: Citation `GGPR13' on page 10 undefined on input line 32
-9.
-
-
-Package natbib Warning: Citation `BBHR19' on page 10 undefined on input line 32
-9.
-
-
-Package natbib Warning: Citation `cheng2019ekiden' on page 10 undefined on inpu
-t line 329.
-
-
-Package natbib Warning: Citation `SGX1' on page 10 undefined on input line 329.
-
-
-
-Package natbib Warning: Citation `SGX2' on page 10 undefined on input line 329.
-
-
-
-Package natbib Warning: Citation `SGX3' on page 10 undefined on input line 329.
-
-
-
-Package natbib Warning: Citation `SGX4' on page 10 undefined on input line 329.
-
-
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
 (Font)              scaled to size 7.0pt on input line 329.
-
-Package natbib Warning: Citation `ZBC+19' on page 10 undefined on input line 32
-9.
-
-
-Package natbib Warning: Citation `kalodner2018arbitrum' on page 10 undefined on
- input line 338.
-
-[10.10]
-
-LaTeX Warning: Reference `sec:front' on page 11 undefined on input line 383.
-
-[11.11] Excluding 'acks' comment.) (./main.bbl
+ [10.10] [11.11] Excluding 'acks' comment.) (./main.bbl
 LaTeX Font Info:    Trying to load font information for TS1+LinuxLibertineT-TLF
  on input line 43.
 
@@ -2066,57 +1768,19 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 LaTeX Info: Redefining \tempurl on input line 413.
 )
-(./sections/appendix.tex [12.12]
-
-Package natbib Warning: Citation `gudgeon2020sok' on page 13 undefined on input
- line 22.
-
-
-Package natbib Warning: Citation `kalodner2018arbitrum' on page 13 undefined on
- input line 25.
-
-
-Package natbib Warning: Citation `BCGTV13' on page 13 undefined on input line 2
-5.
-
-
-Package natbib Warning: Citation `GGPR13' on page 13 undefined on input line 25
-.
-
-
-Package natbib Warning: Citation `BBHR19' on page 13 undefined on input line 25
-.
-
-
-Package natbib Warning: Citation `cheng2019ekiden' on page 13 undefined on inpu
-t line 25.
-
-
-Package natbib Warning: Citation `SGX1' on page 13 undefined on input line 25.
-
-
-Package natbib Warning: Citation `SGX2' on page 13 undefined on input line 25.
-
-
-Package natbib Warning: Citation `SGX3' on page 13 undefined on input line 25.
-
-
-Package natbib Warning: Citation `SGX4' on page 13 undefined on input line 25.
-
-
-Package natbib Warning: Citation `ZBC+19' on page 13 undefined on input line 25
-.
-
-
-LaTeX Warning: Reference `sec:gasrefund' on page 13 undefined on input line 31.
-
-
-)
-
-Package natbib Warning: There were undefined citations.
-
+(./sections/appendix.tex [12.12])
 
 Class acmart Warning: Some images may lack descriptions.
+
+
+Class acmart Warning: ACM keywords are mandatory for papers over two pages.
+
+
+Class acmart Warning: ACM reference format is mandatory for papers over one pag
+e.
+
+
+Class acmart Warning: CCS concepts are mandatory for papers over two pages.
 
 
 Package balance Warning: You have called \balance in second column
@@ -2125,40 +1789,23 @@ Package balance Warning: You have called \balance in second column
 [13.13]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 69.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 69.
- (./main.aux
-
-Package natbib Warning: Citation(s) may have changed.
-(natbib)                Rerun to get citations correct.
-
-)
+ (./main.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 69.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 69.
+Package rerunfilecheck Info: File `main.out' has not changed.
+(rerunfilecheck)             Checksum: B949CA2E86D95C822E6EB1D9DD43CC71;5813.
 
-
-Package rerunfilecheck Warning: File `main.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `main.out':
-(rerunfilecheck)             Before: <no file>
-(rerunfilecheck)             After:  B949CA2E86D95C822E6EB1D9DD43CC71;5813.
 
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 0.5pt have occurred.
 
-
-LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
  ) 
 Here is how much of TeX's memory you used:
- 35819 strings out of 480608
- 635588 string characters out of 5903631
- 961679 words of memory out of 5000000
- 50193 multiletter control sequences out of 15000+600000
- 685764 words of font info for 364 fonts, out of 8000000 for 9000
+ 35855 strings out of 480608
+ 636031 string characters out of 5903631
+ 966320 words of memory out of 5000000
+ 50226 multiletter control sequences out of 15000+600000
+ 685391 words of font info for 362 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
  63i,22n,100p,1675b,512s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2020/texmf-dist/fonts/enc/dvips/libertine/lbtn_naooyc.enc
@@ -2179,10 +1826,10 @@ ublic/libertine/LinLibertineTI.pfb></usr/local/texlive/2020/texmf-dist/fonts/ty
 pe1/public/newtx/txmiaX.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/pub
 lic/newtx/txsys.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/wasy
 -type1/wasy9.pfb>
-Output written on main.pdf (13 pages, 661092 bytes).
+Output written on main.pdf (13 pages, 667128 bytes).
 PDF statistics:
- 324 PDF objects out of 1000 (max. 8388607)
- 277 compressed objects within 3 object streams
+ 511 PDF objects out of 1000 (max. 8388607)
+ 462 compressed objects within 5 object streams
  138 named destinations out of 1000 (max. 500000)
- 37410 words of extra memory for PDF output out of 42996 (max. 10000000)
+ 37666 words of extra memory for PDF output out of 42996 (max. 10000000)
 

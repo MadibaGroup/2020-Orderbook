@@ -1,11 +1,7 @@
-This is BibTeX, Version 0.99d (TeX Live 2019)
+This is BibTeX, Version 0.99d (TeX Live 2020)
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: main.aux
 The style file: ACM-Reference-Format.bst
-Illegal, another \bibstyle command---line 130 of file main.aux
- : \bibstyle
- :          {ACM-Reference-Format}
-I'm skipping whatever remains of this command
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
@@ -97,45 +93,45 @@ Warning--page numbers missing in both pages and numpages fields in YSLT10
 Warning--empty publisher in ZBC+19
 Warning--empty address in ZBC+19
 Warning--page numbers missing in both pages and numpages fields in ZBC+19
-You've used 39 entries,
+You've used 41 entries,
             5901 wiz_defined-function locations,
-            1518 strings with 21659 characters,
-and the built_in function-call counts, 45631 in all, are:
-= -- 4679
-> -- 2142
+            1528 strings with 21876 characters,
+and the built_in function-call counts, 47086 in all, are:
+= -- 4845
+> -- 2180
 < -- 0
-+ -- 717
-- -- 712
-* -- 3532
-:= -- 4920
-add.period$ -- 187
-call.type$ -- 39
-change.case$ -- 319
-chr.to.int$ -- 39
-cite$ -- 125
-duplicate$ -- 4070
-empty$ -- 2844
-format.name$ -- 844
-if$ -- 10491
-int.to.chr$ -- 2
++ -- 728
+- -- 727
+* -- 3614
+:= -- 5089
+add.period$ -- 199
+call.type$ -- 41
+change.case$ -- 329
+chr.to.int$ -- 40
+cite$ -- 127
+duplicate$ -- 4209
+empty$ -- 2944
+format.name$ -- 859
+if$ -- 10804
+int.to.chr$ -- 3
 int.to.str$ -- 1
 missing$ -- 159
-newline$ -- 347
-num.names$ -- 304
-pop$ -- 1865
+newline$ -- 367
+num.names$ -- 319
+pop$ -- 1903
 preamble$ -- 1
-purify$ -- 664
+purify$ -- 690
 quote$ -- 0
-skip$ -- 1454
+skip$ -- 1506
 stack$ -- 0
-substring$ -- 2740
-swap$ -- 324
+substring$ -- 2851
+swap$ -- 334
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 1115
+type$ -- 1169
 warning$ -- 82
-while$ -- 225
+while$ -- 240
 width$ -- 0
-write$ -- 688
-(There was 1 error message)
+write$ -- 726
+(There were 82 warnings)
