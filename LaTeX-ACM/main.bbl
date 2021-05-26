@@ -2,7 +2,7 @@
 %%% Do NOT edit. File created by BibTeX with style
 %%% ACM-Reference-Format-Journals [18-Jan-2012].
 
-\begin{thebibliography}{37}
+\begin{thebibliography}{39}
 
 %%% ====================================================================
 %%% NOTE TO THE USER: you can override these defaults by providing
@@ -46,6 +46,19 @@
 \newblock
 \newblock
 \shownote{(Accessed on 24/08/2020).}
+
+
+\bibitem[\protect\citeauthoryear{Aquilina, Budish, and O'Neill}{Aquilina
+  et~al\mbox{.}}{2020}]%
+        {aquilina2020quantifying}
+\bibfield{author}{\bibinfo{person}{Matteo Aquilina}, \bibinfo{person}{Eric~B
+  Budish}, {and} \bibinfo{person}{Peter O'Neill}.}
+  \bibinfo{year}{2020}\natexlab{}.
+\newblock \showarticletitle{Quantifying the high-frequency trading “arms
+  race”: A simple new methodology and estimates}.
+\newblock \bibinfo{journal}{\emph{Chicago Booth Research Paper}}
+  \bibinfo{number}{20-16} (\bibinfo{year}{2020}).
+\newblock
 
 
 \bibitem[\protect\citeauthoryear{Ben-Sasson, Bentov, Horesh, and
@@ -136,6 +149,20 @@
 \url{https://www.theverge.com/2013/11/29/5158234/this-princeton-professor-is-building-a-bitcoin-inspired-prediction}
 \showURL{%
 \tempurl}
+
+
+\bibitem[\protect\citeauthoryear{Budish, Cramton, and Shim}{Budish
+  et~al\mbox{.}}{2015}]%
+        {budish2015high}
+\bibfield{author}{\bibinfo{person}{Eric Budish}, \bibinfo{person}{Peter
+  Cramton}, {and} \bibinfo{person}{John Shim}.}
+  \bibinfo{year}{2015}\natexlab{}.
+\newblock \showarticletitle{The high-frequency trading arms race: Frequent
+  batch auctions as a market design response}.
+\newblock \bibinfo{journal}{\emph{The Quarterly Journal of Economics}}
+  \bibinfo{volume}{130}, \bibinfo{number}{4} (\bibinfo{year}{2015}),
+  \bibinfo{pages}{1547--1621}.
+\newblock
 
 
 \bibitem[\protect\citeauthoryear{Bulck, Minkin, Weisse, Genkin, Kasikci,
@@ -456,6 +483,29 @@
 \newblock \bibinfo{thesistype}{Master's\ thesis}. \bibinfo{school}{ETH Zurich,
   Department of Computer Science}.
 \newblock
+
+
+\bibitem[\protect\citeauthoryear{Suite}{Suite}{2021a}]%
+        {GanacheT25:online}
+\bibfield{author}{\bibinfo{person}{Truffle Suite}.}
+  \bibinfo{year}{2021}\natexlab{a}.
+\newblock \bibinfo{title}{Ganache}.
+\newblock \bibinfo{howpublished}{\url{https://www.trufflesuite.com/ganache}}.
+\newblock
+\newblock
+\shownote{(Accessed on 05/26/2021).}
+
+
+\bibitem[\protect\citeauthoryear{Suite}{Suite}{2021b}]%
+        {TruffleO71:online}
+\bibfield{author}{\bibinfo{person}{Truffle Suite}.}
+  \bibinfo{year}{2021}\natexlab{b}.
+\newblock \bibinfo{title}{Truffle}.
+\newblock
+  \bibinfo{howpublished}{\url{https://www.trufflesuite.com/docs/truffle/overview}}.
+\newblock
+\newblock
+\shownote{(Accessed on 05/26/2021).}
 
 
 \bibitem[\protect\citeauthoryear{Thorpe and Parkes}{Thorpe and Parkes}{2007}]%
