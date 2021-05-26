@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  26 MAY 2021 12:48
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  26 MAY 2021 13:06
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1685,8 +1685,9 @@ LaTeX Font Info:    Font shape `T1/zi4/m/n' will be
 (Font)              scaled to size 9.0pt on input line 124.
  [4.4 <./fig/random_insertion3.png
 
-pdfTeX warning: pdflatex (file ./fig/random_insertion3.png): large interlaced P
-NG might cause out of memory (use non-interlaced PNG to fix this)
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./fig/random_insertion3.png)
+: large interlaced PNG might cause out of memory (use non-interlaced PNG to fix
+ this)
 >] (./tables/cleaning.tex)
 Underfull \hbox (badness 1509) in paragraph at lines 135--136
  []\T1/LinuxLibertineT-TLF/m/it/9 (+20) Gas Re-funds.[] \T1/LinuxLibertineT-TLF
@@ -1793,7 +1794,7 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 69.
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 69.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 69.
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: B949CA2E86D95C822E6EB1D9DD43CC71;5813.
+(rerunfilecheck)             Checksum: D65796A3F866BEDA17BF1B3BFE10FB51;5789.
 
 
 LaTeX Font Warning: Size substitutions with differences
@@ -1802,8 +1803,8 @@ LaTeX Font Warning: Size substitutions with differences
  ) 
 Here is how much of TeX's memory you used:
  35855 strings out of 480608
- 636031 string characters out of 5903631
- 966320 words of memory out of 5000000
+ 636023 string characters out of 5903631
+ 966167 words of memory out of 5000000
  50226 multiletter control sequences out of 15000+600000
  685391 words of font info for 362 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
@@ -1826,7 +1827,7 @@ ublic/libertine/LinLibertineTI.pfb></usr/local/texlive/2020/texmf-dist/fonts/ty
 pe1/public/newtx/txmiaX.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/pub
 lic/newtx/txsys.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/wasy
 -type1/wasy9.pfb>
-Output written on main.pdf (13 pages, 667128 bytes).
+Output written on main.pdf (13 pages, 667145 bytes).
 PDF statistics:
  511 PDF objects out of 1000 (max. 8388607)
  462 compressed objects within 5 object streams
