@@ -2,7 +2,7 @@
 %%% Do NOT edit. File created by BibTeX with style
 %%% ACM-Reference-Format-Journals [18-Jan-2012].
 
-\begin{thebibliography}{42}
+\begin{thebibliography}{43}
 
 %%% ====================================================================
 %%% NOTE TO THE USER: you can override these defaults by providing
@@ -275,6 +275,17 @@
 \newblock
 
 
+\bibitem[\protect\citeauthoryear{Galal and Youssef}{Galal and Youssef}{2018}]%
+        {galal2018verifiable}
+\bibfield{author}{\bibinfo{person}{Hisham~S Galal} {and} \bibinfo{person}{Amr~M
+  Youssef}.} \bibinfo{year}{2018}\natexlab{}.
+\newblock \showarticletitle{Verifiable sealed-bid auction on the ethereum
+  blockchain}. In \bibinfo{booktitle}{\emph{International Conference on
+  Financial Cryptography and Data Security}}. Springer,
+  \bibinfo{pages}{265--278}.
+\newblock
+
+
 \bibitem[\protect\citeauthoryear{Galal and Youssef}{Galal and Youssef}{2021}]%
         {galalpublicly}
 \bibfield{author}{\bibinfo{person}{Hisham~S Galal} {and} \bibinfo{person}{Amr~M
@@ -346,12 +357,13 @@
 
 \bibitem[\protect\citeauthoryear{Kelkar, Zhang, Goldfeder, and Juels}{Kelkar
   et~al\mbox{.}}{2020}]%
-        {MZGA20}
+        {kelkar2020order}
 \bibfield{author}{\bibinfo{person}{Mahimna Kelkar}, \bibinfo{person}{Fan
   Zhang}, \bibinfo{person}{Steven Goldfeder}, {and} \bibinfo{person}{Ari
   Juels}.} \bibinfo{year}{2020}\natexlab{}.
-\newblock \showarticletitle{Order-Fairness for Byzantine Consensus}. In
-  \bibinfo{booktitle}{\emph{CRYPTO}}.
+\newblock \showarticletitle{Order-fairness for byzantine consensus}. In
+  \bibinfo{booktitle}{\emph{Annual International Cryptology Conference}}.
+  Springer, \bibinfo{pages}{451--480}.
 \newblock
 
 

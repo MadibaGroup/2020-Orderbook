@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  26 MAY 2021 21:38
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  27 MAY 2021 08:12
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1737,7 +1737,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
-Underfull \vbox (badness 5504) has occurred while \output is active []
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [8.8]
 [9.9]
@@ -1745,16 +1745,14 @@ LaTeX Font Info:    Font shape `T1/zi4/b/n' will be
 (Font)              scaled to size 9.0pt on input line 294.
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/b/n' will be
 (Font)              scaled to size 10.95pt on input line 305.
-LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
-(Font)              scaled to size 7.0pt on input line 316.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [10.10]
-Underfull \vbox (badness 2980) has occurred while \output is active []
+LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
+(Font)              scaled to size 7.0pt on input line 316.
 
- [11.11]
-Excluding 'acks' comment.) (./main.bbl
+[11.11] Excluding 'acks' comment.) (./main.bbl
 LaTeX Font Info:    Trying to load font information for TS1+LinuxLibertineT-TLF
  on input line 43.
 
@@ -1770,9 +1768,9 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 LaTeX Info: Redefining \tempurl on input line 149.
-LaTeX Info: Redefining \tempurl on input line 415.
+LaTeX Info: Redefining \tempurl on input line 427.
  [12.12]) (./sections/appendix.tex
-Underfull \vbox (badness 1270) has occurred while \output is active []
+Underfull \vbox (badness 1596) has occurred while \output is active []
 
  [13.13])
 
@@ -1787,10 +1785,6 @@ e.
 
 
 Class acmart Warning: CCS concepts are mandatory for papers over two pages.
-
-
-Overfull \vbox (1.6615pt too high) has occurred while \output is active []
-
 
 [14.14]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 69.
@@ -1807,13 +1801,13 @@ LaTeX Font Warning: Size substitutions with differences
 
  ) 
 Here is how much of TeX's memory you used:
- 35878 strings out of 480608
- 636540 string characters out of 5903631
- 967215 words of memory out of 5000000
- 50229 multiletter control sequences out of 15000+600000
- 687517 words of font info for 374 fonts, out of 8000000 for 9000
+ 35888 strings out of 480608
+ 636834 string characters out of 5903631
+ 967268 words of memory out of 5000000
+ 50232 multiletter control sequences out of 15000+600000
+ 688161 words of font info for 378 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
- 63i,22n,100p,1675b,648s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 63i,22n,100p,1675b,644s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2020/texmf-dist/fonts/enc/dvips/libertine/lbtn_naooyc.enc
 }{/usr/local/texlive/2020/texmf-dist/fonts/enc/dvips/inconsolata/i4-t1-4.enc}{/
 usr/local/texlive/2020/texmf-dist/fonts/enc/dvips/libertine/lbtn_25tcsq.enc}{/u
@@ -1832,10 +1826,10 @@ ublic/libertine/LinLibertineTI.pfb></usr/local/texlive/2020/texmf-dist/fonts/ty
 pe1/public/newtx/txmiaX.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/pub
 lic/newtx/txsys.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/wasy
 -type1/wasy9.pfb>
-Output written on main.pdf (14 pages, 669501 bytes).
+Output written on main.pdf (14 pages, 669757 bytes).
 PDF statistics:
- 519 PDF objects out of 1000 (max. 8388607)
- 469 compressed objects within 5 object streams
- 140 named destinations out of 1000 (max. 500000)
+ 521 PDF objects out of 1000 (max. 8388607)
+ 471 compressed objects within 5 object streams
+ 141 named destinations out of 1000 (max. 500000)
  37666 words of extra memory for PDF output out of 42996 (max. 10000000)
 
