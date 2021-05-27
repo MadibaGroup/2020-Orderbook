@@ -2,7 +2,7 @@
 %%% Do NOT edit. File created by BibTeX with style
 %%% ACM-Reference-Format-Journals [18-Jan-2012].
 
-\begin{thebibliography}{41}
+\begin{thebibliography}{42}
 
 %%% ====================================================================
 %%% NOTE TO THE USER: you can override these defaults by providing
@@ -54,8 +54,8 @@
 \bibfield{author}{\bibinfo{person}{Matteo Aquilina}, \bibinfo{person}{Eric~B
   Budish}, {and} \bibinfo{person}{Peter O'Neill}.}
   \bibinfo{year}{2020}\natexlab{}.
-\newblock \showarticletitle{Quantifying the high-frequency trading “arms
-  race”: A simple new methodology and estimates}.
+\newblock \showarticletitle{Quantifying the high-frequency trading ``arms
+  race'': A simple new methodology and estimates}.
 \newblock \bibinfo{journal}{\emph{Chicago Booth Research Paper}}
   \bibinfo{number}{20-16} (\bibinfo{year}{2020}).
 \newblock
@@ -546,6 +546,18 @@
   \bibinfo{person}{Jeremy Clark}.} \bibinfo{year}{2019}\natexlab{}.
 \newblock \showarticletitle{One-Time Programs Made Practical}. In
   \bibinfo{booktitle}{\emph{Financial Cryptography}}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Zhou, Qin, Torres, Le, and Gervais}{Zhou
+  et~al\mbox{.}}{2021}]%
+        {ZQFLG21}
+\bibfield{author}{\bibinfo{person}{Liyi Zhou}, \bibinfo{person}{Kaihua Qin},
+  \bibinfo{person}{Christof~Ferreira Torres}, \bibinfo{person}{Duc~V Le}, {and}
+  \bibinfo{person}{Arthur Gervais}.} \bibinfo{year}{2021}\natexlab{}.
+\newblock \showarticletitle{High-Frequency Trading on Decentralized On-Chain
+  Exchanges}. In \bibinfo{booktitle}{\emph{IEEE Symposium on Security and
+  Privacy}}.
 \newblock
 
 

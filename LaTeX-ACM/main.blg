@@ -1,4 +1,4 @@
-This is BibTeX, Version 0.99d (TeX Live 2020)
+This is BibTeX, Version 0.99d (TeX Live 2019)
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: main.aux
 The style file: ACM-Reference-Format.bst
@@ -56,6 +56,7 @@ Warning--empty address in eskandari2019sok
 Warning--page numbers missing in both pages and numpages fields in eskandari2019sok
 Warning--empty publisher in galalpublicly
 Warning--empty address in galalpublicly
+Warning--page numbers missing in both pages and numpages fields in galalpublicly
 Warning--empty publisher in GGPR13
 Warning--empty address in GGPR13
 Warning--page numbers missing in both pages and numpages fields in GGPR13
@@ -93,45 +94,48 @@ Warning--page numbers missing in both pages and numpages fields in YSLT10
 Warning--empty publisher in ZBC+19
 Warning--empty address in ZBC+19
 Warning--page numbers missing in both pages and numpages fields in ZBC+19
-You've used 41 entries,
+Warning--empty publisher in ZQFLG21
+Warning--empty address in ZQFLG21
+Warning--page numbers missing in both pages and numpages fields in ZQFLG21
+You've used 42 entries,
             5901 wiz_defined-function locations,
-            1528 strings with 21876 characters,
-and the built_in function-call counts, 47086 in all, are:
-= -- 4845
-> -- 2180
+            1532 strings with 22031 characters,
+and the built_in function-call counts, 48241 in all, are:
+= -- 4945
+> -- 2243
 < -- 0
-+ -- 728
-- -- 727
-* -- 3614
-:= -- 5089
-add.period$ -- 199
-call.type$ -- 41
-change.case$ -- 329
-chr.to.int$ -- 40
-cite$ -- 127
-duplicate$ -- 4209
-empty$ -- 2944
-format.name$ -- 859
-if$ -- 10804
++ -- 749
+- -- 747
+* -- 3712
+:= -- 5217
+add.period$ -- 203
+call.type$ -- 42
+change.case$ -- 338
+chr.to.int$ -- 41
+cite$ -- 132
+duplicate$ -- 4314
+empty$ -- 3017
+format.name$ -- 883
+if$ -- 11062
 int.to.chr$ -- 3
 int.to.str$ -- 1
-missing$ -- 159
-newline$ -- 367
-num.names$ -- 319
-pop$ -- 1903
+missing$ -- 164
+newline$ -- 374
+num.names$ -- 327
+pop$ -- 1957
 preamble$ -- 1
-purify$ -- 690
+purify$ -- 708
 quote$ -- 0
-skip$ -- 1506
+skip$ -- 1543
 stack$ -- 0
-substring$ -- 2851
-swap$ -- 334
+substring$ -- 2908
+swap$ -- 340
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 1169
-warning$ -- 82
-while$ -- 240
+type$ -- 1199
+warning$ -- 86
+while$ -- 244
 width$ -- 0
-write$ -- 726
-(There were 82 warnings)
+write$ -- 741
+(There were 86 warnings)

@@ -11,16 +11,16 @@
 \multicolumn{1}{c}{} &
 \multicolumn{1}{c}{} &
 \multicolumn{1}{c}{} &
-\headrow{Centralized Continuous Market} &
-\headrow{Off-chain Continuous Market} & 
-\headrow{Off-chain Continuous Market w/ Roll-up} & 
-\headrow{On-chain Continuous Market} &
-\headrow{On-chain Dark Continuous Market}&
-\headrow{On-chain Automated Market Maker} & 
+\headrow{Centralized Continuous Market (Coinbase)} &
+\headrow{Partially Off-chain Continuous Market (EtherDelta)} & 
+\headrow{Partially Off-chain Continuous Market w/ Roll-up (Loopring)} & 
+\headrow{On-chain Continuous Market (OasisDex)} &
+\headrow{On-chain Dark Continuous Market (TEX)}&
+\headrow{On-chain Automated Market Maker (Uniswap)} & 
 \headrow{On-chain Call Market w/ Price Improvement}&
 \headrow{On-chain Call Market (\cm)} & 
 \headrow{On-chain Call Market w/ Roll-up (\cm variant)} &
-\headrow{On-chain Dark Call Market} 
+\headrow{On-chain Dark Call Market (Galal \etal)} 
 \\
 
 %\hhline{-----------}
@@ -35,7 +35,7 @@
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %								 											
 
-\multicolumn{3}{|p{60mm}?{1mm}}{\makecell{Who is Mallory? \\ \underline{A}uthority,  \underline{T}rader, \underline{M}iner, \underline{S}equencer	}}   	&A,T&A,T,M&A,T,M,S&T,M&T,M&T,M&T,M&T,M&T,M,S	&T,M	 \\ \cmidrule[1mm]{1-13}
+\multicolumn{3}{|p{60mm}?{1mm}}{\makecell{Who is Mallory? \\ \underline{A}uthority,  \underline{T}rader, \underline{M}iner, \underline{S}equencer	}}   	&A&A,T,M&A,T,M,S&T,M&T,M&T,M&T,M&T,M&T,M,S	&T,M	 \\ \cmidrule[1mm]{1-13}
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %								 											
 \multirow{17}{*}{\rotatebox[origin=c]{90}{\textbf{Attack Example}}}		&\multicolumn{1}{p{50mm}|}{\makecell{Mallory (\textit{maker}) squeezes in a\\ transaction before Alice's  (\textit{taker})  order}}  						&\multicolumn{1}{m{5mm}?{1mm}}{Ins.}		&\empt	&\empt &\empt &\empt &\full &\empt &\full &\full  &\full &\full		\\ \hhline{~------------}					 					
@@ -47,7 +47,7 @@
 &\multicolumn{1}{p{50mm}|}{\makecell{Mallory (\textit{maker 1}) suppresses a better \\ incoming order from Alice (\textit{maker 2}) \\ until Mallory's order is executed.}}																&\multicolumn{1}{m{6mm}?{1mm}}{Supp.} 				&\empt &\empt &\empt &\full &\full &\full &\prt &\prt &\prt &\prt	\\ 	\hhline{~------------}				 											
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
 
-&\multicolumn{1}{p{50mm}|}{\makecell{Sandwich Attack: a hybrid attack \\ based on the above.}}																		&\multicolumn{1}{m{6mm}?{1mm}}{I/S/D}																		&\empt &\empt &\empt &\empt &\full &\empt &\empt &\full &\full	&\full												\\ 	\hhline{~------------}
+&\multicolumn{1}{p{50mm}|}{\makecell{A hybrid attack based on the above \\ (\eg sandwich attacks, scalping).}}																		&\multicolumn{1}{m{6mm}?{1mm}}{I/S/D}																		&\empt &\empt &\empt &\empt &\full &\empt &\empt &\full &\full	&\full												\\ 	\hhline{~------------}
 
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
