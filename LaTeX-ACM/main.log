@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2020.4.8)  26 MAY 2021 21:22
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2020.4.8)  26 MAY 2021 22:26
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1795,10 +1795,7 @@ LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [10.10]
-Underfull \vbox (badness 2980) has occurred while \output is active []
-
- [11.11]
-Excluding 'acks' comment.) (./main.bbl
+[11.11] Excluding 'acks' comment.) (./main.bbl
 LaTeX Font Info:    Trying to load font information for TS1+LinuxLibertineT-TLF
  on input line 43.
 
@@ -1820,7 +1817,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [12.12])
 (./sections/appendix.tex
-Underfull \vbox (badness 1270) has occurred while \output is active []
+Underfull \vbox (badness 6396) has occurred while \output is active []
 
  [13.13])
 
@@ -1835,10 +1832,6 @@ e.
 
 
 Class acmart Warning: CCS concepts are mandatory for papers over two pages.
-
-
-Overfull \vbox (1.6615pt too high) has occurred while \output is active []
-
 
 [14.14]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 69.
@@ -1855,13 +1848,13 @@ LaTeX Font Warning: Size substitutions with differences
 
  ) 
 Here is how much of TeX's memory you used:
- 36480 strings out of 480994
- 642378 string characters out of 5912143
+ 36483 strings out of 480994
+ 642456 string characters out of 5912143
  984411 words of memory out of 5000000
  50422 multiletter control sequences out of 15000+600000
- 686879 words of font info for 370 fonts, out of 8000000 for 9000
+ 687250 words of font info for 372 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
- 63i,22n,100p,1675b,648s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 63i,22n,100p,1675b,644s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2019/texmf-dist/fonts/enc/dvips/libertine/lbtn_naooyc.enc
 }{/usr/local/texlive/2019/texmf-dist/fonts/enc/dvips/inconsolata/i4-t1-4.enc}{/
 usr/local/texlive/2019/texmf-dist/fonts/enc/dvips/libertine/lbtn_25tcsq.enc}{/u
@@ -1880,10 +1873,10 @@ ublic/libertine/LinLibertineTI.pfb></usr/local/texlive/2019/texmf-dist/fonts/ty
 pe1/public/newtx/txmiaX.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/pub
 lic/newtx/txsys.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/wasy
 -type1/wasy9.pfb>
-Output written on main.pdf (14 pages, 666408 bytes).
+Output written on main.pdf (14 pages, 666956 bytes).
 PDF statistics:
- 519 PDF objects out of 1000 (max. 8388607)
- 469 compressed objects within 5 object streams
+ 520 PDF objects out of 1000 (max. 8388607)
+ 470 compressed objects within 5 object streams
  140 named destinations out of 1000 (max. 500000)
  37666 words of extra memory for PDF output out of 42996 (max. 10000000)
 
