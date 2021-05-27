@@ -1,4 +1,4 @@
-This is BibTeX, Version 0.99d (TeX Live 2019)
+This is BibTeX, Version 0.99d (TeX Live 2020)
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: main.aux
 The style file: ACM-Reference-Format.bst
@@ -6,6 +6,7 @@ Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
 Database file #1: bib/DEX.bib
+Warning--I didn't find a database entry for ""
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Warning--no key, author in Ethereum41:online
 Warning--no author, editor, organization, or key in Ethereum41:online
@@ -52,8 +53,8 @@ Warning--empty address in daian2019flash
 Warning--page numbers missing in both pages and numpages fields in daian2019flash
 Warning--empty publisher in eskandari2017feasibility
 Warning--empty address in eskandari2017feasibility
+Warning--empty publisher in eskandari2019sok
 Warning--empty address in eskandari2019sok
-Warning--page numbers missing in both pages and numpages fields in eskandari2019sok
 Warning--empty publisher in galalpublicly
 Warning--empty address in galalpublicly
 Warning--page numbers missing in both pages and numpages fields in galalpublicly
@@ -99,24 +100,24 @@ Warning--empty address in ZQFLG21
 Warning--page numbers missing in both pages and numpages fields in ZQFLG21
 You've used 42 entries,
             5901 wiz_defined-function locations,
-            1532 strings with 22031 characters,
-and the built_in function-call counts, 48241 in all, are:
-= -- 4945
+            1531 strings with 22033 characters,
+and the built_in function-call counts, 48470 in all, are:
+= -- 4983
 > -- 2243
 < -- 0
 + -- 749
 - -- 747
-* -- 3712
-:= -- 5217
+* -- 3721
+:= -- 5233
 add.period$ -- 203
 call.type$ -- 42
 change.case$ -- 338
 chr.to.int$ -- 41
 cite$ -- 132
-duplicate$ -- 4314
-empty$ -- 3017
+duplicate$ -- 4336
+empty$ -- 3031
 format.name$ -- 883
-if$ -- 11062
+if$ -- 11123
 int.to.chr$ -- 3
 int.to.str$ -- 1
 missing$ -- 164
@@ -126,16 +127,16 @@ pop$ -- 1957
 preamble$ -- 1
 purify$ -- 708
 quote$ -- 0
-skip$ -- 1543
+skip$ -- 1555
 stack$ -- 0
-substring$ -- 2908
-swap$ -- 340
+substring$ -- 2954
+swap$ -- 347
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 1199
 warning$ -- 86
-while$ -- 244
+while$ -- 247
 width$ -- 0
-write$ -- 741
-(There were 86 warnings)
+write$ -- 742
+(There were 87 warnings)

@@ -268,8 +268,10 @@
 \bibfield{author}{\bibinfo{person}{Shayan Eskandari},
   \bibinfo{person}{Seyedehmahsa Moosavi}, {and} \bibinfo{person}{Jeremy
   Clark}.} \bibinfo{year}{2019}\natexlab{}.
-\newblock \showarticletitle{SoK: Transparent Dishonesty: front-running attacks
-  on Blockchain}. In \bibinfo{booktitle}{\emph{WTSC}}. \bibinfo{publisher}{FC}.
+\newblock \showarticletitle{Sok: Transparent dishonesty: front-running attacks
+  on blockchain}. In \bibinfo{booktitle}{\emph{International Conference on
+  Financial Cryptography and Data Security}}. Springer,
+  \bibinfo{pages}{170--189}.
 \newblock
 
 
