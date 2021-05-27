@@ -1,7 +1,7 @@
 %% This BibTeX bibliography file was created using BibDesk.
 %% https://bibdesk.sourceforge.io/
 
-%% Created for Jeremy Clark at 2021-05-26 20:36:51 -0400 
+%% Created for Jeremy Clark at 2021-05-27 09:46:11 -0400 
 
 
 %% Saved with string encoding Unicode (UTF-8) 
@@ -19,23 +19,22 @@
 @inproceedings{Kla20,
 	abstract = {The advent of decentralized trading markets introduces a number of new challenges for consensus protocols. In addition to the 'usual' attacks -- a subset of the validators trying to prevent agreement -- there is now the possibility of financial fraud, which can abuse properties not normally considered critical in consensus protocols. We investigate the issues of attackers manipulating or exploiting the order in which transactions are scheduled in the blockchain. More concretely, we look into order fairness, i.e., ways we can assure that the order of transactions relative to each other is fair. We show that one of the more intuitive definitions of fairness is impossible to achieve. We then present Wendy, a group of low overhead protocols that can implement different concepts of fairness. Wendy acts as an additional widget for an existing blockchain, and is largely agnostic to the underlying blockchain and its security assumptions, as long as they provide a known and always active set of validators. Furthermore, it is possible to implement fairness for some subsets of the transactions, and thus run several independent fair markets (as well as some unfair ones) on the same chain.},
 	author = {Kursawe, Klaus},
-	booktitle = {ACM Conference on Advances in Financial Technologies (AFT)},
+	booktitle = {ACM AFT},
 	date-added = {2021-01-12 09:22:07 -0500},
-	date-modified = {2021-01-12 09:22:47 -0500},
+	date-modified = {2021-05-27 08:26:39 -0400},
 	numpages = {12},
 	title = {Wendy, the Good Little Fairness Widget: Achieving Order Fairness for Blockchains},
 	year = {2020},
 	Bdsk-Url-1 = {https://doi.org/10.1145/3419614.3423263}}
 
-	
-	@inproceedings{kelkar2020order,
-  title={Order-fairness for byzantine consensus},
-  author={Kelkar, Mahimna and Zhang, Fan and Goldfeder, Steven and Juels, Ari},
-  booktitle={Annual International Cryptology Conference},
-  pages={451--480},
-  year={2020},
-  organization={Springer}
-}
+@inproceedings{kelkar2020order,
+	author = {Kelkar, Mahimna and Zhang, Fan and Goldfeder, Steven and Juels, Ari},
+	booktitle = {CRYPTO},
+	date-modified = {2021-05-27 08:26:22 -0400},
+	organization = {Springer},
+	pages = {451--480},
+	title = {Order-fairness for byzantine consensus},
+	year = {2020}}
 
 @inproceedings{SGX4,
 	author = {Hany Ragab and Alyssa Milburn and Kaveh Razavi and Herbert Bos and Cristiano Giuffrida},
@@ -140,8 +139,9 @@
 
 @inproceedings{buenz2017proofs,
 	author = {Benedikt B{\"u}nz and Steven Goldfeder and Joseph Bonneau},
+	booktitle = {IEEE S\&B},
 	date-added = {2020-09-14 15:57:55 -0400},
-	date-modified = {2020-09-14 15:57:55 -0400},
+	date-modified = {2021-05-27 09:41:04 -0400},
 	journal = {IEEE Security \& Privacy on the Blockchain (IEEE S\&B)},
 	title = {Proofs-of-delay and randomness beacons in Ethereum},
 	year = {2017}}
@@ -168,7 +168,8 @@
 
 @inproceedings{massacci2018futuresmex,
 	author = {Massacci, Fabio and Ngo, Chan Nam and Nie, Jing and Venturi, Daniele and Williams, Julian},
-	booktitle = {2018 IEEE Symposium on Security and Privacy (SP)},
+	booktitle = {IEEE Symposium on Security and Privacy},
+	date-modified = {2021-05-27 08:25:50 -0400},
 	organization = {IEEE},
 	pages = {335--353},
 	title = {FuturesMEX: secure, distributed futures market exchange},
@@ -183,8 +184,8 @@
 
 @inproceedings{bentov2017tesseract,
 	author = {Bentov, Iddo and Ji, Yan and Zhang, Fan and Li, Yunqi and Zhao, Xueyuan and Breidenbach, Lorenz and Daian, Philip and Juels, Ari},
-	date-modified = {2020-09-14 16:04:48 -0400},
-	journal = {ACM CCS},
+	booktitle = {ACM CCS},
+	date-modified = {2021-05-27 09:41:30 -0400},
 	title = {Tesseract: Real-Time Cryptocurrency Exchange using Trusted Hardware.},
 	year = {2019}}
 
@@ -223,15 +224,14 @@
 	volume = {130},
 	year = {2015}}
 
-
 @inproceedings{eskandari2019sok,
-  	title={Sok: Transparent dishonesty: front-running attacks on blockchain},
- 	author={Eskandari, Shayan and Moosavi, Seyedehmahsa and Clark, Jeremy},
-  	booktitle={International Conference on Financial Cryptography and Data Security},
-  	pages={170--189},
-  	year={2019},
-  	organization={Springer}
-	}
+	author = {Eskandari, Shayan and Moosavi, Seyedehmahsa and Clark, Jeremy},
+	booktitle = {WTSC},
+	date-modified = {2021-05-27 09:37:45 -0400},
+	organization = {Springer},
+	pages = {170--189},
+	title = {Sok: Transparent dishonesty: front-running attacks on blockchain},
+	year = {2019}}
 
 @inproceedings{daian2019flash,
 	author = {Daian, Philip and Goldfeder, Steven and Kell, Tyler and Li, Yunqi and Zhao, Xueyuan and Bentov, Iddo and Breidenbach, Lorenz and Juels, Ari},
@@ -242,7 +242,8 @@
 
 @inproceedings{clark2014decentralizing,
 	author = {Clark, Jeremy and Bonneau, Joseph and Felten, Edward W and Kroll, Joshua A and Miller, Andrew and Narayanan, Arvind},
-	booktitle = {Workshop on the Economics of Information Security, State College, Pennsylvania},
+	booktitle = {WEIS},
+	date-modified = {2021-05-27 08:24:45 -0400},
 	title = {On decentralizing prediction markets and order books},
 	year = {2014}}
 
@@ -256,7 +257,8 @@
 
 @inproceedings{cheng2019ekiden,
 	author = {Cheng, Raymond and Zhang, Fan and Kos, Jernej and He, Warren and Hynes, Nicholas and Johnson, Noah and Juels, Ari and Miller, Andrew and Song, Dawn},
-	booktitle = {2019 IEEE European Symposium on Security and Privacy (EuroS\&P)},
+	booktitle = {IEEE EuroS\&P},
+	date-modified = {2021-05-27 08:26:00 -0400},
 	organization = {IEEE},
 	pages = {185--200},
 	title = {Ekiden: A platform for confidentiality-preserving, trustworthy, and performant smart contracts},
@@ -270,14 +272,10 @@
 	title = {Non-monotonic Security Protocols and Failures in Financial Intermediation},
 	year = {2018}}
 
-@misc{Ethereum41:online,
-	howpublished = {\url{https://github.com/ethereum/wiki/wiki/Ethereum-Development-Tutorial}},
-	note = {(Accessed on 24/08/2020)},
-	title = {Ethereum Development Tutorial · ethereum/wiki Wiki}}
-
 @inproceedings{anati2013innovative,
 	author = {Anati, Ittai and Gueron, Shay and Johnson, Simon and Scarlata, Vincent},
-	booktitle = {Proceedings of the 2nd international workshop on hardware and architectural support for security and privacy},
+	booktitle = {HASP},
+	date-modified = {2021-05-27 08:25:30 -0400},
 	organization = {Citeseer},
 	pages = {7},
 	title = {Innovative technology for CPU based attestation and sealing},
@@ -332,7 +330,8 @@
 
 @inproceedings{yuen2010intention,
 	author = {Yuen, William and Syverson, Paul and Liu, Zhenming and Thorpe, Christopher},
-	booktitle = {International Conference on Financial Cryptography and Data Security},
+	booktitle = {Financial Cryptography},
+	date-modified = {2021-05-27 09:38:12 -0400},
 	organization = {Springer},
 	pages = {408--415},
 	title = {Intention-Disguised algorithmic trading},
@@ -382,7 +381,8 @@
 
 @inproceedings{heilman2020arwen,
 	author = {Heilman, Ethan and Lipmann, Sebastien and Goldberg, Sharon},
-	booktitle = {International Conference on Financial Cryptography and Data Security},
+	booktitle = {Financial Cryptography},
+	date-modified = {2021-05-27 09:39:05 -0400},
 	organization = {Springer},
 	pages = {156--173},
 	title = {The arwen trading protocols},
@@ -390,7 +390,8 @@
 
 @inproceedings{biryukov2017findel,
 	author = {Biryukov, Alex and Khovratovich, Dmitry and Tikhomirov, Sergei},
-	booktitle = {International Conference on Financial Cryptography and Data Security},
+	booktitle = {WTSC},
+	date-modified = {2021-05-27 09:37:32 -0400},
 	organization = {Springer},
 	pages = {453--467},
 	title = {Findel: Secure derivative contracts for Ethereum},
@@ -398,7 +399,8 @@
 
 @inproceedings{eskandari2017feasibility,
 	author = {Eskandari, Shayan and Clark, Jeremy and Sundaresan, Vignesh and Adham, Moe},
-	booktitle = {International Conference on Financial Cryptography and Data Security},
+	booktitle = {WTSC},
+	date-modified = {2021-05-27 09:37:23 -0400},
 	organization = {Springer},
 	pages = {553--567},
 	title = {On the feasibility of decentralized derivatives markets},
@@ -406,7 +408,8 @@
 
 @inproceedings{cartlidge2019mpc,
 	author = {Cartlidge, John and Smart, Nigel P and Talibi Alaoui, Younes},
-	booktitle = {Proceedings of the 2019 ACM Asia Conference on Computer and Communications Security},
+	booktitle = {ASIACCS},
+	date-modified = {2021-05-27 08:25:10 -0400},
 	pages = {148--159},
 	title = {Mpc joins the dark side},
 	year = {2019}}
@@ -421,7 +424,8 @@
 
 @inproceedings{gudgeon2020sok,
 	author = {Gudgeon, Lewis and Moreno-Sanchez, Pedro and Roos, Stefanie and McCorry, Patrick and Gervais, Arthur},
-	booktitle = {International Conference on Financial Cryptography and Data Security},
+	booktitle = {Financial Cryptography},
+	date-modified = {2021-05-27 09:40:06 -0400},
 	organization = {Springer},
 	pages = {201--226},
 	title = {SoK: Layer-two blockchain protocols},
@@ -429,7 +433,8 @@
 
 @inproceedings{galalpublicly,
 	author = {Galal, Hisham S and Youssef, Amr M},
-	booktitle = {International Conference on Financial Cryptography and Data Security},
+	booktitle = {WTSC},
+	date-modified = {2021-05-27 08:27:38 -0400},
 	organization = {Springer},
 	title = {Publicly Verifiable and Secrecy Preserving Periodic Auctions},
 	year = {2021}}
@@ -456,12 +461,12 @@
 	note = {(Accessed on 05/26/2021)},
 	title = {Truffle},
 	year = {2021}}
-	
-	@inproceedings{galal2018verifiable,
-  	title={Verifiable sealed-bid auction on the ethereum blockchain},
-  	author={Galal, Hisham S and Youssef, Amr M},
-  	booktitle={International Conference on Financial Cryptography and Data Security},
-  	pages={265--278},
-  	year={2018},
- 	 organization={Springer}
-	}
+
+@inproceedings{galal2018verifiable,
+	author = {Galal, Hisham S and Youssef, Amr M},
+	booktitle = {WTSC},
+	date-modified = {2021-05-27 08:27:26 -0400},
+	organization = {Springer},
+	pages = {265--278},
+	title = {Verifiable sealed-bid auction on the ethereum blockchain},
+	year = {2018}}

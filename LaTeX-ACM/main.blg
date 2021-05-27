@@ -1,4 +1,4 @@
-This is BibTeX, Version 0.99d (TeX Live 2020)
+This is BibTeX, Version 0.99d (TeX Live 2019)
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: main.aux
 The style file: ACM-Reference-Format.bst
@@ -7,19 +7,10 @@ Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
 Database file #1: bib/DEX.bib
 Reallocated singl_function (elt_size=4) to 100 items from 50.
-Warning--no key, author in Ethereum41:online
-Warning--no author, editor, organization, or key in Ethereum41:online
-Warning--to sort, need author or key in Ethereum41:online
 Reallocated glb_str_ptr (elt_size=4) to 20 items from 10.
 Reallocated global_strs (elt_size=200001) to 20 items from 10.
 Reallocated glb_str_end (elt_size=4) to 20 items from 10.
-Warning--no key, author in Ethereum41:online
-Warning--no key, author in Ethereum41:online
 Reallocated singl_function (elt_size=4) to 100 items from 50.
-Warning--no key, author in Ethereum41:online
-Warning--no author, editor, organization, or key in Ethereum41:online
-Warning--empty author in Ethereum41:online
-Warning--empty year in Ethereum41:online
 Warning--unusual to have number, but no volume, for aquilina2020quantifying
 Warning--page numbers missing in both pages and numpages fields in aquilina2020quantifying
 Warning--empty publisher in BBHR19
@@ -28,8 +19,8 @@ Warning--page numbers missing in both pages and numpages fields in BBHR19
 Warning--empty publisher in BCGTV13
 Warning--empty address in BCGTV13
 Warning--page numbers missing in both pages and numpages fields in BCGTV13
-Warning--empty booktitle in bentov2017tesseract
-Warning--no number and no volume in bentov2017tesseract
+Warning--empty publisher in bentov2017tesseract
+Warning--empty address in bentov2017tesseract
 Warning--page numbers missing in both pages and numpages fields in bentov2017tesseract
 Warning--empty publisher in biryukov2017findel
 Warning--empty address in biryukov2017findel
@@ -37,7 +28,6 @@ Warning--empty publisher in boneh2018verifiable
 Warning--empty address in boneh2018verifiable
 Warning--page numbers missing in both pages and numpages fields in boneh2018verifiable
 Warning--page numbers missing in both pages and numpages fields in SGX3
-Warning--empty booktitle in buenz2017proofs
 Warning--no number and no volume in buenz2017proofs
 Warning--page numbers missing in both pages and numpages fields in buenz2017proofs
 Warning--empty publisher in cartlidge2019mpc
@@ -54,8 +44,6 @@ Warning--empty publisher in eskandari2017feasibility
 Warning--empty address in eskandari2017feasibility
 Warning--empty publisher in eskandari2019sok
 Warning--empty address in eskandari2019sok
-Warning--empty publisher in galal2018verifiable
-Warning--empty address in galal2018verifiable
 Warning--empty publisher in galalpublicly
 Warning--empty address in galalpublicly
 Warning--page numbers missing in both pages and numpages fields in galalpublicly
@@ -98,45 +86,45 @@ Warning--page numbers missing in both pages and numpages fields in ZBC+19
 Warning--empty publisher in ZQFLG21
 Warning--empty address in ZQFLG21
 Warning--page numbers missing in both pages and numpages fields in ZQFLG21
-You've used 43 entries,
+You've used 41 entries,
             5901 wiz_defined-function locations,
-            1535 strings with 22169 characters,
-and the built_in function-call counts, 49992 in all, are:
-= -- 5166
-> -- 2281
+            1525 strings with 21501 characters,
+and the built_in function-call counts, 47968 in all, are:
+= -- 4888
+> -- 2243
 < -- 0
-+ -- 762
-- -- 763
-* -- 3811
-:= -- 5377
-add.period$ -- 209
-call.type$ -- 43
-change.case$ -- 344
-chr.to.int$ -- 42
-cite$ -- 134
-duplicate$ -- 4486
-empty$ -- 3133
-format.name$ -- 903
-if$ -- 11489
++ -- 748
+- -- 747
+* -- 3689
+:= -- 5211
+add.period$ -- 198
+call.type$ -- 41
+change.case$ -- 334
+chr.to.int$ -- 40
+cite$ -- 116
+duplicate$ -- 4301
+empty$ -- 2999
+format.name$ -- 883
+if$ -- 10963
 int.to.chr$ -- 3
 int.to.str$ -- 1
-missing$ -- 169
-newline$ -- 381
-num.names$ -- 335
-pop$ -- 2006
+missing$ -- 164
+newline$ -- 363
+num.names$ -- 327
+pop$ -- 1910
 preamble$ -- 1
-purify$ -- 723
+purify$ -- 701
 quote$ -- 0
-skip$ -- 1618
+skip$ -- 1552
 stack$ -- 0
-substring$ -- 3105
-swap$ -- 369
+substring$ -- 2975
+swap$ -- 351
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 1229
-warning$ -- 87
-while$ -- 261
+type$ -- 1168
+warning$ -- 75
+while$ -- 250
 width$ -- 0
-write$ -- 761
-(There were 87 warnings)
+write$ -- 726
+(There were 75 warnings)

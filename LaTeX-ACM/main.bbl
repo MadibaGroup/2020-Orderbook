@@ -2,7 +2,7 @@
 %%% Do NOT edit. File created by BibTeX with style
 %%% ACM-Reference-Format-Journals [18-Jan-2012].
 
-\begin{thebibliography}{43}
+\begin{thebibliography}{41}
 
 %%% ====================================================================
 %%% NOTE TO THE USER: you can override these defaults by providing
@@ -36,17 +36,6 @@
 \providecommand\bibinfo[2]{#2}
 \providecommand\natexlab[1]{#1}
 \providecommand\showeprint[2][]{arXiv:#2}
-
-\bibitem[\protect\citeauthoryear{??}{Eth}{[n.d.]}]%
-        {Ethereum41:online}
- \bibinfo{year}{[n.d.]}\natexlab{}.
-\newblock \bibinfo{title}{Ethereum Development Tutorial · ethereum/wiki Wiki}.
-\newblock
-  \bibinfo{howpublished}{\url{https://github.com/ethereum/wiki/wiki/Ethereum-Development-Tutorial}}.
-\newblock
-\newblock
-\shownote{(Accessed on 24/08/2020).}
-
 
 \bibitem[\protect\citeauthoryear{Aquilina, Budish, and O'Neill}{Aquilina
   et~al\mbox{.}}{2020}]%
@@ -92,8 +81,7 @@
   \bibinfo{person}{Philip Daian}, {and} \bibinfo{person}{Ari Juels}.}
   \bibinfo{year}{2019}\natexlab{}.
 \newblock \showarticletitle{Tesseract: Real-Time Cryptocurrency Exchange using
-  Trusted Hardware.}
-\newblock \bibinfo{journal}{\emph{ACM CCS}}.
+  Trusted Hardware.}. In \bibinfo{booktitle}{\emph{ACM CCS}}.
 \newblock
 
 
@@ -104,8 +92,7 @@
   Khovratovich}, {and} \bibinfo{person}{Sergei Tikhomirov}.}
   \bibinfo{year}{2017}\natexlab{}.
 \newblock \showarticletitle{Findel: Secure derivative contracts for Ethereum}.
-  In \bibinfo{booktitle}{\emph{International Conference on Financial
-  Cryptography and Data Security}}. Springer, \bibinfo{pages}{453--467}.
+  In \bibinfo{booktitle}{\emph{WTSC}}. Springer, \bibinfo{pages}{453--467}.
 \newblock
 
 
@@ -190,7 +177,7 @@
   Goldfeder}, {and} \bibinfo{person}{Joseph Bonneau}.}
   \bibinfo{year}{2017}\natexlab{}.
 \newblock \showarticletitle{Proofs-of-delay and randomness beacons in
-  Ethereum}.
+  Ethereum}, In \bibinfo{booktitle}{IEEE S\&B}.
 \newblock \bibinfo{journal}{\emph{IEEE Security \& Privacy on the Blockchain
   (IEEE S\&B)}}.
 \newblock
@@ -203,8 +190,7 @@
   Smart}, {and} \bibinfo{person}{Younes Talibi~Alaoui}.}
   \bibinfo{year}{2019}\natexlab{}.
 \newblock \showarticletitle{Mpc joins the dark side}. In
-  \bibinfo{booktitle}{\emph{Proceedings of the 2019 ACM Asia Conference on
-  Computer and Communications Security}}. \bibinfo{pages}{148--159}.
+  \bibinfo{booktitle}{\emph{ASIACCS}}. \bibinfo{pages}{148--159}.
 \newblock
 
 
@@ -218,8 +204,7 @@
   \bibinfo{person}{Dawn Song}.} \bibinfo{year}{2019}\natexlab{}.
 \newblock \showarticletitle{Ekiden: A platform for confidentiality-preserving,
   trustworthy, and performant smart contracts}. In
-  \bibinfo{booktitle}{\emph{2019 IEEE European Symposium on Security and
-  Privacy (EuroS\&P)}}. IEEE, \bibinfo{pages}{185--200}.
+  \bibinfo{booktitle}{\emph{IEEE EuroS\&P}}. IEEE, \bibinfo{pages}{185--200}.
 \newblock
 
 
@@ -231,8 +216,7 @@
   Kroll}, \bibinfo{person}{Andrew Miller}, {and} \bibinfo{person}{Arvind
   Narayanan}.} \bibinfo{year}{2014}\natexlab{}.
 \newblock \showarticletitle{On decentralizing prediction markets and order
-  books}. In \bibinfo{booktitle}{\emph{Workshop on the Economics of Information
-  Security, State College, Pennsylvania}}.
+  books}. In \bibinfo{booktitle}{\emph{WEIS}}.
 \newblock
 
 
@@ -257,8 +241,8 @@
   Clark}, \bibinfo{person}{Vignesh Sundaresan}, {and} \bibinfo{person}{Moe
   Adham}.} \bibinfo{year}{2017}\natexlab{}.
 \newblock \showarticletitle{On the feasibility of decentralized derivatives
-  markets}. In \bibinfo{booktitle}{\emph{International Conference on Financial
-  Cryptography and Data Security}}. Springer, \bibinfo{pages}{553--567}.
+  markets}. In \bibinfo{booktitle}{\emph{WTSC}}. Springer,
+  \bibinfo{pages}{553--567}.
 \newblock
 
 
@@ -269,20 +253,8 @@
   \bibinfo{person}{Seyedehmahsa Moosavi}, {and} \bibinfo{person}{Jeremy
   Clark}.} \bibinfo{year}{2019}\natexlab{}.
 \newblock \showarticletitle{Sok: Transparent dishonesty: front-running attacks
-  on blockchain}. In \bibinfo{booktitle}{\emph{International Conference on
-  Financial Cryptography and Data Security}}. Springer,
+  on blockchain}. In \bibinfo{booktitle}{\emph{WTSC}}. Springer,
   \bibinfo{pages}{170--189}.
-\newblock
-
-
-\bibitem[\protect\citeauthoryear{Galal and Youssef}{Galal and Youssef}{2018}]%
-        {galal2018verifiable}
-\bibfield{author}{\bibinfo{person}{Hisham~S Galal} {and} \bibinfo{person}{Amr~M
-  Youssef}.} \bibinfo{year}{2018}\natexlab{}.
-\newblock \showarticletitle{Verifiable sealed-bid auction on the ethereum
-  blockchain}. In \bibinfo{booktitle}{\emph{International Conference on
-  Financial Cryptography and Data Security}}. Springer,
-  \bibinfo{pages}{265--278}.
 \newblock
 
 
@@ -291,8 +263,7 @@
 \bibfield{author}{\bibinfo{person}{Hisham~S Galal} {and} \bibinfo{person}{Amr~M
   Youssef}.} \bibinfo{year}{2021}\natexlab{}.
 \newblock \showarticletitle{Publicly Verifiable and Secrecy Preserving Periodic
-  Auctions}. In \bibinfo{booktitle}{\emph{International Conference on Financial
-  Cryptography and Data Security}}. Springer.
+  Auctions}. In \bibinfo{booktitle}{\emph{WTSC}}. Springer.
 \newblock
 
 
@@ -315,8 +286,8 @@
   McCorry}, {and} \bibinfo{person}{Arthur Gervais}.}
   \bibinfo{year}{2020}\natexlab{}.
 \newblock \showarticletitle{SoK: Layer-two blockchain protocols}. In
-  \bibinfo{booktitle}{\emph{International Conference on Financial Cryptography
-  and Data Security}}. Springer, \bibinfo{pages}{201--226}.
+  \bibinfo{booktitle}{\emph{Financial Cryptography}}. Springer,
+  \bibinfo{pages}{201--226}.
 \newblock
 
 
@@ -337,8 +308,8 @@
   Lipmann}, {and} \bibinfo{person}{Sharon Goldberg}.}
   \bibinfo{year}{2020}\natexlab{}.
 \newblock \showarticletitle{The arwen trading protocols}. In
-  \bibinfo{booktitle}{\emph{International Conference on Financial Cryptography
-  and Data Security}}. Springer, \bibinfo{pages}{156--173}.
+  \bibinfo{booktitle}{\emph{Financial Cryptography}}. Springer,
+  \bibinfo{pages}{156--173}.
 \newblock
 
 
@@ -362,8 +333,7 @@
   Zhang}, \bibinfo{person}{Steven Goldfeder}, {and} \bibinfo{person}{Ari
   Juels}.} \bibinfo{year}{2020}\natexlab{}.
 \newblock \showarticletitle{Order-fairness for byzantine consensus}. In
-  \bibinfo{booktitle}{\emph{Annual International Cryptology Conference}}.
-  Springer, \bibinfo{pages}{451--480}.
+  \bibinfo{booktitle}{\emph{CRYPTO}}. Springer, \bibinfo{pages}{451--480}.
 \newblock
 
 
@@ -401,8 +371,7 @@
 \bibfield{author}{\bibinfo{person}{Klaus Kursawe}.}
   \bibinfo{year}{2020}\natexlab{}.
 \newblock \showarticletitle{Wendy, the Good Little Fairness Widget: Achieving
-  Order Fairness for Blockchains}. In \bibinfo{booktitle}{\emph{ACM Conference
-  on Advances in Financial Technologies (AFT)}}. 12.
+  Order Fairness for Blockchains}. In \bibinfo{booktitle}{\emph{ACM AFT}}. 12.
 \newblock
 
 
@@ -436,8 +405,8 @@
   Ngo}, \bibinfo{person}{Jing Nie}, \bibinfo{person}{Daniele Venturi}, {and}
   \bibinfo{person}{Julian Williams}.} \bibinfo{year}{2018}\natexlab{}.
 \newblock \showarticletitle{FuturesMEX: secure, distributed futures market
-  exchange}. In \bibinfo{booktitle}{\emph{2018 IEEE Symposium on Security and
-  Privacy (SP)}}. IEEE, \bibinfo{pages}{335--353}.
+  exchange}. In \bibinfo{booktitle}{\emph{IEEE Symposium on Security and
+  Privacy}}. IEEE, \bibinfo{pages}{335--353}.
 \newblock
 
 

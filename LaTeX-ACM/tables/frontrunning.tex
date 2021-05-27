@@ -6,6 +6,9 @@
 \begin{table*}[t]
 
 \centering
+
+\resizebox{1.7\columnwidth}{!}{
+
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|}
 
 \multicolumn{1}{c}{} &
@@ -53,15 +56,18 @@
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
 &\multicolumn{1}{p{50mm}|}{\makecell{Mallory suspends the market \\for a period of time.}}																										&\multicolumn{1}{m{6mm}?{1mm}}{Supp.}    				&\empt  &\empt  &\empt  &\prt  &\prt  &\prt  &\prt  & \prt &\prt &\prt 	\\ 	\hhline{~------------}
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-&\multicolumn{1}{p{50mm}|}{\makecell{Spoofing: Mallory (\textit{maker}) puts an \\ order as bait, sees Alice (\textit{taker}) \\ try to execute it, and cancels it first}}													&\multicolumn{1}{m{6mm}?{1mm}}{S\&D} 				&\empt &\empt &\empt &\empt &\full &\prt &\full &\full &\full &\full \\ 	\hhline{~------------}
+&\multicolumn{1}{p{50mm}|}{\makecell{Spoofing: Mallory (\textit{maker}) puts an \\ order as bait, sees Alice (\textit{taker}) \\ try to execute it, and cancels it first}}													&\multicolumn{1}{m{6mm}?{1mm}}{S\&D} 				&\empt &\empt &\empt &\empt &\full &\empt &\full &\full &\full &\full \\ 	\hhline{~------------}
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-&\multicolumn{1}{p{50mm}|}{\makecell{Cancellation Griefing: Alice (\textit{maker}) \\ cancels an order and Mallory \\ (\textit{taker}) fulfills it first}}													&\multicolumn{1}{m{6mm}?{1mm}}{Disp.} 							&\empt &\empt &\empt &\empt &\full &\prt &\full & \full &\full	&\full \\ 	\hline
+&\multicolumn{1}{p{50mm}|}{\makecell{Cancellation Griefing: Alice (\textit{maker}) \\ cancels an order and Mallory \\ (\textit{taker}) fulfills it first}}													&\multicolumn{1}{m{6mm}?{1mm}}{Disp.} 							&\empt &\empt &\empt &\empt &\full &\empt &\full & \full &\full	&\full \\ 	\hline
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
 
 
 
 \end{tabular}
-\caption{\footnotesize{\textblue{from screenshot: Mallory executes her order(s) and freezes the market until close: suppression due to limit on number of orders. last row: full dot assuming suppression is all or nothing}}
+
+} %end resizebox
+
+\caption{An evaluation of front-running attacks (rows) for different types of order books (columns). Front-running attacks are in three categories: \underline{Ins}ertion, \underline{disp}lacement, and \underline{supp}ression. A full dot (\full) means the front-running attack is mitigated or not applicable to the order book type, a partial mitigation (\prt) is awarded when the front-running attack is possible but expensive, and we give no award (\empt) if the attack is feasible. 
 \label{tab:front}}
 \end{table*}
 
