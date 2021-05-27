@@ -1,4 +1,4 @@
-This is BibTeX, Version 0.99d (TeX Live 2019)
+This is BibTeX, Version 0.99d (TeX Live 2020)
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: main.aux
 The style file: ACM-Reference-Format.bst
@@ -52,8 +52,10 @@ Warning--empty address in daian2019flash
 Warning--page numbers missing in both pages and numpages fields in daian2019flash
 Warning--empty publisher in eskandari2017feasibility
 Warning--empty address in eskandari2017feasibility
+Warning--empty publisher in eskandari2019sok
 Warning--empty address in eskandari2019sok
-Warning--page numbers missing in both pages and numpages fields in eskandari2019sok
+Warning--empty publisher in galal2018verifiable
+Warning--empty address in galal2018verifiable
 Warning--empty publisher in galalpublicly
 Warning--empty address in galalpublicly
 Warning--page numbers missing in both pages and numpages fields in galalpublicly
@@ -67,9 +69,8 @@ Warning--empty publisher in heilman2020arwen
 Warning--empty address in heilman2020arwen
 Warning--empty publisher in kalodner2018arbitrum
 Warning--empty address in kalodner2018arbitrum
-Warning--empty publisher in MZGA20
-Warning--empty address in MZGA20
-Warning--page numbers missing in both pages and numpages fields in MZGA20
+Warning--empty publisher in kelkar2020order
+Warning--empty address in kelkar2020order
 Warning--empty publisher in SGX1
 Warning--empty address in SGX1
 Warning--empty publisher in Kla20
@@ -97,45 +98,45 @@ Warning--page numbers missing in both pages and numpages fields in ZBC+19
 Warning--empty publisher in ZQFLG21
 Warning--empty address in ZQFLG21
 Warning--page numbers missing in both pages and numpages fields in ZQFLG21
-You've used 42 entries,
+You've used 43 entries,
             5901 wiz_defined-function locations,
-            1532 strings with 22031 characters,
-and the built_in function-call counts, 48241 in all, are:
-= -- 4945
-> -- 2243
+            1535 strings with 22169 characters,
+and the built_in function-call counts, 49992 in all, are:
+= -- 5166
+> -- 2281
 < -- 0
-+ -- 749
-- -- 747
-* -- 3712
-:= -- 5217
-add.period$ -- 203
-call.type$ -- 42
-change.case$ -- 338
-chr.to.int$ -- 41
-cite$ -- 132
-duplicate$ -- 4314
-empty$ -- 3017
-format.name$ -- 883
-if$ -- 11062
++ -- 762
+- -- 763
+* -- 3811
+:= -- 5377
+add.period$ -- 209
+call.type$ -- 43
+change.case$ -- 344
+chr.to.int$ -- 42
+cite$ -- 134
+duplicate$ -- 4486
+empty$ -- 3133
+format.name$ -- 903
+if$ -- 11489
 int.to.chr$ -- 3
 int.to.str$ -- 1
-missing$ -- 164
-newline$ -- 374
-num.names$ -- 327
-pop$ -- 1957
+missing$ -- 169
+newline$ -- 381
+num.names$ -- 335
+pop$ -- 2006
 preamble$ -- 1
-purify$ -- 708
+purify$ -- 723
 quote$ -- 0
-skip$ -- 1543
+skip$ -- 1618
 stack$ -- 0
-substring$ -- 2908
-swap$ -- 340
+substring$ -- 3105
+swap$ -- 369
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 1199
-warning$ -- 86
-while$ -- 244
+type$ -- 1229
+warning$ -- 87
+while$ -- 261
 width$ -- 0
-write$ -- 741
-(There were 86 warnings)
+write$ -- 761
+(There were 87 warnings)
