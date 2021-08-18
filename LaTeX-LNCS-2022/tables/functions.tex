@@ -1,0 +1,36 @@
+% !TEX root = ../main.tex
+
+% = = = = = = = = = = = = = = = = = = = = =Call market operations Table = = = = = = = = = = = =  = = = = = =  %
+\begin{table}[t]
+%\setlength{\tabcolsep}{0.7\tabcolsep}% Shrink \tabcolsep
+
+\centering
+\footnotesize
+\begin{tabular}{|>{\centering}m{2.2cm} |>{\centering\arraybackslash}m{9cm}|}%{|c|c|}
+
+\hline
+\multicolumn{1}{|c|}{\textbf{Operation}} & \multicolumn{1}{c|}{\textbf{Description}}                            			\\ \hline
+
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
+	depositToken()                           & Deposits ERC20 tokens in \cm smart contract \\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
+	depositEther()                           	& Deposits ETH in \cm smart contract                        			 \\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
+	openMarket()                             & Opens the market                                                    					 \\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
+	closeMarket()                            & Closes the market and processes the orders       \\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
+	submitBid()                              & Inserts the upcoming bids inside the priority queue   \\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
+	submitAsk()                              & Inserts the upcoming asks inside the priority queue  \\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
+	claimTokens()                           & Transfers tokens to the traders                       			\\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
+	claimEther()                             & Transfers ETH to the traders                       			\\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
+\end{tabular}
+\caption{Primary operations of \cm smart contract.
+\label{tab:cm_functions}}
+\end{table}
+
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %

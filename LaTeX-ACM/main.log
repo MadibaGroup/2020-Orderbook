@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  27 MAY 2021 13:33
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  18 AUG 2021 11:12
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1687,8 +1687,9 @@ LaTeX Font Info:    Font shape `T1/zi4/m/n' will be
 (Font)              scaled to size 9.0pt on input line 125.
  [4.4 <./fig/random_insertion3.png
 
-pdfTeX warning: pdflatex (file ./fig/random_insertion3.png): large interlaced P
-NG might cause out of memory (use non-interlaced PNG to fix this)
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./fig/random_insertion3.png)
+: large interlaced PNG might cause out of memory (use non-interlaced PNG to fix
+ this)
 >] (./tables/cleaning.tex)
 Underfull \hbox (badness 1509) in paragraph at lines 136--137
  []\T1/LinuxLibertineT-TLF/m/it/9 (+20) Gas Re-funds.[] \T1/LinuxLibertineT-TLF

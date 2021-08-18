@@ -1,0 +1,65 @@
+
+
+
+\documentclass[envcountsect]{llncs}
+\pagestyle{headings} 
+\bibliographystyle{abbrv}
+
+
+% = = = = = Packages = = = = = %
+
+\input{setup/packages}
+\input{setup/macros}
+\input{setup/table}
+
+%Get out of jail free:
+%\usepackage[all=normal,floats=tight,paragraphs=tight]{savetrees}
+
+% = = = = = Title = = = = = %
+
+\begin{document}
+
+\frontmatter
+\mainmatter
+
+\title{\Large \bf \cm: Revisiting fully on-chain order books}
+
+
+\author{Mahsa Moosavi\inst{1} \and Jeremy Clark\inst{1}}
+\institute{Concordia University}
+
+
+\maketitle
+
+
+
+
+% = = = = = Abstract = = = = = %
+
+\input{sections/abstract}
+
+% = = = = = Main Body = = = = = %
+
+\input{sections/paper}
+
+% = = = = = Bibliography = = = = = %
+
+\clearpage
+\bibliography{bib/DEX}
+%\nocite{*}
+
+% = = = = = End Notes = = = = = %
+
+\clearpage
+\appendix
+\input{sections/appendix.tex}
+
+
+\end{document}
+
+
+
+
+
+
+

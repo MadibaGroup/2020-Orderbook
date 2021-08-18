@@ -1,0 +1,195 @@
+\begin{thebibliography}{10}
+
+\bibitem{Ethereum41:online}
+Ethereum development tutorial · ethereum/wiki wiki.
+\newblock
+  \url{https://github.com/ethereum/wiki/wiki/Ethereum-Development-Tutorial}.
+\newblock (Accessed on 24/08/2020).
+
+\bibitem{BBHR19}
+E.~Ben-Sasson, I.~Bentov, Y.~Horesh, and M.~Riabzev.
+\newblock Scalable zero knowledge with no trusted setup.
+\newblock In {\em CRYPTO}, 2019.
+
+\bibitem{BCGTV13}
+E.~Ben-Sasson, A.~Chiesa, D.~Genkin, E.~Tromer, and M.~Virza.
+\newblock Snarks for c: Verifying program executions succinctly and in zero
+  knowledge.
+\newblock In {\em CRYPTO}, 2013.
+
+\bibitem{bentov2017tesseract}
+I.~Bentov, Y.~Ji, F.~Zhang, Y.~Li, X.~Zhao, L.~Breidenbach, P.~Daian, and
+  A.~Juels.
+\newblock Tesseract: Real-time cryptocurrency exchange using trusted hardware.
+\newblock 2019.
+
+\bibitem{biryukov2017findel}
+A.~Biryukov, D.~Khovratovich, and S.~Tikhomirov.
+\newblock Findel: Secure derivative contracts for ethereum.
+\newblock In {\em International Conference on Financial Cryptography and Data
+  Security}, pages 453--467. Springer, 2017.
+
+\bibitem{boneh2018verifiable}
+D.~Boneh, J.~Bonneau, B.~B\"unz, and B.~Fisch.
+\newblock Verifiable delay functions.
+\newblock In {\em CRYPTO}, 2018.
+
+\bibitem{bonneau2015random}
+J.~Bonneau, J.~Clark, and S.~Goldfeder.
+\newblock On bitcoin as a public randomness source.
+\newblock \url{https://eprint.iacr.org/2015/1015.pdf}, 2015.
+\newblock Accessed: 2015-10-25.
+
+\bibitem{Bra13}
+R.~Brandom.
+\newblock This princeton professor is building a bitcoin-inspired prediction
+  market, Nov 2013.
+
+\bibitem{SGX3}
+J.~V. Bulck, M.~Minkin, O.~Weisse, D.~Genkin, B.~Kasikci, F.~Piessens,
+  M.~Silberstein, T.~F. Wenisch, Y.~Yarom, and R.~Strackx.
+\newblock Foreshadow: Extracting the keys to the intel {SGX} kingdom with
+  transient out-of-order execution.
+\newblock In {\em USENIX Security Symposium}, Baltimore, MD, Aug. 2018.
+  {USENIX} Association.
+
+\bibitem{buenz2017proofs}
+B.~B{\"u}nz, S.~Goldfeder, and J.~Bonneau.
+\newblock Proofs-of-delay and randomness beacons in ethereum.
+\newblock 2017.
+
+\bibitem{cartlidge2019mpc}
+J.~Cartlidge, N.~P. Smart, and Y.~Talibi~Alaoui.
+\newblock Mpc joins the dark side.
+\newblock In {\em Proceedings of the 2019 ACM Asia Conference on Computer and
+  Communications Security}, pages 148--159, 2019.
+
+\bibitem{cheng2019ekiden}
+R.~Cheng, F.~Zhang, J.~Kos, W.~He, N.~Hynes, N.~Johnson, A.~Juels, A.~Miller,
+  and D.~Song.
+\newblock Ekiden: A platform for confidentiality-preserving, trustworthy, and
+  performant smart contracts.
+\newblock In {\em 2019 IEEE European Symposium on Security and Privacy
+  (EuroS\&P)}, pages 185--200. IEEE, 2019.
+
+\bibitem{clark2014decentralizing}
+J.~Clark, J.~Bonneau, E.~W. Felten, J.~A. Kroll, A.~Miller, and A.~Narayanan.
+\newblock On decentralizing prediction markets and order books.
+\newblock In {\em Workshop on the Economics of Information Security, State
+  College, Pennsylvania}, 2014.
+
+\bibitem{daian2019flash}
+P.~Daian, S.~Goldfeder, T.~Kell, Y.~Li, X.~Zhao, I.~Bentov, L.~Breidenbach, and
+  A.~Juels.
+\newblock Flash boys 2.0: Frontrunning, transaction reordering, and consensus
+  instability in decentralized exchanges.
+\newblock In {\em IEEE Symposium on Security and Privacy}, 2020.
+
+\bibitem{eskandari2017feasibility}
+S.~Eskandari, J.~Clark, V.~Sundaresan, and M.~Adham.
+\newblock On the feasibility of decentralized derivatives markets.
+\newblock In {\em International Conference on Financial Cryptography and Data
+  Security}, pages 553--567. Springer, 2017.
+
+\bibitem{eskandari2019sok}
+S.~Eskandari, S.~Moosavi, and J.~Clark.
+\newblock Sok: Transparent dishonesty: front-running attacks on blockchain.
+\newblock In {\em WTSC}. FC, 2019.
+
+\bibitem{GGPR13}
+R.~Gennaro, C.~Gentry, B.~Parno, and M.~Raykova.
+\newblock Quadratic span programs and succinct nizks without pcps.
+\newblock In {\em EUROCRYPT}, 2013.
+
+\bibitem{Har03}
+L.~Harris.
+\newblock {\em Trading and exchanges: market microstructure for practitioners}.
+\newblock Oxford, 2003.
+
+\bibitem{heilman2020arwen}
+E.~Heilman, S.~Lipmann, and S.~Goldberg.
+\newblock The arwen trading protocols.
+\newblock In {\em International Conference on Financial Cryptography and Data
+  Security}, pages 156--173. Springer, 2020.
+
+\bibitem{kalodner2018arbitrum}
+H.~Kalodner, S.~Goldfeder, X.~Chen, S.~M. Weinberg, and E.~W. Felten.
+\newblock Arbitrum: Scalable, private smart contracts.
+\newblock In {\em USENIX Security Symposium}, pages 1353--1370, 2018.
+
+\bibitem{SGX1}
+P.~{Kocher}, J.~{Horn}, A.~{Fogh}, D.~{Genkin}, D.~{Gruss}, W.~{Haas},
+  M.~{Hamburg}, M.~{Lipp}, S.~{Mangard}, T.~{Prescher}, M.~{Schwarz}, and
+  Y.~{Yarom}.
+\newblock Spectre attacks: Exploiting speculative execution.
+\newblock In {\em IEEE Symposium on Security and Privacy}, pages 1--19, 2019.
+
+\bibitem{SGX2}
+M.~Lipp, M.~Schwarz, D.~Gruss, T.~Prescher, W.~Haas, A.~Fogh, J.~Horn,
+  S.~Mangard, P.~Kocher, D.~Genkin, Y.~Yarom, and M.~Hamburg.
+\newblock Meltdown: Reading kernel memory from user space.
+\newblock In {\em USENIX Security Symposium}, pages 973--990, Baltimore, MD,
+  Aug. 2018. {USENIX} Association.
+
+\bibitem{massacci2018futuresmex}
+F.~Massacci, C.~N. Ngo, J.~Nie, D.~Venturi, and J.~Williams.
+\newblock Futuresmex: secure, distributed futures market exchange.
+\newblock In {\em 2018 IEEE Symposium on Security and Privacy (SP)}, pages
+  335--353. IEEE, 2018.
+
+\bibitem{mavroudis2019libra}
+V.~Mavroudis and H.~Melton.
+\newblock Libra: Fair order-matching for electronic financial exchanges.
+\newblock In {\em ACM AFT}, 2019.
+
+\bibitem{TheHisto45:online}
+A.~Norry.
+\newblock The history of the mt gox hack: Bitcoin's biggest heist.
+\newblock \url{https://blockonomi.com/mt-gox-hack/}, June 2019.
+\newblock (Accessed on 12/31/2019).
+
+\bibitem{SGX4}
+H.~Ragab, A.~Milburn, K.~Razavi, H.~Bos, and C.~Giuffrida.
+\newblock Crosstalk: Speculative data leaks across cores are real.
+\newblock In {\em IEEE Symposium on Security and Privacy}, 2021.
+
+\bibitem{SEBIOrde83:online}
+Securities and E.~B. of~India.
+\newblock Sebi | order in the matter of nse colocation.
+\newblock
+  \url{https://www.sebi.gov.in/enforcement/orders/apr-2019/order-in-the-matter-of-nse-colocation_42880.html},
+  2019.
+\newblock (Accessed on 11/11/2019).
+
+\bibitem{signer2018gas}
+C.~Signer.
+\newblock Gas cost analysis for ethereum smart contracts.
+\newblock Master's thesis, ETH Zurich, Department of Computer Science, 2018.
+
+\bibitem{TP07}
+C.~Thorpe and D.~C. Parkes.
+\newblock Cryptographic securities exchanges.
+\newblock In {\em Financial Cryptography}, 2007.
+
+\bibitem{TW12}
+C.~Thorpe and S.~R. Willis.
+\newblock Cryptographic rule-based trading.
+\newblock In {\em Financial Cryptography}, 2012.
+
+\bibitem{wood2014ethereum}
+G.~Wood et~al.
+\newblock Ethereum: A secure decentralised generalised transaction ledger.
+\newblock Technical Report 2014, Ethereum, 2014.
+
+\bibitem{YSLT10}
+W.~Yuen, P.~Syverson, Z.~Liu, and C.~Thorpe.
+\newblock Intention-disguised algorithmic trading.
+\newblock In {\em Financial Cryptography}, 2010.
+
+\bibitem{ZBC+19}
+L.~Zhao, J.~I. Choi, D.~Demirag, K.~R.~B. Butler, M.~Mannan, E.~Ayday, and
+  J.~Clark.
+\newblock One-time programs made practical.
+\newblock In {\em Financial Cryptography}, 2019.
+
+\end{thebibliography}
