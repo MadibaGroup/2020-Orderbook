@@ -2,6 +2,11 @@
 
 \section{Introductory Remarks}
 
+% EDITS TO BE MADE:
+% 1- Different market participants would have different preference about various markets. Which one is best for which? Jeremy in proposal: could be a chart
+% 2- Add a subsection on latency
+% 3- For enqueue and dequeue performance tests, justify why you picked 50 integers
+
 For better or worse, blockchain technologies like Ethereum have dramatically lowered the barrier to entry for developing and deploying financial technology. New tokens have been launched with a few clicks of a user interface, and large investment infrastructures have been developed and deployed with little regulatory oversight. Blockchain exchange services allow order-based trading of digital currencies, tokens, and other digital assets. Such exchanges are key components to blockchain-based economic activity.
 
 Financial regulators seek to provide consumer protection during the issuing and trading of financial products and assets. They are concerned by their limited ability to intervene when trading is conducted on decentralized networks that, like Ethereum, run on the open internet. Order-driven trading can happen fully `on-chain' and this was experimented within the early days of Ethereum, but it has been largely abandoned for performance reasons in favor of running on centralized servers. More specifically, the core functionality is performed off-chain (\eg matching orders) while other aspects (\eg loading accounts, order cancellation) might be performed on-chain. In this world, company names, employees, addresses, and publicly addressable servers all provide regulatory hooks.
@@ -11,9 +16,9 @@ Financial regulators seek to provide consumer protection during the issuing and 
 
 Our research group is actively collaborating with our jurisdiction's financial regulator (name withheld for anonymity) to help them forecast how trading can be impacted by blockchain technology. This paper addresses their concerns about the feasibility of a `worst-case scenario' where a trading platform is anonymously deployed on a public blockchain, like Ethereum, and runs autonomously without any further intervention from an externally visible entity. Such a design appears feasible but is considered too slow. Together, we agreed it is a very good time to do a deep dive into understanding precisely \textit{how slow} for the following reasons: (1) public blockchains are becoming faster (both in theory and in practice) providing future efficiency gains for on-chain trading, (2) demand for on-chain trading is exemplified by the recent popularity of dealer quote-based trading like Uniswap and Curve Finance (reviewed below), and (3) stablecoins have become popular and allow on-chain trading with pricing in USD, alleviating another regulatory hook: the need for platforms to maintain traditional accounts for holding governmental currency and interfacing with the banking system.
 
-\textbf{Contributions.} We study fully on-chain markets through design and implementation with Solidity---a high-level programming language for Ethereum that is syntactically similar to Java. We choose Ethereum as a hostile environment for an order book: Ethereum is fully decentralized (hardest to regulate), network participation is open to anyone on the internet (strongest adversarial model), and, as a result, it is slow (a lower-bound benchmark). Generally, if an application is feasible on Ethereum, it will also be feasible and only run faster on a private (or permissioned) blockchain (\eg Hyperledger), which is a blockchain operated by authorized network nodes only, generally visible to regulators.
+\textbf{Contributions.} We study fully on-chain markets through design and implementation with Solidity---a high-level programming language for Ethereum that is syntactically similar to Java. We choose Ethereum as a hostile environment for an order book: Ethereum is fully decentralized (hardest to regulate), network participation is open to anyone on the internet (\textblue{define the strongest adversarial model} strongest adversarial model), and, as a result, it is slow (a lower-bound benchmark). Generally, if an application is feasible on Ethereum, it will also be feasible and only run faster on a private (or permissioned) blockchain (\eg Hyperledger), which is a blockchain operated by authorized network nodes only, generally visible to regulators.
 
-Our proof of concept, \cm, is an extensible base class suitable for experiments. \cm is designed from a security perspective: users only trust their assets to \cm's auditable code (non-custodial) and not to a third party, all operations are transparent, and we nearly eliminate the ability for adversarial network nodes to profit from front-running orders. In fact, we believe we are the first to design a decentralized application that actually leverages front-running (\ie miner extractable value~\cite{daian2019flash}) for the benefit of the system (see Section~\ref{sec:close}).
+Our proof of concept, \cm, is an extensible base class suitable for experiments. \cm is designed from a security perspective: users only trust their assets to \cm's auditable code (non-custodial) and not to a third party, all operations are transparent, and we \textblue{nearly} eliminate the ability for adversarial network nodes to profit from front-running orders \textblue{Either say where \cm is vul to front-running or refer to the front-running section (would that be enough though?)}. In fact, we believe we are the first to design a decentralized application that actually leverages front-running (\ie miner extractable value~\cite{daian2019flash}) for the benefit of the system (see Section~\ref{sec:close}).
 
 While Solidity and its compiled bytecode is like many common programming languages, it also has quirks that require experimentation to best optimize performance (\eg factoring in the gas costs of operations, gas refunds, limits to Solidity's object-oriented design, clearing mappings, \etc). We test five priority queues---the core data structure of the call market---and various options for cleaning up our data once finished with it. The bottom line is that the current benchmark for a \cm-esque design is in the low hundreds of trade executions per block on Ethereum today. This positions \cm as a feasible design for only a narrow set of markets today (low liquidity, small number of traders) which is good news for regulators. A broader consequence of our research is that any on-chain application that requires the traversal of hundreds of elements in a data structure in a single transaction is not feasible on Ethereum today.
 
@@ -109,15 +114,62 @@ There are numerous ways of implementing a PQ. A PQ has an underlying list---comm
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
 
 
-\begin{figure}[t]
-\centering
-\includegraphics[width=0.5\textwidth]{fig/random_insertion3.png}
-\caption{Gas costs for enqueuing 50 random integers into five priority queue variants. For the x-axis, a value of 9 indicates it is the 9th integer entered in the priority queue. The y-axis is the cost of enqueuing in gas.  \label{fig:random_insertion}}
-\end{figure}
+%\begin{figure}[t]
+%\centering
+%\includegraphics[width=0.5\textwidth]{fig/random_insertion3.png}
+%\caption{\textblue{put the block gas limit in the chart} Gas costs for enqueuing 50 random integers into five priority queue variants. For the x-axis, a value of 9 indicates it is the 9th integer entered in the priority queue. The y-axis is the cost of enqueuing in gas.  \label{fig:random_insertion}}
+%\end{figure}
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
 
-\input{tables/dequeue.tex}
+%\input{tables/dequeue.tex}
+
+\textblue{put the block gas limit in the chart} 
+
+
+
+
+\begin{figure}
+\begin{floatrow}
+\ffigbox{%
+\includegraphics[width=6cm]{fig/2.png}%
+}{%
+  \caption{\scriptsize{Gas costs for enqueuing 50 random integers into five priority queue variants. For the x-axis, a value of 9 indicates it is the 9th integer entered in the priority queue. The y-axis is the cost of enqueuing in gas}. \label{fig:random_insertion}}%
+  
+}
+\capbtabbox{%
+\scriptsize
+\begin{tabular}{|>{\centering}m{2cm} |>{\centering}m{1.15cm} |>{\centering}m{1.15cm} |>{\centering\arraybackslash}m{0.2cm}|}%{|c|c|c|c|}
+
+\multicolumn{1}{c}{} & \headrowsidebyside{\scriptsize{\shortstack{Gas Costs \\\textit{(gwei)}}}} & \headrowsidebyside{\scriptsize{\shortstack{Refund \textit{(gwei)} \\\textblue{(Manual)}}}} & \headrowsidebyside{\scriptsize{Full Refund?}} \\ \hline
+
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+\shortstack{Heap with\\Dynamic Array}        	& 2,518,131          & 750,000     &\full                  \\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+\shortstack{Heap with\\ Static Array}          	& 1,385,307                             & 750,000      &\full                \\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+\shortstack{Heap with\\ Mapping}  		& 2,781,684                            & 1,500,000    &\full                 \\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+Linked List                     		& 557,085               	           & 1,200,000      &\full                \\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+\shortstack{Linked List with\\ Mapping}       	& 731,514              	     	  &  3,765,000      &\full                 \\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+
+\end{tabular}
+}{%
+ \caption{\scriptsize{The gas metrics associated with dequeuing 50 integers from five priority queue variants.}
+\label{tab:PQUnitTests}}%
+}
+\end{floatrow}
+\end{figure}
+
+%\vspace{-3em}
+
+
+
+
+
+
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
 
@@ -194,7 +246,8 @@ As expected, the numbers closely track the performance of the PQ itself, suggest
 %\textblue{Sandwich Attacks:} These attacks apply to automated market makers (\ie UniSwap) and exploit a particular feature of AMMs, which is for every swap that takes place on an AMM, the price of the token being swapped shifts slightly. In this case, if Mallory realizes that there is an incoming trade of asset A for asset B, She immediately inserts a bid for asset B. This transaction will increase the price of asset B significantly and when Alice's transaction gets executed on the AMM, she'll receive less number of asset B as she is purchasing it at an inflated price. Right after Alice's transaction goes through, Mallory will sell the amount of asset B she has bought at a higher price.
 %\end{itemize}
 
-\input{tables/frontrunning.tex}
+%\input{tables/frontrunning.tex}
+\input{tables/frontrunning2.tex}
 
 As we illustrate in Table~\ref{tab:front}, call markets have a unique profile of resilience against \emph{front-running attacks}~\cite{clark2014decentralizing,eskandari2019sok,daian2019flash} that differs somewhat from continuous-time markets and automated market makers. Traders are sometimes distinguished as \emph{makers} (adds orders to a market) and \emph{takers} (trades against a pre-existing, unexecuted orders). A continuous market has both. All traders using an automated market maker are takers, while the investors who provide tokens to the AMM (liquidity providers) are makers. Under our definition, a call market only has makers: the only way to have a trade executed is to submit an order. The front-running attacks in Table~\ref{tab:front} are sub-categorized, using a recent SoK~\cite{eskandari2019sok}, as being \emph{Insertion}, \emph{Displacement}, and \emph{Suppression}. To explain the difference, we will illustrate the first three attacks in the table.
 
@@ -206,7 +259,7 @@ A \emph{displacement attack} is like an insertion attack, except Mallory does no
 
 In a \emph{suppression attack}, Mallory floods the network with transactions until a trader executes her order. Such selective denial of service is possible by an off-chain operator. With on-chain continuous markets, it is not possible to suppress Alice's transaction while also letting through a transaction from a taker---suppression applies to all Ethereum transactions or none. A call market is uniquely vulnerable because it eventually times out (which does not require an on-chain transaction) and new orders cannot be added. We still award a call market partial mitigation since suppression attacks are expensive (\cf Fomo3D attack~\cite{eskandari2019sok}). If the aim of suppression is a temporary denial of service (captured by attack 5 in the table), then all on-chain markets are vulnerable to this expensive attack.
 
-Some attacks combine more than one insertion, displacement, and/or suppression attacks. AMMs are vulnerable to a double insertion called a sandwich attack~\cite{ZQFLG21} which bookends a victim's trade with the front-runner's trades (plus additional variants). In a traditional call market, a market clearing price is chosen and all trades are executed at this price. All bids made at a higher price will receive the assets for the lower clearing price (and conversely for lower ask prices): this is called a \textit{price improvement} and it allows traders to submit at their best price. A hybrid front-running attack allows Mallory to extract any price improvements. Consider the case where Alice's ask crosses Bob's bid with a material price improvement. Mallory inserts a bid at Alice's price, suppresses Bob's bid until the next call, and places an ask at Bob's price. She buys and then immediately sells the asset and nets the price improvement as arbitrage. To mitigate this in \cm, all price improvements are given to the miner (using \texttt{block.coinbase.transfer()}). This does not actively hurt traders---they always receive the same price that they quote in their orders---and it removes any incentive for miners to front-run these profits.
+Some attacks combine more than one insertion, displacement, and/or suppression attacks. AMMs are vulnerable to a double insertion called a sandwich attack~\cite{ZQFLG21} which bookends a victim's trade with the front-runner's trades (plus additional variants). In a traditional call market, a market clearing price is chosen and all trades are executed at this price. All bids made at a higher price will receive the assets for the lower clearing price (and conversely for lower ask prices): this is called a \textit{price improvement} and it allows traders to submit at their best price. A hybrid front-running attack allows Mallory to extract any price improvements. Consider the case where Alice's ask crosses Bob's bid with a material price improvement. Mallory inserts a bid at Alice's price, suppresses Bob's bid until the next call, and places an ask at Bob's price. She buys and then immediately sells the asset and nets the price improvement as arbitrage. To mitigate this in \cm, all price improvements are given to the miner (using \texttt{block.coinbase.transfer()})\textblue{traders would have to pay for that}. This does not actively hurt traders---they always receive the same price that they quote in their orders---and it removes any incentive for miners to front-run these profits.
 
 Other front-running attacks use order cancellations (discussed in the next section) which \cm mitigates by running short-lived markets with no cancellations.
 
@@ -230,7 +283,7 @@ In Solidity, it is not possible to delete an entire mapping without individually
 
 \end{enumerate}
 
-Clearing storage is important for reducing EVM bloat. The Ethereum refund model should be considered further by Ethereum developers to provide a better incentive to be less wasteful in using storage.
+Clearing storage is important for reducing EVM bloat\textblue{and who gets hurt with that?}. The Ethereum refund model should be considered further by Ethereum developers to provide a better incentive to be less wasteful in using storage.
 
 % = = = = = = = = = = = = = = = = = = = = = = = = =  %
 
@@ -398,7 +451,7 @@ It may seem paradoxical or unethical to build for regulators exactly what they w
 
 \section{Availability} 
 \label{sec:avai}
-The Solidity source code for \cm, Truffle test files, and Arbitrum dependencies are available in a GitHub repository (non-anonymous link omitted). We have also deployed \cm on Ethereum's testnet Rinkeby with flattened (single file) source code of just the \cm base class and priority queue implementations. It is visible and can be interacted with here: \href{https://rinkeby.etherscan.io/address/0x0d91de29c531d074853a5cef7cf9dfeb9c6ec4e0}{[etherscan.io]}; while the Arbitrum variant is here: \href{https://explorer5.arbitrum.io/#/address/0x18BF65069Fdaed79f8BDB0B6EDa87d5cc46F6E28}{[explorer5.offchainlabs.com]}.
+The Solidity source code for \cm, Truffle test files, and Arbitrum dependencies are available in a GitHub repository (non-anonymous link omitted). We have also deployed \cm on Ethereum's testnet Rinkeby with flattened (single file) source code of just the \cm base class and priority queue implementations. It is visible and can be interacted with here: \href{https://rinkeby.etherscan.io/address/0x0d91de29c531d074853a5cef7cf9dfeb9c6ec4e0}{[etherscan.io]}; while the Arbitrum variant is here\textblue{the link is broken @Mahsa dont forget to re-run the test}: \href{https://explorer5.arbitrum.io/#/address/0x18BF65069Fdaed79f8BDB0B6EDa87d5cc46F6E28}{[explorer5.offchainlabs.com]}.
 
 
 %ACK

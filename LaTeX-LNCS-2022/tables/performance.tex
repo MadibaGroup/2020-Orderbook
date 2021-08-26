@@ -10,30 +10,31 @@
 \begin{table}[t]
 \setlength{\tabcolsep}{0.1\tabcolsep}% Shrink \tabcolsep
 \centering
-\begin{tabular} {|>{\centering}m{2.5cm} |>{\centering}m{0.5cm} |>{\centering}m{1.5cm} |>{\centering}m{1.8cm} |>{\centering\arraybackslash}m{1.5cm}|}
+\scriptsize
+\begin{tabular} {|>{\centering}m{3.5cm} |>{\centering}m{0.5cm} |>{\centering}m{1.5cm} |>{\centering}m{1.8cm} |>{\centering\arraybackslash}m{1.5cm}|}
 %{|c|c|c|c|c|}%{|l|r|r|r|r|}
 
 \multicolumn{1}{c}{} & 
 
-\headrow{\footnotesize Max Trades (w.c.)} & 
-\headrow{\footnotesize Gas for Max Trades} & 
-\headrow{\footnotesize Gas for 1000 Trades} & 
-\headrow{\footnotesize \shortstack{ Gas for Submission \\ (avg)}} \\ \hline
+\headrowperformance{\scriptsize {Max Trades (w.c.)}} & 
+\headrowperformance{\scriptsize {Gas for Max Trades \textit{(gwei)} }} & 
+\headrowperformance{\scriptsize {Gas for 1000 Trades \textit{(gwei)} }} & 
+\headrowperformance{\scriptsize{ \shortstack{Gas for Submission\\ (avg)  \textit{(gwei)}}}} \\ \hline
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-\shortstack{Heap with \\ Dynamic Array}       & 38            & 5,372,679                   	& 457,326,935      & 207,932     \\ \hline
+Heap with Dynamic Array       & 38            & 5,372,679                   	& 457,326,935      & 207,932     \\ \hline
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-\shortstack{Heap with \\ Static Array}         	& 42            & 5,247,636                  	& 333,656,805         & 197,710         \\ \hline
+Heap with Static Array         	& 42            & 5,247,636                  	& 333,656,805         & 197,710         \\ \hline
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-\shortstack{Heap with \\ Mapping} 		& 46           	 & 5,285,275                     & 226,499,722    & 215,040           \\ \hline
+Heap with Mapping 		& 46           	 & 5,285,275                     & 226,499,722    & 215,040           \\ \hline
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
 Linked List                     	& 152            & 5,495,265                     & 35,823,601         & 735,243             \\ \hline
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-\shortstack{Linked List \\ with Mapping}     	& 86             & 5,433,259                     & 62,774,170        &  547,466              \\ \hline
+Linked List with Mapping     	& 86             & 5,433,259                     & 62,774,170        &  547,466              \\ \hline
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
 
 \end{tabular}
-\caption{Performance of \cm for each PQ variant. Each consumes just under the block gas limit ($\sim$11M gas) with a full refund of half of its gas.\label{tab:worst_case_matching}}
+\caption{\footnotesize{Performance of \cm for each PQ variant. Each consumes just under the block gas limit ($\sim$11M gas) with a full refund of half of its gas}.\label{tab:worst_case_matching}}
 
 \end{table}
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %

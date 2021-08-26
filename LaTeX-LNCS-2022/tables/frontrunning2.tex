@@ -1,0 +1,79 @@
+% !TEX root = ../main.tex
+
+
+
+
+\begin{table*}[t]
+
+\centering
+\tiny
+%\resizebox{1.7\columnwidth}{!}{
+
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+
+\multicolumn{1}{c}{} &
+\multicolumn{1}{c}{} &
+\multicolumn{1}{c}{} &
+\headrowfrontTwo{\shortstack{Centralized Continuous\\ Market (Coinbase)}} &
+\headrowfrontTwo{\shortstack{Partially Off-chain Continuous\\ Market (EtherDelta)}} & 
+\headrowfrontTwo{\shortstack{Partially Off-chain Continuous \\Market w/ Roll-up (Loopring)}} & 
+\headrowfrontTwo{\shortstack{On-chain Continuous \\Market (OasisDex)}}  &
+\headrowfrontTwo{\shortstack{On-chain Dark \\Continuous Market (TEX)}} &
+\headrowfrontTwo{\shortstack{On-chain Automated \\Market Maker (Uniswap)}}  & 
+\headrowfrontTwo{\shortstack{On-chain Call Market \\w/ Price Improvement}} &
+\headrowfrontTwo{\shortstack{On-chain Call Market (\cm)}}  & 
+\headrowfrontTwo{\shortstack{On-chain Call Market  \\w/ Roll-up (\cm variant)}}  &
+\headrowfrontTwo{\shortstack{On-chain Dark \\Call Market (Galal \etal)}}
+\\
+
+%\hhline{-----------}
+\hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %								 											
+%\parbox[t]{1mm}{\multirow{10}{*}{\rotatebox[origin=c]{90}{Attack Example}}} 	&&&&&&&&&&&														\\ \hline		
+	     
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %								 											
+	     
+%	     
+%	     & \multicolumn{2}{c?{1mm}}{Classification}             																											&\multicolumn{1}{c|}{LOB}		&\multicolumn{1}{c|}{LOB}		&\multicolumn{1}{c|}{LOB}		&\multicolumn{1}{c|}{LOB}		&\multicolumn{1}{c|}{LOB}		&\multicolumn{1}{c|}{AMM}		&\multicolumn{1}{c|}{CM}		&\multicolumn{1}{c|}{CM}	&\multicolumn{1}{c|}{CM}								  										&\multicolumn{1}{c|}{CM}	 \\ \hhline{~------------}                 
+
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %								 											
+
+\multicolumn{3}{|c?{1mm}}{\makecell{Who is Mallory? \\ \underline{A}uthority,  \underline{T}rader, \underline{M}iner, \underline{S}equencer	}}   	&A&A,T,M&A,T,M,S&T,M&T,M&T,M&T,M&T,M&T,M,S	&T,M	 \\ \cmidrule[1mm]{1-13}
+
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %								 											
+
+\multirow{17}{*}{\rotatebox[origin=c]{90}{\textbf{Attack Example}}}		&\multicolumn{1}{c|}{\makecell{Mallory (\textit{maker}) squeezes in a\\ transaction before Alice's  (\textit{taker})  order}}  						&\multicolumn{1}{c?{1mm}}{Ins.}		&\empt	&\empt &\empt &\empt &\full &\empt &\full &\full  &\full &\full		\\ \hhline{~------------}					 					
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %								 											
+								 											
+&\multicolumn{1}{c|}{\makecell{Mallory (\textit{taker}) squeezes in a \\transaction before Bob's (\textit{taker 2})}   }	  								&\multicolumn{1}{c?{1mm}}{  Disp.}				&\empt &\empt &\empt &\empt &\full &\empt &\full &\full &\full	&\full		\\ \hhline{~------------}	
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+
+&\multicolumn{1}{c|}{\makecell{Mallory (\textit{maker 1}) suppresses a better \\ incoming order from Alice (\textit{maker 2}) \\ until Mallory's order is executed}}																&\multicolumn{1}{c?{1mm}}{Supp.} 				&\empt &\empt &\empt &\full &\full &\full &\prt &\prt &\prt &\prt	\\ 	\hhline{~------------}				 											
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+
+&\multicolumn{1}{c|}{\makecell{A hybrid attack based on the above \\ (\eg sandwich attacks, scalping)}}																		&\multicolumn{1}{c?{1mm}}{I/S/D}																		&\empt &\empt &\empt &\empt &\full &\empt &\empt &\full &\full	&\full												\\ 	\hhline{~------------}
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+
+&\multicolumn{1}{c|}{\makecell{Mallory suspends the market \\for a period of time}}																										&\multicolumn{1}{c?{1mm}}{Supp.}    				&\empt  &\empt  &\empt  &\prt  &\prt  &\prt  &\prt  & \prt &\prt &\prt 	\\ 	\hhline{~------------}
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+
+&\multicolumn{1}{c|}{\makecell{Spoofing: Mallory (\textit{maker}) puts an \\ order as bait, sees Alice (\textit{taker}) \\ tries to execute it, and cancels it first}}													&\multicolumn{1}{c?{1mm}}{S\&D} 				&\empt &\empt &\empt &\empt &\full &\empt &\full &\full &\full &\full \\ 	\hhline{~------------}
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+
+&\multicolumn{1}{c|}{\makecell{Cancellation Griefing: Alice (\textit{maker}) \\ cancels an order and Mallory \\ (\textit{taker}) fulfills it first}}													&\multicolumn{1}{c?{1mm}}{Disp.} 							&\empt &\empt &\empt &\empt &\full &\empt &\full & \full &\full	&\full \\ 	\hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+
+
+
+\end{tabular}
+
+%} %end resizebox
+
+\caption{\footnotesize{An evaluation of front-running attacks (rows) for different types of order books (columns). Front-running attacks are in three categories: \underline{Ins}ertion, \underline{disp}lacement, and \underline{supp}ression. A full dot (\tinyfull) means the front-running attack is mitigated or not applicable to the order book type, a partial mitigation (\tinyprt) is awarded when the front-running attack is possible but expensive, and we give no award (\tinyempt) if the attack is feasible}. 
+\label{tab:front}}
+\end{table*}
+
+
+
+
+
