@@ -34,7 +34,7 @@ Linked List with Mapping     	& 86             & 5,433,259                     &
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
 
 \end{tabular}
-\caption{\footnotesize{Performance of \cm for each PQ variant. Each consumes just under the block gas limit ($\sim$11M gas) with a full refund of half of its gas}.\label{tab:worst_case_matching}}
+\caption{\footnotesize{Performance of \cm for each PQ variant. Each consumes just under the block gas limit ($\sim$11M gas) with a full refund of half of its gas \textblue{Review from FC: Gas for max trades in table 5 is about 5M gas, why it can exceed 11M gas limit of Ethereum? Mahsa: (i) tx costs cannot exceed the block gas limit (ii) EVM reports these costs after the refunds are applied, so the costs were around 11M (block gas limit), refunds were applied and cut them down to ~5M. QUESTION: Can we communicate this better to avoid confusions like this?}}.\label{tab:worst_case_matching}}
 
 \end{table}
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %

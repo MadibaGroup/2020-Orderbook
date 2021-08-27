@@ -82,55 +82,96 @@
 \@writefile{toc}{\contentsline {section}{\numberline {4}Call Market Design}{11}{section.1.4}\protected@file@percent }
 \@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Primary operations of \textsf  {Lissy}\xspace  smart contract. \relax }}{12}{table.caption.17}\protected@file@percent }
 \newlabel{tab:cm_functions}{{4}{12}{Primary operations of \cm smart contract. \relax }{table.caption.17}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces \relax \fontsize  {9}{11}\selectfont  \abovedisplayskip 8.5\p@ plus3\p@ minus4\p@ \abovedisplayshortskip \z@ plus2\p@ \belowdisplayshortskip 4\p@ plus2\p@ minus2\p@ \def \leftmargin \leftmargini \parsep 0\p@ plus1\p@ minus\p@ \topsep 8\p@ plus2\p@ minus4\p@ \itemsep 0\p@ {\leftmargin \leftmargini \parsep 0\p@ plus1\p@ minus\p@ \topsep 8\p@ plus2\p@ minus4\p@ \itemsep 0\p@ }\belowdisplayskip \abovedisplayskip {Performance of \textsf  {Lissy}\xspace  for each PQ variant. Each consumes just under the block gas limit ($\sim $11M gas) with a full refund of half of its gas}.\relax }}{12}{table.caption.18}\protected@file@percent }
-\newlabel{tab:worst_case_matching}{{5}{12}{\footnotesize {Performance of \cm for each PQ variant. Each consumes just under the block gas limit ($\sim $11M gas) with a full refund of half of its gas}.\relax }{table.caption.18}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Measurements}{12}{subsection.1.4.1}\protected@file@percent }
 \citation{clark2014decentralizing,eskandari2019sok,daian2019flash}
 \citation{eskandari2019sok}
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces \relax \fontsize  {9}{11}\selectfont  \abovedisplayskip 8.5\p@ plus3\p@ minus4\p@ \abovedisplayshortskip \z@ plus2\p@ \belowdisplayshortskip 4\p@ plus2\p@ minus2\p@ \def \leftmargin \leftmargini \parsep 0\p@ plus1\p@ minus\p@ \topsep 8\p@ plus2\p@ minus4\p@ \itemsep 0\p@ {\leftmargin \leftmargini \parsep 0\p@ plus1\p@ minus\p@ \topsep 8\p@ plus2\p@ minus4\p@ \itemsep 0\p@ }\belowdisplayskip \abovedisplayskip {Performance of \textsf  {Lissy}\xspace  for each PQ variant. Each consumes just under the block gas limit ($\sim $11M gas) with a full refund of half of its gas \leavevmode {\color  {blue}Review from FC: Gas for max trades in table 5 is about 5M gas, why it can exceed 11M gas limit of Ethereum? Mahsa: (i) tx costs cannot exceed the block gas limit (ii) EVM reports these costs after the refunds are applied, so the costs were around 11M (block gas limit), refunds were applied and cut them down to \nobreakspace  {}5M. QUESTION: Can we communicate this better to avoid confusions like this?}}.\relax }}{13}{table.caption.18}\protected@file@percent }
+\newlabel{tab:worst_case_matching}{{5}{13}{\footnotesize {Performance of \cm for each PQ variant. Each consumes just under the block gas limit ($\sim $11M gas) with a full refund of half of its gas \textblue {Review from FC: Gas for max trades in table 5 is about 5M gas, why it can exceed 11M gas limit of Ethereum? Mahsa: (i) tx costs cannot exceed the block gas limit (ii) EVM reports these costs after the refunds are applied, so the costs were around 11M (block gas limit), refunds were applied and cut them down to ~5M. QUESTION: Can we communicate this better to avoid confusions like this?}}.\relax }{table.caption.18}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Front-running Evaluation}{13}{subsection.1.4.2}\protected@file@percent }
 \newlabel{sec:front}{{4.2}{13}{Front-running Evaluation}{subsection.1.4.2}{}}
-\citation{eskandari2019sok}
 \@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces \relax \fontsize  {9}{11}\selectfont  \abovedisplayskip 8.5\p@ plus3\p@ minus4\p@ \abovedisplayshortskip \z@ plus2\p@ \belowdisplayshortskip 4\p@ plus2\p@ minus2\p@ \def \leftmargin \leftmargini \parsep 0\p@ plus1\p@ minus\p@ \topsep 8\p@ plus2\p@ minus4\p@ \itemsep 0\p@ {\leftmargin \leftmargini \parsep 0\p@ plus1\p@ minus\p@ \topsep 8\p@ plus2\p@ minus4\p@ \itemsep 0\p@ }\belowdisplayskip \abovedisplayskip {An evaluation of front-running attacks (rows) for different types of order books (columns). Front-running attacks are in three categories: \underline  {Ins}ertion, \underline  {disp}lacement, and \underline  {supp}ression. A full dot ($\tiny  {\mbox  {\fontencoding  {U}\fontfamily  {wasy}\selectfont  \char 32}}$) means the front-running attack is mitigated or not applicable to the order book type, a partial mitigation ($\tiny  {\unhbox \voidb@x \hbox to 0pt{\fontencoding  {U}\fontfamily  {wasy}\selectfont  \char 71\hss }\hbox {\fontencoding  {U}\fontfamily  {wasy}\selectfont  \char 35}}$) is awarded when the front-running attack is possible but expensive, and we give no award ($\tiny  {\mbox  {\fontencoding  {U}\fontfamily  {wasy}\selectfont  \char 35}}$) if the attack is feasible}. \relax }}{14}{table.caption.19}\protected@file@percent }
 \newlabel{tab:front}{{6}{14}{\footnotesize {An evaluation of front-running attacks (rows) for different types of order books (columns). Front-running attacks are in three categories: \underline {Ins}ertion, \underline {disp}lacement, and \underline {supp}ression. A full dot (\tinyfull ) means the front-running attack is mitigated or not applicable to the order book type, a partial mitigation (\tinyprt ) is awarded when the front-running attack is possible but expensive, and we give no award (\tinyempt ) if the attack is feasible}. \relax }{table.caption.19}{}}
+\citation{eskandari2019sok}
 \citation{ZQFLG21}
 \citation{khalil2019tex}
 \citation{galalpublicly}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Cleaning Up Revisited}{15}{subsection.1.4.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Cleaning Up Revisited}{16}{subsection.1.4.3}\protected@file@percent }
 \citation{mavroudis2019libra}
-\@writefile{toc}{\contentsline {section}{\numberline {5}Design Alternatives and Extensions}{16}{section.1.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Token Divisibility and Ties}{16}{subsection.1.5.1}\protected@file@percent }
 \citation{bonneau2015random,buenz2017proofs}
 \citation{boneh2018verifiable}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Design Alternatives and Extensions}{17}{section.1.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Token Divisibility and Ties}{17}{subsection.1.5.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Evaluation.}{17}{section*.20}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Order Cancellations}{17}{subsection.1.5.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Evaluation.}{17}{section*.21}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Market Clearing Price}{17}{subsection.1.5.3}\protected@file@percent }
 \citation{clark2014decentralizing}
 \citation{daian2019flash}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Market Clearing Price}{18}{subsection.1.5.3}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.4}Scheduling Events}{18}{subsection.1.5.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.5}Who Pays to Close/Reopen the Market?}{18}{subsection.1.5.5}\protected@file@percent }
-\newlabel{sec:close}{{5.5}{18}{Who Pays to Close/Reopen the Market?}{subsection.1.5.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.5}Who Pays to Close/Reopen the Market?}{19}{subsection.1.5.5}\protected@file@percent }
+\newlabel{sec:close}{{5.5}{19}{Who Pays to Close/Reopen the Market?}{subsection.1.5.5}{}}
 \@writefile{toc}{\contentsline {paragraph}{Evaluation.}{19}{section*.22}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.6}Collateralization Options}{19}{subsection.1.5.6}\protected@file@percent }
 \citation{gudgeon2020sok}
+\@writefile{toc}{\contentsline {section}{\numberline {6}\textsf  {Lissy}\xspace  on Layer 2}{20}{section.1.6}\protected@file@percent }
+\newlabel{sec:rollups}{{6}{20}{\cm on Layer 2}{section.1.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Roll-ups}{20}{subsection.1.6.1}\protected@file@percent }
 \citation{kalodner2018arbitrum}
 \citation{BCGTV13,GGPR13}
 \citation{BBHR19}
 \citation{cheng2019ekiden}
 \citation{SGX1,SGX2,SGX3,SGX4}
 \citation{ZBC+19}
-\@writefile{toc}{\contentsline {section}{\numberline {6}\textsf  {Lissy}\xspace  on Layer 2}{20}{section.1.6}\protected@file@percent }
-\newlabel{sec:rollups}{{6}{20}{\cm on Layer 2}{section.1.6}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Roll-ups}{20}{subsection.1.6.1}\protected@file@percent }
 \citation{kalodner2018arbitrum}
 \@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Arbitrum}{21}{subsection.1.6.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}\textsf  {Lissy}\xspace  on Arbitrum}{21}{subsection.1.6.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}\textsf  {Lissy}\xspace  on Arbitrum}{22}{subsection.1.6.3}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {6.4}Front-running on Arbitrum}{23}{subsection.1.6.4}\protected@file@percent }
 \newlabel{sec:frontarb}{{6.4}{23}{Front-running on Arbitrum}{subsection.1.6.4}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {7}Concluding Remarks}{23}{section.1.7}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {8}Availability}{24}{section.1.8}\protected@file@percent }
 \newlabel{sec:avai}{{8}{24}{Availability}{section.1.8}{}}
 \bibdata{bib/DEX}
+\bibcite{aquilina2020quantifying}{1}
+\bibcite{BBHR19}{2}
+\bibcite{BCGTV13}{3}
+\bibcite{bentov2017tesseract}{4}
+\bibcite{biryukov2017findel}{5}
+\bibcite{boneh2018verifiable}{6}
+\bibcite{bonneau2015random}{7}
+\bibcite{Bra13}{8}
+\bibcite{budish2015high}{9}
+\bibcite{SGX3}{10}
+\bibcite{buenz2017proofs}{11}
+\bibcite{cartlidge2019mpc}{12}
+\bibcite{cheng2019ekiden}{13}
+\bibcite{clark2014decentralizing}{14}
+\bibcite{daian2019flash}{15}
+\bibcite{eskandari2017feasibility}{16}
+\bibcite{eskandari2019sok}{17}
+\bibcite{galalpublicly}{18}
+\bibcite{GGPR13}{19}
+\bibcite{gudgeon2020sok}{20}
+\bibcite{Har03}{21}
+\bibcite{heilman2020arwen}{22}
+\bibcite{kalodner2018arbitrum}{23}
+\bibcite{kelkar2020order}{24}
+\bibcite{khalil2019tex}{25}
+\bibcite{SGX1}{26}
+\bibcite{Kla20}{27}
+\bibcite{SGX2}{28}
+\bibcite{massacci2018futuresmex}{29}
+\bibcite{mavroudis2019libra}{30}
+\bibcite{TheHisto45:online}{31}
+\bibcite{SGX4}{32}
+\bibcite{SEBIOrde83:online}{33}
+\bibcite{signer2018gas}{34}
+\bibcite{GanacheT25:online}{35}
+\bibcite{TruffleO71:online}{36}
+\bibcite{TP07}{37}
+\bibcite{TW12}{38}
+\bibcite{YSLT10}{39}
+\bibcite{ZBC+19}{40}
+\bibcite{ZQFLG21}{41}
 \citation{gudgeon2020sok}
 \citation{kalodner2018arbitrum}
 \citation{BCGTV13,GGPR13}
@@ -138,8 +179,8 @@
 \citation{cheng2019ekiden}
 \citation{SGX1,SGX2,SGX3,SGX4}
 \citation{ZBC+19}
-\@writefile{toc}{\contentsline {section}{\numberline {A}Roll-ups: Additional Background}{25}{section.A.1}\protected@file@percent }
-\newlabel{app:rollup}{{A}{25}{Roll-ups: Additional Background}{section.A.1}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {B}Cleaning Up Revisited}{26}{section.A.2}\protected@file@percent }
-\newlabel{app:clean}{{B}{26}{Cleaning Up Revisited}{section.A.2}{}}
-\gdef \@abspage@last{26}
+\@writefile{toc}{\contentsline {section}{\numberline {A}Roll-ups: Additional Background}{28}{section.A.1}\protected@file@percent }
+\newlabel{app:rollup}{{A}{28}{Roll-ups: Additional Background}{section.A.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {B}Cleaning Up Revisited}{29}{section.A.2}\protected@file@percent }
+\newlabel{app:clean}{{B}{29}{Cleaning Up Revisited}{section.A.2}{}}
+\gdef \@abspage@last{29}
