@@ -5,16 +5,14 @@
 
 \begin{table*}[t]
 \centering
-\begin{tabular}{|l|c|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|}
+\scriptsize
+\begin{tabularx}{0.9\textwidth}{ |c| *{10}{Y|} }
 
-\multicolumn{1}{c}{\textbf{Exchange Platform}} & 
-\multicolumn{1}{c}{\textbf{Examples}} & 
-
+\multicolumn{1}{c}{} &
 %Security
 \headrow{Non-Custodial} &
 \headrow{No Trusted Third Party} & 
 \headrow{Fully Autonomous} & 
-\headrow{Resilient to Front-running} &
 
 
 %Deployability
@@ -26,43 +24,45 @@
 \headrow{Certain Fulfillment} &
 \headrow{Low Price Slippage} &
 \headrow{No Impermanent Loss} &
-\headrow{T+0 Settlement} \\
-%\headrow{No Impermanent Loss}  \\
+\headrow{T+0 Settlement} 
 
+
+
+
+
+
+\\
 \hline
 
 %
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-\multirow{3}{*}{Centralized Exchange}    		&Binance			&\multirow{3}{*}{\empt}		&\multirow{3}{*}{\empt}		&\multirow{3}{*}{\empt}		&\multirow{3}{*}{\empt}		&\multirow{3}{*}{\empt}		&\multirow{3}{*}{\full} 		&\multirow{3}{*}{\full}		&\multirow{3}{*}{\empt}		&\multirow{3}{*}{\full}		&\multirow{3}{*}{\full }		&\multirow{3}{*}{ \empt} 		\\ 
-							         		&Coinbase			& 					&					&					&					&					&						&						&						&						& 						&						\\
-										&Bitfinex     			& 					&					&					&					&					&						&						&						&						& 						&						\\ \hline	
+
+\multicolumn{1}{|c}{\textbf{Exchange Platform}} 			& \multicolumn{3}{|c}{\textbf{\shortstack{Security\\ Properties}}} &		\multicolumn{3}{|c}{\textbf{\shortstack{Deployability \\Properties}}} & 		\multicolumn{4}{|c|}{\textbf{\shortstack{Market \\Characteristics}}}  \\ \cmidrule[0.7mm]{1-11}
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+\shortstack{Centralized Continuous\\ Market \textit{(CEX)}}				&\empt		&\empt		&\empt			&	\empt	&\full		&\full		&\empt		&\full		&\full 		&\empt		\\ \hline	
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-\multirow{3}{*}{DEX w/ Off-chain Order Book}	&0x				&\multirow{3}{*}{\full}		&\multirow{3}{*}{\full}		&\multirow{3}{*}{\full}		&\multirow{3}{*}{\empt}		&\multirow{3}{*}{\empt}		&\multirow{3}{*}{\prt} 		&\multirow{3}{*}{\full}		&\multirow{3}{*}{\empt }		&\multirow{3}{*}{\full }		&\multirow{3}{*}{\full}		&\multirow{3}{*}{\full} 		\\ 
-							       	&EtherDelta		& 						&						&						&						&						&						&						&						&						& 						&						\\
-								&IDEX     			& 						&						&						&						&						&						&						&						&						& 						&						\\ \hline
+\shortstack{Partially Off-chain \\Continuous Market \textit{(DEX)}}			&\prt 	&\prt		&\prt			&\empt		&\prt 		&\full		&\empt 		&\full 		&\full		&\full		\\ \hline
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-\multirow{1}{*}{DEX w/ Roll-up}    			&Loopring			&\multirow{1}{*}{\full}		&\multirow{1}{*}{\full}		&\multirow{1}{*}{\empt}		&\multirow{1}{*}{\empt}		&\multirow{1}{*}{\empt}		&\multirow{1}{*}{\prt} 		&\multirow{1}{*}{\prt}		&\multirow{1}{*}{\empt}		&\multirow{1}{*}{\full}		&\multirow{1}{*}{\full }		&\multirow{1}{*}{\full } 		\\ \hline
+\shortstack{Partially Off-chain \\Continuous Market w/ Roll-up}    						&\full			&\full			&\empt 		 		&\empt 		&\prt		&\prt		&\empt 	&\full			&\full			&\full	 		\\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+On-chain Continuous Market			&\full			&\full			&\full			&\full			&\empt  		&\empt 		&\empt 		&\full			&\full			&\full			\\ \hline
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-\multirow{1}{*}{On-chain Continuous Market}	&OasisDEX			&\multirow{1}{*}{\full}		&\multirow{1}{*}{\full}		&\multirow{1}{*}{\full}		&\multirow{1}{*}{\empt}		&\multirow{1}{*}{\full}		&\multirow{1}{*}{\empt} 		&\multirow{1}{*}{\empt}		&\multirow{1}{*}{\empt}		&\multirow{1}{*}{\full}		&\multirow{1}{*}{\full }		&\multirow{1}{*}{\full } 		\\ \hline
+\shortstack{On-chain Automated \\Market Maker}		&\full			&\full			&\full				&\full			&\empt 	&\empt 	&\full			&\empt 		&\empt 		&\full			\\  \hline
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-\multirow{3}{*}{On-chain Automated Market Making}	&UniSwap	&\multirow{3}{*}{\full}		&\multirow{3}{*}{\full }		&\multirow{3}{*}{ \full}		&\multirow{3}{*}{\empt}		&\multirow{3}{*}{ \full}		&\multirow{3}{*}{\empt} 		&\multirow{3}{*}{\empt}		&\multirow{3}{*}{ \full}		&\multirow{3}{*}{\empt}		&\multirow{3}{*}{\empt}		&\multirow{3}{*}{ \full} 		\\ 
-							                      	&Bancor	& 						&						&						&						&						&						&						&						&						& 						&						\\
-										&Curve     	& 						&						&						&						&						&						&						&						&						& 						&						\\ \hline			
+On-chain Call Market   					&\full			&\full			&\full				&\full			&\empt 	&\empt 		&\empt 	&\full			&\full			&\full			\\ \hline
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
 
-\multirow{1}{*}{On-chain Call Market}    			&\cm			&\multirow{1}{*}{\full}		&\multirow{1}{*}{\full}		&\multirow{1}{*}{\full}		&\multirow{1}{*}{\full}		&\multirow{1}{*}{\full}		&\multirow{1}{*}{\empt} 		&\multirow{1}{*}{\empt}		&\multirow{1}{*}{\empt}		&\multirow{1}{*}{\full}		&\multirow{1}{*}{ \full}		&\multirow{1}{*}{\full } 		\\ \hline
-
-\multirow{1}{*}{On-chain Call Market w/ Roll-up}	&\cm	 variant	&\multirow{1}{*}{\full}		&\multirow{1}{*}{\full}		&\multirow{1}{*}{\empt}		&\multirow{1}{*}{\full}		&\multirow{1}{*}{\empt}		&\multirow{1}{*}{\prt} 		&\multirow{1}{*}{\prt}		&\multirow{1}{*}{\empt}		&\multirow{1}{*}{\full}		&\multirow{1}{*}{ \full}		&\multirow{1}{*}{\full } 		\\ \hline
+\shortstack{On-chain Call Market\\ w/ Roll-up}		 	&\full			&\full			&\empt 			&\empt 	&\prt		&\prt		&\empt 	&\full			&\full			&\full			\\ \hline
 
 
 \hline
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
 
 
-\end{tabular}
+\end{tabularx}
 \caption{\footnotesize{Comparative evaluation of different types of exchange platforms: {\full} indicates the properties (columns) are fulfilled by the corresponding mechanism (rows) within reason, {\empt} means the property is not fulfilled, \textblue{and {\prt} means the property is partially fulfilled.}}
 \label{tab:eval}}
 \end{table*}
