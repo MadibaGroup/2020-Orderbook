@@ -16,9 +16,9 @@ Financial regulators seek to provide consumer protection during the issuing and 
 
 Our research group is actively collaborating with our jurisdiction's financial regulator (name withheld for anonymity) to help them forecast how trading can be impacted by blockchain technology. This paper addresses their concerns about the feasibility of a `worst-case scenario' where a trading platform is anonymously deployed on a public blockchain, like Ethereum, and runs autonomously without any further intervention from an externally visible entity. Such a design appears feasible but is considered too slow. Together, we agreed it is a very good time to do a deep dive into understanding precisely \textit{how slow} for the following reasons: (1) public blockchains are becoming faster (both in theory and in practice) providing future efficiency gains for on-chain trading, (2) demand for on-chain trading is exemplified by the recent popularity of dealer quote-based trading like Uniswap and Curve Finance (reviewed below), and (3) stablecoins have become popular and allow on-chain trading with pricing in USD, alleviating another regulatory hook: the need for platforms to maintain traditional accounts for holding governmental currency and interfacing with the banking system.
 
-\textbf{Contributions.} We study fully on-chain markets through design and implementation with Solidity---a high-level programming language for Ethereum that is syntactically similar to Java. We choose Ethereum as a hostile environment for an order book: Ethereum is fully decentralized (hardest to regulate), network participation is open to anyone on the internet (\textblue{define the strongest adversarial model} strongest adversarial model), and, as a result, it is slow (a lower-bound benchmark). Generally, if an application is feasible on Ethereum, it will also be feasible and only run faster on a private (or permissioned) blockchain (\eg Hyperledger), which is a blockchain operated by authorized network nodes only, generally visible to regulators.
+\textbf{Contributions.} We study fully on-chain markets through design and implementation with Solidity---a high-level programming language for Ethereum that is syntactically similar to Java. We choose Ethereum as a hostile environment for an order book: Ethereum is fully decentralized (hardest to regulate), network participation is open to anyone on the internet (strongest adversarial model), and, as a result, it is slow (a lower-bound benchmark). Generally, if an application is feasible on Ethereum, it will also be feasible and only run faster on a private (or permissioned) blockchain (\eg Hyperledger), which is a blockchain operated by authorized network nodes only, generally visible to regulators.
 
-Our proof of concept, \cm, is an extensible base class suitable for experiments. \cm is designed from a security perspective: users only trust their assets to \cm's auditable code (non-custodial) and not to a third party, all operations are transparent, and we \textblue{nearly} eliminate the ability for adversarial network nodes to profit from front-running orders \textblue{Either say where \cm is vul to front-running or refer to the front-running section (would that be enough though?)}. In fact, we believe we are the first to design a decentralized application that actually leverages front-running (\ie miner extractable value~\cite{daian2019flash}) for the benefit of the system (see Section~\ref{sec:close}).
+Our proof of concept, \cm, is an extensible base class suitable for experiments. \cm is designed from a security perspective: users only trust their assets to \cm's auditable code (non-custodial) and not to a third party, all operations are transparent, and we nearly eliminate the ability for adversarial network nodes to profit from front-running orders (see Section~\ref{sec:front} for in-depth front-running analysis). In fact, we believe we are the first to design a decentralized application that actually leverages front-running (\ie miner extractable value~\cite{daian2019flash}) for the benefit of the system (see Section~\ref{sec:close}).
 
 While Solidity and its compiled bytecode is like many common programming languages, it also has quirks that require experimentation to best optimize performance (\eg factoring in the gas costs of operations, gas refunds, limits to Solidity's object-oriented design, clearing mappings, \etc). We test five priority queues---the core data structure of the call market---and various options for cleaning up our data once finished with it. The bottom line is that the current benchmark for a \cm-esque design is in the low hundreds of trade executions per block on Ethereum today. This positions \cm as a feasible design for only a narrow set of markets today (low liquidity, small number of traders) which is good news for regulators. A broader consequence of our research is that any on-chain application that requires the traversal of hundreds of elements in a data structure in a single transaction is not feasible on Ethereum today.
 
@@ -36,15 +36,15 @@ A public blockchain is an open peer-to-peer network that maintains a set of tran
 
 Transactions are broadcast by users to the blockchain network where they are propagated to all nodes. Nodes that choose to \emph{mine} will collect transactions (in the order of their choosing) into a block, and will attempt to have the network reach a consensus that their block should be added to the set (or chain) of previous blocks. A transaction is considered finalized once consensus on its inclusion has held for several additional blocks.
 
-\textbf{Ethereum's Gas Model.} Every transaction results in the participating nodes having to execute bytecode. This is not free. When a transaction is executed, each opcode in the execution path accrues a fixed, pre-specified amount of \emph{gas}. The function caller will pledge to pay a certain amount of Ethereum's internal currency \emph{ETH} (typically quoted in units of Gwei which is one billionth of an ETH) per unit of gas, and miners are free to choose to execute that transaction or ignore it. The function caller is charged for exactly what the transaction costs to execute, and they cap the maximum they are willing to be charged (\textit{gas limit}). If the cap is too low to complete the execution, the miner keeps the Gwei and \emph{reverts} the state of the EVM (as if the function never ran).
-
-A miner can include as many transactions (typically preferring transactions that bid the highest for gas) that can fit under a pre-specified \textit{block gas limit}, which is algorithmically adjusted for every block. As of the time of writing, the limit is approximately 11M gas. Essentially, our main research question is how many on-chain trades can be executed without exceeding that limit. Later, we also discuss several bytecode operations (\emph{opcodes}) that refund gas (\ie cost negative gas), which we heavily utilize in our optimizations.
+%\textbf{Ethereum's Gas Model.} Every transaction results in the participating nodes having to execute bytecode. This is not free. When a transaction is executed, each opcode in the execution path accrues a fixed, pre-specified amount of \emph{gas}. The function caller will pledge to pay a certain amount of Ethereum's internal currency \emph{ETH} (typically quoted in units of Gwei which is one billionth of an ETH) per unit of gas, and miners are free to choose to execute that transaction or ignore it. The function caller is charged for exactly what the transaction costs to execute, and they cap the maximum they are willing to be charged (\textit{gas limit}). If the cap is too low to complete the execution, the miner keeps the Gwei and \emph{reverts} the state of the EVM (as if the function never ran).
+%
+%A miner can include as many transactions (typically preferring transactions that bid the highest for gas) that can fit under a pre-specified \textit{block gas limit}, which is algorithmically adjusted for every block. As of the time of writing, the limit is approximately 11M gas. Essentially, our main research question is how many on-chain trades can be executed without exceeding that limit. Later, we also discuss several bytecode operations (\emph{opcodes}) that refund gas (\ie cost negative gas), which we heavily utilize in our optimizations.
 
 
 
 \subsection{Trade Execution Systems} %NEW:@Mahsa
 
-There are three main approaches to arranging a trade~\cite{Har03}. In a \emph{quote-driven} market, a dealer uses its own inventory to offer a price for buying or selling an asset. In a \emph{brokered exchange}, a broker finds a buyer and seller. In an \emph{order-driven} market, offers to buy (\emph{bids}) and sell (\emph{offers}/\emph{asks}) from many traders are placed as orders in an order book. Order-driven markets can be \emph{continuous}, with buyers/sellers at any time adding orders to the order book (\emph{makers}) or executing against an existing order (\emph{takers}); or they can be \emph{called}, where all traders submit orders within a window of time and orders are matched in a batch (like an auction). Table~\ref{tab:exchanges} presents three prominent order-driven exchanges and provides a brief comparison between them. We describe each below:
+\emph{Order-driven} markets are a  group of trade execution systems where offers to buy (\emph{bids}) and sell (\emph{offers}/\emph{asks}) from many traders are placed as orders in an order book and executed based on matching rules enforced by the market. These markets can be \emph{continuous}, with buyers/sellers at any time adding orders to the order book (\emph{makers}) or executing against an existing order (\emph{takers}); or they can be \emph{called}, where all traders submit orders within a window of time and orders are matched in a batch (like an auction). Table~\ref{tab:exchanges} presents three types of order-driven exchanges:
 
 \input{tables/tradeexecutions.tex}
 \begin{itemize}
@@ -56,13 +56,7 @@ There are three main approaches to arranging a trade~\cite{Har03}. In a \emph{qu
 
 \item\textbf{Fully On-chain Exchanges.} Order matching can be performed `on-chain' by deploying the order-matching system either on a dedicated blockchain or inside a decentralized application (DApp). In this model, traders entrust their assets to an autonomously operating DApp with known source code instead of a third party custodian that can abscond with or lose the funds. The trading rules will operate as coded, clearing and settling can be guaranteed, and order submission is handled by the blockchain---a reasonably fair and transparent system (but see front-running; Section~\ref{sec:front}). Finally, anyone can create an on-chain order book for any asset (on the same chain) at any time. 
 \end{itemize}
-Fully on-chain order-driven exchanges have a superior threat model and were experimented with in the early days of Ethereum, but they have been largely abandoned for performance reasons (see Table~\ref{tab:exchanges}). In this paper, we focus on benchmarking an order book for the public blockchain Ethereum. Specifically, we answer the following research questions:
-\begin{enumerate}
-\item Is secure trading (\ie resistant to front-running and price manipulation) even feasible as a fully ‘on-chain’ service on a public blockchain?
-\item What is its performance benchmark?
-\item What is the performance impact of novel techniques (\eg ‘rollups’) in closing the performance gap?
-
-\end{enumerate}
+Despite having a superior threat model, fully on-chain order-driven exchanges are slow, difficult to regulate and implement (see Table~\ref{tab:exchanges}). In this paper, we focus on benchmarking an order book for the public blockchain Ethereum.
 
 
 %\input{tables/eval.tex}
@@ -109,7 +103,35 @@ Less related are papers on topics tangential to the mechanics of trade execution
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
-\section{Priority Queues}\label{sec:pq}
+
+
+\section{Call Market Design}
+
+\input{tables/functions.tex}
+
+Our proof of concept, \cm, is a call market that will open for a specified period of time during which it will accept a capped number of orders (\eg 100 orders---parameterized so that all orders can be processed), and these orders are added to a priority queue (discussed in Section~\ref{sec:pq} ). Our vision is the market would be open for a very short period of time, close, and then reopen immediately (\eg every other block). \cm is open source and written in 336 lines (SLOC) of Solidity plus the priority queue (\eg a heap with dynamic array is 282 SLOC)\footnote{Github: Link removed for anonymity.}. We tested it with the Mocha testing framework using Truffle on Ganache-CLI to obtain our performance metrics. Once deployed, the bytecode of \cm is 10,812 bytes plus the constructor code (6,400 bytes) which is not stored. 
+We cross-checked for vulnerabilities with \textit{Slither}\footnote{https://github.com/crytic/slither} and \textit{SmartCheck}\footnote{https://tool.smartdec.net} (it only fails some `informational' warnings that are intentional design choices---\eg a costly loop). Table~\ref{tab:cm_functions} summarizes \cm's primary operations.
+Also, \cm is an extensible base class that is still functional without any extensions. Figure\textblue{mindmap} represents a design  landscape and extensions.
+
+
+%is an extensible base class that is still functional without any extensions. 
+%
+%Later in Section~\ref{sec:close}, we discuss the options for who closes/reopens the market. We keep the design simple by not allowing cancellations which require a second transaction and front-running attacks apply to cancellation orders~\cite{eskandari2019sok}. As markets are relatively short-lived, orders simply expire when the market call period ends.
+%
+%Another simplifying assumption is to implement a \textit{collateralized} call market. We assume all trades are between ETH and an ERC20 token, all orders are pre-funded in the contract with ETH (for bids) and tokens (for asks), and once ETH or tokens are committed to an order, they cannot be withdrawn until the market closes. This ensures all executed orders clear and settle (\ie no defaults on payment or delivery).
+
+% Volume of 1
+% Ties?
+
+
+
+
+
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+
+\subsection{Priority Queues}\label{sec:pq}
 
 \input{tables/pq.tex}
 
@@ -152,9 +174,6 @@ There are numerous ways of implementing a PQ. A PQ has an underlying list---comm
 
 %\input{tables/dequeue.tex}
 
-\textblue{put the block gas limit in the chart} 
-
-
 
 
 \begin{figure}
@@ -169,7 +188,7 @@ There are numerous ways of implementing a PQ. A PQ has an underlying list---comm
 \scriptsize
 \begin{tabular}{|>{\centering}m{2cm} |>{\centering}m{1.15cm} |>{\centering}m{1.15cm} |>{\centering\arraybackslash}m{0.2cm}|}%{|c|c|c|c|}
 
-\multicolumn{1}{c}{} & \headrowsidebyside{\scriptsize{\shortstack{Gas Costs \\\textit{(gwei)}}}} & \headrowsidebyside{\scriptsize{\shortstack{Refund \textit{(gwei)} \\\textblue{(Manual)}}}} & \headrowsidebyside{\scriptsize{Full Refund?}} \\ \hline
+\multicolumn{1}{c}{} & \headrowsidebyside{\scriptsize{\shortstack{Gas Costs \\\textit{(gwei)}}}} & \headrowsidebyside{\scriptsize{Refund \textit{(gwei)} }} & \headrowsidebyside{\scriptsize{Full Refund?}} \\ \hline
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
 \shortstack{Heap with\\Dynamic Array}        	& 2,518,131          & 750,000     &\full                  \\ \hline
@@ -213,20 +232,7 @@ Linked List                     		& 557,085               	           & 1,200,00
 
 \input{tables/cleaning.tex}
 
-\paragraph{Gas Refunds.} In order to reconstruct the current state of Ethereum's EVM, a node must obtain a copy of every variable change since the genesis block (or a more recent `checkpoint' that is universally agreed to). For this reason, stored variables persist for a long time and, at first glance, it seems pointless to free up variable storage (and unclear what `free up' even means). Once the current state of the EVM is established by a node, it can forget about every historical variable changes and only concern itself with the variables that have non-zero value (as a byte string for non-integers) in the current state (uninitialized variables in Ethereum have the value 0 by default). Therefore, freeing up variables will reduce the amount of state Ethereum nodes need to maintain going forward.
-
-For this reason, some EVM operations cost a negative amount of gas. That is, the gas is refunded to the sender at the end of the transaction, however (1) the refund is capped at 50\% of the total gas cost of the transaction, and (2) the block gas limit applies to the pre-refunded amount (\ie a transaction receiving a full refund can cost up to 5.5M gas with an 11M limit). Negative gas operations include:
-
-\begin{itemize}
-
-\item \texttt{SELFDESTRUCT}. This operation destroys the contract that calls it and refunds its balance (if any) to a designated receiver address. The  \texttt{SELFDESTRUCT} operation does not remove the initial byte code of the contract from the chain. It always refunds 24,000 gas. For example, if contract A stores a single non-zero integer and contract B stores 100 non-zero integers, the \texttt{SELFDESTRUCT} refund for both is the same (24,000 gas).
-
-
-\item \texttt{SSTORE}. This operation loads a storage slot with a value. Using \texttt{SSTORE} to load a zero into a storage slot means the nodes can start ignoring it (recall that all variables, even if uninitialized, have zero by default). Doing this refunds 15,000 gas per slot.
-
-\end{itemize}
-
-At the time of this writing, Ethereum transaction receipts only account for the \texttt{gasUsed}, which is the total amount of gas units spent during a transaction, and users are not able to obtain the value of the EVM's refund counter from inside the EVM~\cite{signer2018gas}. So in order to account for refunds in Tables~\ref{tab:PQUnitTests}, we calculate them manually. First, we need to figure out exactly how much storage is being cleared or how many smart contracts are being destroyed, then we multiply these numbers by 24,000 or 15,000 respectively.
+\paragraph{Gas Refunds.}\label{para-ref}To incentivize for deleting unused storage on the blockchain, some EVM operations cost a negative amount of gas. These include \texttt{SELFDESTRUCT} that destroys contract and refunds 24,000 gas, and  \texttt{SSTORE} that resets storage values from non-zero to zero and refunds 15,000 gas. The gas is refunded to the sender at the end of the transaction, however (1) the refund is capped at 50\% of the total gas cost of the transaction, and (2) the block gas limit applies to the pre-refunded amount (\ie a transaction receiving a full refund can cost up to 5.5M gas with an 11M limit).  At the time of this writing, Ethereum transaction receipts only account for the \texttt{gasUsed}, which is the total amount of gas units spent during a transaction, and users are not able to obtain the value of the EVM's refund counter from inside the EVM~\cite{signer2018gas}. So in order to account for refunds in  Tables~\ref{tab:PQUnitTests}, we calculate them manually. First, we need to figure out exactly how much storage is being cleared or how many smart contracts are being destroyed, then we multiply these numbers by 24,000 or15,000 respectively.
 
 \paragraph{Refunds and PQs.}
 
@@ -241,32 +247,21 @@ The lesson here is that gas refunds incentivize developers to clean up storage v
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
-\section{Call Market Design}
 
-\input{tables/functions.tex}
-
-\cm is a proof of concept code and an extensible base class that is still functional without any extensions. A call market will open for a specified period of time during which it will accept a capped number of orders (\eg 100 orders---parameterized so that all orders can be processed), and these orders are added to a PQ. Our vision (discussed below) is the market would be open for a very short period of time, close, and then reopen immediately (\eg every other block). Later in Section~\ref{sec:close}, we discuss the options for who closes/reopens the market. We keep the design simple by not allowing cancellations which require a second transaction and front-running attacks apply to cancellation orders~\cite{eskandari2019sok}. As markets are relatively short-lived, orders simply expire when the market call period ends.
-
-Another simplifying assumption is to implement a \textit{collateralized} call market. We assume all trades are between ETH and an ERC20 token, all orders are pre-funded in the contract with ETH (for bids) and tokens (for asks), and once ETH or tokens are committed to an order, they cannot be withdrawn until the market closes. This ensures all executed orders clear and settle (\ie no defaults on payment or delivery).
-
-% Volume of 1
-% Ties?
-
-\cm is open source and written in 336 lines (SLOC) of Solidity plus the priority queue (\eg a heap with dynamic array is 282 SLOC)(see Section~\ref{sec:avai}). We tested it with the Mocha testing framework using Truffle on Ganache-CLI to obtain our performance metrics. Once deployed, the bytecode of \cm is 10,812 bytes plus the constructor code (6,400 bytes) which is not stored. We cross-checked for vulnerabilities with \textit{Slither}\footnote{https://github.com/crytic/slither} and \textit{SmartCheck}\footnote{https://tool.smartdec.net} (it only fails some `informational' warnings that are intentional design choices---\eg a costly loop). Table~\ref{tab:cm_functions} summarizes \cm's primary operations.
 
 
 %============= Performance =================== %
 
- \subsection{Measurements}
+ \section{\cm Performance Measurements}
 
  \input{tables/performance.tex}
 
 
-The main research question is how many orders can be processed in a single Ethereum transaction when closing the call market, using Ethereum today. As our previous experiments indicated, the choice of PQ implementation is the main influence on performance (see Table~\ref{tab:worst_case_matching}). We implemented a generic call market that interfaces with a generic PQ (at its own contract address) and ran experiments for each PQ implementation. We looked at the \textit{worst-case} for performance which is when every submitted bid and ask is marketable (\ie will require fulfillment). In the first two columns, we determine the highest number of trades that can be executed and processed in a single call to the \texttt{closeMarket()} and not exceed the current Ethereum block gas limit of 11,741,495. Since Ethereum will become more efficient over time, we were also interested in how much gas it would cost to execute 1000 pairs of orders, which is given in the third column. The fourth column indicates the cost of submitting a bid or ask --- since this cost will vary depending on how many orders are already submitted (recall Figure~\ref{fig:random_insertion}), we average the cost of 200 order submissions.
+The main research question is how many orders can be processed in a single Ethereum transaction when closing the call market, using Ethereum today. As our previous experiments indicated, the choice of PQ implementation is the main influence on performance. We implemented a generic call market that interfaces with a generic PQ (at its own contract address) and ran experiments for each PQ implementation. We looked at the \textit{worst-case} for performance which is when every submitted bid and ask is marketable (\ie will require fulfillment). Table~\ref{tab:worst_case_matching} shows the performance results of \cm for each PQ variant. In the first two columns, we determine the highest number of trades that can be executed and processed in a single call to the \texttt{closeMarket()} and not exceed the current Ethereum block gas limit of 11,741,495. Since Ethereum will become more efficient over time, we were also interested in how much gas it would cost to execute 1000 pairs of orders, which is given in the third column. The fourth column indicates the cost of submitting a bid or ask --- since this cost will vary depending on how many orders are already submitted (recall Figure~\ref{fig:random_insertion}), we average the cost of 200 order submissions.
 
 As expected, the numbers closely track the performance of the PQ itself, suggesting the PQ is indeed the main influence on performance. In Ethereum today, call markets appear to be limited to processing about a hundred orders per transaction. If markets open on every other block and the call market could monopolize an entire block to close, a few hundred orders per minute (worst-case) can be processed. The main takeaway is that the transparency, front-running resistance, and low barrier to entry of Ethereum come with an enormous cost (\ie an institutional exchange like NASDAQ can process 100K trades per second). That said, many exchanges trade the same assets under different trading rules (\ie market fragmentation) because traders have different preferences. \cm can work today in some circumstances like very low liquidity tokens, or markets with high volumes and a small number of traders (\eg liquidation auctions).
 
-\subsection{Front-running Evaluation} \label{sec:front}
+\section{Front-running Evaluation} \label{sec:front}
 
 %\textblue{Notes on Front-running Table:}
 %\begin{itemize}
@@ -293,25 +288,6 @@ Other front-running attacks use order cancellations (discussed in the next secti
 
 There are two main takeaways from Table~\ref{tab:front}. Call markets provide strong resilience to front-running only bested slightly by dark markets like TEX~\cite{khalil2019tex}, however they do it through design---no cryptography and no two-round protocols. A second observation is that dark call markets, like Galal \etal~\cite{galalpublicly}, are no more resilient to front-running than a lit market (however confidentiality could provide resilience to predatory trading algorithms that are reactionary but do not front-run).
 
-\subsection{Cleaning Up Revisited}
-
-Recall the issue of cleaning up with priority queues in Section~\ref{sec:gasrefund}. Every time a market opens, \cm creates new mappings that are no longer needed after a market closes. Traders preload their account with tokens to be traded (which comply with a common token standard called ERC20) and/or ETH. \cm tracks what they are owed using a mapping called \texttt{totalBalance} and allows traders to withdraw their tokens at any time. However if a trader submits an order (\ie ask for their tokens), the tokens are committed and not available for withdrawal until the market closes (after which, the balances are updated for each trade that is executed). Committed tokens are also tracked in a mapping called \texttt{unavailableBalance}. Sellers can request a token withdrawal up to their total balance subtracted by their unavailable balance.
-
-When \texttt{closeMarket()} runs, \cm starts matching the best bids to the best asks. As orders execute, \texttt{totalBalance} and \texttt{unavailableBalance} are updated. At a certain point, the bids and asks will stop matching in price. At this point, every order left in the order book cannot execute (the priority queue sorts orders by price, so orders deeper in the queue have worse prices than the orders at the head of the queue). Therefore, all remaining entries in \texttt{unavailableBalance} can be cleared.
-
-In Solidity, it is not possible to delete an entire mapping without individually zeroing out each entry key-by-key. At the same time, it is wasteful to let an entire mapping sit in the EVM when it will never be referenced again. The following are some options for addressing this conflict:
-
-\begin{enumerate}
-
-\item \textbf{Manually Clear the Mapping.} Since mappings cannot be iterated, a common design pattern used by DApp developers is to store the keys in an array and iterate over the array to zero out each mapping and array entry. Clearing a mapping this way costs substantially more to clear than what is refunded.
-
-\item \textbf{Store the Mapping in a Separate DApp.} We could wrap the mapping inside its own DApp and run the \texttt{SELFDESTRUCT} operation on the contract once we finish processing the mapping. This refunds us 24,000 gas which is less than the cost of deploying the extra contract. Additionally, every call to the mapping is more expensive because (1) it is an external function call, and (2) the calls need access control to ensure only the market contract can write to it (if a mapping is a local variable, you get private access for free).
-
-\item \textbf{Leave and Ignore the Mapping.} The final option is to not clear the mapping and just create a new one (or create a new prefix for all mapping keys to reflect the new version of the mapping). Unfortunately, this is the most economical option for DApp developers even if it is the worst option for Ethereum nodes.
-
-\end{enumerate}
-
-Clearing storage is important for reducing EVM bloat\textblue{and who gets hurt with that?}. The Ethereum refund model should be considered further by Ethereum developers to provide a better incentive to be less wasteful in using storage.
 
 % = = = = = = = = = = = = = = = = = = = = = = = = =  %
 

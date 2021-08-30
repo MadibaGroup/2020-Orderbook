@@ -2,9 +2,23 @@
 
 
 
+\textbf{Ethereum's Gas Model.} Every transaction results in the participating nodes having to execute bytecode. This is not free. When a transaction is executed, each opcode in the execution path accrues a fixed, pre-specified amount of \emph{gas}. The function caller will pledge to pay a certain amount of Ethereum's internal currency \emph{ETH} (typically quoted in units of Gwei which is one billionth of an ETH) per unit of gas, and miners are free to choose to execute that transaction or ignore it. The function caller is charged for exactly what the transaction costs to execute, and they cap the maximum they are willing to be charged (\textit{gas limit}). If the cap is too low to complete the execution, the miner keeps the Gwei and \emph{reverts} the state of the EVM (as if the function never ran).
+
+A miner can include as many transactions (typically preferring transactions that bid the highest for gas) that can fit under a pre-specified \textit{block gas limit}, which is algorithmically adjusted for every block. As of the time of writing, the limit is approximately 11M gas. Essentially, our main research question is how many on-chain trades can be executed without exceeding that limit. Later, we also discuss several bytecode operations (\emph{opcodes}) that refund gas (\ie cost negative gas), which we heavily utilize in our optimizations.
 
 
+\section{Gas Refunds.} In order to reconstruct the current state of Ethereum's EVM, a node must obtain a copy of every variable change since the genesis block (or a more recent `checkpoint' that is universally agreed to). For this reason, stored variables persist for a long time and, at first glance, it seems pointless to free up variable storage (and unclear what `free up' even means). Once the current state of the EVM is established by a node, it can forget about every historical variable changes and only concern itself with the variables that have non-zero value (as a byte string for non-integers) in the current state (uninitialized variables in Ethereum have the value 0 by default). Therefore, freeing up variables will reduce the amount of state Ethereum nodes need to maintain going forward.
 
+For this reason, some EVM operations cost a negative amount of gas. That is, the gas is refunded to the sender at the end of the transaction, however (1) the refund is capped at 50\% of the total gas cost of the transaction, and (2) the block gas limit applies to the pre-refunded amount (\ie a transaction receiving a full refund can cost up to 5.5M gas with an 11M limit). Negative gas operations include:
+
+\begin{itemize}
+
+\item \texttt{SELFDESTRUCT}. This operation destroys the contract that calls it and refunds its balance (if any) to a designated receiver address. The  \texttt{SELFDESTRUCT} operation does not remove the initial byte code of the contract from the chain. It always refunds 24,000 gas. For example, if contract A stores a single non-zero integer and contract B stores 100 non-zero integers, the \texttt{SELFDESTRUCT} refund for both is the same (24,000 gas).
+
+
+\item \texttt{SSTORE}. This operation loads a storage slot with a value. Using \texttt{SSTORE} to load a zero into a storage slot means the nodes can start ignoring it (recall that all variables, even if uninitialized, have zero by default). Doing this refunds 15,000 gas per slot.
+
+\end{itemize}
 
 
 
