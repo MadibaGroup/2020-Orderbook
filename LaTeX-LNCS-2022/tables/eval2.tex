@@ -1,0 +1,47 @@
+% !TEX root = ../main.tex
+ \newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
+% = = = = = = = = = = = = = = = = = = = = =Call market operations Table = = = = = = = = = = = =  = = = = = =  %
+\begin{table}[t]
+%\setlength{\tabcolsep}{0.7\tabcolsep}% Shrink \tabcolsep
+
+\centering
+\scriptsize
+%\begin{tabular}{|>{\centering}m{3cm} |>{\centering}m{3cm} |>{\centering}m{3cm} |>{\centering}m{4cm} |}
+\begin{tabular}{|c|c|c|c|}
+
+\hline
+\textbf{Exchange Platform}			 &\textbf{Description}   				& \textbf{Advantages}      				& \textbf{Disadvantages}                   \\ \hline
+
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = == = = = = =%
+\multirow{4}{*}{\shortstack{Centralized \\Exchanges}}                            & \multirow{4}{*}{\shortstack{Exchange acts as a \\trusted third party\\ between traders}} 	& High Liquidity			& Third party custodian				\\  
+											&																		& High trade performance		& Low security				\\ 
+											 &																		& Low price slippage		& No instant settlement	 		\\
+											 &																		& Easy to regulate			& Server downtime							\\ \hline
+					
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = == = = = = =%
+\multirow{6}{*}{\shortstack{On-chain \\Order Books}}                         		& \multirow{6}{*}{\shortstack{Exchange operates\\fully \\on-chain as coded}}	& High security							&	\\
+												&																		& Non-custodial						& 					\\
+												&																		& No trusted third party					& Low trade performance						\\
+												&																		& Fully Autonomous						&Hard to regulate			\\
+												&																		& No Impermanent Loss					&					\\
+												&																		& Low price slippage					&					\\ \hline
+																									
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = == = = = = =%
+\multirow{5}{*}{\shortstack{On-chain \\Dealers} }                     	 & \multirow{5}{*}{ \shortstack{A dealer uses its \\own inventory to offer \\a price for assets \\being traded}}	& High security				& 				\\										
+											&																						& Non-custodial			&  Impermanent Loss\\
+											&																						& No trusted third party		&	High price slippage				\\
+											&																						& Fully Autonomous			&	 No support for limit orders			\\
+											&																						& High performance			&					\\ \hline
+																									
+
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = == = = = = =%
+\multirow{3}{*}{\shortstack{Hybrid\\ Designs}}                            &  \multirow{3}{*}{\shortstack{Exchange operates \\partially on-chain}}  								& High trade performance				& Low security										\\
+									&																									& Easy to regulate					& Server downtime \\
+									&																									& Non-custodial 					& \shortstack{Uncertain fair execution}	\\ \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
+\end{tabular}
+\caption{ A simple comparison among different trade execution systems.
+\label{tab:eval2}}
+\end{table}
+
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %

@@ -2,22 +2,20 @@
 
 
 
-
 \begin{table*}[t]
 \centering
 \scriptsize
-\begin{tabularx}{0.9\textwidth}{ |c| *{10}{Y|} }
-
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
 \multicolumn{1}{c}{} &
 %Security
 \headrow{Non-Custodial} &
-\headrow{No Trusted Third Party} & 
+\headrow{\shortstack{No Trusted \\Third Party}} & 
 \headrow{Fully Autonomous} & 
 
 
 %Deployability
-\headrow{Resilient to Server Downtime} & 
-\headrow{Resilient to Ethereum Network Congestion} & 
+\headrow{\shortstack{Resilient to\\ Server Downtime}} & 
+\headrow{\shortstack{Resilient to Ethereum \\ Network Congestion}} & 
 \headrow{High Trade Performance} &
 
 %Market Characteristics
@@ -39,7 +37,7 @@
 
 \multicolumn{1}{|c}{\textbf{Exchange Platform}} 			& \multicolumn{3}{|c}{\textbf{\shortstack{Security\\ Properties}}} &		\multicolumn{3}{|c}{\textbf{\shortstack{Deployability \\Properties}}} & 		\multicolumn{4}{|c|}{\textbf{\shortstack{Market \\Characteristics}}}  \\ \cmidrule[0.7mm]{1-11}
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-\shortstack{Centralized Continuous\\ Market \textit{(CEX)}}				&\empt		&\empt		&\empt			&	\empt	&\full		&\full		&\empt		&\full		&\full 		&\empt		\\ \hline	
+\shortstack{Centralized Continuous\\ Market \textit{(CEX)}}				&\empt			&\empt		&\empt			&	\empt	&\full		&\full		&\empt		&\full		&\full 		&\empt		\\ \hline	
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
 \shortstack{Partially Off-chain \\Continuous Market \textit{(DEX)}}			&\prt 	&\prt		&\prt			&\empt		&\prt 		&\full		&\empt 		&\full 		&\full		&\full		\\ \hline
@@ -62,7 +60,7 @@ On-chain Call Market   					&\full			&\full			&\full				&\full			&\empt 	&\empt 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
 
 
-\end{tabularx}
+\end{tabular}
 \caption{\footnotesize{Comparative evaluation of different types of exchange platforms: {\full} indicates the properties (columns) are fulfilled by the corresponding mechanism (rows) within reason, {\empt} means the property is not fulfilled, \textblue{and {\prt} means the property is partially fulfilled.}}
 \label{tab:eval}}
 \end{table*}
