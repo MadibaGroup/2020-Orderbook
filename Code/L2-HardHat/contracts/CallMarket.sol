@@ -12,12 +12,12 @@ import "./LinkedListMapping.sol";
 contract CallMarket{
 
 
-    //HeapDynamicArray public priorityQueue = new HeapDynamicArray();
+    HeapDynamicArray public priorityQueue = new HeapDynamicArray();
     //HeapStaticArray public priorityQueue = new HeapStaticArray(84);
     //HeapMapping public priorityQueue = new HeapMapping();
     //we pass the address of the callmarket to the LinkedList so that the selfdestruct could send Ethers back to the callmarket
     //LinkedList public priorityQueue = new LinkedList(address(this));
-    LinkedListMapping public priorityQueue = new LinkedListMapping();
+    //LinkedListMapping public priorityQueue = new LinkedListMapping();
     //Mapping public MP = new Mapping(address(this));
     address payable public callmarket = address(uint160(address(this)));
 
