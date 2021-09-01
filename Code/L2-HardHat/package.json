@@ -4,23 +4,20 @@
   "description": "Lissy (call market) on Arbitrum",
   "main": "index.js",
   "license": "MIT",
-  "engines": {
-    "node": ">= 8.0.0 < 13.0.0",
-    "npm": "^6.0.0",
-    "yarn": "^1.0.0"
-  },
-  "scripts": {
-    "build": "hardhat compile",
-    "exec": "hardhat run scripts/exec.js"
-  },
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.2",
+    "@nomiclabs/hardhat-waffle": "^2.0.1",
     "@openzeppelin/contracts": "^4.1.0",
-    "arb-ts": "0.0.9",
-    "ethers": "^5.1.2",
-    "hardhat": "^2.2.0"
+    "arb-ts": "^0.0.35",
+    "chai": "^4.3.4",
+    "ethereum-waffle": "^3.4.0",
+    "ethers": "^5.4.6",
+    "hardhat": "^2.2.0",
+    "eslint": "^7.30.0",
+    "hardhat-gas-reporter": "^1.0.4"
   },
   "dependencies": {
-    "dotenv": "^8.2.0"
+    "dotenv": "^8.2.0",
+    "eslint-plugin-prettier": "^3.4.0"
   }
 }

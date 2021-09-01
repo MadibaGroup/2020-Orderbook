@@ -380,7 +380,7 @@ Recall that \cm implements an exchange between ETH and tokens. To use Layer 1 as
 
 In our \cm variant on Arbitrum, the token issuer does all the computation (both enqueuing and dequeuing). Thus, we switch the priority queue to use a heap with dynamic array, which balances the expense of both operations (instead of optimizing for dequeuing in \texttt{closeMarket()}). Our experiments show that on Arbitrum, heaps are 32\% more efficient than non-Heaps for submitting orders and 29\% less efficient for closing. Recall that without a roll-up, such a priority queue can only match 38 pairs at a cost of 5,372,679 gas. With Arbitrum roll-ups, 38 pairs cost only 1,632 in Layer 1 gas (a 99.9\% savings). This is effectively the cost of recording the \texttt{closeMarket()} function call in the Inbox, which is 103 bytes of calldata. As the number of pairs increases, Layer 1 gas cost is constant. For traders submitting an order, the cost is reduced from  207,932 to 2,656.
 
- % Arbitrum V5 test results:
+ % Arbitrum Rinkeby test results:
 
  % Heap Dynamic Array: 100 order submissions averaged L2 arbgas: 1,659,416, L1 gas: fixed: 2656
 
@@ -440,7 +440,7 @@ It may seem paradoxical or unethical to build for regulators exactly what they w
 
 \section{Availability} 
 \label{sec:avai}
-The Solidity source code for \cm, Truffle test files, and Arbitrum dependencies are available in a GitHub repository (non-anonymous link omitted). We have also deployed \cm on Ethereum's testnet Rinkeby with flattened (single file) source code of just the \cm base class and priority queue implementations. It is visible and can be interacted with here: \href{https://rinkeby.etherscan.io/address/0x0d91de29c531d074853a5cef7cf9dfeb9c6ec4e0}{[etherscan.io]}; while the Arbitrum variant is here\textblue{the link is broken @Mahsa dont forget to re-run the test}: \href{https://explorer5.arbitrum.io/#/address/0x18BF65069Fdaed79f8BDB0B6EDa87d5cc46F6E28}{[explorer5.offchainlabs.com]}.
+The Solidity source code for \cm, Truffle test files, and Arbitrum dependencies are available in a GitHub repository (non-anonymous link omitted). We have also deployed \cm on Ethereum's testnet Rinkeby with flattened (single file) source code of just the \cm base class and priority queue implementations. It is visible and can be interacted with here: \href{https://rinkeby.etherscan.io/address/0x0d91de29c531d074853a5cef7cf9dfeb9c6ec4e0}{[etherscan.io]}; while the Arbitrum variant is here: \href{https://rinkeby-explorer.arbitrum.io/address/0x0aa5449a9f7fa34a81ce1dc720563938a27e8b03}{[https://rinkeby-explorer.arbitrum.io/]}.
 
 
 %ACK

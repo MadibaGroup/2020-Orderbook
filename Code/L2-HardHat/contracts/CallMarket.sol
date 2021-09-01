@@ -3,11 +3,11 @@ pragma experimental ABIEncoderV2;
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 
-//import "./HeapDynamicArray.sol";
+import "./HeapDynamicArray.sol";
 //import "./HeapStaticArray.sol";
 //import "./HeapMapping.sol";
 //import "./LinkedList.sol";
-import "./LinkedListMapping.sol";
+//import "./LinkedListMapping.sol";
 
 contract CallMarket{
 
@@ -290,15 +290,15 @@ contract CallMarket{
         refunds[block.coinbase] = 0; 
         block.coinbase.transfer(refund);
         
-        for (uint i = 0 ; i< unavailableTokenArray.length; i++) 
-        {   
-            delete unavailableTokenBalance[unavailableTokenArray[i]];
-        }
+        // for (uint i = 0 ; i< unavailableTokenArray.length; i++) 
+        // {   
+        //     delete unavailableTokenBalance[unavailableTokenArray[i]];
+        // }
         
-        for (uint j= 0 ; j< unavailableEtherArray.length; j++) 
-        {   
-            delete unavailableEtherBalance[unavailableEtherArray[j]];
-        }
+        // for (uint j= 0 ; j< unavailableEtherArray.length; j++) 
+        // {   
+        //     delete unavailableEtherBalance[unavailableEtherArray[j]];
+        // }
              
         
         
