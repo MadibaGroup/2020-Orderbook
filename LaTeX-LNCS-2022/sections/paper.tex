@@ -89,7 +89,10 @@ Less related are papers on topics tangential to the mechanics of trade execution
 \input{tables/functions.tex}
 
 Our proof of concept, \cm, is a call market that will open for a specified period of time during which it will accept a capped number of orders (\eg 100 orders---parameterized so that all orders can be processed), and these orders are added to a priority queue (discussed in Section~\ref{sec:pq} ). Our vision is the market would be open for a very short period of time, close, and then reopen immediately (\eg every other block). \cm is open source and written in 336 lines (SLOC) of Solidity plus the priority queue (\eg a heap with dynamic array is 282 SLOC). We tested it with the Mocha testing framework using Truffle on Ganache-CLI to obtain our performance metrics. Once deployed, the bytecode of \cm is 10,812 bytes plus the constructor code (6,400 bytes) which is not stored. The Solidity source code for \cm and Truffle test files are available in a GitHub repository.\footnote{Github: Link removed for anonymity.} We have also deployed \cm on Ethereum's testnet Rinkeby with flattened (single file) source code of just the \cm base class and priority queue implementations. It is visible and can be interacted with here: \href{https://rinkeby.etherscan.io/address/0x0d91de29c531d074853a5cef7cf9dfeb9c6ec4e0}{[etherscan.io]}. We cross-checked for vulnerabilities with \textit{Slither}\footnote{https://github.com/crytic/slither} and \textit{SmartCheck}\footnote{https://tool.smartdec.net} (it only fails some `informational' warnings that are intentional design choices---\eg a costly loop). Table~\ref{tab:cm_functions} summarizes \cm's primary operations.
-Also, \cm is an extensible base class that is still functional without any extensions. Figure\textblue{mindmap} represents a design  landscape and extensions.
+\textblue{Figuremindmap represents a design  landscape and extensions.}
+
+
+
 
 
 %is an extensible base class that is still functional without any extensions. 
