@@ -14,6 +14,6 @@ Trader->>Bridge(Ethereum): Request: run submitBid() function
 Validator-->>Bridge(Ethereum): Fetch from Bridge inbox
 Validator-->>Validator: Execute function
 Validator->>Lissy (Arbitrum):Update the state
-Lissy-->>Bridge(Ethereum): Sync ArbOs
+Lissy (Arbitrum)-->>Bridge(Ethereum): Sync ArbOs
 ```
 
