@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.8.25)  2 SEP 2021 10:41
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.9.3)  8 SEP 2021 13:12
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1607,7 +1607,7 @@ LaTeX Warning: Citation `ZBC+19' on page 18 undefined on input line 360.
 LaTeX Warning: Citation `kalodner2018arbitrum' on page 18 undefined on input li
 ne 369.
 
-[18] [19] [20]) [21]
+[18] (./tables/performance_Arbitrum.tex) [19] [20]) [21]
 No file main.bbl.
 (./sections/appendix.tex [22
 
@@ -1654,10 +1654,10 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 70DAEAD5B32B30DC1CCDD4D4BCFE1EED;58.
  ) 
 Here is how much of TeX's memory you used:
- 29918 strings out of 478994
- 562953 string characters out of 5858184
+ 29924 strings out of 478994
+ 563110 string characters out of 5858185
  955125 words of memory out of 5000000
- 46650 multiletter control sequences out of 15000+600000
+ 46652 multiletter control sequences out of 15000+600000
  428664 words of font info for 83 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  102i,21n,105p,1787b,685s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1693,10 +1693,10 @@ ic/cm-super/sftt1000.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public
 /wasy-type1/wasy5.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/wa
 sy-type1/wasy7.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/wasy-
 type1/wasy9.pfb>
-Output written on main.pdf (24 pages, 842228 bytes).
+Output written on main.pdf (24 pages, 846682 bytes).
 PDF statistics:
- 388 PDF objects out of 1000 (max. 8388607)
- 322 compressed objects within 4 object streams
- 98 named destinations out of 1000 (max. 500000)
+ 389 PDF objects out of 1000 (max. 8388607)
+ 323 compressed objects within 4 object streams
+ 99 named destinations out of 1000 (max. 500000)
  31 words of extra memory for PDF output out of 10000 (max. 10000000)
 

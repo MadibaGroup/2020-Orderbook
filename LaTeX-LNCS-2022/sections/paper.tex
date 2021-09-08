@@ -371,6 +371,7 @@ Arbitrum is an Ethereum Layer 2 scaling solution that operates as an optimistic 
 
 % = = = = = = = = = = = = = = = = = = = = = = = = =  %
 \subsection{\cm on Arbitrum}
+\input{tables/performance_Arbitrum}
 
 \textit{Testing Platforms.} To experiment with Arbitrum, we used the Arbitrum Rollup chain hosted on the Rinkeby testnet. We implemented a variant of \cm(\href{https://rinkeby-explorer.arbitrum.io/address/0x0aa5449a9f7fa34a81ce1dc720563938a27e8b03}{[https://rinkeby-explorer.arbitrum.io/]}) and ran the same experiments that we previously performed on Layer 1. To call functions on \cm, traders can (i) send transactions directly to the \href{https://rinkeby.etherscan.io/address/0x578BAde599406A8fE3d24Fd7f7211c0911F5B29e}{Inbox contract}, or (ii) use a relay server (called a \textit{Sequencer}) provided by the Arbitrum. The sequencer will group, order, and send all pending transactions together as a single Rinkeby transaction to the Inbox (and pays the gas).
 
@@ -380,19 +381,8 @@ Recall that \cm implements an exchange between ETH and tokens. To use Layer 1 as
 
 %Table~\ref{tab:arbitrum_performance} compares the cost of executing the maximum number of trades on Ethereum (Kovan testnet) and executing the same number of trades when running \cm on Layer 2 with Arbitrum. The fourth column of the Table represents the Ethereum gas cost for relaying the transaction to the Arbitrum EthBridge contract and is paid in ETH. Note that here we report the cost of sending the transaction directly to the Arbitrum EthBridge contract and not through the aggregator~\footnote{The Layer 1 cost reported on the Kovan block explorer represents the gas cost related to the entire batch of transactions.}.
 
-In our \cm variant on Arbitrum, the token issuer does all the computation (both enqueuing and dequeuing). Thus, we switch the priority queue to use a heap with dynamic array, which balances the expense of both operations (instead of optimizing for dequeuing in \texttt{closeMarket()}). Our experiments show that on Arbitrum, heaps are 32\% more efficient than non-Heaps for submitting orders and 29\% less efficient for closing. Recall that without a roll-up, such a priority queue can only match 38 pairs at a cost of 5,372,679 gas. With Arbitrum roll-ups, 38 pairs cost only 1,632 in Layer 1 gas (a 99.9\% savings). This is effectively the cost of recording the \texttt{closeMarket()} function call in the Inbox, which is 103 bytes of calldata. As the number of pairs increases, Layer 1 gas cost is constant. For traders submitting an order, the cost is reduced from  207,932 to 2,656.
+In our \cm variant on Arbitrum, the token issuer does all the computation (both enqueuing and dequeuing). Thus, we switch the priority queue to use a heap with dynamic array, which balances the expense of both operations (instead of optimizing for dequeuing in \texttt{closeMarket()}). Our experiments show that on Arbitrum, heaps are 32\% more efficient than non-Heaps for submitting orders and 29\% less efficient for closing. Recall that without a roll-up, such a priority queue can only match 38 pairs at a cost of 5,372,679 gas. With Arbitrum roll-ups, 38 pairs cost only 6,569 in Layer 1 gas (a 99.9\% savings). This is effectively the cost of submitting \texttt{closeMarket()} transaction to the inbox and recording the function call, which is 103 bytes of calldata. As the number of pairs increases, Layer 1 gas cost is constant. For traders submitting an order, the cost is reduced from  207,932 to 6,917.
 
- % Arbitrum Rinkeby test results:
-
- % Heap Dynamic Array: 100 order submissions averaged L2 arbgas: 1,659,416, L1 gas: fixed: 2656
-
- % Linked List w/ Mapping: 100 order submissions averaged L2 arbgas: 2,452,376, L1 gas: fixed: 2656
-
- % Heap Dynamic Array: worst case matching, 38 pairs of orders: tx hash: 0x2c0f5b5ba3539eb72018c08856c156c8098edcfd35db80f929a13c0aa6f9cc01, L1 gas: 1632, L2 arbgas: 1,039,351
- % (https://explorer5.arbitrum.io/#/tx/0x2c0f5b5ba3539eb72018c08856c156c8098edcfd35db80f929a13c0aa6f9cc01)
-
- % Linked List w/ Mapping: worst case matching, 38 pairs of orders: tx hash: 0x96aa143aee7bfb529d35456bef86387ef2adac30f222ea6a3216ded313e00973, L1 gas: 1632, L2 arbgas: 800,529
- % (https://explorer5.arbitrum.io/#/tx/0x96aa143aee7bfb529d35456bef86387ef2adac30f222ea6a3216ded313e00973)
 
 While the runtime of a transaction is no longer an issue for Ethereum, it is still an issue for the validators. Similar to Ethereum miners, validators do measure the amount of gas (called ArbGas in Arbitrum) a transaction takes, although Arbitrum emulates EVM code with its own different opcodes. Thus, ArbGas with a roll-up and Layer 1 gas without a roll-up are not directly comparable but both increase and decrease proportionately with the complexity of running the function. Closing a market with 38 pairs costs 46,705,693 ArbGas. %Until Arbitrum deploys on mainnet, the price of ArbGas in Gwei (or USD) is unknown but it is thought to be relatively very cheap.
 

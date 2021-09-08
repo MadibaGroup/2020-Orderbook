@@ -1,41 +1,24 @@
 % !TEX root = ../main.tex
 
-\begin{table*}[t]
+\begin{table}[t]
 %\%setlength{\tabcolsep}{0.1\tabcolsep}% Shrink \tabcolsep
 \centering
-\begin{tabular} {|l|r|r|r|r|r|}
+\footnotesize
+
+\begin{tabular} {|>{\centering}m{3cm}|>{\centering}m{3cm}|>{\centering}m{3cm}|}
 
 
-\multicolumn{1}{c}{} & 
-
-
-
-\headrow{\footnotesize \shortstack{Max trades \\ (w.c.)}} & 
-\headrow{\footnotesize \shortstack{L1 Gas for \\ max trades}} & 
-
-
-\headrow{\footnotesize \shortstack{L1 Gas for \\ max trades}} &
-\headrow{\footnotesize \shortstack{L2 ArbGas \\for \\max trades}} &
-\headrow{\footnotesize Size}  \\ \hline
-
-% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-\multicolumn{1}{|c|}{} &                                                            \multicolumn{2}{c|}{\textbf{Ethereum}}&                                                                                                            \multicolumn{3}{c|}{\textbf{Arbitrum}} 														\\ \hline
+ \multicolumn{1}{c}{} 								&  \multicolumn{1}{c}{\textbf{Layer1  gasUsed}}										&\multicolumn{1}{c}{\textbf{Layer2 ArbGas}} 	\tabularnewline \hline
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  = = = %
-Heap with Dynamic Array      				& 38            		& 5,372,679                   	   						& 1,544					& 46,705,693					& 103								\\ \hline
+\cm  				         		& 5,372,679              	   									& N/A							\tabularnewline \hline
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-Heap with Static Array       					& 42            		& 5,247,636                  	        					& 1,402					& 46,311,418					& 103									 \\ \hline
-% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-Heap with Mapping 						& 46           	 	& 5,285,275                     	           					& 1,339					& 50,395,993					& 103									\\ \hline
-% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-Linked List                     					& 152            		& 5,495,265                     	             					& 1,325					& 99,514,286					& 103									\\ \hline
-% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
-Linked List with Mapping     				& 86             		& 5,433,259                     	              					& 1,319					& 58,035,156					& 103									\\ \hline
-% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
+\cm on Arbitrum 				      & 6,569 													& 508,250								\tabularnewline \hline
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = %
 
 \end{tabular}
-\caption{Comparison between executing trades on Ethereum and Arbitrum. Size is the calldata in bytes.\label{tab:arbitrum_performance}}
+\caption{L1 vs L2.\label{tab:arbitrum_performance}}
 
-\end{table*}
+\end{table}
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
 
 %txs from Arbitrum explorer:
