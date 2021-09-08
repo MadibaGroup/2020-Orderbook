@@ -16,4 +16,3 @@ Validator-->>Validator: Execute function
 Validator->>Lissy (Arbitrum):Update the state
 Lissy (Arbitrum)-->>Bridge(Ethereum): Sync ArbOs
 ```
-

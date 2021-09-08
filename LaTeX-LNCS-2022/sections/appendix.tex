@@ -1,6 +1,10 @@
 % !TEX root = ../main.tex
 
-
+\begin{figure}[t]
+\centering
+\includegraphics[width=1\textwidth]{fig/lissyL2.pdf}
+\caption{\footnotesize{\cm L2 Diagram}  \label{fig:lissyl2}}
+\end{figure}
 
 \textbf{Ethereum's Gas Model.} Every transaction results in the participating nodes having to execute bytecode. This is not free. When a transaction is executed, each opcode in the execution path accrues a fixed, pre-specified amount of \emph{gas}. The function caller will pledge to pay a certain amount of Ethereum's internal currency \emph{ETH} (typically quoted in units of Gwei which is one billionth of an ETH) per unit of gas, and miners are free to choose to execute that transaction or ignore it. The function caller is charged for exactly what the transaction costs to execute, and they cap the maximum they are willing to be charged (\textit{gas limit}). If the cap is too low to complete the execution, the miner keeps the Gwei and \emph{reverts} the state of the EVM (as if the function never ran).
 
@@ -28,6 +32,8 @@ For this reason, some EVM operations cost a negative amount of gas. That is, the
 
 \section{Roll-ups: Additional Background}
 \label{app:rollup}
+
+
 
 We have avoided augmenting \cm with centralized components and third party services as our research question concerns the feasibility of a system with a minimum of regulatory hooks. However from a regulatory stance, there is a big difference between an architecture where the centralized component is publicly visible and interacted with by users (\eg most DEXes, roll-up architectures like Loopring, and commit-chain solutions like TEX). We consider an alternative design that is almost as difficult to regulate as a fully on-chain solution. In this design, an off-chain component is introduced to boost performance but it only interacts with the Ethereum network and never directly with traders. Traders still only interact with Ethereum.
 
