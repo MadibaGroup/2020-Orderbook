@@ -1,44 +1,76 @@
 % !TEX root = ../main.tex
- \newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
 % = = = = = = = = = = = = = = = = = = = = =Call market operations Table = = = = = = = = = = = =  = = = = = =  %
 \begin{table}[t]
-%\setlength{\tabcolsep}{0.7\tabcolsep}% Shrink \tabcolsep
-
 \centering
 \scriptsize
-%\begin{tabular}{|>{\centering}m{3cm} |>{\centering}m{3cm} |>{\centering}m{3cm} |>{\centering}m{4cm} |}
-\begin{tabular}{|c|c|c|c|}
+\begin{tabular}{|p{1.5cm}|p{3cm}|p{3.5cm}|p{3.5cm}|}
 
 \hline
-\textbf{Exchange Platform}			 &\textbf{Description}   				& \textbf{Advantages}      				& \textbf{Disadvantages}                   \\ \hline
+\textbf{Type}			 &\textbf{Description}   				& \textbf{Advantages}      				& \textbf{Disadvantages}                   \\ \hline
 
-% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = == = = = = =%
-\multirow{4}{*}{\shortstack{Centralized \\Exchanges}}                            & \multirow{4}{*}{\shortstack{Exchange acts as a \\trusted third party\\ between traders}} 	& High Liquidity			& Third party custodian				\\  
-											&																		& High trade performance		& Low security				\\ 
-											 &																		& Low price slippage		& No instant settlement	 		\\
-											 &																		& Easy to regulate			& Server downtime							\\ \hline
-					
-% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = == = = = = =%
-\multirow{6}{*}{\shortstack{On-chain \\Order Books}}                         		& \multirow{6}{*}{\shortstack{Exchange operates\\fully \\on-chain as coded}}	& High security							&	\\
-												&																		& Non-custodial						& 					\\
-												&																		& No trusted third party					& Low trade performance						\\
-												&																		& Fully Autonomous						&Hard to regulate			\\
-												&																		& No Impermanent Loss					&					\\
-												&																		& Low price slippage					&					\\ \hline
-																									
-% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = == = = = = =%
-\multirow{5}{*}{\shortstack{On-chain \\Dealers} }                     	 & \multirow{5}{*}{ \shortstack{A dealer uses its \\own inventory to offer \\a price for assets \\being traded}}	& High security				& 				\\										
-											&																						& Non-custodial			&  Impermanent Loss\\
-											&																						& No trusted third party		&	High price slippage				\\
-											&																						& Fully Autonomous			&	 No support for limit orders			\\
-											&																						& High performance			&					\\ \hline
-																									
+% = = = = = = = = = = = =%
+Centralized Exchanges (CEX)
+& Order-driven exchange acts as a trusted third party (\eg Binance, Bitfinex)
+& Conventional \newline
+Highest performance \newline
+Low fees \newline
+Easy to regulate \newline
+Low price slippage  \newline
+Verbose trading strategies 
+&  Fully trusted custodian \newline
+Slow withdrawals \newline
+Server downtime \newline
+Uncertain fair execution 
+\\ 
+\hline
 
-% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = = = = = = = = = = = = == = = = = =%
-\multirow{3}{*}{\shortstack{Hybrid\\ Designs}}                            &  \multirow{3}{*}{\shortstack{Exchange operates \\partially on-chain}}  								& High trade performance				& Low security										\\
-									&																									& Easy to regulate					& Server downtime \\
-									&																									& Non-custodial 					& \shortstack{Uncertain fair execution}	\\ \hline
-% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
+% = = = = = = = = = = = =%
+Partially On-chain Exchange
+& Order-driven exchange acts as a semi-trusted (\eg EtherDelta, 0x, IDEX, Loopring)
+&  High performance \newline
+Low fees \newline
+Easy to regulate \newline
+Low price slippage \newline
+Verbose trading strategies \newline
+Semi-custodial
+& 
+Slow withdrawals \newline
+Server downtime \newline
+Front-running attacks \newline
+Uncertain fair execution
+\\ 
+\hline
+
+% = = = = = = = = = = = =%
+On-Chain Dealers
+& Quote-driven decentralized exchange trades from inventory with public pricing rule (\eg Uniswap v3)
+&  Non-custodial \newline
+Instant settlement \newline
+Moderate performance \newline
+Fair execution 
+&  Unconventional \newline
+Impermanent loss \newline
+High price slippage \newline
+Intrinsic fees \newline
+Front-running attacks \newline
+Limited trading strategies 
+\\ 
+\hline
+
+% = = = = = = = = = = = =%
+On-chain Order-Driven Exchanges 
+& Order-driven decentralized exchange executes trades between buyers and sellers (\eg \cm)
+&  Conventional \newline
+Non-custodial \newline
+Instant settlement \newline
+Low price slippage \newline
+Fair execution \newline
+Verbose trading strategies \newline
+Front-running is mitigable 
+& Very low performance \newline
+\\ 
+\hline
+	
 \end{tabular}
 \caption{ Comparison among different trade execution systems.
 \label{tab:eval2}}
