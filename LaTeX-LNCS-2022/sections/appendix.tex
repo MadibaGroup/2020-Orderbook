@@ -28,9 +28,11 @@ For this reason, some EVM operations cost a negative amount of gas. That is, the
 \item \texttt{SELFDESTRUCT}. This operation destroys the contract that calls it and refunds its balance (if any) to a designated receiver address. The  \texttt{SELFDESTRUCT} operation does not remove the initial byte code of the contract from the chain. It always refunds 24,000 gas. For example, if contract A stores a single non-zero integer and contract B stores 100 non-zero integers, the \texttt{SELFDESTRUCT} refund for both is the same (24,000 gas).
 
 
-\item \texttt{SSTORE}. This operation loads a storage slot with a value. Using \texttt{SSTORE} to load a zero into a storage slot means the nodes can start ignoring it (recall that all variables, even if uninitialized, have zero by default). Doing this refunds 15,000 gas per slot.
+\item \texttt{SSTORE}. This operation loads a storage slot with a value. Using \texttt{SSTORE} to load a zero into a storage slot with a non-zero value means the nodes can start ignoring it (recall that all variables, even if uninitialized, have zero by default). Doing this refunds 15,000 gas per slot.
 
 \end{itemize}
+
+At the time of this writing, Ethereum transaction receipts only account for the \texttt{gasUsed}, which is the total amount of gas units spent during a transaction, and users are not able to obtain the value of the EVM's refund counter from inside the EVM~\cite{signer2018gas}. So in order to account for refunds in  Tables~\ref{tab:PQUnitTests}, we calculate them manually. First, we determine exactly how many storage slots are being cleared or how many smart contracts are being destroyed, then we multiply these numbers by 24,000 or 15,000 respectively.
 
 
 \subsection{Trade Execution Systems}

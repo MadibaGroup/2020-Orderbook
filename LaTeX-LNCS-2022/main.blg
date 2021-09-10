@@ -4,45 +4,45 @@ The top-level auxiliary file: main.aux
 The style file: abbrv.bst
 Database file #1: bib/DEX.bib
 Warning--there's a number but no volume in aquilina2020quantifying
-You've used 44 entries,
+You've used 41 entries,
             2118 wiz_defined-function locations,
-            724 strings with 10853 characters,
-and the built_in function-call counts, 17017 in all, are:
-= -- 1581
-> -- 1005
-< -- 12
-+ -- 401
-- -- 352
-* -- 1152
-:= -- 2774
-add.period$ -- 147
-call.type$ -- 44
-change.case$ -- 307
+            713 strings with 10339 characters,
+and the built_in function-call counts, 15244 in all, are:
+= -- 1402
+> -- 910
+< -- 9
++ -- 364
+- -- 318
+* -- 1028
+:= -- 2516
+add.period$ -- 135
+call.type$ -- 41
+change.case$ -- 281
 chr.to.int$ -- 0
-cite$ -- 45
-duplicate$ -- 653
-empty$ -- 1309
-format.name$ -- 352
-if$ -- 3612
+cite$ -- 42
+duplicate$ -- 580
+empty$ -- 1175
+format.name$ -- 318
+if$ -- 3211
 int.to.chr$ -- 0
-int.to.str$ -- 44
-missing$ -- 38
-newline$ -- 227
-num.names$ -- 88
-pop$ -- 431
+int.to.str$ -- 41
+missing$ -- 35
+newline$ -- 212
+num.names$ -- 82
+pop$ -- 392
 preamble$ -- 1
-purify$ -- 264
+purify$ -- 241
 quote$ -- 0
-skip$ -- 439
+skip$ -- 385
 stack$ -- 0
-substring$ -- 715
-swap$ -- 177
-text.length$ -- 12
+substring$ -- 604
+swap$ -- 143
+text.length$ -- 9
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 174
+type$ -- 162
 warning$ -- 1
-while$ -- 132
-width$ -- 46
-write$ -- 482
+while$ -- 117
+width$ -- 43
+write$ -- 446
 (There was 1 warning)

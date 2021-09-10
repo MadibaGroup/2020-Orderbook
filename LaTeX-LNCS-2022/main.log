@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2020.4.8)  10 SEP 2021 15:05
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2020.4.8)  10 SEP 2021 17:03
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1233,20 +1233,7 @@ File: listings.cfg 2019/09/10 1.8c listings configuration
 ))
 Package: listings 2019/09/10 1.8c (Carsten Heinz)
 )
-(./setup/macros.tex) (./setup/table.tex)
-(/usr/local/texlive/2019/texmf-dist/tex/latex/savetrees/savetrees.sty
-Package: savetrees 2016/04/13 v2.4 Pack as much text as possible onto each page
-
-
-(/usr/local/texlive/2019/texmf-dist/tex/generic/iftex/ifpdf.sty
-Package: ifpdf 2019/10/25 v3.4 ifpdf legacy package. Use iftex instead.
-)
-(/usr/local/texlive/2019/texmf-dist/tex/generic/iftex/ifluatex.sty
-Package: ifluatex 2019/10/25 v1.5 ifluatex legacy package. Use iftex instead.
-)
-\everypar=\toks54
-)
-(./main.aux)
+(./setup/macros.tex) (./setup/table.tex) (./main.aux)
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 17.
@@ -1318,12 +1305,12 @@ LaTeX Info: Redefining \nameref on input line 17.
 \scratchbox=\box154
 \nofMPsegments=\count402
 \nofMParguments=\count403
-\everyMPshowfont=\toks55
+\everyMPshowfont=\toks54
 \MPscratchCnt=\count404
 \MPscratchDim=\dimen366
 \MPnumerator=\count405
 \makeMPintoPDFobject=\count406
-\everyMPtoPDFconversion=\toks56
+\everyMPtoPDFconversion=\toks55
 ) (/usr/local/texlive/2019/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
@@ -1343,22 +1330,22 @@ put line 17.
 ABD: EveryShipout initializing macros
 \c@lstlisting=\count407
 LaTeX Font Info:    Trying to load font information for U+stmry on input line 3
-0.
+1.
 
 (/usr/local/texlive/2019/texmf-dist/tex/latex/stmaryrd/Ustmry.fd)
-LaTeX Font Info:    Trying to load font information for U+wasy on input line 30
+LaTeX Font Info:    Trying to load font information for U+wasy on input line 31
 .
 
 (/usr/local/texlive/2019/texmf-dist/tex/latex/wasysym/uwasy.fd
 File: uwasy.fd 2020/01/19 v2.4 Wasy-2 symbol font definitions
 )
-LaTeX Font Info:    Trying to load font information for U+msa on input line 30.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 31.
 
 
 (/usr/local/texlive/2019/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 30.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 31.
 
 
 (/usr/local/texlive/2019/texmf-dist/tex/latex/amsfonts/umsb.fd
@@ -1471,46 +1458,46 @@ Underfull \hbox (badness 2772) in paragraph at lines 62--63
 \T1/cmr/m/n/7 trades be-tween buy-ers
  []
 
-) [3] (./tables/functions.tex) [4] (./tables/pq.tex) [5]
-<fig/2.png, id=140, 455.301pt x 172.4844pt>
+) [3] (./tables/functions.tex) [4] [5]
+<fig/2.png, id=155, 455.301pt x 172.4844pt>
 File: fig/2.png Graphic file (type png)
 <use fig/2.png>
-Package pdftex.def Info: fig/2.png  used on input line 171.
+Package pdftex.def Info: fig/2.png  used on input line 156.
 (pdftex.def)             Requested size: 170.71652pt x 64.67358pt.
 
-Overfull \hbox (2.15475pt too wide) in paragraph at lines 171--171
+Overfull \hbox (2.15475pt too wide) in paragraph at lines 156--156
  [][] 
  []
 
 File: fig/2.png Graphic file (type png)
 <use fig/2.png>
-Package pdftex.def Info: fig/2.png  used on input line 171.
+Package pdftex.def Info: fig/2.png  used on input line 156.
 (pdftex.def)             Requested size: 170.71652pt x 64.67358pt.
 
-Overfull \hbox (2.15475pt too wide) in paragraph at lines 171--171
+Overfull \hbox (2.15475pt too wide) in paragraph at lines 156--156
  [][] 
  []
 
 
-Overfull \hbox (1.06784pt too wide) in paragraph at lines 194--194
+Overfull \hbox (1.06784pt too wide) in paragraph at lines 179--179
  []|[]| 
  []
 
 
-Overfull \hbox (1.06784pt too wide) in paragraph at lines 194--194
+Overfull \hbox (1.06784pt too wide) in paragraph at lines 179--179
  []|[]| 
  []
 
 
-Overfull \hbox (1.06784pt too wide) in paragraph at lines 194--194
+Overfull \hbox (1.06784pt too wide) in paragraph at lines 179--179
  []|[]| 
  []
 
-[6] (./tables/cleaning.tex) [7 <./fig/2.png
+(./tables/cleaning.tex [6]) [7 <./fig/2.png
 
 pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./fig/2.png): large interlac
 ed PNG might cause out of memory (use non-interlaced PNG to fix this)
->] [8] (./tables/performance.tex) [9] (./tables/frontrunning2.tex
+>] (./tables/performance.tex) [8] (./tables/frontrunning2.tex
 
 LaTeX Font Warning: Command \tiny invalid in math mode on input line 73.
 
@@ -1529,87 +1516,71 @@ LaTeX Font Warning: Command \tiny invalid in math mode on input line 73.
 
 LaTeX Font Warning: Command \tiny invalid in math mode on input line 73.
 
-) [10]
+) [9]
 Underfull \vbox (badness 1102) has occurred while \output is active []
 
- [11]
-<fig/MindMapDraft3.png, id=239, 1794.705pt x 571.13374pt>
+ [10]
+<fig/MindMapDraft3.png, id=231, 1794.705pt x 571.13374pt>
 File: fig/MindMapDraft3.png Graphic file (type png)
 <use fig/MindMapDraft3.png>
-Package pdftex.def Info: fig/MindMapDraft3.png  used on input line 285.
+Package pdftex.def Info: fig/MindMapDraft3.png  used on input line 270.
 (pdftex.def)             Requested size: 347.12354pt x 110.45993pt.
 
-[12 <./fig/MindMapDraft3.png>] [13] [14]
+[11 <./fig/MindMapDraft3.png>] [12] [13]
 LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <10> not available
-(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 344.
+(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 330.
 
-Overfull \hbox (39.20294pt too wide) in paragraph at lines 344--345
-\T1/cmr/m/n/10 be sent with the func-tion call to \T1/cmtt/m/n/10 submitBid() \
-T1/cmr/m/n/10 to re-move the need for \T1/cmtt/m/n/10 depositEther()\T1/cmr/m/n
-/10 .
+Overfull \hbox (26.706pt too wide) in paragraph at lines 330--331
+\T1/cmr/m/n/10 sent with the func-tion call to \T1/cmtt/m/n/10 submitBid() \T1/
+cmr/m/n/10 to re-move the need for \T1/cmtt/m/n/10 depositEther()\T1/cmr/m/n/10
+ .
  []
 
-[15] [16] (./tables/performance_Arbitrum.tex)
-Overfull \hbox (35.81073pt too wide) in paragraph at lines 382--383
+[14] [15] (./tables/performance_Arbitrum.tex)
+Overfull \hbox (35.81073pt too wide) in paragraph at lines 368--369
 \T1/cmr/m/n/10 chain hosted on the Rinkeby test-net. We im-ple-mented a vari-an
 t of \T1/cmss/m/n/10 Lissy \T1/cmr/m/n/10 ([][https://rinkeby-
  []
 
-[17] [18]) [19] (./main.bbl [20
+[16] [17]) [18] (./main.bbl [19
+
+] [20]) [21] (./sections/appendix.tex [22
 
 ]
-Underfull \hbox (badness 3396) in paragraph at lines 183--187
-[]\T1/cmr/m/n/9 A. Norry.  The his-tory of the mt gox hack: Bit-coin's biggest 
-heist.
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 199--205
-[]$\T1/cmtt/m/n/9 https : / / www . sebi . gov . in / enforcement / orders / ap
-r -[] 2019 / order -[] in -[] the -[]
- []
-
-
-Underfull \hbox (badness 1215) in paragraph at lines 212--216
-[]\T1/cmr/m/n/9 T. Suite.  Ganache.  []$\T1/cmtt/m/n/9 https : / / www . truffl
-esuite . com / ganache$[]\T1/cmr/m/n/9 , May 2021.
- []
-
-[21]) [22] (./sections/appendix.tex [23
-
-] [24]
-Overfull \hbox (8.3211pt too wide) in paragraph at lines 43--44
+[23]
+Overfull \hbox (8.3211pt too wide) in paragraph at lines 45--46
 []\T1/cmr/m/n/10 In this pa-per, we fo-cus on bench-mark-ing an or-der book for
  the pub-lic blockchain
  []
 
-<fig/lissyL2.pdf, id=412, 560.60019pt x 288.8153pt>
+[24]
+<fig/lissyL2.pdf, id=413, 560.60019pt x 288.8153pt>
 File: fig/lissyL2.pdf Graphic file (type pdf)
 <use fig/lissyL2.pdf>
-Package pdftex.def Info: fig/lissyL2.pdf  used on input line 55.
+Package pdftex.def Info: fig/lissyL2.pdf  used on input line 57.
 (pdftex.def)             Requested size: 347.12354pt x 178.83447pt.
-[25] [26 <./fig/lissyL2.pdf>] [27]) [28]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 55.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 55.
+ [25 <./fig/lissyL2.pdf>] [26]) [27]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 56.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 56.
  (./main.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 55.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 55.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 56.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 56.
 Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 96DF51A2C502389A37BF5705BD4E9A95;81.
 
 
 LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 55.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 56.
  ) 
 Here is how much of TeX's memory you used:
- 28310 strings out of 480994
- 542931 string characters out of 5912143
- 924915 words of memory out of 5000000
- 42966 multiletter control sequences out of 15000+600000
+ 28078 strings out of 480994
+ 536864 string characters out of 5912143
+ 900638 words of memory out of 5000000
+ 42754 multiletter control sequences out of 15000+600000
  557572 words of font info for 80 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 63i,21n,91p,1905b,678s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 63i,21n,91p,2044b,670s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2019/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}
 </usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><
 /usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></u
@@ -1642,10 +1613,10 @@ ic/cm-super/sftt1000.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public
 /wasy-type1/wasy5.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/wa
 sy-type1/wasy7.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/wasy-
 type1/wasy9.pfb>
-Output written on main.pdf (28 pages, 918449 bytes).
+Output written on main.pdf (27 pages, 918237 bytes).
 PDF statistics:
- 607 PDF objects out of 1000 (max. 8388607)
- 472 compressed objects within 5 object streams
- 153 named destinations out of 1000 (max. 500000)
+ 599 PDF objects out of 1000 (max. 8388607)
+ 465 compressed objects within 5 object streams
+ 144 named destinations out of 1000 (max. 500000)
  36 words of extra memory for PDF output out of 10000 (max. 10000000)
 

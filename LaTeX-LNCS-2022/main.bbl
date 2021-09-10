@@ -17,17 +17,6 @@ E.~Ben-Sasson, A.~Chiesa, D.~Genkin, E.~Tromer, and M.~Virza.
   knowledge.
 \newblock In {\em CRYPTO}, 2013.
 
-\bibitem{bentov2017tesseract}
-I.~Bentov, Y.~Ji, F.~Zhang, Y.~Li, X.~Zhao, L.~Breidenbach, P.~Daian, and
-  A.~Juels.
-\newblock Tesseract: Real-time cryptocurrency exchange using trusted hardware.
-\newblock In {\em ACM CCS}, 2019.
-
-\bibitem{biryukov2017findel}
-A.~Biryukov, D.~Khovratovich, and S.~Tikhomirov.
-\newblock Findel: Secure derivative contracts for ethereum.
-\newblock In {\em WTSC}, pages 453--467. Springer, 2017.
-
 \bibitem{boneh2018verifiable}
 D.~Boneh, J.~Bonneau, B.~B\"unz, and B.~Fisch.
 \newblock Verifiable delay functions.
@@ -87,11 +76,6 @@ P.~Daian, S.~Goldfeder, T.~Kell, Y.~Li, X.~Zhao, I.~Bentov, L.~Breidenbach, and
   instability in decentralized exchanges.
 \newblock In {\em IEEE Symposium on Security and Privacy}, 2020.
 
-\bibitem{eskandari2017feasibility}
-S.~Eskandari, J.~Clark, V.~Sundaresan, and M.~Adham.
-\newblock On the feasibility of decentralized derivatives markets.
-\newblock In {\em WTSC}, pages 553--567. Springer, 2017.
-
 \bibitem{eskandari2019sok}
 S.~Eskandari, S.~Moosavi, and J.~Clark.
 \newblock Sok: Transparent dishonesty: front-running attacks on blockchain.
@@ -122,11 +106,6 @@ L.~Gudgeon, P.~Moreno-Sanchez, S.~Roos, P.~McCorry, and A.~Gervais.
 L.~Harris.
 \newblock {\em Trading and exchanges: market microstructure for practitioners}.
 \newblock Oxford, 2003.
-
-\bibitem{heilman2020arwen}
-E.~Heilman, S.~Lipmann, and S.~Goldberg.
-\newblock The arwen trading protocols.
-\newblock In {\em Financial Cryptography}, pages 156--173. Springer, 2020.
 
 \bibitem{HS04}
 P.~Hillion and M.~Suominen.
@@ -189,6 +168,11 @@ A.~Norry.
 M.~S. Pagano and R.~A. Schwartz.
 \newblock A closing call's impact on market quality at euronext paris.
 \newblock {\em Journal of Financial Economics}, 68(3):439--484, 2003.
+
+\bibitem{Park21}
+A.~Park.
+\newblock The conceptual flaws of constant product automated market making.
+\newblock {\em Available at SSRN 3805750}, 2021.
 
 \bibitem{SGX4}
 H.~Ragab, A.~Milburn, K.~Razavi, H.~Bos, and C.~Giuffrida.

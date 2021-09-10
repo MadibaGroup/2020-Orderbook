@@ -13,7 +13,7 @@ There are three main approaches to arranging a trade~\cite{Har03}. In a \emph{qu
 
 Conventional financial markets (\eg NYSE, NASDAQ) use both continuous time trading during open hours, and a call market before and during open hours to establish an opening price and a closing price. After early experiments at implementing continuous time trading on Ethereum (\eg EtherDelta, OasisDEX), it was generally accepted that conventional trading is infeasible on Ethereum for performance reasons. Centralized exchanges continued their predominance, while slowly some exchanges moved partial functionality on-chain (\eg custody of assets) while executing trades off-chain. 
 
-A clever quote-driven alternative, called an automatic market maker (AMM), was developed that only requires data structures and traversals with low gas-complexity. This approach has undesirable price dynamics (\eg market impact of a trade, slippage between the best bid/ask and actual average execution price, \etc) which explains why there is no Wall Street equivalent, however it is efficient on Ethereum and works `good enough' to attract trading. First generation AMMs provide makers (called liquidity providers) with no ability to act on price information---they are uninformed traders that can only lose (called impermanent loss) on trades but make money on fees. Current generation AMMs (\eg Uniswap v3) provided informed makers with a limited ability (called concentrated liquidity) to act on proprietary information without breaking Ethereum's performance limitations. Ironically, the logical extension of this is a move back to where it all started---a full-fledged order-driven exchange that allows informed makers the fullest ability to trade strategically.
+A clever quote-driven alternative, called an automatic market maker (AMM), was developed that only requires data structures and traversals with low gas-complexity. This approach has undesirable price dynamics (\eg market impact of a trade, slippage between the best bid/ask and actual average execution price, \etc) which explains why there is no Wall Street equivalent, however it is efficient on Ethereum and works `good enough' to attract trading. First generation AMMs provide makers (called liquidity providers) with no ability to act on price information---they are uninformed traders that can only lose (called impermanent loss) on trades but make money on fees. Current generation AMMs (\eg Uniswap v3) provided informed makers with a limited ability (called concentrated liquidity) to act on proprietary information~\cite{Park21} without breaking Ethereum's performance limitations. Ironically, the logical extension of this is a move back to where it all started---a full-fledged order-driven exchange that allows informed makers the fullest ability to trade strategically.
 
 
 
@@ -36,7 +36,7 @@ A clever quote-driven alternative, called an automatic market maker (AMM), was d
 \item Can we stop the exchange's storage footprint on Ethereum from bloating? (Yes, but it is so expensive that it is not worth it.)
 \item Are on-chain order books feasible on layer 2? (Yes! Optimistic roll-ups reduce gas costs by 99.88\%.)
 \item Which aspects of Ethereum were encountered that required deeper than surface-level knowledge to navigate? (Optimizing gas refunds, Solidity is not truly object-oriented, miner extractable value (MEV) can be leveraged for good, \textblue{add more?})
-\item How hard is an on-chain exchange to regulate? (The design leaves almost no regulatory hooks beyond miners and sequencers on layer 2.)
+\item How hard is an on-chain exchange to regulate? (The design leaves almost no regulatory hooks beyond miners (and sequencers on layer 2).)
 \end{itemize}
 
 
@@ -66,38 +66,25 @@ We assume the reader is familiar with the following concepts: blockchain technol
 
 Table~\ref{tab:eval2} illustrates various trade execution systems and summarizes their advantages and disadvantages. Appendix~\ref{app:markets} provides a full justification for the table. Briefly, fully decentralized, on-chain exchanges require the lowest trust, provide instant settlement, and have transparent trading rules that will always execute correctly. Front-running attacks (see Section~\ref{sec:front} for a very thorough discussion) are a weakness inherent in blockchains that require specific mitigation.  
 
-
 \subsection{Related Work}
 
 Call markets are studied widely in finance and provide high integrity prices (\eg closing prices that are highly referenced and used in derivative products)~\cite{HS04,PS03,FH21}. They can also combat high frequency trading~\cite{budish2015high,aquilina2020quantifying}. An older 2014 paper~\cite{clark2014decentralizing} on the `Princeton prediction market'~\cite{Bra13} show that call markets  mitigate most blockchain-based front-running attacks present in an on-chain continuous-trading exchange as well as other limitations: block intervals are slow and not continuous, there is no support for accurate time-stamping, transactions can be dropped or reordered by miners, and fast traders can react to submitted orders/cancellations when broadcast to network but not in a block and have their orders appear first. The paper does not include an implementation, was envisioned as running on a custom blockchain (Ethereum was still in development in 2014) and market operations are part of the blockchain logic. 
 
-
-
-%\paragraph{Blockchain Limitations and Solution.} While an order book is a ledger and blockchains provide a distributed ledger, it is not straightforward to drop a continuous-time order book onto a blockchain. An older 2014 paper~\cite{clark2014decentralizing} on the `Princeton prediction market'~\cite{Bra13} motivates our work. The authors observe the following limitations of on-chain continuous order books: block intervals are slow and not continuous, there is no support for accurate time-stamping, transactions can be dropped or reordered by miners, and fast traders can react to submitted orders/cancellations when broadcast to network but not in a block and have their orders appear first (as examined in later work on front-running: \cite{eskandari2019sok,daian2019flash}).
-%
-%\paragraph{Call Markets.} The researchers propose using a call market instead of a continuous-time market~\cite{clark2014decentralizing}. Orders are collected and placed into the order book over a window of time (\eg 1 or more blocks), then the market is closed and the orders are processed in batch: the best bids are matched to the best asks in order. If the prices overlap, the miner keeps the difference (which they could extract regardless through front-running). Call markets largely side step front-running attacks from other traders because reordering trades has no impact (discussed more in section~\ref{sec:front}). The paper does not include an implementation, was envisioned as running on a custom blockchain (Ethereum was still in development in 2014) and market operations are part of the blockchain logic.
-%
-%Large exchanges, like the NYSE and NASDAQ, run two call markets every trading day in parallel with a continuous-time market. One call market closes at market open to produce the opening price for each stock, while the other closes at the end of the day to produce the closing price. Other exchanges, called crossing networks, also operate as a call market at various times throughout the trading day.\footnote{A crossing network uses a secondary market for determining the closing price. Many prominent crossing networks are operated internally within a brokerage for its clients, and often as a `dark pool' with an unpublished order book.} Call markets are studied widely in finance~\cite{Har03}, with recent interest in expanding their use to combat high frequency trading~\cite{budish2015high,aquilina2020quantifying}. Time-sensitive traders submit orders early, especially in crossing networks that close at a randomly determined time (traders risk missing the call if they wait too long). A blockchain happens to provide this function naturally, as blocks are published unpredictably. %Price-sensitive traders wait to base their pricing off the already submitted orders and do not mind missing a call if it obtains them a better price.
-
-The most similar academic work to this paper is the Ethereum-based periodic auction by Galal \etal~\cite{galalpublicly} and the continuous-time exchange TEX~\cite{khalil2019tex}. As with us, front-running is a main consideration of these works. In a recent SoK on front-running attacks in blockchain~\cite{eskandari2019sok}, three general mitigations are proposed. Both of these papers use the solution of providing confidentiality over the content of orders~\cite{TP07,YSLT10,TW12,cartlidge2019mpc,massacci2018futuresmex}. The main downside is that honest traders cannot submit their orders and leave, they must interact in a second round to reveal their orders. The second mitigation approach is to sequence transactions according to some rule, either at the protocol level~\cite{kelkar2020order} or as a third-party service~\cite{Kla20} (a regulatory hook). These are very recent works and are not available for experimentation on Ethereum yet (although Chainlink has announced an intention\footnote{A. Juels. \href{https://blog.chain.link/chainlink-fair-sequencing-services-enabling-a-provably-fair-defi-ecosystem/}{blog.chain.link}, 11 Sep 2020.}). The third solution is to design the service in a way that front-running attacks are not profitable---this is the approach with \cm which uses \textit{no cryptography} and is \textit{submit-and-go} for traders. A detailed comparison of front-running is provided in Section~\ref{sec:front}. Our paper also emphasizes implementation details: Galal \etal do not provide a full implementation, and TEX uses both on-chain and off-chain components, and thus does not answer our research question of how feasible an on-chain order book is.
+The most similar academic work to this paper is the Ethereum-based periodic auction by Galal \etal~\cite{galalpublicly} and the continuous-time exchange TEX~\cite{khalil2019tex}. As with us, front-running is a main consideration of these works. In a recent SoK on front-running attacks in blockchain~\cite{eskandari2019sok}, three general mitigations are proposed: confidentiality, sequencing, and design. Both of these papers use confidentiality over the content of orders~(\cf \cite{TP07,YSLT10,TW12,cartlidge2019mpc,massacci2018futuresmex}). The main downside is that honest traders cannot submit their orders and leave, they must interact in a second round to reveal their orders. The second mitigation approach is to sequence transactions according to some rule akin to first-in-first-out~\cite{kelkar2020order,Kla20}. These are not available for experimentation on Ethereum yet (although Chainlink has announced an intention\footnote{A. Juels. \href{https://blog.chain.link/chainlink-fair-sequencing-services-enabling-a-provably-fair-defi-ecosystem/}{blog.chain.link}, 11 Sep 2020.}). The third solution is to design the service in a way that front-running attacks are not profitable---this is the approach with \cm which uses \textit{no cryptography} and is \textit{submit-and-go} for traders. A detailed comparison of front-running is provided in Section~\ref{sec:front}. Our paper also emphasizes implementation details: Galal \etal do not provide a full implementation, and TEX uses both on-chain and off-chain components, and thus does not answer our research question of how feasible an on-chain order book is.
 
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-
 
 
 \section{Call Market Design}
 
 \input{tables/functions.tex}
 
-Our proof of concept, \cm, is a call market that will open for a specified period of time during which it will accept a capped number of orders (\eg 100 orders---parameterized so that all orders can be processed), and these orders are added to a priority queue (discussed in Section~\ref{sec:pq} ). Our vision is the market would be open for a very short period of time, close, and then reopen immediately (\eg every other block). \cm is open source and written in 336 lines (SLOC) of Solidity plus the priority queue (\eg a heap with dynamic array is 282 SLOC). We tested it with the Mocha testing framework using Truffle on Ganache-CLI to obtain our performance metrics. Once deployed, the bytecode of \cm is 10,812 bytes plus the constructor code (6,400 bytes) which is not stored. The Solidity source code for \cm and Truffle test files are available in a GitHub repository.\footnote{Github: Link removed for anonymity.} We have also deployed \cm on Ethereum's testnet Rinkeby with flattened (single file) source code of just the \cm base class and priority queue implementations. It is visible and can be interacted with here: \href{https://rinkeby.etherscan.io/address/0x0d91de29c531d074853a5cef7cf9dfeb9c6ec4e0}{[etherscan.io]}. We cross-checked for vulnerabilities with \textit{Slither}\footnote{https://github.com/crytic/slither} and \textit{SmartCheck}\footnote{https://tool.smartdec.net} (it only fails some `informational' warnings that are intentional design choices---\eg a costly loop). Table~\ref{tab:cm_functions} summarizes \cm's primary operations.
-\textblue{Figuremindmap represents a design  landscape and extensions.}
+For our experiments and measurements, we implement an exchange from scratch. \cm is a call market that will open for a specified period of time during which it will accept a capped number of orders (\eg 100 orders---parameterized so that all orders can be processed), and these orders are added to a priority queue (discussed in Section~\ref{sec:pq} ). Our vision is the market would be open for a very short period of time, close, and then reopen immediately (\eg every other block). \cm is open source and written in 336 lines (SLOC) of Solidity plus the priority queue (\eg we implement 5 variants, each around 300 SLOC). We tested it with the Mocha testing framework using Truffle~\cite{TruffleO71:online} on Ganache-CLI~\cite{GanacheT25:online} to obtain our performance metrics. Once deployed, the bytecode of \cm is 10,812 bytes plus the constructor code (6,400 bytes) which is not stored. The Solidity source code for \cm and Truffle test files are available in a GitHub repository.\footnote{Github: Link removed for anonymity.} We have also deployed \cm on Ethereum's testnet Rinkeby with flattened (single file) source code of just the \cm base class and priority queue implementations. It is visible and can be interacted with here: \href{https://rinkeby.etherscan.io/address/0x0d91de29c531d074853a5cef7cf9dfeb9c6ec4e0}{[etherscan.io]}. We cross-checked for vulnerabilities with \textit{Slither}\footnote{https://github.com/crytic/slither} and \textit{SmartCheck}\footnote{https://tool.smartdec.net} and it only fails some `informational' warnings that are intentional design choices (\eg a costly loop). All measurements assume a block gas limit of $11\,741\,495$ and 1 gas $=$ 56 Gwei.\footnote{EthStats (July 2020): \url{https://ethstats.net/}} Table~\ref{tab:cm_functions} summarizes \cm's primary operations.
 
-
-
-
+%\textblue{Figuremindmap represents a design  landscape and extensions.}
 
 %is an extensible base class that is still functional without any extensions. 
 %
@@ -108,43 +95,41 @@ Our proof of concept, \cm, is a call market that will open for a specified perio
 % Volume of 1
 % Ties?
 
-
-
-
-
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
 \subsection{Priority Queues}\label{sec:pq}
 
-\input{tables/pq.tex}
+%\input{tables/pq.tex}
 
-In designing \cm within Ethereum's gas model, performance is the main bottleneck. For a call market, closing the market and processing all the orders are the most time-consuming steps. The most critical design decision is the data structure for holding orders. While data structures are well-studied for many languages, Solidity/EVM has its own unique aspects (\eg gas refunds, a relatively cheap mapping data structure, only partial support for object-oriented programming) that create difficulties in assessing which will perform best without actually deploying and evaluating each variant.
+In designing \cm within Ethereum's gas model, performance is the main bottleneck. For a call market, closing the market and processing all the orders are the most time-consuming steps. Assessing which data structures will perform best is hard (\eg gas refunds, a relatively cheap mapping data structure, only partial support for object-oriented programming) without actually deploying and evaluating several variants.
 
-When closing a call market, the orders are examined in order: highest to lowest price for bids, and lowest to highest price for asks. In most circumstances, the market closing algorithm does not have to consider any deeper bids/asks from the list when choosing whether the current best bid and ask can be fulfilled. The only exceptions are in the case of a tie on price or a cancelled order, both of which we return to later. For this reason, the ideal data structure for storing bids/asks is a \textit{priority queue} (see Table~\ref{tab:PQ_API}) where each order's priority is its price. Specifically, we use two PQs---one for bids, where the highest price is the highest priority, and one for asks, where the lowest price is the highest priority.
+We first observe that orders are executed in order: highest to lowest price for bids, and lowest to highest price for asks. This means random access to the data structure holding the orders is unnecessary (we discuss cancelling orders later in Section~\ref{sec:cancel}). We can use a lightweight \textit{priority queue} (PQ) which has only two functions: \textsf{Enqueue()} inserts an element into the priority queue; and \textsf{Dequeue()} removes and returns the highest priority element. Specifically, we use two PQs---one for bids, where the highest price is the highest priority, and one for asks, where the lowest price is the highest priority. 
 
-There are numerous ways of implementing a PQ. A PQ has an underlying list---common options include a static array, dynamic array, and linked list. The most expensive operation is keeping the data sorted---common options include (i) sorting during each enqueue, (ii) sorting for each dequeue, or (iii) splitting the difference by using a heap as the underlying data structure. Respectively, the time complexities are (i) linear enqueue and constant dequeue, (ii) constant enqueue and linear dequeue, and (iii) logarithmic enqueue and logarithmic dequeue. As closing the market is very expensive with any PQ, we rule out using (ii) as fully sorting while dequeuing would be prohibitive. We experiment with the following 5 options for (i) and (iii):
+As closing the market is very expensive with any PQ, we rule out sorting the elements while dequeuing and sort during each enqueue. We then implement the following 5 PQ variants: 
+
+
+
+
+%There are numerous ways of implementing a PQ. A PQ has an underlying list---common options include a static array, dynamic array, and linked list. The most expensive operation is keeping the data sorted---common options include (i) sorting during each enqueue, (ii) sorting for each dequeue, or (iii) splitting the difference by using a heap as the underlying data structure. Respectively, the time complexities are (i) linear enqueue and constant dequeue, (ii) constant enqueue and linear dequeue, and (iii) logarithmic enqueue and logarithmic dequeue. As closing the market is very expensive with any PQ, we rule out using (ii) as fully sorting while dequeuing would be prohibitive. We experiment with the following 5 options for (i) and (iii):
 
 \begin{enumerate}
 
-\item \textbf{Heap with Dynamic Array.} A heap is a type of binary tree data structure that comes in two forms of a (i) Max-Heap and (ii) Min-Heap. All the nodes of the tree are in a specific order, and the root always represents the highest priority item of the data structure (the largest and smallest values in the Max-Heap and Min-Heap respectively). We implement a PQ with a heap that stores its data in a dynamically sized array.
+\item \textbf{Heap with Dynamic Array.} A heap is a binary tree where data is stored in nodes in a specific order where the root always represents the highest priority item (\ie highest bid price / lowest ask price). Our heap stores its data in a Solidity-provided dynamically sized array. The theoretic time complexity is logarithmic enqueue and logarithmic dequeue.
 
-\item \textbf{Heap with Static Array.} A heap can also be represented by a Solidity storage array in which the storage is statically allocated. To do this, we pass the required size of the array as a constructor parameter to the PQ smart contract.
+\item \textbf{Heap with Static Array.} This variant replaces the dynamic array with a Solidity storage array where the size is statically allocated. This is asymptotically the same and marginally faster in practice.  % the size can be accurately predicted.   has the same asympotic complexity. %To do this, we pass the required size of the array as a constructor parameter to the PQ smart contract.
 
-\item \textbf{Heap with Mapping.} In the above implementations, the entire order is stored (as a struct) in the heap. In this variant, we store the order struct in a Solidity mapping and store the mapping keys in the heap.
+\item \textbf{Heap with Mapping.} In this variant, we store a key for the order in the heap instead of the entire order itself. Once a key is dequeued, the order struct is drawn from a Solidity mapping (which stores key-value pairs very efficiently). This is asymptotically the same and faster with variable-sized data. 
 
-\item \textbf{Linked List.} In this variant, we insert a new element into its correct position (based on its price) when running enqueue. The PQ itself stores elements in a linked list (enabling us to efficiently insert a new element between two existing elements). Solidity is described as object-oriented but the equivalent of an object is an entire smart contract. Therefore, an object-oriented linked list must either (i) create each node in the list as a struct---but this is not possible as Solidity does not support recursive structs---or (ii) make every node in the list its own contract. The latter option seems wasteful and unusual, but it ends up being the most gas efficient data structure to dequeue. Thus, each node is its own contract and contains the incoming order's data and a pointer to the address of the next contract in the list.
+\item \textbf{Linked List.} In this variant, elements are stored in a linked list (enabling us to efficiently insert a new element between two existing elements during enqueue). Solidity is described as object-oriented but the Solidity equivalent of an object is an entire smart contract. Therefore, an object-oriented linked list must either (i) create each node in the list as a struct---but this is not possible as Solidity does not support recursive structs---or (ii) make every node in the list its own contract. The latter option seems wasteful and unusual, but it surprisingly ends up being the most gas efficient data structure to dequeue. The theoretic time complexity is linear enqueue and constant dequeue.
 
-\item \textbf{Linked List with Mapping.} Finally, we try a variant of a linked list using a Solidity mapping. The value of the mapping is a struct with the incoming order's data and the key of the next (and previous) node in the list. The contract stores the key of the first node (head) and last node (tail) in the list.
+\item \textbf{Linked List with Mapping.} Finally, we try a variant of a linked list using a Solidity mapping. The value of the mapping is a struct with the incoming order's data and the key of the next (and previous) node in the list. The contract stores the key of the first node (head) and last node (tail) in the list. Asymptotically, it is linear enqueue and constant dequeue. 
 
 \end{enumerate}
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-
-\subsection{Priority Queue Evaluation}
-
-\paragraph{Enqueue Performance.} We implemented, deployed, and tested each PQ using the Truffle development framework~\cite{TruffleO71:online} and Ganache~\cite{GanacheT25:online}. We tried a variety of tests (including testing the full call market with each variant) with consistent results in performance. A simple test to showcase the performance profile is shown in Figure~\ref{fig:random_insertion}. We enqueue 50 integers chosen at random from a fixed interval in each PQ variant. The bigger the PQ gets, the longer enqueue takes---a linear increase for the linked list variants, and logarithmic for the heap variants.
+We implemented, deployed, and tested each PQ. A simple test of enqueuing 50 integers chosen at random from a fixed interval is in Figure~\ref{fig:random_insertion} and dequeing them all is in Table~\ref{tab:PQUnitTests}.  Dequeuing removes data from the contract's storage resulting in a gas refund. Based on our manual estimates,\footnote{EVM does not expose the refund counter. We determine how many storage slots are being cleared and how many smart contracts destroyed, then we multiply these numbers by 24,000 or 15,000 respectively.} every variant receives the maximum gas refund possible (\ie half the total cost of the transaction). In other words, each of them actually consumes twice the \texttt{gasUsed} amount in gas before the refund. However, none of them are better or worse based on how much of a refund they generate.
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
 
@@ -161,7 +146,7 @@ There are numerous ways of implementing a PQ. A PQ has an underlying list---comm
 
 
 
-\begin{figure}
+\begin{figure}[t]
 \begin{floatrow}
 \ffigbox{%
 \includegraphics[width=6cm]{fig/2.png}%
@@ -189,7 +174,7 @@ Linked List                     		& 557,085               	           & 1,200,00
 
 \end{tabular}
 }{%
- \caption{\scriptsize{The gas metrics associated with dequeuing 50 integers from five priority queue variants.}
+ \caption{\scriptsize{The gas metrics associated with dequeuing 50 integers from five priority queue variants. Full refund amount is shown but the actual refund that is applied is capped.}
 \label{tab:PQUnitTests}}%
 }
 \end{floatrow}
@@ -205,10 +190,7 @@ Linked List                     		& 557,085               	           & 1,200,00
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
 
-
-\paragraph{Dequeue Performance.} For each PQ variant storing 50 random integers, the \texttt{Dequeue()} function is iterated until the data structure is empty. The total gas cost for fully dequeuing the PQ variants is outlined in Table~\ref{tab:PQUnitTests}. These tests are performed using the following Ethereum gas metrics: block gas limit $=$11,741,495 and 1 gas $=$ 56 Gwei.\footnote{EthStats (July 2020): \url{https://ethstats.net/}} Dequeuing removes data from the contract's storage. Recall this results in a gas refund. Based on our manual estimates (EVM does not expose the refund counter), every variant receives the maximum gas refund possible (\ie half the total cost of the transaction). In other words, each of them actually consumes twice the \texttt{gasUsed} amount in gas before the refund. However, none of them are better or worse based on how much of a refund they generate.
-
-\paragraph{Discussion.} Based on enqueuing, the heap variants are the cheapest in terms of gas, while based on dequeuing, the link list variants are the cheapest. This is in accordance with the theoretical worst-case time complexity for each. However, (i) the linked list variants are materially cheaper than the heap variants at dequeuing, and (ii) dequeuing in a call market must be done as a batch, whereas enqueuing is paid for one at a time by the trader submitting the order, and (iii) Ethereum will not permit more than hundreds of orders so the asymptotic behavior is not a significant factor. For these reasons, we suggest using a linked list variant for this specific application. As it can be seen in Figure~\ref{fig:random_insertion}, the associated cost for inserting elements into a linked list PQ is significantly greater than the linked list with mapping, as each insertion causes the creation of a new contract. Accordingly, we choose to implement the call market with the linked list with mapping. Overall, this PQ balances a moderate gas cost for insertion (\ie order submission) with one for removal (\ie closing the market and matching the orders).
+We observe that (i) the linked list variants are materially cheaper than the heap variants at dequeuing; (ii) dequeuing in a call market must be done as a batch, whereas enqueuing is paid for one at a time by the trader submitting the order; and (iii) Ethereum will not permit more than hundreds of orders so asymptotic behaviour is not significant. For these reasons, we suggest using one of the linked list variants. As it can be seen in Figure~\ref{fig:random_insertion}, the associated cost for inserting elements into a linked list PQ is significantly greater than the linked list with mapping, as each insertion causes the creation of a new contract. Accordingly, we choose to implement the call market with the linked list with mapping which balances a moderate gas cost for insertion (\ie order submission) with one for removal (\ie closing the market and matching the orders). In Section~\ref{sec:rollups}, we implement \cm on Layer 2. There the PQ variant does not change the layer 1 gas costs and the the number of orders can be substantially increased. In this new context, we reconsider asymptotics and choose a heap (with dynamic array) to lower costs L2 gas costs across both enqueuing and dequeuing.
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  %
 
@@ -217,7 +199,7 @@ Linked List                     		& 557,085               	           & 1,200,00
 
 \input{tables/cleaning.tex}
 
-\paragraph{Gas Refunds.}\label{para-ref}To incentivize for deleting unused storage on the blockchain, some EVM operations cost a negative amount of gas. These include \texttt{SELFDESTRUCT} that destroys contract and refunds 24,000 gas, and  \texttt{SSTORE} that resets storage values from non-zero to zero and refunds 15,000 gas. The gas is refunded to the sender at the end of the transaction, however (1) the refund is capped at 50\% of the total gas cost of the transaction, and (2) the block gas limit applies to the pre-refunded amount (\ie a transaction receiving a full refund can cost up to 5.5M gas with an 11M limit).  At the time of this writing, Ethereum transaction receipts only account for the \texttt{gasUsed}, which is the total amount of gas units spent during a transaction, and users are not able to obtain the value of the EVM's refund counter from inside the EVM~\cite{signer2018gas}. So in order to account for refunds in  Tables~\ref{tab:PQUnitTests}, we calculate them manually. First, we need to figure out exactly how much storage is being cleared or how many smart contracts are being destroyed, then we multiply these numbers by 24,000 or15,000 respectively.
+
 
 \paragraph{Refunds and PQs.}
 
@@ -237,12 +219,15 @@ The lesson here is that gas refunds incentivize developers to clean up storage v
 
 %============= Performance =================== %
 
- \section{\cm Performance Measurements}
+ \subsection{\cm Performance Measurements}
 
  \input{tables/performance.tex}
 
 
-The main research question is how many orders can be processed in a single Ethereum transaction when closing the call market, using Ethereum today. As our previous experiments indicated, the choice of PQ implementation is the main influence on performance. We implemented a generic call market that interfaces with a generic PQ (at its own contract address) and ran experiments for each PQ implementation. We looked at the \textit{worst-case} for performance which is when every submitted bid and ask is marketable (\ie will require fulfillment). Table~\ref{tab:worst_case_matching} shows the performance results of \cm for each PQ variant. In the first two columns, we determine the highest number of trades that can be executed and processed in a single call to the \texttt{closeMarket()} and not exceed the current Ethereum block gas limit of 11,741,495. Since Ethereum will become more efficient over time, we were also interested in how much gas it would cost to execute 1000 pairs of orders, which is given in the third column. The fourth column indicates the cost of submitting a bid or ask --- since this cost will vary depending on how many orders are already submitted (recall Figure~\ref{fig:random_insertion}), we average the cost of 200 order submissions.
+The main research question is how many orders can be processed in a single Ethereum transaction when closing the call market. The choice of PQ implementation is the main influence on performance and the results are shown in Table~\ref{tab:worst_case_matching}. These numbers are for the \textit{worst-case}---when every submitted bid and ask is marketable (\ie will require fulfillment). In practice, once \texttt{closeMarket()} hits the first bid or ask that cannot be executed, it can stop processing all remaining orders. Premised on Ethereum becoming more efficient over time, we were interested in how much gas it would cost to execute 1000 pairs of orders, which is given in the third column. The fourth column indicates the cost of submitting a bid or ask --- since this cost will vary depending on how many orders are already submitted (recall Figure~\ref{fig:random_insertion}), we average the cost of 200 order submissions.
+
+
+% We implemented a generic call market that interfaces with a generic PQ (at its own contract address) and ran experiments for each PQ implementation. We looked at . Table~\ref{tab:worst_case_matching} shows the performance results of \cm for each PQ variant. In the first two columns, we determine the highest number of trades that can be executed and processed in a single call to the \texttt{closeMarket()} and not exceed the current Ethereum block gas limit of 11,741,495. Since Ethereum will become more efficient over time, we were also interested in how much gas it would cost to execute 1000 pairs of orders, which is given in the third column. The fourth column indicates the cost of submitting a bid or ask --- since this cost will vary depending on how many orders are already submitted (recall Figure~\ref{fig:random_insertion}), we average the cost of 200 order submissions.
 
 As expected, the numbers closely track the performance of the PQ itself, suggesting the PQ is indeed the main influence on performance. In Ethereum today, call markets appear to be limited to processing about a hundred orders per transaction. If markets open on every other block and the call market could monopolize an entire block to close, a few hundred orders per minute (worst-case) can be processed. The main takeaway is that the transparency, front-running resistance, and low barrier to entry of Ethereum come with an enormous cost (\ie an institutional exchange like NASDAQ can process 100K trades per second). That said, many exchanges trade the same assets under different trading rules (\ie market fragmentation) because traders have different preferences. \cm can work today in some circumstances like very low liquidity tokens, or markets with high volumes and a small number of traders (\eg liquidation auctions).
 
@@ -296,6 +281,7 @@ When executing trades, if the volume of the current best bid does not match the 
 % = = = = = = = = = = = = = = = = = = = = = = = = =  %
 
 \subsection{Order Cancellations}
+\label{sec:cancel}
 
 \cm does not support order cancellations. We intend to open and close markets quickly (on the order of blocks), so orders are relatively short-lived.
 
