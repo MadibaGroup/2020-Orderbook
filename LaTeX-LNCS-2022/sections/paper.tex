@@ -305,6 +305,8 @@ When executing trades, if the volume of the current best bid does not match the 
 
 \subsection{Market Clearing Price}
 
+% JC: Not part of design landscape, find a new home for it
+
 Call markets are heralded for fair price discovery. This is why many exchanges use a call market at the end of the day to determine the closing price of an asset, which is an important price both optically (it is well-published) and operationally (many derivatives settle based on the closing price). We purposely do not compute a `market clearing price' with \cm because miners can easily manipulate the price (\ie include a single wash trade at the price they want fixed), although they forgo profit for doing so. This is not merely hypothetical---Uniswap (the prominent quote-drive, on-chain exchange) prices have been manipulated to exploit other DeFi applications relying on them. Countermeasures to protect Uniswap price integrity could also apply to \cm: (1) taking a rolling median of prices over time, and (2) using it alongside other sources for the same price and forming a consensus. While \cm does not emit a market clearing price, it can be computed by a web application examining the order book at market close.
 
 % = = = = = = = = = = = = = = = = = = = = = = = = =  %

@@ -51,19 +51,19 @@
 \citation{GanacheT25:online}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Priority Queue Evaluation}{6}{subsection.1.3.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Enqueue Performance.}{6}{section*.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Dequeue Performance.}{6}{section*.7}\protected@file@percent }
+\citation{signer2018gas}
 \@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces \scriptsize  {Gas costs for enqueuing 50 random integers into five priority queue variants. For the x-axis, a value of 9 indicates it is the 9th integer entered in the priority queue. The y-axis is the cost of enqueuing in gas}. \relax }}{7}{figure.caption.6}\protected@file@percent }
 \newlabel{fig:random_insertion}{{1}{7}{\scriptsize {Gas costs for enqueuing 50 random integers into five priority queue variants. For the x-axis, a value of 9 indicates it is the 9th integer entered in the priority queue. The y-axis is the cost of enqueuing in gas}. \relax }{figure.caption.6}{}}
 \@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces \scriptsize  {The gas metrics associated with dequeuing 50 integers from five priority queue variants.} \relax }}{7}{figure.caption.6}\protected@file@percent }
 \newlabel{tab:PQUnitTests}{{4}{7}{\scriptsize {The gas metrics associated with dequeuing 50 integers from five priority queue variants.} \relax }{figure.caption.6}{}}
-\@writefile{toc}{\contentsline {paragraph}{Dequeue Performance.}{7}{section*.7}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Discussion.}{7}{section*.8}\protected@file@percent }
-\citation{signer2018gas}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Cost/Benefit of Cleaning Up After Yourself}{7}{subsection.1.3.3}\protected@file@percent }
+\newlabel{sec:gasrefund}{{3.3}{7}{Cost/Benefit of Cleaning Up After Yourself}{subsection.1.3.3}{}}
+\newlabel{para-ref}{{3.3}{7}{Gas Refunds}{section*.10}{}}
+\@writefile{toc}{\contentsline {paragraph}{Gas Refunds.}{7}{section*.10}\protected@file@percent }
 \@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces \relax \fontsize  {9}{11}\selectfont  \abovedisplayskip 8.5\p@ plus3\p@ minus4\p@ \abovedisplayshortskip \z@ plus2\p@ \belowdisplayshortskip 4\p@ plus2\p@ minus2\p@ \def \leftmargin \leftmargini \parsep 0\p@ plus1\p@ minus\p@ \topsep 8\p@ plus2\p@ minus4\p@ \itemsep 0\p@ {\leftmargin \leftmargini \parsep 0\p@ plus1\p@ minus\p@ \topsep 8\p@ plus2\p@ minus4\p@ \itemsep 0\p@ }\belowdisplayskip \abovedisplayskip {The gas metrics associated with dequeuing 50 integers from four linked list variants. For the refund, ($\mbox  {\fontencoding  {U}\fontfamily  {wasy}\selectfont  \char 32}$) indicates the refund was capped at the maximum amount and ($\unhbox \voidb@x \hbox to 0pt{\fontencoding  {U}\fontfamily  {wasy}\selectfont  \char 71\hss }\hbox {\fontencoding  {U}\fontfamily  {wasy}\selectfont  \char 35}$) means a greater refund would be possible}.\relax }}{8}{table.caption.9}\protected@file@percent }
 \newlabel{tab:cleaning}{{5}{8}{\footnotesize {The gas metrics associated with dequeuing 50 integers from four linked list variants. For the refund, (\full ) indicates the refund was capped at the maximum amount and (\prt ) means a greater refund would be possible}.\relax }{table.caption.9}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Cost/Benefit of Cleaning Up After Yourself}{8}{subsection.1.3.3}\protected@file@percent }
-\newlabel{sec:gasrefund}{{3.3}{8}{Cost/Benefit of Cleaning Up After Yourself}{subsection.1.3.3}{}}
-\newlabel{para-ref}{{3.3}{8}{Gas Refunds}{section*.10}{}}
-\@writefile{toc}{\contentsline {paragraph}{Gas Refunds.}{8}{section*.10}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Refunds and PQs.}{8}{section*.11}\protected@file@percent }
 \@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces \relax \fontsize  {9}{11}\selectfont  \abovedisplayskip 8.5\p@ plus3\p@ minus4\p@ \abovedisplayshortskip \z@ plus2\p@ \belowdisplayshortskip 4\p@ plus2\p@ minus2\p@ \def \leftmargin \leftmargini \parsep 0\p@ plus1\p@ minus\p@ \topsep 8\p@ plus2\p@ minus4\p@ \itemsep 0\p@ {\leftmargin \leftmargini \parsep 0\p@ plus1\p@ minus\p@ \topsep 8\p@ plus2\p@ minus4\p@ \itemsep 0\p@ }\belowdisplayskip \abovedisplayskip {Performance of \textsf  {Lissy}\xspace  for each PQ variant. Each consumes just under the block gas limit ($\sim $11M gas) with a full refund of half of its gas, recall Ethereum gas refund is capped at 50\% of the total gas cost of the transaction(see Gas Refunds:\ref  {para-ref})}.\relax }}{9}{table.caption.12}\protected@file@percent }
 \newlabel{tab:worst_case_matching}{{6}{9}{\footnotesize {Performance of \cm for each PQ variant. Each consumes just under the block gas limit ($\sim $11M gas) with a full refund of half of its gas, recall Ethereum gas refund is capped at 50\% of the total gas cost of the transaction(see Gas Refunds:\ref {para-ref})}.\relax }{table.caption.12}{}}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2020.4.8)  10 SEP 2021 14:56
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2020.4.8)  10 SEP 2021 15:05
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1506,14 +1506,11 @@ Overfull \hbox (1.06784pt too wide) in paragraph at lines 194--194
  []|[]| 
  []
 
-[6] (./tables/cleaning.tex
-Underfull \vbox (badness 1412) has occurred while \output is active []
-
- [7 <./fig/2.png
+[6] (./tables/cleaning.tex) [7 <./fig/2.png
 
 pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./fig/2.png): large interlac
 ed PNG might cause out of memory (use non-interlaced PNG to fix this)
->]) [8] (./tables/performance.tex) [9] (./tables/frontrunning2.tex
+>] [8] (./tables/performance.tex) [9] (./tables/frontrunning2.tex
 
 LaTeX Font Warning: Command \tiny invalid in math mode on input line 73.
 
@@ -1544,16 +1541,16 @@ Package pdftex.def Info: fig/MindMapDraft3.png  used on input line 285.
 
 [12 <./fig/MindMapDraft3.png>] [13] [14]
 LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <10> not available
-(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 342.
+(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 344.
 
-Overfull \hbox (39.20294pt too wide) in paragraph at lines 342--343
+Overfull \hbox (39.20294pt too wide) in paragraph at lines 344--345
 \T1/cmr/m/n/10 be sent with the func-tion call to \T1/cmtt/m/n/10 submitBid() \
 T1/cmr/m/n/10 to re-move the need for \T1/cmtt/m/n/10 depositEther()\T1/cmr/m/n
 /10 .
  []
 
 [15] [16] (./tables/performance_Arbitrum.tex)
-Overfull \hbox (35.81073pt too wide) in paragraph at lines 380--381
+Overfull \hbox (35.81073pt too wide) in paragraph at lines 382--383
 \T1/cmr/m/n/10 chain hosted on the Rinkeby test-net. We im-ple-mented a vari-an
 t of \T1/cmss/m/n/10 Lissy \T1/cmr/m/n/10 ([][https://rinkeby-
  []
@@ -1599,6 +1596,10 @@ Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 55.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 55.
 Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 96DF51A2C502389A37BF5705BD4E9A95;81.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 55.
  ) 
 Here is how much of TeX's memory you used:
@@ -1641,7 +1642,7 @@ ic/cm-super/sftt1000.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public
 /wasy-type1/wasy5.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/wa
 sy-type1/wasy7.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/wasy-
 type1/wasy9.pfb>
-Output written on main.pdf (28 pages, 918505 bytes).
+Output written on main.pdf (28 pages, 918449 bytes).
 PDF statistics:
  607 PDF objects out of 1000 (max. 8388607)
  472 compressed objects within 5 object streams
