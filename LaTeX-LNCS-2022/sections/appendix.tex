@@ -38,10 +38,11 @@ At the time of this writing, Ethereum transaction receipts only account for the 
 \subsubsection{Optimistic Roll-Ups.}
 \label{app:rollup}
 
+
 \begin{figure}[t]
 \centering
 \includegraphics[width=1\textwidth]{fig/lissyL2.pdf}
-\caption{\footnotesize{\cm L2 Diagram}  \label{fig:lissyl2}}
+\caption{\footnotesize{\textblue{Modify with inbox, sequencer as well}}  \label{fig:lissyl2}}
 \end{figure}
 
 
@@ -68,9 +69,7 @@ In this paper, we focus on benchmarking an order book for the public blockchain 
 
 \paragraph{On-chain Dealers.} An advantage of on-chain trading is that other smart contracts, not just human users, can initiate trades, enabling broader decentralized finance (DeFi) applications. This has fuelled a resurgence in on-chain exchange but through a quote-driven design rather than an order-driven one. Automated market makers  (\eg Uniswap v3) have all the trust advantages of an on-chain order book, plus they are relatively more efficient. The trade-off is that they operate as a dealer---the DApp exchanges assets from its own inventory. This inventory is loaded into the DApp by an investor who will not profit from the trades themselves but hopes their losses (termed `impermanent losses') are offset over the long-term by trading fees. By contrast, an order book requires no upfront inventory and trading fees are optional. Finally, there is a complicated difference in their price dynamics (\eg market impact of a trade, slippage between the best bid/ask and actual average execution price, \etc)---deserving of an entire research paper to precisely define. We leave it as an assertion that with equal liquidity, order books have more favorable price dynamics for traders.
 
-\paragraph{Hybrid Designs.} Before on-chain dealers became prominent in the late 2010s, the most popular design was hybrid order-driven exchanges with some trusted off-chain components and some on-chain functionalities. Such decentralized exchanges (DEXes) were envisioned as operating fully on-chain, but performance limitations drove developers to move key components, such as the order matching system, off-chain to a centralized database. A landscape of DEX designs exist (\eg EtherDelta, 0x, IDEX, \etc): many avoid taking custodianship of assets off-chain, and virtually all (for order-driven markets) operate the order book itself off-chain (a regulatory hook). A non-custodial DEX solves the big issue of a CEX---the operator stealing the funds---however trade execution is still not provably fair, funds can still be indirectly stolen by a malicious exchange executing unauthorized trades, and server downtime is a common frustration for traders. An enhancement is to prove that trade execution is correct (\eg Loopring) but these proofs have blind spots (discussed in section~\ref{sec:rollups}).
-
-
+\paragraph{Hybrid Designs.} Before on-chain dealers became prominent in the late 2010s, the most popular design was hybrid order-driven exchanges with some trusted off-chain components and some on-chain functionalities. Such decentralized exchanges (DEXes) were envisioned as operating fully on-chain, but performance limitations drove developers to move key components, such as the order matching system, off-chain to a centralized database. A landscape of DEX designs exist (\eg EtherDelta, 0x, IDEX, \etc): many avoid taking custodianship of assets off-chain, and virtually all (for order-driven markets) operate the order book itself off-chain (a regulatory hook). A non-custodial DEX solves the big issue of a CEX---the operator stealing the funds---however trade execution is still not provably fair, funds can still be indirectly stolen by a malicious exchange executing unauthorized trades, and server downtime is a common frustration for traders. An enhancement is to prove that trade execution is correct (\eg Loopring) but these proofs have blind spots (discussed above in Appendix~\ref{app:rollup}).
 
 
 
@@ -94,3 +93,30 @@ In Solidity, it is not possible to delete an entire mapping without individually
 \end{enumerate}
 
 Clearing storage is important for reducing EVM bloat. The Ethereum refund model should be considered further by Ethereum developers to better incentivize developers to be less wasteful in using storage. 
+
+% = = = = = = = 
+% = = = = = = = 
+% = = = = = = = 
+
+\section{Collateralization Options in Call Markets}
+\label{app:collateral}
+
+in \cm, both the tokens and ETH that a trader wants to potentially use in the order book are pre-loaded into the contract. Consider Alice, who holds a token and decides she wants to trade it for ETH. In this model, she must first transfer the tokens to the contract and then submit an ask order. If she does this within the same block, there is a chance that a miner will execute the ask before the transfer and the ask will revert. If she waits for confirmation, this introduces a delay. This delay seems reasonable but we point out a few options it could be addressed:
+
+\begin{enumerate}
+
+\item \textbf{Use \texttt{msg.value}.} For the ETH side of a trade (\ie for bids), ETH could be sent with the function call to \texttt{submitBid()} to remove the need for    \texttt{depositEther()}. This works for markets that trade ERC20 tokens for ETH, but would not work for ERC20 to ERC20 exchanges.
+
+\item \textbf{Merge Deposits with Bids/Asks.} \cm could have an additional function that atomically runs the functionality of \texttt{depositToken()} followed by the functionality of \texttt{submitAsk()}. This removes the chance that the deposit and order submission are ordered incorrectly.
+
+\item \textbf{Use ERC20 Approval.} Instead of \cm taking custody of the tokens, the token holder could simply approve \cm to transfer tokens on her behalf. If \cm is coded securely, it is unconcerning to allow the approval to stand long-term and the trader never has to lock up their tokens in the DApp. The issue is that there is no guarantee that the tokens are actually available when the market closes (\ie Alice can approve a DApp to spend 100 tokens even if she only has 5 tokens or no tokens). In this case, \cm would optimistically try to transfer the tokens and if it fails, move onto the next order. This also gives Alice an indirect way to cancel an order, by removing the tokens backing the order---this could be a feature or it could be considered an abuse.
+
+\item \textbf{Use a Fidelity Bond.} Traders could post some number of tokens as a fidelity bond, and be allowed to submit orders up to 100x this value using approve. If a trade fails because the pledged tokens are not available, the fidelity bond is slashed as punishment. This allows traders to side-step time-consuming transfers to and from \cm while still incentivizing them to ensure that submitted orders can actually be executed. The trade-off  is that \cm needs to update balances with external calls to the ERC20 contract instead of simply updating its internal ledger.
+
+\end{enumerate}
+
+\section{Market Clearing Prices}
+
+% JC: Not part of design landscape, find a new home for it
+
+Call markets are heralded for fair price discovery. This is why many exchanges use a call market at the end of the day to determine the closing price of an asset, which is an important price both optically (it is well-published) and operationally (many derivatives settle based on the closing price). We purposely do not compute a `market clearing price' with \cm because miners can easily manipulate the price (\ie include a single wash trade at the price they want fixed), although they forgo profit for doing so. This is not merely hypothetical---Uniswap (the prominent quote-drive, on-chain exchange) prices have been manipulated to exploit other DeFi applications relying on them. Countermeasures to protect Uniswap price integrity could also apply to \cm: (1) taking a rolling median of prices over time, and (2) using it alongside other sources for the same price and forming a consensus. While \cm does not emit a market clearing price, it can be computed by a web application examining the order book at market close.
