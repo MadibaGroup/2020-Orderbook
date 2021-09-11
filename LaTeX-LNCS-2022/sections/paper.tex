@@ -206,15 +206,6 @@ Dequeuing in a linked list with mapping can be implemented in two ways. The simp
 The lesson here is that gas refunds incentivize developers to clean up storage variables they will not use again, but it is highly contextual as to whether it will pay for itself. Further, the cap on the maximum refund means that refunds are not fully received for large cleanup operations (however removing the cap impacts the miners' incentives to include the transaction).  In Appendix~\ref{app:clean}, we present a second case study of the cost-benefits of clearing a mapping when it is no longer needed (including our idea to store the mapping in its own contract so it can \texttt{SELFDESTRUCT} with a single function call). The unfortunate takeaway is, again, that it is cheapest to leave the mapping in place. Cleaning up EVM state is a complicated and under-explored area of Ethereum in the research literature. For our own work, we strive to be good citizens of Ethereum and clean up to the extent that we can---thus all PQs in Table~\ref{tab:PQUnitTests} implement some cleanup.
 
 
-
-
-% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-
-
-
-
 %============= Performance =================== %
 
  \subsection{\cm Performance Measurements}
@@ -226,89 +217,29 @@ The main research question is how many orders can be processed under the Ethereu
 
 The main takeaway is that call markets appear to be limited to processing about a hundred orders per transaction and even that is at the enormous cost of monopolizing an entire Ethereum block just to close the market. Perhaps \cm can work today in some circumstances like very low liquidity tokens, or markets with high volumes and a small number of traders (\eg liquidation auctions).
 
-% = = = = = = = = = = = = = = = = = = = = = = = = =  %
-\section{\cm on Layer 2}\label{sec:rollups}
-
-We consider an alternative design for \cm that is almost as difficult to regulate as a fully on-chain solution. In this design, an off-chain component is introduced to boost performance but it only interacts with the Ethereum network and never directly with traders. Traders still only interact with Ethereum.
-
-
-\subsection{Roll-ups}
-
-We consider an alternative design for \cm that is almost as difficult to regulate as a fully on-chain solution. In this design, an off-chain component is introduced to boost the performance but it only interacts with the Ethereum network and never directly with traders. Traders still only interact with Ethereum.
-
-% For background information on different types of roll-ups, please see Appendix~\ref{app:rollup}
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
 
-\textit{Layer 2} solutions are a group of technologies that are designed and proposed to address specific drawbacks of executing transactions on \textit{Layer 1} (\ie Ethereum and other blockchains)~\cite{gudgeon2020sok}. These technologies focus on fast transaction throughput, reducing gas costs, or reducing transaction latency. When using \cm, we strive to reduce the gas cost as performance is the main bottleneck. Thus, we choose a Layer 2 technology called \textit{roll-up}. This technology aims at reducing the gas cost for operating on Layer 1 by taking the transaction executions off-chain and only using the Ethereum blockchain for storing data. In a roll-up, every transaction is executed by a server or cluster of servers known as \textit{validators} that can be run by a collection of users or third party operators (here they can be run by the token issuer). These validators then push the result of the executions (\ie updates in the EVM state) back to the Ethereum and assure the Ethereum network that the transactions have been executed correctly.
+\section{\cm on Arbitrum}
+\label{sec:rollups}
 
-A function can be computed off-chain and the new state of the DApp, called a \textit{rollup}, is written back to the blockchain, accompanied by either (1) a proof that the function was executed correctly, or (2) a dispute resolution process that can resolve, on-chain, functions that are not executed correctly (\eg Arbitrum~\cite{kalodner2018arbitrum}). In the case of (1), validating the proof must be cheaper than running the function itself. There are two main approaches: (1a) the first is to use cryptographic proof techniques (\eg SNARKS~\cite{BCGTV13,GGPR13} and variants~\cite{BBHR19}). This is called a \textit{zk-rollup}. Note that the proofs are heavy to compute (introducing a burden to the validators who generate them) but considered valid once posted to the Ethereum. The second approach (1b) is to execute the function in a trusted execution environment (TEE; \eg Intel SGX) and validate the TEE's quote on-chain (\eg Ekiden~\cite{cheng2019ekiden}).\footnote{The TEE-based approach is mired by recent attacks on SGX~\cite{SGX1,SGX2,SGX3,SGX4}, however these attacks do not necessarily apply to the specifics of how SGX is used here, and safer TEE technologies like Intel TXT (\cf~\cite{ZBC+19}) can be substituted.} Approach (2) is called an \textit{optimistic roll-up}. Although the dispute time delays result in a slower transaction finality, optimistic roll-ups substantially increase the performance by decreasing the gas cost.
+\textit{Layer 2 (L2)} solutions~\cite{gudgeon2020sok} are a group of scaling technologies proposed to address specific drawbacks of executing transactions on Ethereum, which is considered \textit{Layer 1 (L1)}. Among these proposals, \textit{roll-ups} prioritize reducing gas costs (as opposed to other valid concerns like latency and throughput, which are secondary for \cm). We review two variants, \textit{optimistic roll-ups} and \textit{zk roll-ups}, in Appendix~\ref{app:rollup}. Briefly, in a roll-up, every transaction is stored (but not executed) on Ethereum, then executed off-chain, and the independently verifiable result is pushed back to Ethereum, with some evidence of being executed correctly. In the Appendix, we also compare \cm on Arbitrum to Loopring 3.0.
 
-%It uses a side chain (a roll-up chain) that is run on top of Layer 1. Once the executions are performed, validators assert the new states of the roll-up chain to the Ethereum and wait for anyone to dispute these assertions.
+We choose to experiment with \cm on the optimistic rollup Arbitrum.\footnote{See \url{https://offchainlabs.com} for more current details than the 2018 \textit{USENIX Security} paper~\cite{kalodner2018arbitrum}.} To deploy a DApp on Arbitrum, or to execute a function on an existing Arbitrum DApp, the transaction is sent to an \textit{inbox} on L1. It is not executed on L1, it is only recorded (as calldata) in the inbox. An open network of \textit{validators} watch the inbox for new transactions. Once inbox transactions are finalized in an Ethereum block, validators will execute the transactions and assert the result of the execution to other validators on a sidechain called \textsf{ArbOS}. As the Inbox contract maintains all Arbitrum transactions, anyone can recompute the entire current state of the ArbOS and file a dispute if executions are not correctly reported on ArbOS. Disputes are adjudicated by Ethereum itself and require a small, constant amount of gas, invariant to how expensive the transaction being disputed is. When the dispute challenge period is over, the new state of ArbOS is stored as a checkpoint on Ethereum. 
 
-%Therefore, we choose this roll-up solution to for the Layer 2 implementation of \cm.
-
-% = = = = = = = = = = = = = = = = = = = = = = = = =  %
-\subsection{Arbitrum}
-
-Arbitrum is an Ethereum Layer 2 scaling solution that operates as an optimistic roll-up~\cite{kalodner2018arbitrum}. Arbitrum runs entire DApps inside its environment, which acts like a container and requires special bridge contacts to interact with `normal' (or Layer 1) Ethereum DApps. To deploy a DApp on Arbitrum, or to execute a function on an existing Arbitrum DApp, the transaction is sent to an \textit{Inbox contract} on Layer 1. The transaction is not executed, it is only recorded (as calldata) in the Inbox. Like any other transactions on Ethereum, miners determine the order of the transactions sent to this contract. A set of validators (open to anyone) are watching the Inbox contract for new transactions. Once an Inbox transaction is finalized in an Ethereum block, validators will execute the transaction and assert the result of the execution to other validators on a sidechain called ArbOS. Once the dispute challenge period is over, the new state of ArbOS will be inserted into Ethereum. As the Inbox contract maintains all Arbitrum transactions, anyone can recompute the entire current state of the ArbOS and file a dispute if executions are not performed correctly. Disputes are adjudicated by Ethereum itself and require essentially constant gas costs, regardless of the size of the gas costs of the transaction being disputed
 
 
 % = = = = = = = = = = = = = = = = = = = = = = = = =  %
-\subsection{\cm on Arbitrum}
+\subsection{\cm Performance Measurements on Arbitrum}
 \input{tables/performance_Arbitrum}
 
-\textit{Testing Platforms.} To experiment with Arbitrum, we used the Arbitrum Rollup chain hosted on the Rinkeby testnet. We implemented a variant of \cm(\href{https://rinkeby-explorer.arbitrum.io/address/0x0aa5449a9f7fa34a81ce1dc720563938a27e8b03}{[https://rinkeby-explorer.arbitrum.io/]}) and ran the same experiments that we previously performed on Layer 1. To call functions on \cm, traders can (i) send transactions directly to the \href{https://rinkeby.etherscan.io/address/0x578BAde599406A8fE3d24Fd7f7211c0911F5B29e}{Inbox contract}, or (ii) use a relay server (called a \textit{Sequencer}) provided by the Arbitrum. The sequencer will group, order, and send all pending transactions together as a single Rinkeby transaction to the Inbox (and pays the gas).
+\textit{Testing Platforms.} We implement \cm using the Arbitrum Rollup chain hosted on the Rinkeby testnet.  It is visible and can be interacted with here: \href{https://rinkeby-explorer.arbitrum.io/address/0x0aa5449a9f7fa34a81ce1dc720563938a27e8b03}{[Arbitrum Explorer]}. To call functions on \cm, traders can (i) send transactions directly to the \href{https://rinkeby.etherscan.io/address/0x578BAde599406A8fE3d24Fd7f7211c0911F5B29e}{Inbox contract}, or (ii) use a relay server (called a \textit{Sequencer}) provided by the Arbitrum. The sequencer will group, order, and send all pending transactions together as a single Rinkeby transaction to the inbox (and pays the gas).
 
-Recall that \cm implements an exchange between ETH and tokens. To use Layer 1 assets on Layer 2, Arbitrum provides two bridge contracts: one for ETH, and one for tokens compliant with ERC20 or other standard interfaces. Prior to trading, a trader uses the bridge to move their ETH to the same address on Layer 2 and then move the ETH to \cm with a Layer 2 transaction. From the user's perspective, tokens work similarly although the backend details are more complex. Finally, withdrawals work essentially same way in reverse, but are only final on Layer 1 after a dispute challenge period (currently 1 hour).\footnote{Layer 1 users might accept assets before they are finalized if they determine their eventual emergence on Layer 1 is indisputable (\textit{eventual finality}).}
+In our \cm variant on Arbitrum, the validators do all computations (both enqueuing and dequeuing) so we choose to use a heap with dynamic array for our priority queue, which balances the expense of both operations. Heaps are 32\% more efficient than linked lists for submitting orders and 29\% less efficient for closing. Recall that without a roll-up, such a priority queue can only match 38 pairs at a cost of 5,372,679 gas. Table~\ref{tab:arbitrum_performance} shows that 38 pairs cost only 6,569 in L1 gas (a 99.88\% savings). This is the cost of submitting the \texttt{closeMarket()} transaction to the inbox to be recorded, which is 103 bytes of calldata. Most importantly, \texttt{closeMarket()} always costs 6,569 even as the number of trades increase from 38 pairs. Of course, as the number of trades increase, the work for the validators on L2 increases, as measured in ArbGas. The price of ArbGas in Gwei is not well-established but is anticipated to be relatively cheap. Finally, for traders submitting an order, the L1 cost is reduced from 207,932 to 6,917.
 
-%\input{tables/performance_Arbitrum.tex}
-
-%Table~\ref{tab:arbitrum_performance} compares the cost of executing the maximum number of trades on Ethereum (Kovan testnet) and executing the same number of trades when running \cm on Layer 2 with Arbitrum. The fourth column of the Table represents the Ethereum gas cost for relaying the transaction to the Arbitrum EthBridge contract and is paid in ETH. Note that here we report the cost of sending the transaction directly to the Arbitrum EthBridge contract and not through the aggregator~\footnote{The Layer 1 cost reported on the Kovan block explorer represents the gas cost related to the entire batch of transactions.}.
-
-In our \cm variant on Arbitrum, the token issuer does all the computation (both enqueuing and dequeuing). Thus, we switch the priority queue to use a heap with dynamic array, which balances the expense of both operations (instead of optimizing for dequeuing in \texttt{closeMarket()}). Our experiments show that on Arbitrum, heaps are 32\% more efficient than non-Heaps for submitting orders and 29\% less efficient for closing. Recall that without a roll-up, such a priority queue can only match 38 pairs at a cost of 5,372,679 gas. With Arbitrum roll-ups, 38 pairs cost only 6,569 in Layer 1 gas (a 99.9\% savings). This is effectively the cost of submitting \texttt{closeMarket()} transaction to the inbox and recording the function call, which is 103 bytes of calldata. As the number of pairs increases, Layer 1 gas cost is constant. For traders submitting an order, the cost is reduced from  207,932 to 6,917.
-
-
-While the runtime of a transaction is no longer an issue for Ethereum, it is still an issue for the validators. Similar to Ethereum miners, validators do measure the amount of gas (called ArbGas in Arbitrum) a transaction takes, although Arbitrum emulates EVM code with its own different opcodes. Thus, ArbGas with a roll-up and Layer 1 gas without a roll-up are not directly comparable but both increase and decrease proportionately with the complexity of running the function. Closing a market with 38 pairs costs 46,705,693 ArbGas. %Until Arbitrum deploys on mainnet, the price of ArbGas in Gwei (or USD) is unknown but it is thought to be relatively very cheap.
-
-
-Our \cm variant is not the first roll-up-based order book. Loopring 3.0\footnote{\url{https://loopring.org}} offers a continuous-time order book. The primary difference is that orders in Loopring 3.0 are submitted off-chain to the operator directly, whereas our variant uses on-chain submission so that the roll-up server does not need to be publicly reachable. Loopring 3.0 can operate near high-frequency trading as order submission is unhampered by Ethereum. However, its  roll-up proof does not ensure that the exchange did not reorder transactions, which is particularly problematic in a continuous-time order book. Traders who prioritize trade fairness might opt for a solution like our variant, while traders who want speed would vastly prefer the Loopring architecture which offers near-CEX speed while being non-custodial. Loopring leaves a regulatory hook whereas our variant could be nearly as difficult to regulate as a fully on-chain solution if the roll-up server was kept anonymous: Ethereum and Arbitrum themselves would be the only regulatory hooks.
-
-	% JC: Incorporate this comparison to Ethereum Optimism
-	% "The choice between one-round (e.g., “optimistic rollup”) and multi-round (e.g., Arbitrum Rollup) boils down to a tradeoff between on-chain cost and time to resolve a dispute. A one-round approach requires emulating a full call on-chain, which can be expensive — and this limits contracts to 		calls that can be executed comfortably within Ethereum’s global gas limit." -Ed Felten
-
-% = = = = = = = = = = = = = = = = = = = = = = = = =  %
-\subsection{Front-running on Arbitrum}
-\label{sec:frontarb}
-
-In our \cm variant on the Arbitrum, traders can submit transactions to the Layer 1 Inbox contract instead of directly to the \cm DApp. This has the same front-running profile as \cm itself; only the Layer 1 destination address is different. If a sequencer is mandatory, it acts with the same privilege as a Layer 1 Ethereum miner in ordering the transactions it receives. Technically, sequencers are not limited to roll-ups and could be used in the context of normal Layer 1 DApps, but they are more apparent in the context of roll-ups. A sequencer could be trusted to execute transactions in the order it receives them, outsource to a fair ordering service, or (in a tacit acknowledge of the difficulties of preventing front-running) auction off permission to order transactions to the highest bidder. As shown in Table~\ref{tab:front}, a sequencer is an additional front-running actor but does not otherwise change the kinds of attacks that are possible.
-
-% JC: I think too minor to mention
-%Finally, we note a minor technical issue. Recall that in \cm, price improvements are given to miners to prevent a hybrid frontrunning attack. As Arbitrum does not run on L1, it burns (bridged) ETH sent via \texttt{block.coinbase()}. With some effort, Arbitrium could be updated to route the payment to the L1 miner of the block that added closeMarket() to the inbox.
-
-%= = = = = =  = =  =  Rollups=  = = = = = = = = =%
-
-%\section{\cm Variant with Off-chain Closing}
-%\label{sec:rollups}
-%
-%We have avoided augmenting \cm with centralized components and third party services as our research question concerns the feasibility of a system with a minimum of regulatory hooks. However from a regulatory stance, there is a big difference between an architecture where the centralized component is publicly visible and interacted with by users (\eg most DEXes, rollup architectures like Loopring, and commit-chain solutions like TEX). We briefly consider an alternative design that is almost as difficult to regulate as a fully on-chain solution. In this design, an off-chain component is introduced to boost performance but it only interacts with the Ethereum network and never directly with traders. Traders still only interact with Ethereum.
-%
-%A function can be computed off-chain and the new state of the DApp, called a \textit{rollup}, is written back to the blockchain, accompanied by either (1) a proof that the function was executed correctly, or (2) a dispute resolution process that can resolve, on-chain, functions that are not executed correctly (\eg Arbitrum~\cite{kalodner2018arbitrum}). In the case of (1), validating the proof must be cheaper than running the function itself. There are two main approaches to (1): the first is to use cryptographic proof techniques (\eg SNARKS~\cite{BCGTV13,GGPR13} and variants~\cite{BBHR19}), and the second is to execute the function in a trusted execution environment (TEE; \eg Intel SGX) and validate the TEE's quote on-chain (\eg Ekiden~\cite{cheng2019ekiden}).\footnote{The TEE-based approach is mired by recent attacks on SGX~\cite{SGX1,SGX2,SGX3,SGX4}, however these attacks do not necessarily apply to the specifics of how SGX is used here, and safer TEE technologies like Intel TXT (\cf~\cite{ZBC+19}) can be substituted.}
-%
-%We implemented a variant of \cm using rollups on Arbitrum.\footnote{\url{https://offchainlabs.com} for more current details than the 2018 \textit{USENIX Security} paper~\cite{kalodner2018arbitrum}.} In this model, the token issuer (or other interested party) will run a dedicated server to watch Ethereum for function invocations submitted and sequenced on-chain, perform the function call off-chain, and write the resultant state on-chain. Anyone capable of running EVM code can verify the result. If it is incorrect, a dispute can be filed (with the correct state) and an on-chain correction will be made. With or without disputes, participants that validate the function calls for themselves can proceed knowing that the correct state will eventually be finalized.
-%
-%% JC: Incorporate this comparison to Ethereum Optimism
-%% "The choice between one-round (e.g., “optimistic rollup”) and multi-round (e.g., Arbitrum Rollup) boils down to a tradeoff between on-chain cost and time to resolve a dispute. A one-round approach requires emulating a full call on-chain, which can be expensive — and this limits contracts to calls that can be executed comfortably within Ethereum’s global gas limit." -Ed Felten
-%
-%%Mahsa: to discuss: Withdrawing Ethers from Arbitrum takes much time! when withdrawing, the withdrawal will be in a "pending" state during a "challenge period" of 830 blocks (30 - 120 minutes on Kovan). After that, the funds will be available on layer 1 in your lockbox
-%
-%In our \cm variant with rollups, the token issuer does all the computation (both enqueuing and dequeuing). Thus we switch the priority queue to use a heap with dynamic array, which balances the expense of both operations (instead of optimizing for dequeuing in \texttt{closeMarket()}). Recall that on-chain, such a priority queue can only match 38 pairs at a cost of 5,372,679 gas. With rollups, 38 pairs cost 38,863 gas. As the pairs increase, the cost is essentially constant (\eg 1000 pairs cost 38,851 as opposed to 457,326,935 on-chain). Submitting an order costs 39,169 gas on average as opposed to 207,932 on-chain.
-%
-%Our \cm variant is not the first rollup-based order book. Loopring 3.0\footnote{\url{https://loopring.org}} offers a continuous-time order book. The primary difference is that orders in Loopring 3.0 are submitted off-chain to the operator directly, whereas our variant uses on-chain submission so that the rollup server does not need to be publicly reachable. Loopring 3.0 can operate near high frequency trading as order submission is unhampered by Ethereum, however its  rollup proof does not ensure that the exchange did not reorder transactions, which is particularly problematic in a continuous-time order book. Traders who prioritize trade fairness might opt for a solution like our variant, while traders who want speed would vastly prefer the Loopring architecture which offers near-CEX speed while being non-custodial. Loopring leaves a regulatory hook whereas our variant could be nearly as difficult to regulate as a fully on-chain solution if the rollup server was kept anonymous: Ethereum and Arbitrum themselves would be the only regulatory hooks.
-
-
-
-
-
+Running \cm on Arbitrum has one large caveat. If the ERC20 tokens being traded are not issued on ArbOS, which is nearly always the case today, they first need to be \textit{bridged} onto ArbOS, as does the ETH. Traders send ETH or tokens to Arbitrum's bridge contracts which create the equivalent amount at the same address on L2. Withdrawals work the same way in reverse, but are only final on Layer 1 after a dispute challenge period (currently 1 hour).\footnote{Layer 1 users might accept assets before they are finalized as they can determine their eventual emergence on Layer 1 is indisputable (\textit{eventual finality}).}
 
 % = = = = = = = = = = = = = = = = = = = = = = = = =  %
 
@@ -414,6 +345,15 @@ Other front-running attacks use order cancellations (see Section~\ref{sec:cancel
 
 There are two main takeaways from Table~\ref{tab:front}. Call markets provide strong resilience to front-running only bested slightly by dark markets like TEX~\cite{khalil2019tex}, however they do it through design---no cryptography and no two-round protocols. A second observation is that dark call markets, like Galal \etal~\cite{galalpublicly}, are no more resilient to front-running than a lit market (however confidentiality could provide resilience to predatory trading algorithms that react quickly to trades without acutally front-running).
 
+% = = = = = = = = = = = = = = = = = = = = = = = = =  %
+\subsection{Front-running on Arbitrum}
+\label{sec:frontarb}
+
+In our \cm variant on the Arbitrum, traders can submit transactions to the Layer 1 Inbox contract instead of directly to the \cm DApp. This has the same front-running profile as \cm itself; only the Layer 1 destination address is different. If a sequencer is mandatory, it acts with the same privilege as a Layer 1 Ethereum miner in ordering the transactions it receives. Technically, sequencers are not limited to roll-ups and could be used in the context of normal Layer 1 DApps, but they are more apparent in the context of roll-ups. A sequencer could be trusted to execute transactions in the order it receives them, outsource to a fair ordering service, or (in a tacit acknowledge of the difficulties of preventing front-running) auction off permission to order transactions to the highest bidder (called a \textit{MEV auction}). As shown in Table~\ref{tab:front}, a sequencer is an additional front-running actor but does not otherwise change the kinds of attacks that are possible.
+
+% JC: I think too minor to mention
+%Finally, we note a minor technical issue. Recall that in \cm, price improvements are given to miners to prevent a hybrid frontrunning attack. As Arbitrum does not run on L1, it burns (bridged) ETH sent via \texttt{block.coinbase()}. With some effort, Arbitrium could be updated to route the payment to the L1 miner of the block that added closeMarket() to the inbox.
+
 % = = = = = 
 
 \section{Concluding Remarks}
@@ -421,6 +361,9 @@ There are two main takeaways from Table~\ref{tab:front}. Call markets provide st
 Imagine you have just launched a token on Ethereum. Now want to be able to trade it. While the barrier to entry for exchange services is low, it still exists. For a centralized or decentralized exchange, you have to convince the operators to list your token and you will be delayed while they process your request. For an automated market maker, you will have to lock up a large amount of ETH into the DApp, along with your tokens. For roll-ups, you will have to host your own servers. By contrast to all of these, with an on-chain order book, you just deploy the code alongside your token and trading is immediately supported. This should concern regulators. Even if it is too slow today, there is little reason for developers not to offer it as a fallback solution that accompanies every token. With future improvements to blockchain scalability, it could become the de facto trading method.
 
 It may seem paradoxical or unethical to build for regulators exactly what they worry about. However, we agreed that it was too difficult to answer our research questions without actual implementation and experimentation. \cm is a proof of concept code that implements only enough to understand the feasibility of on-chain trading and we release the code for reproducibility. However it is not production code, it is unpolished, it has no user interface (UI), and we have no intention of promoting it for adoption. Finally, by understanding the `pain points' in the design, we found we were constantly tugged toward centralized components (Ethereum alarm clock, meta-transactions, roll-up servers, \etc) which could serve as regulatory hooks even if the service is mainly on-chain.
+
+
+
 
 %For better or worse, blockchain technologies like Ethereum have dramatically lowered the barrier to entry for developing and deploying financial technology. New tokens have been launched with a few clicks of a user interface, and large investment infrastructures have been developed and deployed with little regulatory oversight. Blockchain exchange services allow order-based trading of digital currencies, tokens, and other digital assets. Such exchanges are key components to blockchain-based economic activity.
 
