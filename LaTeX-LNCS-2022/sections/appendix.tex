@@ -72,7 +72,14 @@ In this paper, we focus on benchmarking an order book for the public blockchain 
 \paragraph{Hybrid Designs.} Before on-chain dealers became prominent in the late 2010s, the most popular design was hybrid order-driven exchanges with some trusted off-chain components and some on-chain functionalities. Such decentralized exchanges (DEXes) were envisioned as operating fully on-chain, but performance limitations drove developers to move key components, such as the order matching system, off-chain to a centralized database. A landscape of DEX designs exist (\eg EtherDelta, 0x, IDEX, \etc): many avoid taking custodianship of assets off-chain, and virtually all (for order-driven markets) operate the order book itself off-chain (a regulatory hook). A non-custodial DEX solves the big issue of a CEX---the operator stealing the funds---however trade execution is still not provably fair, funds can still be indirectly stolen by a malicious exchange executing unauthorized trades, and server downtime is a common frustration for traders. An enhancement is to prove that trade execution is correct (\eg Loopring) but these proofs have blind spots (discussed above in Appendix~\ref{app:rollup}).
 
 \subsection{Call Markets}
-\textblue{Basics of how a call market works}
+\label{app:cm}
+\begin{itemize}
+\item The call market first Matches Alice ask order to sell 1 at 10 with Eric's bid order to Buy 3 at 12. The trader happens at the price Alice asks for; 10, and 2 will be given to the miner as a price improvement. This trade fills Alice's order and leaves Eric with a remainder of 2 to buy at 12. 
+\item Next, the call market matches Eric's remainder of 2 with the next highest priority ask order in the list which is Bob's order to sell 4 at 10.15. Trade occurs at 10.15 and 1.85 will be given to the miner as a price improvement. This trade fills the remainder of Eric's bid order and leaves Bob with a remainder of 2 to sell at 10.15.
+\item The market now matches the next highest bid order in the list, Alex's bid order to buy 1 at 12.15, with the remainder of Bob's ask order to sell 2 at 10.15. Trader occurs at 10.15 and 2 will be given to minder as a price improvement. This trader fills Alex bis order and leaves Bob with a remainder of 1 to sell at 10.15.
+\item Next, the market matches Adam's bid order to buy 3 at 13 with the remainder of Bob's ask order to sell 1 at 10.15. Trade occurs at 10.15 and 2.85 will be given to miner as a price improvement. This match fills the Bob order and leaves Adam with a remainder of 2 to buy at 13.
+\item The market then matches Sam's ask order to sell 4 at 10.18 with the remainder of Adam's bid order to buy 2 at 13. Trade occurs at 10.18 and 2.82 is given to miner as a price improvement. This trade fills Adam's order and leaves Sam with a remainder of 2 to sell at 10.18 unfilled. 
+\end{itemize}
 
 \section{Cleaning-Up Revisited: Clearing Mappings}
 \label{app:clean}
