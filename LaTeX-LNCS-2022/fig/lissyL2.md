@@ -21,4 +21,5 @@ Validator-->>Sequencer Inbox (Ethereum): Fetch from the Sequencer Inbox
 Validator-->>Validator: Execute function
 Validator->>Lissy (Arbitrum):Update the state
 Lissy (Arbitrum)-->>Sequencer Inbox (Ethereum): Sync ArbOs
+Lissy (Arbitrum)-->>Regular Inbox (Ethereum): Sync ArbOs
 ```

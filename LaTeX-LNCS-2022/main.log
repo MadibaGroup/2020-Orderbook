@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.9.3)  13 SEP 2021 19:03
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.9.3)  13 SEP 2021 19:11
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1481,11 +1481,11 @@ Package pdftex.def Info: fig/MindMapDraft5.pdf  used on input line 306.
 (pdftex.def)             Requested size: 347.12354pt x 151.29352pt.
  [13 <./fig/MindMapDraft5.pdf>] [14]) (./main.bbl [15] [16]
 [17]) (./sections/appendix.tex [18]
-<fig/lissyL2.pdf, id=363, 546.60939pt x 282.1983pt>
+<fig/lissyL2.pdf, id=363, 552.90567pt x 312.84138pt>
 File: fig/lissyL2.pdf Graphic file (type pdf)
 <use fig/lissyL2.pdf>
 Package pdftex.def Info: fig/lissyL2.pdf  used on input line 46.
-(pdftex.def)             Requested size: 578.15999pt x 298.5087pt.
+(pdftex.def)             Requested size: 578.15999pt x 327.14699pt.
 
 
 LaTeX Warning: Float too large for page by 50.72171pt on input line 51.
@@ -1554,7 +1554,7 @@ ic/cm-super/sftt1000.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public
 /wasy-type1/wasy5.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/wa
 sy-type1/wasy7.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/wasy-
 type1/wasy9.pfb>
-Output written on main.pdf (26 pages, 1771016 bytes).
+Output written on main.pdf (26 pages, 1771026 bytes).
 PDF statistics:
  587 PDF objects out of 1000 (max. 8388607)
  463 compressed objects within 5 object streams
