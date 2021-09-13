@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.9.3)  13 SEP 2021 15:02
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.9.3)  13 SEP 2021 15:42
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1420,41 +1420,41 @@ Underfull \hbox (badness 2772) in paragraph at lines 63--64
  []
 
 ) [3] (./tables/functions.tex) [4] [5]
-<fig/2b.png, id=155, 455.301pt x 330.5148pt>
+<fig/2b.png, id=156, 455.301pt x 330.5148pt>
 File: fig/2b.png Graphic file (type png)
 <use fig/2b.png>
-Package pdftex.def Info: fig/2b.png  used on input line 158.
+Package pdftex.def Info: fig/2b.png  used on input line 159.
 (pdftex.def)             Requested size: 170.71652pt x 123.9276pt.
 
-Overfull \hbox (2.15475pt too wide) in paragraph at lines 158--158
+Overfull \hbox (2.15475pt too wide) in paragraph at lines 159--159
  [][] 
  []
 
 File: fig/2b.png Graphic file (type png)
 <use fig/2b.png>
-Package pdftex.def Info: fig/2b.png  used on input line 158.
+Package pdftex.def Info: fig/2b.png  used on input line 159.
 (pdftex.def)             Requested size: 170.71652pt x 123.9276pt.
 
-Overfull \hbox (2.15475pt too wide) in paragraph at lines 158--158
+Overfull \hbox (2.15475pt too wide) in paragraph at lines 159--159
  [][] 
  []
 
 
-Overfull \hbox (1.06784pt too wide) in paragraph at lines 181--181
+Overfull \hbox (1.06784pt too wide) in paragraph at lines 182--182
  []|[]| 
  []
 
 
-Overfull \hbox (1.06784pt too wide) in paragraph at lines 181--181
+Overfull \hbox (1.06784pt too wide) in paragraph at lines 182--182
  []|[]| 
  []
 
 
-Overfull \hbox (1.06784pt too wide) in paragraph at lines 181--181
+Overfull \hbox (1.06784pt too wide) in paragraph at lines 182--182
  []|[]| 
  []
 
-(./tables/cleaning.tex [6]) [7 <./fig/2b.png
+[6] (./tables/cleaning.tex) [7 <./fig/2b.png
 
 pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./fig/2b.png): large interla
 ced PNG might cause out of memory (use non-interlaced PNG to fix this)
@@ -1479,49 +1479,46 @@ LaTeX Font Warning: Command \tiny invalid in math mode on input line 73.
 LaTeX Font Warning: Command \tiny invalid in math mode on input line 73.
 
 ) [10] [11] [12]
-<fig/MindMapDraft5.pdf, id=265, 868.24374pt x 378.41376pt>
+<fig/MindMapDraft5.pdf, id=272, 868.24374pt x 378.41376pt>
 File: fig/MindMapDraft5.pdf Graphic file (type pdf)
 <use fig/MindMapDraft5.pdf>
-Package pdftex.def Info: fig/MindMapDraft5.pdf  used on input line 305.
+Package pdftex.def Info: fig/MindMapDraft5.pdf  used on input line 306.
 (pdftex.def)             Requested size: 347.12354pt x 151.29352pt.
- [13 <./fig/MindMapDraft5.pdf>] [14]) (./main.bbl [15] [16])
-(./sections/appendix.tex [17] [18]
-<fig/lissyL2.pdf, id=360, 545.44464pt x 229.1772pt>
+ [13 <./fig/MindMapDraft5.pdf>] [14]) (./main.bbl [15] [16]
+[17]) (./sections/appendix.tex [18]
+<fig/lissyL2.pdf, id=367, 545.76328pt x 231.78806pt>
 File: fig/lissyL2.pdf Graphic file (type pdf)
 <use fig/lissyL2.pdf>
 Package pdftex.def Info: fig/lissyL2.pdf  used on input line 44.
-(pdftex.def)             Requested size: 347.12354pt x 145.84761pt.
- [19 <./fig/lissyL2.pdf>] [20]
+(pdftex.def)             Requested size: 549.13828pt x 233.2234pt.
+ [19] [20 <./fig/lissyL2.pdf>] [21]
 Overfull \hbox (8.3211pt too wide) in paragraph at lines 68--69
 []\T1/cmr/m/n/10 In this pa-per, we fo-cus on bench-mark-ing an or-der book for
  the pub-lic blockchain
  []
 
-[21] [22] [23]
+[22] (./tables/cm.tex) [23] [24]
 LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <10> not available
-(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 116.
+(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 119.
 
-Overfull \hbox (26.706pt too wide) in paragraph at lines 116--117
+Overfull \hbox (26.706pt too wide) in paragraph at lines 119--120
 \T1/cmr/m/n/10 sent with the func-tion call to \T1/cmtt/m/n/10 submitBid() \T1/
 cmr/m/n/10 to re-move the need for \T1/cmtt/m/n/10 depositEther()\T1/cmr/m/n/10
  .
  []
 
-) [24] [25] (./main.aux)
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
+[25]) [26] (./main.aux)
 Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 0B098FD982DE242B99C3D16533BEC766;288.
  ) 
 Here is how much of TeX's memory you used:
- 30010 strings out of 478994
- 564458 string characters out of 5858185
- 955125 words of memory out of 5000000
- 46700 multiletter control sequences out of 15000+600000
+ 30019 strings out of 478994
+ 564582 string characters out of 5858185
+ 954125 words of memory out of 5000000
+ 46705 multiletter control sequences out of 15000+600000
  428664 words of font info for 83 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 102i,21n,105p,2045b,697s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 102i,21n,105p,2025b,697s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}
 </usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><
 /usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></u
@@ -1554,10 +1551,10 @@ ic/cm-super/sftt1000.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public
 /wasy-type1/wasy5.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/wa
 sy-type1/wasy7.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/wasy-
 type1/wasy9.pfb>
-Output written on main.pdf (25 pages, 1763453 bytes).
+Output written on main.pdf (26 pages, 1767325 bytes).
 PDF statistics:
- 577 PDF objects out of 1000 (max. 8388607)
- 454 compressed objects within 5 object streams
- 137 named destinations out of 1000 (max. 500000)
+ 590 PDF objects out of 1000 (max. 8388607)
+ 466 compressed objects within 5 object streams
+ 139 named destinations out of 1000 (max. 500000)
  36 words of extra memory for PDF output out of 10000 (max. 10000000)
 
