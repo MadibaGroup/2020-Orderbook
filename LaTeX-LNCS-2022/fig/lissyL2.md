@@ -11,8 +11,10 @@ rect rgb(255, 0, 0, 0.1)
 Trader->>Regular Inbox (Ethereum): Deposit X amount of ETH into Arbitrum chain
 Note right of Regular Inbox (Ethereum): Credits X ETH to the trader's address inside Arbitrum chain
 end
-Trader->>Lissy (Arbitrum): Deposit ETH (depositEther())
-
+Trader->>Regular Inbox (Ethereum): Request: run depositEther() function
+Validator-->>Regular Inbox (Ethereum): Fetch from the Regular Inbox
+Validator-->>Validator: Execute function
+Validator->>Lissy (Arbitrum):Update the state
 Trader->>Sequencer: Request: run submitBid() function
 Sequencer->>Sequencer Inbox (Ethereum):Request: run submitBid() function
 Validator-->>Sequencer Inbox (Ethereum): Fetch from the Sequencer Inbox

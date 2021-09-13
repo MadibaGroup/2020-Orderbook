@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.9.3)  13 SEP 2021 17:55
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.9.3)  13 SEP 2021 19:03
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1481,26 +1481,30 @@ Package pdftex.def Info: fig/MindMapDraft5.pdf  used on input line 306.
 (pdftex.def)             Requested size: 347.12354pt x 151.29352pt.
  [13 <./fig/MindMapDraft5.pdf>] [14]) (./main.bbl [15] [16]
 [17]) (./sections/appendix.tex [18]
-<fig/lissyL2.pdf, id=363, 545.76328pt x 231.78806pt>
+<fig/lissyL2.pdf, id=363, 546.60939pt x 282.1983pt>
 File: fig/lissyL2.pdf Graphic file (type pdf)
 <use fig/lissyL2.pdf>
 Package pdftex.def Info: fig/lissyL2.pdf  used on input line 46.
-(pdftex.def)             Requested size: 578.15999pt x 245.54915pt.
+(pdftex.def)             Requested size: 578.15999pt x 298.5087pt.
 
 
 LaTeX Warning: Float too large for page by 50.72171pt on input line 51.
 
-[19] [20]
-Overfull \hbox (8.3211pt too wide) in paragraph at lines 75--76
+[19]
+Underfull \vbox (badness 2486) has occurred while \output is active []
+
+ [20]
+[21]
+Overfull \hbox (8.3211pt too wide) in paragraph at lines 78--79
 []\T1/cmr/m/n/10 In this pa-per, we fo-cus on bench-mark-ing an or-der book for
  the pub-lic blockchain
  []
 
-[21] (./tables/cm.tex) [22] [23]
+(./tables/cm.tex) [22] [23]
 LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <10> not available
-(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 126.
+(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 129.
 
-Overfull \hbox (26.706pt too wide) in paragraph at lines 126--127
+Overfull \hbox (26.706pt too wide) in paragraph at lines 129--130
 \T1/cmr/m/n/10 sent with the func-tion call to \T1/cmtt/m/n/10 submitBid() \T1/
 cmr/m/n/10 to re-move the need for \T1/cmtt/m/n/10 depositEther()\T1/cmr/m/n/10
  .
@@ -1550,10 +1554,10 @@ ic/cm-super/sftt1000.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public
 /wasy-type1/wasy5.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/wa
 sy-type1/wasy7.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/wasy-
 type1/wasy9.pfb>
-Output written on main.pdf (26 pages, 1767129 bytes).
+Output written on main.pdf (26 pages, 1771016 bytes).
 PDF statistics:
- 586 PDF objects out of 1000 (max. 8388607)
- 462 compressed objects within 5 object streams
+ 587 PDF objects out of 1000 (max. 8388607)
+ 463 compressed objects within 5 object streams
  139 named destinations out of 1000 (max. 500000)
  36 words of extra memory for PDF output out of 10000 (max. 10000000)
 
