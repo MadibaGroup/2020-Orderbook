@@ -71,7 +71,8 @@ In this paper, we focus on benchmarking an order book for the public blockchain 
 
 \paragraph{Hybrid Designs.} Before on-chain dealers became prominent in the late 2010s, the most popular design was hybrid order-driven exchanges with some trusted off-chain components and some on-chain functionalities. Such decentralized exchanges (DEXes) were envisioned as operating fully on-chain, but performance limitations drove developers to move key components, such as the order matching system, off-chain to a centralized database. A landscape of DEX designs exist (\eg EtherDelta, 0x, IDEX, \etc): many avoid taking custodianship of assets off-chain, and virtually all (for order-driven markets) operate the order book itself off-chain (a regulatory hook). A non-custodial DEX solves the big issue of a CEX---the operator stealing the funds---however trade execution is still not provably fair, funds can still be indirectly stolen by a malicious exchange executing unauthorized trades, and server downtime is a common frustration for traders. An enhancement is to prove that trade execution is correct (\eg Loopring) but these proofs have blind spots (discussed above in Appendix~\ref{app:rollup}).
 
-
+\subsection{Call Markets}
+\textblue{Basics of how a call market works}
 
 \section{Cleaning-Up Revisited: Clearing Mappings}
 \label{app:clean}
