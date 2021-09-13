@@ -38,12 +38,19 @@ At the time of this writing, Ethereum transaction receipts only account for the 
 \subsubsection{Optimistic Roll-Ups.}
 \label{app:rollup}
 
-
-\begin{sidewaysfigure}
-\centering
+\begin{figure}[htb]
+  \centering
+  \begin{turn}{90}
+  \begin{minipage}{8in}
+  \centering
 \includegraphics[width=1\textwidth]{fig/lissyL2.pdf}
-\caption{\footnotesize{Overview of \cm on Arbitrum.}  \label{fig:lissyl2}}
-\end{sidewaysfigure}
+  \caption{\footnotesize{Overview of \cm on Arbitrum.}
+\label{fig:lissyl2}}
+  \end{minipage}
+  \end{turn}
+\end{figure}
+
+
 
 
 %We have avoided augmenting \cm with centralized components and third party services as our research question concerns the feasibility of a system with a minimum of regulatory hooks. However from a regulatory stance, there is a big difference between an architecture where the centralized component is publicly visible and interacted with by users (\eg most DEXes, roll-up architectures like Loopring, and commit-chain solutions like TEX). We consider an alternative design that is almost as difficult to regulate as a fully on-chain solution. In this design, an off-chain component is introduced to boost performance but it only interacts with the Ethereum network and never directly with traders. Traders still only interact with Ethereum.
