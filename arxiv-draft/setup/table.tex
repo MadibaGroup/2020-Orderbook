@@ -1,0 +1,30 @@
+% !TEX root = ../main.tex
+%-------------------Fancy Table ----------------------%
+
+% = = = Rotated Table Entry \headrow
+
+\usepackage{adjustbox}
+\newcommand{\headrow}[1]{\multicolumn{1}{c}{\adjustbox{angle=65,lap=\width-0.5em}{#1}}}
+
+\newcommand{\headrowfront}[1]{\multicolumn{1}{c}{\adjustbox{angle=25,lap=\width-0.7em}{#1}}}
+\newcommand{\headrowfrontTwo}[1]{\multicolumn{1}{c}{\adjustbox{angle=90,lap=\width-0.9em}{#1}}}
+
+\newcommand{\headrowsidebyside}[1]{\multicolumn{1}{c}{\adjustbox{angle=75,lap=\width-0.9em}{#1}}}
+\newcommand{\headrowcleaning}[1]{\multicolumn{1}{c}{\adjustbox{angle=40,lap=\width-0.9em}{#1}}}
+\newcommand{\headrowperformance}[1]{\multicolumn{1}{c}{\adjustbox{angle=30,lap=\width-0.9em}{#1}}}
+
+
+% = = = Table bullets: \full and \prt (full and part)
+
+%\newcommand{\full}{$\bullet$}
+%\newcommand{\prt}{$\circ$}
+
+\newcommand{\full}{$\CIRCLE$}
+\newcommand{\prt}{$\LEFTcircle$}
+\newcommand{\empt}{$\Circle$}
+
+% = = = Table TINY bullets: \full and \prt (full and part)
+
+\newcommand{\tinyfull}{$\tiny{\CIRCLE}$}
+\newcommand{\tinyprt}{$\tiny{\LEFTcircle}$}
+\newcommand{\tinyempt}{$\tiny{\Circle}$}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.9.3)  6 OCT 2021 11:19
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.9.3)  6 OCT 2021 11:18
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -151,6 +151,10 @@ LaTeX Font Info:    Redeclaring math symbol \Omega on input line 372.
 \headlineindent=\dimen160
 )
 (./setup/packages.tex
+(/usr/local/texlive/2021/texmf-dist/tex/latex/preprint/fullpage.sty
+Package: fullpage 1999/02/23 1.1 (PWD)
+\FP@margin=\skip51
+)
 (/usr/local/texlive/2021/texmf-dist/tex/latex/preprint/balance.sty
 Package: balance 1999/02/23 4.3 (PWD)
 \oldvsize=\dimen161
@@ -190,49 +194,49 @@ Package floatrow Info: Modified rotfloat package code loaded on input line 473.
 \FB@wd=\dimen169
 \FBo@wd=\dimen170
 \FBc@wd=\dimen171
-\FBo@ht=\skip51
-\FBc@ht=\skip52
-\FBf@ht=\skip53
-\FBo@max=\skip54
-\FBc@max=\skip55
-\FBf@max=\skip56
+\FBo@ht=\skip52
+\FBc@ht=\skip53
+\FBf@ht=\skip54
+\FBo@max=\skip55
+\FBc@max=\skip56
+\FBf@max=\skip57
 \c@FBl@b=\count284
 \floatbox@depth=\count285
 \c@FRobj=\count286
 \c@FRsobj=\count287
-\Xhsize=\skip57
-\sXhsize=\skip58
-\Zhsize=\skip59
-\sZhsize=\skip60
+\Xhsize=\skip58
+\sXhsize=\skip59
+\Zhsize=\skip60
+\sZhsize=\skip61
 \flrow@rowbox=\box97
 \FR@Zunitlength=\dimen172
 \c@FBcnt=\count288
 \FPOScnt=\count289
-\LTleft=\skip61
-\LTright=\skip62
-\LTleft=\skip63
-\LTright=\skip64
+\LTleft=\skip62
+\LTright=\skip63
+\LTleft=\skip64
+\LTright=\skip65
 \flrow@types=\toks22
 )
 (/usr/local/texlive/2021/texmf-dist/tex/latex/subfig/subfig.sty
 Package: subfig 2005/06/28 ver: 1.3 subfig package
 \c@KVtest=\count290
-\sf@farskip=\skip65
+\sf@farskip=\skip66
 \sf@captopadj=\dimen173
-\sf@capskip=\skip66
-\sf@nearskip=\skip67
+\sf@capskip=\skip67
+\sf@nearskip=\skip68
 \c@subfigure=\count291
 \c@subfigure@save=\count292
 \c@lofdepth=\count293
 \c@subtable=\count294
 \c@subtable@save=\count295
 \c@lotdepth=\count296
-\sf@top=\skip68
-\sf@bottom=\skip69
+\sf@top=\skip69
+\sf@bottom=\skip70
 )
 (/usr/local/texlive/2021/texmf-dist/tex/latex/amsmath/amsmath.sty
 Package: amsmath 2020/09/23 v2.17i AMS math features
-\@mathmargin=\skip70
+\@mathmargin=\skip71
 
 For additional information on amsmath, use the `?' option.
 (/usr/local/texlive/2021/texmf-dist/tex/latex/amsmath/amstext.sty
@@ -282,8 +286,8 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 744.
 \totwidth@=\dimen181
 \lineht@=\dimen182
 \@envbody=\toks26
-\multlinegap=\skip71
-\multlinetaggap=\skip72
+\multlinegap=\skip72
+\multlinetaggap=\skip73
 \mathdisplay@stack=\toks27
 LaTeX Info: Redefining \[ on input line 2923.
 LaTeX Info: Redefining \] on input line 2924.
@@ -307,8 +311,8 @@ Package: array 2020/10/01 v2.5c Tabular extension package (FMi)
 \ar@mcellbox=\box100
 \extrarowheight=\dimen184
 \NC@list=\toks28
-\extratabsurround=\skip73
-\backup@length=\skip74
+\extratabsurround=\skip74
+\backup@length=\skip75
 \ar@cellbox=\box101
 )
 (/usr/local/texlive/2021/texmf-dist/tex/latex/url/url.sty
@@ -443,7 +447,7 @@ Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 86.
 )
-\Hy@SectionHShift=\skip75
+\Hy@SectionHShift=\skip76
 ) (/usr/local/texlive/2021/texmf-dist/tex/latex/wasysym/wasysym.sty
 Package: wasysym 2020/01/19 v2.4 Wasy-2 symbol support package
 \symwasy=\mathgroup5
@@ -546,9 +550,9 @@ Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
 )
 (/usr/local/texlive/2021/texmf-dist/tex/latex/multirow/multirow.sty
 Package: multirow 2021/03/15 v2.8 Span multiple rows of a table
-\multirow@colwidth=\skip76
+\multirow@colwidth=\skip77
 \multirow@cntb=\count326
-\multirow@dima=\skip77
+\multirow@dima=\skip78
 \bigstrutjot=\dimen274
 )
 (/usr/local/texlive/2021/texmf-dist/tex/latex/graphics/rotating.sty
@@ -558,8 +562,8 @@ Package: rotating 2016/08/11 v2.16d rotated objects in LaTeX
 Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
 )
 \c@r@tfl@t=\count327
-\rotFPtop=\skip78
-\rotFPbot=\skip79
+\rotFPtop=\skip79
+\rotFPbot=\skip80
 \rot@float@box=\box104
 \rot@mess@toks=\toks31
 )
@@ -598,7 +602,7 @@ Package: tabu 2019/01/11 v2.9 - flexible LaTeX tabulars (FC+tabu-fixed)
 \tabu@arstrutbox=\box106
 \tabu@hleads=\box107
 \tabu@vleads=\box108
-\tabu@cellskip=\skip80
+\tabu@cellskip=\skip81
 )
 (/usr/local/texlive/2021/texmf-dist/tex/latex/pgf/frontendlayer/tikz.sty
 (/usr/local/texlive/2021/texmf-dist/tex/latex/pgf/basiclayer/pgf.sty
@@ -1047,7 +1051,7 @@ Package caption Info: rotating package is loaded.
 ) (/usr/local/texlive/2021/texmf-dist/tex/latex/colortbl/colortbl.sty
 Package: colortbl 2020/01/04 v1.0e Color table columns (DPC)
 \everycr=\toks47
-\minrowclearance=\skip81
+\minrowclearance=\skip82
 )
 (/usr/local/texlive/2021/texmf-dist/tex/latex/blindtext/blindtext.sty
 Package: blindtext 2012/01/06 V2.0 blindtext-Package
@@ -1105,12 +1109,12 @@ Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
 \calc@Bcount=\count380
 \calc@Adimen=\dimen349
 \calc@Bdimen=\dimen350
-\calc@Askip=\skip82
-\calc@Bskip=\skip83
+\calc@Askip=\skip83
+\calc@Bskip=\skip84
 LaTeX Info: Redefining \setlength on input line 80.
 LaTeX Info: Redefining \addtolength on input line 81.
 \calc@Ccount=\count381
-\calc@Cskip=\skip84
+\calc@Cskip=\skip85
 )
 \cellspacetoplimit=\dimen351
 \cellspacebottomlimit=\dimen352
@@ -1119,10 +1123,10 @@ LaTeX Info: Redefining \addtolength on input line 81.
 )
 (/usr/local/texlive/2021/texmf-dist/tex/latex/tools/longtable.sty
 Package: longtable 2020/01/07 v4.13 Multi-page Table package (DPC)
-\LTleft=\skip85
-\LTright=\skip86
-\LTpre=\skip87
-\LTpost=\skip88
+\LTleft=\skip86
+\LTright=\skip87
+\LTpre=\skip88
+\LTpost=\skip89
 \LTchunksize=\count382
 \LTcapwidth=\dimen355
 \LT@head=\box144
@@ -1195,32 +1199,32 @@ File: listings.cfg 2020/03/24 1.8d listings configuration
 ))
 Package: listings 2020/03/24 1.8d (Carsten Heinz)
 )
-(./setup/macros.tex) (./setup/table.tex) (./main.aux)
+(./setup/macros.tex) (./setup/table.tex)
+No file main.aux.
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: subfig package v1.3 is loaded.
 Package caption Info: listings package is loaded.
 Package caption Info: longtable package is loaded.
-
 (/usr/local/texlive/2021/texmf-dist/tex/latex/caption/ltcaption.sty
 Package: ltcaption 2020/05/30 v1.4b longtable captions (AR)
 )
@@ -1229,8 +1233,8 @@ Package caption Info: End \AtBeginDocument code.
 
 (/usr/local/texlive/2021/texmf-dist/tex/latex/floatrow/fr-subfig.sty
 Package: fr-subfig 2007/12/24 v0.1g (beta) floatrow: additions for subfig
-\FBsc@max=\skip89
-\FBso@max=\skip90
+\FBsc@max=\skip90
+\FBso@max=\skip91
 )
 (/usr/local/texlive/2021/texmf-dist/tex/latex/floatrow/fr-longtable.sty
 Package: fr-longtable 2007/11/28 v0.1b (beta) floatrow: additions for longtable
@@ -1239,7 +1243,7 @@ Package: fr-longtable 2007/11/28 v0.1b (beta) floatrow: additions for longtable
 \flrow@LT@prelastfoot=\box154
 \c@FBLTpage=\count395
 )
-Package hyperref Info: Link coloring OFF on input line 17.
+Package hyperref Info: Link coloring OFF on input line 16.
 
 (/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
@@ -1253,15 +1257,13 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count396
 )
-LaTeX Info: Redefining \ref on input line 17.
-LaTeX Info: Redefining \pageref on input line 17.
-LaTeX Info: Redefining \nameref on input line 17.
- (./main.out) (./main.out)
+LaTeX Info: Redefining \ref on input line 16.
+LaTeX Info: Redefining \pageref on input line 16.
+LaTeX Info: Redefining \nameref on input line 16.
 \@outlinefile=\write4
 \openout4 = `main.out'.
 
-
-(/usr/local/texlive/2021/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+ (/usr/local/texlive/2021/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count397
 \scratchdimen=\dimen374
@@ -1288,25 +1290,25 @@ Package tabu Warning: Package cellspace has some limitations
 (tabu)                And redefines some macros of array.sty. 
 (tabu)                Please use \tabulinesep to control 
 (tabu)                vertical spacing of lines inside tabu environnement on in
-put line 17.
+put line 16.
 
 \c@lstlisting=\count403
-LaTeX Font Info:    Trying to load font information for U+stmry on input line 3
-1.
+LaTeX Font Info:    Trying to load font information for U+stmry on input line 2
+8.
 (/usr/local/texlive/2021/texmf-dist/tex/latex/stmaryrd/Ustmry.fd)
-LaTeX Font Info:    Trying to load font information for U+wasy on input line 31
+LaTeX Font Info:    Trying to load font information for U+wasy on input line 28
 .
 
 (/usr/local/texlive/2021/texmf-dist/tex/latex/wasysym/uwasy.fd
 File: uwasy.fd 2020/01/19 v2.4 Wasy-2 symbol font definitions
 )
-LaTeX Font Info:    Trying to load font information for U+msa on input line 31.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 28.
 
 
 (/usr/local/texlive/2021/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 31.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 28.
 
 
 (/usr/local/texlive/2021/texmf-dist/tex/latex/amsfonts/umsb.fd
@@ -1319,122 +1321,198 @@ LaTeX Font Info:    Trying to load font information for T1+cmss on input line 5
 (/usr/local/texlive/2021/texmf-dist/tex/latex/base/t1cmss.fd
 File: t1cmss.fd 2019/12/16 v2.5j Standard LaTeX font definitions
 ))
-(./sections/paper.tex [1
+(./sections/paper.tex
+
+LaTeX Warning: Citation `Har03' on page 1 undefined on input line 12.
+
+
+LaTeX Warning: Citation `Park21' on page 1 undefined on input line 16.
+
+[1
 
 
 
 {/usr/local/texlive/2021/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 6
 1.
- (/usr/local/texlive/2021/texmf-dist/tex/latex/base/t1cmtt.fd
+
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2019/12/16 v2.5j Standard LaTeX font definitions
 )
-[2] (./tables/eval2.tex
-Underfull \hbox (badness 10000) in paragraph at lines 12--13
-[]|\T1/cmr/m/n/7 Centralized
+
+LaTeX Warning: Reference `app:ethback' on page 2 undefined on input line 61.
+
+(./tables/eval2.tex
+Overfull \hbox (3.33041pt too wide) in paragraph at lines 12--13
+[]|\T1/cmr/m/n/9 Centralized
  []
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 12--13
-\T1/cmr/m/n/7 Ex-changes
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 13--14
-[]|\T1/cmr/m/n/7 Order-driven ex-change
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 13--14
-\T1/cmr/m/n/7 party (\T1/cmr/m/it/7 e.g., \T1/cmr/m/n/7 Bi-nance,
+\T1/cmr/m/n/9 Ex-changes
  []
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 28--29
-[]|\T1/cmr/m/n/7 Partially
+[]|\T1/cmr/m/n/9 Partially
  []
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 28--29
-\T1/cmr/m/n/7 On-chain
+\T1/cmr/m/n/9 On-chain
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 29--30
-[]|\T1/cmr/m/n/7 Order-driven ex-change
- []
+Underfull \hbox (badness 1107) in paragraph at lines 29--30
+\T1/cmr/m/n/9 trusted party (\T1/cmr/m/it/9 e.g., \T1/cmr/m/n/9 EtherDelta, 0x,
 
-
-Underfull \hbox (badness 1308) in paragraph at lines 29--30
-\T1/cmr/m/n/7 acts as a semi-trusted
  []
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 45--46
-[]|\T1/cmr/m/n/7 On-Chain
+[]|\T1/cmr/m/n/9 On-Chain
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 46--47
-\T1/cmr/m/n/7 ized ex-change trades
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 46--47
-\T1/cmr/m/n/7 from in-ven-tory with
+Underfull \hbox (badness 1881) in paragraph at lines 46--47
+[]|\T1/cmr/m/n/9 Quote-driven de-cen-tral-ized ex-change
  []
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 62--63
-[]|\T1/cmr/m/n/7 On-chain
+[]|\T1/cmr/m/n/9 On-chain
  []
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 62--63
-\T1/cmr/m/n/7 Order-
+\T1/cmr/m/n/9 Order-
  []
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 62--63
-\T1/cmr/m/n/7 Driven
+\T1/cmr/m/n/9 Driven
  []
 
 
-Underfull \hbox (badness 1796) in paragraph at lines 63--64
-[]|\T1/cmr/m/n/7 Order-driven de-cen-tral-
+Underfull \hbox (badness 2644) in paragraph at lines 63--64
+[]|\T1/cmr/m/n/9 Order-driven de-cen-tral-ized ex-change
  []
 
+)
 
-Underfull \hbox (badness 1019) in paragraph at lines 63--64
-\T1/cmr/m/n/7 ized ex-change ex-e-cutes
- []
+LaTeX Warning: Reference `tab:eval2' on page 2 undefined on input line 67.
 
 
-Underfull \hbox (badness 2772) in paragraph at lines 63--64
-\T1/cmr/m/n/7 trades be-tween buy-ers
- []
+LaTeX Warning: Reference `app:markets' on page 2 undefined on input line 67.
 
-) [3] (./tables/functions.tex) [4] [5]
-<fig/2b.png, id=156, 455.301pt x 330.5148pt>
+
+LaTeX Warning: Reference `sec:front' on page 2 undefined on input line 67.
+
+
+LaTeX Warning: Citation `HS04' on page 2 undefined on input line 71.
+
+
+LaTeX Warning: Citation `PS03' on page 2 undefined on input line 71.
+
+
+LaTeX Warning: Citation `FH21' on page 2 undefined on input line 71.
+
+
+LaTeX Warning: Citation `budish2015high' on page 2 undefined on input line 71.
+
+
+LaTeX Warning: Citation `aquilina2020quantifying' on page 2 undefined on input 
+line 71.
+
+
+LaTeX Warning: Citation `clark2014decentralizing' on page 2 undefined on input 
+line 71.
+
+
+LaTeX Warning: Citation `Bra13' on page 2 undefined on input line 71.
+
+
+LaTeX Warning: Citation `galalpublicly' on page 2 undefined on input line 73.
+
+
+LaTeX Warning: Citation `khalil2019tex' on page 2 undefined on input line 73.
+
+
+LaTeX Warning: Citation `eskandari2019sok' on page 2 undefined on input line 73
+.
+
+
+LaTeX Warning: Citation `TP07' on page 2 undefined on input line 73.
+
+
+LaTeX Warning: Citation `YSLT10' on page 2 undefined on input line 73.
+
+
+LaTeX Warning: Citation `TW12' on page 2 undefined on input line 73.
+
+
+LaTeX Warning: Citation `cartlidge2019mpc' on page 2 undefined on input line 73
+.
+
+
+LaTeX Warning: Citation `massacci2018futuresmex' on page 2 undefined on input l
+ine 73.
+
+
+LaTeX Warning: Citation `kelkar2020order' on page 2 undefined on input line 73.
+
+
+
+LaTeX Warning: Citation `Kla20' on page 2 undefined on input line 73.
+
+
+LaTeX Warning: Reference `sec:front' on page 2 undefined on input line 73.
+
+[2] (./tables/functions.tex)
+
+LaTeX Warning: Reference `app:cm' on page 3 undefined on input line 85.
+
+
+LaTeX Warning: Reference `sec:front' on page 3 undefined on input line 85.
+
+
+LaTeX Warning: Reference `sec:pq' on page 3 undefined on input line 87.
+
+
+LaTeX Warning: Citation `TruffleO71:online' on page 3 undefined on input line 8
+7.
+
+
+LaTeX Warning: Citation `GanacheT25:online' on page 3 undefined on input line 8
+7.
+
+
+LaTeX Warning: Reference `tab:cm_functions' on page 3 undefined on input line 8
+7.
+
+[3]
+
+LaTeX Warning: Reference `sec:cancel' on page 4 undefined on input line 111.
+
+[4]
+
+LaTeX Warning: Reference `fig:random_insertion' on page 5 undefined on input li
+ne 135.
+
+
+LaTeX Warning: Reference `tab:PQUnitTests' on page 5 undefined on input line 13
+5.
+
+<fig/2b.png, id=69, 455.301pt x 330.5148pt>
+File: fig/2b.png Graphic file (type png)
+<use fig/2b.png>
+Package pdftex.def Info: fig/2b.png  used on input line 159.
+(pdftex.def)             Requested size: 170.71652pt x 123.9276pt.
 File: fig/2b.png Graphic file (type png)
 <use fig/2b.png>
 Package pdftex.def Info: fig/2b.png  used on input line 159.
 (pdftex.def)             Requested size: 170.71652pt x 123.9276pt.
 
-Overfull \hbox (2.15475pt too wide) in paragraph at lines 159--159
- [][] 
- []
-
-File: fig/2b.png Graphic file (type png)
-<use fig/2b.png>
-Package pdftex.def Info: fig/2b.png  used on input line 159.
-(pdftex.def)             Requested size: 170.71652pt x 123.9276pt.
-
-Overfull \hbox (2.15475pt too wide) in paragraph at lines 159--159
- [][] 
- []
-
-
 Overfull \hbox (1.06784pt too wide) in paragraph at lines 182--182
  []|[]| 
  []
@@ -1449,115 +1527,289 @@ Overfull \hbox (1.06784pt too wide) in paragraph at lines 182--182
  []|[]| 
  []
 
-[6] (./tables/cleaning.tex) [7 <./fig/2b.png
 
-pdfTeX warning: pdflatex (file ./fig/2b.png): large interlaced PNG might cause 
-out of memory (use non-interlaced PNG to fix this)
->] (./tables/performance.tex) [8] (./tables/performance_Arbitrum.tex) [9]
-(./tables/frontrunning2.tex
-
-LaTeX Font Warning: Command \tiny invalid in math mode on input line 73.
+LaTeX Warning: Reference `fig:random_insertion' on page 5 undefined on input li
+ne 196.
 
 
-LaTeX Font Warning: Command \tiny invalid in math mode on input line 73.
+LaTeX Warning: Reference `sec:rollups' on page 5 undefined on input line 196.
+
+(./tables/cleaning.tex)
+
+LaTeX Warning: Reference `tab:cleaning' on page 5 undefined on input line 205.
 
 
-LaTeX Font Warning: Command \tiny invalid in math mode on input line 73.
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [5 <./fig/2b.png
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./fig/2b.png): large interla
+ced PNG might cause out of memory (use non-interlaced PNG to fix this)
+>]
+
+LaTeX Warning: Reference `tab:cleaning' on page 6 undefined on input line 207.
 
 
-LaTeX Font Warning: Command \tiny invalid in math mode on input line 73.
+LaTeX Warning: Reference `app:clean' on page 6 undefined on input line 209.
 
 
-LaTeX Font Warning: Command \tiny invalid in math mode on input line 73.
+LaTeX Warning: Reference `tab:PQUnitTests' on page 6 undefined on input line 20
+9.
+
+(./tables/performance.tex)
+
+LaTeX Warning: Reference `tab:worst_case_matching' on page 6 undefined on input
+ line 219.
 
 
-LaTeX Font Warning: Command \tiny invalid in math mode on input line 73.
+LaTeX Warning: Reference `fig:random_insertion' on page 6 undefined on input li
+ne 219.
 
-) [10] [11] [12]
-<fig/MindMapDraft5.pdf, id=268, 868.24374pt x 378.41376pt>
+[6]
+
+LaTeX Warning: Citation `gudgeon2020sok' on page 7 undefined on input line 231.
+
+
+
+LaTeX Warning: Reference `app:rollup' on page 7 undefined on input line 231.
+
+
+LaTeX Warning: Citation `kalodner2018arbitrum' on page 7 undefined on input lin
+e 233.
+
+(./tables/performance_Arbitrum.tex)
+Underfull \vbox (badness 7012) has occurred while \output is active []
+
+ [7]
+
+LaTeX Warning: Reference `tab:arbitrum_performance' on page 8 undefined on inpu
+t line 243.
+
+
+LaTeX Warning: Reference `app:rollup' on page 8 undefined on input line 243.
+
+
+LaTeX Warning: Reference `fig:lissyl2' on page 8 undefined on input line 243.
+
+(./tables/frontrunning2.tex)
+
+LaTeX Warning: Reference `tab:front' on page 8 undefined on input line 263.
+
+
+LaTeX Warning: Citation `clark2014decentralizing' on page 8 undefined on input 
+line 263.
+
+
+LaTeX Warning: Citation `eskandari2019sok' on page 8 undefined on input line 26
+3.
+
+
+LaTeX Warning: Citation `daian2019flash' on page 8 undefined on input line 263.
+
+
+
+LaTeX Warning: Reference `tab:front' on page 8 undefined on input line 263.
+
+
+LaTeX Warning: Citation `eskandari2019sok' on page 8 undefined on input line 26
+3.
+
+
+LaTeX Warning: Reference `sec:frontarb' on page 8 undefined on input line 267.
+
+[8]
+
+LaTeX Warning: Citation `eskandari2019sok' on page 9 undefined on input line 27
+1.
+
+
+LaTeX Warning: Citation `ZQFLG21' on page 9 undefined on input line 273.
+
+[9]
+
+LaTeX Warning: Reference `sec:cancel' on page 10 undefined on input line 275.
+
+
+LaTeX Warning: Reference `tab:front' on page 10 undefined on input line 277.
+
+
+LaTeX Warning: Citation `khalil2019tex' on page 10 undefined on input line 277.
+
+
+
+LaTeX Warning: Citation `galalpublicly' on page 10 undefined on input line 277.
+
+
+
+LaTeX Warning: Reference `tab:front' on page 10 undefined on input line 283.
+
+<fig/MindMapDraft5.pdf, id=117, 868.24374pt x 378.41376pt>
 File: fig/MindMapDraft5.pdf Graphic file (type pdf)
 <use fig/MindMapDraft5.pdf>
 Package pdftex.def Info: fig/MindMapDraft5.pdf  used on input line 306.
-(pdftex.def)             Requested size: 347.12354pt x 151.29352pt.
- [13 <./fig/MindMapDraft5.pdf>] [14]) (./main.bbl [15] [16]
-[17]) (./sections/appendix.tex [18]
-<fig/lissyL2.pdf, id=363, 552.90567pt x 312.84138pt>
+(pdftex.def)             Requested size: 469.75502pt x 204.7388pt.
+
+LaTeX Warning: Reference `fig:rmindmap' on page 10 undefined on input line 310.
+
+
+
+LaTeX Warning: Citation `mavroudis2019libra' on page 10 undefined on input line
+ 317.
+
+
+LaTeX Warning: Citation `bonneau2015random' on page 10 undefined on input line 
+317.
+
+
+LaTeX Warning: Citation `buenz2017proofs' on page 10 undefined on input line 31
+7.
+
+
+LaTeX Warning: Citation `boneh2018verifiable' on page 10 undefined on input lin
+e 317.
+
+[10]
+
+LaTeX Warning: Citation `clark2014decentralizing' on page 11 undefined on input
+ line 337.
+
+
+LaTeX Warning: Citation `daian2019flash' on page 11 undefined on input line 339
+.
+
+[11 <./fig/MindMapDraft5.pdf>]
+
+LaTeX Warning: Reference `app:collateral' on page 12 undefined on input line 35
+3.
+
+) (./main.bbl [12] [13]) (./sections/appendix.tex [14]
+
+LaTeX Warning: Citation `signer2018gas' on page 15 undefined on input line 36.
+
+
+LaTeX Warning: Reference `tab:PQUnitTests' on page 15 undefined on input line 3
+6.
+
+<fig/lissyL2.pdf, id=218, 552.90567pt x 312.84138pt>
 File: fig/lissyL2.pdf Graphic file (type pdf)
 <use fig/lissyL2.pdf>
 Package pdftex.def Info: fig/lissyL2.pdf  used on input line 46.
 (pdftex.def)             Requested size: 578.15999pt x 327.14699pt.
 
+LaTeX Warning: Citation `gudgeon2020sok' on page 15 undefined on input line 59.
 
-LaTeX Warning: Float too large for page by 50.72171pt on input line 51.
 
-[19]
-Underfull \vbox (badness 2486) has occurred while \output is active []
 
- [20]
-[21]
-Overfull \hbox (8.3211pt too wide) in paragraph at lines 78--79
-[]\T1/cmr/m/n/10 In this pa-per, we fo-cus on bench-mark-ing an or-der book for
- the pub-lic blockchain
- []
+LaTeX Warning: Citation `kalodner2018arbitrum' on page 15 undefined on input li
+ne 61.
 
-(./tables/cm.tex) [22] [23]
+
+LaTeX Warning: Citation `BCGTV13' on page 15 undefined on input line 61.
+
+
+LaTeX Warning: Citation `GGPR13' on page 15 undefined on input line 61.
+
+
+LaTeX Warning: Citation `BBHR19' on page 15 undefined on input line 61.
+
+
+LaTeX Warning: Citation `cheng2019ekiden' on page 15 undefined on input line 61
+.
+
+
+LaTeX Warning: Citation `SGX1' on page 15 undefined on input line 61.
+
+
+LaTeX Warning: Citation `SGX2' on page 15 undefined on input line 61.
+
+
+LaTeX Warning: Citation `SGX3' on page 15 undefined on input line 61.
+
+
+LaTeX Warning: Citation `SGX4' on page 15 undefined on input line 61.
+
+
+LaTeX Warning: Citation `ZBC+19' on page 15 undefined on input line 61.
+
+[15]
+
+LaTeX Warning: Reference `fig:lissyl2' on page 16 undefined on input line 65.
+
+
+LaTeX Warning: Citation `TheHisto45:online' on page 16 undefined on input line 
+74.
+
+
+LaTeX Warning: Citation `SEBIOrde83:online' on page 16 undefined on input line 
+74.
+
+[16]
+
+LaTeX Warning: Reference `app:rollup' on page 17 undefined on input line 82.
+
+
+LaTeX Warning: Reference `tab:cmsample' on page 17 undefined on input line 85.
+
+(./tables/cm.tex) [17]
+
+LaTeX Warning: Reference `sec:gasrefund' on page 18 undefined on input line 100
+.
+
+[18]
 LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <10> not available
 (Font)              Font shape `T1/cmtt/m/n' tried instead on input line 129.
+) [19] [20 <./fig/lissyL2.pdf>] (./main.aux)
 
-Overfull \hbox (26.706pt too wide) in paragraph at lines 129--130
-\T1/cmr/m/n/10 sent with the func-tion call to \T1/cmtt/m/n/10 submitBid() \T1/
-cmr/m/n/10 to re-move the need for \T1/cmtt/m/n/10 depositEther()\T1/cmr/m/n/10
- .
- []
+LaTeX Warning: There were undefined references.
 
-[24]) [25] [26 <./fig/lissyL2.pdf>] (./main.aux)
-Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 0B098FD982DE242B99C3D16533BEC766;288.
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+
+Package rerunfilecheck Warning: File `main.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `main.out':
+(rerunfilecheck)             Before: <no file>
+(rerunfilecheck)             After:  0B098FD982DE242B99C3D16533BEC766;288.
  ) 
 Here is how much of TeX's memory you used:
- 30016 strings out of 478994
- 564536 string characters out of 5858185
- 954125 words of memory out of 5000000
- 46702 multiletter control sequences out of 15000+600000
- 428664 words of font info for 83 fonts, out of 8000000 for 9000
+ 30011 strings out of 478994
+ 564668 string characters out of 5858185
+ 955160 words of memory out of 5000000
+ 46712 multiletter control sequences out of 15000+600000
+ 423884 words of font info for 76 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 102i,21n,105p,2024b,697s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 102i,21n,105p,2034b,697s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}
 </usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><
 /usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></u
 sr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></us
-r/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/
-local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx0500.pfb></usr/lo
-cal/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx0700.pfb></usr/loca
-l/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx0900.pfb></usr/local/
-texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx1000.pfb></usr/local/te
-xlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/local/texl
-ive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></usr/local/texliv
-e/2021/texmf-dist/fonts/type1/public/cm-super/sfrm0500.pfb></usr/local/texlive/
-2021/texmf-dist/fonts/type1/public/cm-super/sfrm0600.pfb></usr/local/texlive/20
-21/texmf-dist/fonts/type1/public/cm-super/sfrm0700.pfb></usr/local/texlive/2021
-/texmf-dist/fonts/type1/public/cm-super/sfrm0900.pfb></usr/local/texlive/2021/t
-exmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/local/texlive/2021/tex
-mf-dist/fonts/type1/public/cm-super/sfss0500.pfb></usr/local/texlive/2021/texmf
--dist/fonts/type1/public/cm-super/sfss0700.pfb></usr/local/texlive/2021/texmf-d
-ist/fonts/type1/public/cm-super/sfss0900.pfb></usr/local/texlive/2021/texmf-dis
-t/fonts/type1/public/cm-super/sfss1000.pfb></usr/local/texlive/2021/texmf-dist/
-fonts/type1/public/cm-super/sfsx1000.pfb></usr/local/texlive/2021/texmf-dist/fo
-nts/type1/public/cm-super/sfsx1200.pfb></usr/local/texlive/2021/texmf-dist/font
-s/type1/public/cm-super/sfti0500.pfb></usr/local/texlive/2021/texmf-dist/fonts/
-type1/public/cm-super/sfti0700.pfb></usr/local/texlive/2021/texmf-dist/fonts/ty
-pe1/public/cm-super/sfti0900.pfb></usr/local/texlive/2021/texmf-dist/fonts/type
-1/public/cm-super/sfti1000.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/
-public/cm-super/sftt0800.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/pu
-blic/cm-super/sftt0900.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/publ
-ic/cm-super/sftt1000.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public
-/wasy-type1/wasy5.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/wa
-sy-type1/wasy7.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/wasy-
-type1/wasy9.pfb>
-Output written on main.pdf (26 pages, 1771026 bytes).
+r/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx0700.pfb></usr/
+local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx0900.pfb></usr/lo
+cal/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx1000.pfb></usr/loca
+l/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/local/
+texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></usr/local/te
+xlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm0600.pfb></usr/local/texl
+ive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm0700.pfb></usr/local/texliv
+e/2021/texmf-dist/fonts/type1/public/cm-super/sfrm0900.pfb></usr/local/texlive/
+2021/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/local/texlive/20
+21/texmf-dist/fonts/type1/public/cm-super/sfss0900.pfb></usr/local/texlive/2021
+/texmf-dist/fonts/type1/public/cm-super/sfss1000.pfb></usr/local/texlive/2021/t
+exmf-dist/fonts/type1/public/cm-super/sfsx1000.pfb></usr/local/texlive/2021/tex
+mf-dist/fonts/type1/public/cm-super/sfsx1200.pfb></usr/local/texlive/2021/texmf
+-dist/fonts/type1/public/cm-super/sfti0900.pfb></usr/local/texlive/2021/texmf-d
+ist/fonts/type1/public/cm-super/sfti1000.pfb></usr/local/texlive/2021/texmf-dis
+t/fonts/type1/public/cm-super/sftt0900.pfb></usr/local/texlive/2021/texmf-dist/
+fonts/type1/public/cm-super/sftt1000.pfb></usr/local/texlive/2021/texmf-dist/fo
+nts/type1/public/wasy-type1/wasy10.pfb></usr/local/texlive/2021/texmf-dist/font
+s/type1/public/wasy-type1/wasy7.pfb></usr/local/texlive/2021/texmf-dist/fonts/t
+ype1/public/wasy-type1/wasy9.pfb>
+Output written on main.pdf (20 pages, 1645963 bytes).
 PDF statistics:
- 587 PDF objects out of 1000 (max. 8388607)
- 463 compressed objects within 5 object streams
- 139 named destinations out of 1000 (max. 500000)
- 36 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 385 PDF objects out of 1000 (max. 8388607)
+ 327 compressed objects within 4 object streams
+ 134 named destinations out of 1000 (max. 500000)
+ 28 words of extra memory for PDF output out of 10000 (max. 10000000)
 

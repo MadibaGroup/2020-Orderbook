@@ -1,0 +1,48 @@
+This is BibTeX, Version 0.99d (TeX Live 2021)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: main.aux
+The style file: abbrv.bst
+Database file #1: bib/DEX.bib
+Warning--there's a number but no volume in aquilina2020quantifying
+You've used 41 entries,
+            2118 wiz_defined-function locations,
+            713 strings with 10339 characters,
+and the built_in function-call counts, 15244 in all, are:
+= -- 1402
+> -- 910
+< -- 9
++ -- 364
+- -- 318
+* -- 1028
+:= -- 2516
+add.period$ -- 135
+call.type$ -- 41
+change.case$ -- 281
+chr.to.int$ -- 0
+cite$ -- 42
+duplicate$ -- 580
+empty$ -- 1175
+format.name$ -- 318
+if$ -- 3211
+int.to.chr$ -- 0
+int.to.str$ -- 41
+missing$ -- 35
+newline$ -- 212
+num.names$ -- 82
+pop$ -- 392
+preamble$ -- 1
+purify$ -- 241
+quote$ -- 0
+skip$ -- 385
+stack$ -- 0
+substring$ -- 604
+swap$ -- 143
+text.length$ -- 9
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 162
+warning$ -- 1
+while$ -- 117
+width$ -- 43
+write$ -- 446
+(There was 1 warning)
