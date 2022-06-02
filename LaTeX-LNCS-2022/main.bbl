@@ -158,6 +158,10 @@ V.~Mavroudis and H.~Melton.
 \newblock Libra: Fair order-matching for electronic financial exchanges.
 \newblock In {\em ACM AFT}, 2019.
 
+\bibitem{https://doi.org/10.48550/arxiv.2101.06291}
+M.~Moosavi and J.~Clark.
+\newblock Lissy: Experimenting with on-chain order books, 2021.
+
 \bibitem{TheHisto45:online}
 A.~Norry.
 \newblock The history of the mt gox hack: Bitcoin's biggest heist.
