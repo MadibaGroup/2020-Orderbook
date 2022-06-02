@@ -1,48 +1,48 @@
-This is BibTeX, Version 0.99d (TeX Live 2021)
+This is BibTeX, Version 0.99d (TeX Live 2019)
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: main.aux
-The style file: abbrv.bst
+The style file: splncs04.bst
 Database file #1: bib/DEX.bib
 Warning--there's a number but no volume in aquilina2020quantifying
-You've used 42 entries,
-            2118 wiz_defined-function locations,
-            717 strings with 10463 characters,
-and the built_in function-call counts, 15477 in all, are:
-= -- 1422
-> -- 923
-< -- 9
-+ -- 369
-- -- 322
-* -- 1038
-:= -- 2554
-add.period$ -- 137
-call.type$ -- 42
-change.case$ -- 286
+You've used 30 entries,
+            2850 wiz_defined-function locations,
+            760 strings with 9033 characters,
+and the built_in function-call counts, 15750 in all, are:
+= -- 1276
+> -- 505
+< -- 16
++ -- 212
+- -- 178
+* -- 946
+:= -- 2043
+add.period$ -- 40
+call.type$ -- 30
+change.case$ -- 215
 chr.to.int$ -- 0
-cite$ -- 43
-duplicate$ -- 587
-empty$ -- 1197
-format.name$ -- 322
-if$ -- 3261
+cite$ -- 31
+duplicate$ -- 1421
+empty$ -- 1503
+format.name$ -- 202
+if$ -- 3448
 int.to.chr$ -- 0
-int.to.str$ -- 42
-missing$ -- 35
-newline$ -- 216
-num.names$ -- 84
-pop$ -- 402
+int.to.str$ -- 30
+missing$ -- 278
+newline$ -- 96
+num.names$ -- 60
+pop$ -- 606
 preamble$ -- 1
-purify$ -- 245
+purify$ -- 149
 quote$ -- 0
-skip$ -- 394
+skip$ -- 403
 stack$ -- 0
-substring$ -- 609
-swap$ -- 144
-text.length$ -- 9
+substring$ -- 775
+swap$ -- 701
+text.length$ -- 16
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 166
+type$ -- 118
 warning$ -- 1
-while$ -- 119
-width$ -- 44
-write$ -- 454
+while$ -- 122
+width$ -- 32
+write$ -- 296
 (There was 1 warning)
